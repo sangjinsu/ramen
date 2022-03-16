@@ -15,3 +15,23 @@ https://www.kenrhee.com/blog/eslint-and-prettier-for-nextjs
 
 
 tsconfig,eslint 위에 두곳 참고해서 설정완료
+
+
+
+---
+
+# Next.js 코드컨벤션
+
+![image-20220316114601901](README.assets/image-20220316114601901.png)
+
+컴포넌트 - 첫글자 대문자
+
+페이지 - 폴더 + 소문자
+
+
+
+---
+
+# 깃 컨벤션
+
+![image-20220316114632105](README.assets/image-20220316114632105.png)
