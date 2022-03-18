@@ -1,4 +1,4 @@
-package com.ramen.ramen.domain;
+package com.ramen.ramen.controller.domain;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,11 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "member")
+@Table(name = "like")
 @Getter
 @Setter
-public class Member {
+public class Like {
     @Id
     @Column(name = "id", nullable = false)
     private Long id;
+
+
 }
