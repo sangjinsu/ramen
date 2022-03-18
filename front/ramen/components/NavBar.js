@@ -11,15 +11,57 @@ export default function NavBar() {
 
   
   return (
+    <>
     <Navbar collapseOnSelect expand="lg" bg="bg-white" variant="light">
   <Container>
   <Navbar.Brand href="/"><img src="/logo.png" width={200}/></Navbar.Brand>
   <Navbar.Toggle aria-controls="responsive-navbar-nav" />
   <Navbar.Collapse id="responsive-navbar-nav">
     <Nav className="me-auto">
+      {/* 최종 네브바, 반응형 위함 Link안에서 링크는 없애주고 안에넣기 */}
+      <Nav.Link >
+      <Link href="/">
+          <div><a className='navmenu'>키워드검색</a></div>
+        </Link>
+    </Nav.Link>
+
+    <Nav.Link >
+    <Link href="/index2">
+          <div><a className='navmenu'>카테고리검색</a></div>
+        </Link>
+    </Nav.Link>
+    {/* <Nav.Link >
+    <Link href="/">
+    <div><a className='navmenu'>테스트메뉴</a></div>
+
+        </Link>
+    </Nav.Link> */}
+    
+
+
+{/* div감싸주는것만으로도 잘목는다 띄어쓰기나 블럭 속성 */}
+{/* <div>
+    
+        <Link href="/index2">
+          <a className='navmenu'>카테고리검색</a>
+        </Link>
+    </div> */}
+
+    
+        
+      {/* <Nav.Link href="/"><h4>라면검색</h4></Nav.Link>
+      
+      <Nav.Link href="/index2"><h4>전체라면보기</h4></Nav.Link> */}
+    {/* <Link href="/">
+      Link Home
+        </Link>
+        <Link href="/index2">
+          Link index2
+        </Link>
+
       <Nav.Link href="/"><h4>라면검색</h4></Nav.Link>
       
-      <Nav.Link href="/index2"><h4>전체라면보기</h4></Nav.Link>
+      <Nav.Link href="/index2"><h4>전체라면보기</h4></Nav.Link> */}
       
     </Nav>
     <Nav>
@@ -46,17 +88,15 @@ export default function NavBar() {
   </Navbar.Collapse>
   </Container>
 </Navbar>
-//     <nav>
-//       <Container>
-//   <Row>
-//     <Col><img src="/logo.png" width={200}/></Col>
-//     <Col>      
-// </Col>
-//     <Col></Col>
-//   </Row>
-// </Container>
-      
-      
-//     </nav>
+<style jsx>{`
+        .navmenu {
+          color:grey;
+          text-decoration-line: none;
+          font-size:20px;
+        }
+        
+      `}</style>
+    </>
+
   );
 }

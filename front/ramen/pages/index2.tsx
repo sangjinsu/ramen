@@ -1,17 +1,35 @@
 import type { NextPage } from 'next'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee,faUser } from '@fortawesome/free-solid-svg-icons'
+import { Container,Row,Col} from 'react-bootstrap';
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
 
-const Home: NextPage = () => {
+
+const Home2: NextPage = () => {
+  const [search, setSearch] = React.useState('');
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(event.target.value);
+  };
   return <>
-  <h1>index2페이지</h1>
-  <FontAwesomeIcon icon={faCoffee} />
-  <FontAwesomeIcon icon={faUser} />
-  <h2>test</h2>
+  <Container>
+  <Row>
+    <Col><h1>index2</h1></Col>
+    <Col><Box
+      sx={{
+        width: 500,
+        maxWidth: '100%',
+      }}
+    >
+      <TextField fullWidth label="검색" id="fullWidth" value={search} onChange={handleChange}/>
+    </Box></Col>
+    <Col>{search}</Col>
+  </Row>
+</Container>
+
 
   </>
    
   
 }
 
-export default Home
+export default Home2
