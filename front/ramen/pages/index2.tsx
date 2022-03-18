@@ -7,7 +7,7 @@ const Home: NextPage = () => {
   <h1>index2페이지</h1>
   <FontAwesomeIcon icon={faCoffee} />
   <FontAwesomeIcon icon={faUser} />
-
+  <h2>test</h2>
 
   </>
    
