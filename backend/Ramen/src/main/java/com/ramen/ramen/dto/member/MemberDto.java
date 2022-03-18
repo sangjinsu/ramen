@@ -1,4 +1,10 @@
 package com.ramen.ramen.dto.member;
 
-public class MemberDto {
+import lombok.Data;
+
+import java.io.Serializable;
+
+@Data
+public class MemberDto implements Serializable {
+    private final Long id;
 }
