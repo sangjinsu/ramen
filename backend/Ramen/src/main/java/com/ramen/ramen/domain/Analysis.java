@@ -20,145 +20,145 @@ public class Analysis {
 //    private String sampleId; mariaDB in sampleId??? but not in ERD
 
     @NonNull
-    private Double kkoDeul;
+    private double kkoDeul;
 
     @NonNull
-    private Double jjolGit;
+    private double jjolGit;
 
     @NonNull
-    private Double greenOnion;
+    private double greenOnion;
 
     @NonNull
-    private Double egg;
+    private double egg;
 
     @NonNull
-    private Double beef;
+    private double beef;
 
     @NonNull
-    private Double pork;
+    private double pork;
 
     @NonNull
-    private Double chickenBreast;
+    private double chickenBreast;
 
     @NonNull
-    private Double milk;
+    private double milk;
 
     @NonNull
-    private Double riceCake;
+    private double riceCake;
 
     @NonNull
-    private Double dumpling;
+    private double dumpling;
 
     @NonNull
-    private Double softTofu;
+    private double softTofu;
 
     @NonNull
-    private Double kimchi;
+    private double kimchi;
 
     @NonNull
-    private Double mayonnaise;
+    private double mayonnaise;
 
     @NonNull
-    private Double cheese;
+    private double cheese;
 
     @NonNull
-    private Double garlic;
+    private double garlic;
 
     @NonNull
-    private Double pepper;
+    private double pepper;
 
     @NonNull
-    private Double chiliPowder;
+    private double chiliPowder;
 
     @NonNull
-    private Double beanSprouts;
+    private double beanSprouts;
 
     @NonNull
-    private Double cabbage;
+    private double cabbage;
 
     @NonNull
-    private Double carrot;
+    private double carrot;
 
     @NonNull
-    private Double pumpkin;
+    private double pumpkin;
 
     @NonNull
-    private Double mushroom;
+    private double mushroom;
 
     @NonNull
-    private Double potato;
+    private double potato;
 
     @NonNull
-    private Double redPepper;
+    private double redPepper;
 
     @NonNull
-    private Double soyaSprouts;
+    private double soyaSprouts;
 
     @NonNull
-    private Double seafood;
+    private double seafood;
 
     @NonNull
-    private Double seaweed;
+    private double seaweed;
 
     @NonNull
-    private Double sausage;
+    private double sausage;
 
     @NonNull
-    private Double eomuk;
+    private double eomuk;
 
     @NonNull
-    private Double tuna;
+    private double tuna;
 
     @NonNull
-    private Double ketchup;
+    private double ketchup;
 
     @NonNull
-    private Double vegan;
+    private double vegan;
 
     @NonNull
-    private Double outdoor;
+    private double outdoor;
 
     @NonNull
-    private Double morning;
+    private double morning;
 
     @NonNull
-    private Double lunch;
+    private double lunch;
 
     @NonNull
-    private Double dinner;
+    private double dinner;
 
     @NonNull
-    private Double midnightSnack;
+    private double midnightSnack;
 
     @NonNull
-    private Double haejang;
+    private double haejang;
 
     @NonNull
-    private Double diet;
+    private double diet;
 
     @NonNull
-    private Double notSpicy;
+    private double notSpicy;
 
     @NonNull
-    private Double spicy;
+    private double spicy;
 
     @NonNull
-    private Double delicious;
+    private double delicious;
 
     @NonNull
-    private Double notDelicious;
+    private double notDelicious;
 
     @NonNull
-    private Double lightness;
+    private double lightness;
 
     @NonNull
-    private Double blogCnt;
+    private double blogCnt;
 
     @NonNull
-    private Double tweetCnt;
+    private double tweetCnt;
 
     @NonNull
-    private Double crawlingCnt;
+    private double crawlingCnt;
 
     @Setter
     @OneToOne(fetch = FetchType.LAZY)

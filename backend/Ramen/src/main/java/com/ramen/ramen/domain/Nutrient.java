@@ -17,40 +17,40 @@ public class Nutrient {
     private Long nutrientId;
 
     @NonNull
-    private Double volume;
+    private double volume;
 
     @NonNull
-    private Double protein;
+    private double protein;
 
     @NonNull
-    private Double kcal;
+    private double kcal;
 
     @NonNull
-    private Double lipid;
+    private double lipid;
 
     @NonNull
-    private Double transFat;
+    private double transFat;
 
     @NonNull
-    private Double carbs;
+    private double carbs;
 
     @NonNull
-    private Double sugar;
+    private double sugar;
 
     @NonNull
-    private Double sodium;
+    private double sodium;
 
     @NonNull
-    private Double cholesterol;
+    private double cholesterol;
 
     @NonNull
-    private Double saturated_fat;
+    private double saturated_fat;
 
     @NonNull
-    private Double salty;
+    private double salty;
 
     @NonNull
-    private Double sweetness;
+    private double sweetness;
 
     @Setter
     @OneToOne(fetch = FetchType.LAZY)
