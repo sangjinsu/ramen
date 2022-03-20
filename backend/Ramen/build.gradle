@@ -20,16 +20,15 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    runtimeOnly 'mysql:mysql-connector-java'
     implementation 'io.springfox:springfox-swagger-ui:3.0.0'
     implementation 'io.springfox:springfox-boot-starter:3.0.0'
     implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '7.0.1'
+    runtimeOnly group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.7.5'
 }
 
 tasks.named('test') {
