@@ -12,6 +12,7 @@ import com.ramen.ramen.repository.ramen.RamenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,7 +24,6 @@ public class MemberService {
     private final MemberLikeRamenRepository memberLikeRamenRepository;
 
     public void likeRamen(RequestLikeDto requestLikeDto) {
-        Long ramenId = requestLikeDto.getRamenId();
         Long memberId = requestLikeDto.getMemberId();
 
         Optional<Member> optionalMember = memberRepository.findById(memberId);
@@ -32,20 +32,27 @@ public class MemberService {
         }
         Member member = optionalMember.get();
 
-        Optional<Ramen> optionalRamen = ramenRepository.findById(ramenId);
-        if (optionalRamen.isEmpty()) {
+        List<Long> ramenIds = requestLikeDto.getRamenIds();
+        List<Ramen> ramens = ramenRepository.findAllById(ramenIds);
+
+        if (ramens.isEmpty()) {
             throw new RamenNotFoundException();
+        } else if (ramens.size() == 1) {
+            Ramen ramen = ramens.get(0);
+            Optional<MemberLikeRamen> likeRamen = memberLikeRamenRepository.findByMemberAndRamen(member, ramen);
+
+            if (likeRamen.isPresent()) {
+                memberLikeRamenRepository.delete(likeRamen.get());
+                return;
+            }
+
+            MemberLikeRamen memberLikeRamen = MemberLikeRamen.builder().member(member).ramen(ramen).build();
+            memberLikeRamenRepository.save(memberLikeRamen);
+        } else {
+            ramens.forEach(ramen -> {
+                MemberLikeRamen memberLikeRamen = MemberLikeRamen.builder().member(member).ramen(ramen).build();
+                memberLikeRamenRepository.save(memberLikeRamen);
+            });
         }
-        Ramen ramen = optionalRamen.get();
-
-        Optional<MemberLikeRamen> likeRamen = memberLikeRamenRepository.findByMemberAndRamen(member, ramen);
-
-        if (likeRamen.isPresent()) {
-            memberLikeRamenRepository.delete(likeRamen.get());
-            return;
-        }
-
-        MemberLikeRamen memberLikeRamen = MemberLikeRamen.builder().member(member).ramen(ramen).build();
-        memberLikeRamenRepository.save(memberLikeRamen);
     }
 }
