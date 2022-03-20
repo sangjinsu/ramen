@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Button from "@mui/material/Button";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
@@ -13,14 +13,18 @@ import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import Link from "next/link";
+import FormHelperText from "@mui/material/FormHelperText";
 
 function Signup() {
+  const [userInfo, setUserInfo] = useState({});
   const [inputEmail, setInputEmail] = useState("");
   const [inputPw, setInputPw] = useState("");
   const [inputPwConfirm, setInputPwConfirm] = useState("");
+  const [isSamePw, setIsSamePw] = useState(true);
   const [inputAge, setInputAge] = useState("");
   const [inputName, setInputName] = useState("");
   const [inputGender, setInputGender] = useState("");
+  const [canGoNext, setCanGoNext] = useState(false);
 
   // input data 의 변화가 있을 때마다 value 값을 변경해서 useState 해준다
   const handleInputEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,9 +39,16 @@ function Signup() {
     setInputPwConfirm(event.target.value);
   };
 
+  const handleIsSamePw = (event: React.FocusEvent<HTMLInputElement>) => {
+    const pwd = event.target.value;
+    if (pwd === inputPw) {
+      setIsSamePw(true);
+    } else {
+      setIsSamePw(false);
+    }
+  };
+
   const handleInputAge = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(typeof event.target.value);
-    console.log(event.target.value);
     setInputAge(event.target.value);
   };
 
@@ -54,9 +65,33 @@ function Signup() {
   };
 
   // login 버튼 클릭 이벤트
-  const onClickNext = () => {
+  const onClickNext = async () => {
+    console.log(userInfo);
     console.log("click Next");
+    console.log(JSON.stringify(userInfo));
   };
+
+  useEffect(() => {
+    setUserInfo((prevUserInfo) => {
+      return {
+        ...prevUserInfo,
+        inputEmail: inputEmail,
+        inputPw: inputPw,
+        inputName: inputName,
+        inputAge: inputAge,
+        inputGender: inputGender,
+      };
+    });
+    if (
+      isSamePw === true &&
+      inputEmail !== "" &&
+      inputName != "" &&
+      inputAge !== "" &&
+      inputGender !== ""
+    ) {
+      setCanGoNext(true);
+    }
+  }, [inputEmail, isSamePw, inputName, inputAge, inputGender]);
 
   return (
     <>
@@ -82,6 +117,7 @@ function Signup() {
             <InputLabel htmlFor="input_pw">Choose password</InputLabel>
             <Input
               id="input_pw"
+              type="password"
               value={inputPw}
               onChange={handleInputPw}
               startAdornment={
@@ -92,19 +128,46 @@ function Signup() {
             />
           </FormControl>
           <br />
-          <FormControl variant="standard">
-            <InputLabel htmlFor="input_pw_confirm">Confirm password</InputLabel>
-            <Input
-              id="input_pw_confirm"
-              value={inputPwConfirm}
-              onChange={handleInputPwConfirm}
-              startAdornment={
-                <InputAdornment position="start">
-                  <LockIcon />
-                </InputAdornment>
-              }
-            />
-          </FormControl>
+          {isSamePw ? (
+            <FormControl variant="standard">
+              <InputLabel htmlFor="input_pw_confirm">
+                Confirm password
+              </InputLabel>
+              <Input
+                id="input_pw_confirm"
+                type="password"
+                value={inputPwConfirm}
+                onChange={handleInputPwConfirm}
+                onBlur={handleIsSamePw}
+                startAdornment={
+                  <InputAdornment position="start">
+                    <LockIcon />
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
+          ) : (
+            <FormControl error variant="standard">
+              <InputLabel htmlFor="input_pw_confirm">
+                Confirm password
+              </InputLabel>
+              <Input
+                id="input_pw_confirm"
+                type="password"
+                value={inputPwConfirm}
+                onChange={handleInputPwConfirm}
+                onBlur={handleIsSamePw}
+                aria-describedby="component-error-text"
+                startAdornment={
+                  <InputAdornment position="start">
+                    <LockIcon />
+                  </InputAdornment>
+                }
+              />
+              <FormHelperText id="component-error-text">Error</FormHelperText>
+            </FormControl>
+          )}
+
           <br />
           <FormControl variant="standard">
             <InputLabel htmlFor="input_name">Name</InputLabel>
@@ -136,8 +199,6 @@ function Signup() {
           </FormControl>
           <br />
           <div style={{ color: "rgba(0, 0, 0, 0.54)" }}>
-            {/* MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root */}
-            {/* MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root */}
             <WcIcon />
             <label htmlFor="input_gender">Gender </label>
             <br />
@@ -163,13 +224,20 @@ function Signup() {
           </div>
         </Box>
         <div>
-          <button onClick={onClickNext}>
-            <Link href="/ramenpreference">
-              <a>
-                <ArrowForwardIosIcon />
-              </a>
-            </Link>
-          </button>
+          {canGoNext ? (
+            <button onClick={onClickNext}>
+              <Link
+                href={{
+                  pathname: "/ramenpreference",
+                  query: { userInfo: JSON.stringify(userInfo) },
+                }}
+              >
+                <a>
+                  <ArrowForwardIosIcon />
+                </a>
+              </Link>
+            </button>
+          ) : null}
         </div>
       </div>
     </>

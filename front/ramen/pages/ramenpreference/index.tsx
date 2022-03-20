@@ -1,15 +1,14 @@
-import Link from "next/link";
 import React from "react";
+import { withRouter } from "next/router";
 
-export default function FirstPost() {
+function FirstPost({ router: { query } }) {
+  const userInfo = JSON.parse(query.userInfo);
+  console.log(userInfo);
   return (
     <>
-      <h1>첫 포스트!</h1>
-      <h2>
-        <Link href="/signup">
-          <a>홈으로 돌아가기</a>
-        </Link>
-      </h2>
+      <h1>라면 취향 테스트</h1>
     </>
   );
 }
+
+export default withRouter(FirstPost);
