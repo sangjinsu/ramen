@@ -18,6 +18,7 @@ import java.util.List;
 public class Member {
     @Id
     @Column(name = "member_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
 
     @NonNull
@@ -35,10 +36,10 @@ public class Member {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    @Setter
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fond_id")
     private Fond fond;
-
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MemberLikeRamen> likes = new ArrayList<>();
