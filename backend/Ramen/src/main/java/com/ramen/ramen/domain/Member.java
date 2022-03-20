@@ -42,5 +42,5 @@ public class Member {
     private Fond fond;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MemberLikeRamen> likes = new ArrayList<>();
+    private List<MemberLikeRamen> likedRamens = new ArrayList<>();
 }

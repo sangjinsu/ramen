@@ -4,6 +4,7 @@ import com.ramen.ramen.domain.Member;
 import com.ramen.ramen.domain.MemberLikeRamen;
 import com.ramen.ramen.domain.Ramen;
 import com.ramen.ramen.dto.member.RequestLikeDto;
+import com.ramen.ramen.dto.member.ResponseLikeRamenDto;
 import com.ramen.ramen.exception.MemberNotFoundException;
 import com.ramen.ramen.exception.RamenNotFoundException;
 import com.ramen.ramen.repository.member.MemberLikeRamenRepository;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -54,5 +56,17 @@ public class MemberService {
                 memberLikeRamenRepository.save(memberLikeRamen);
             });
         }
+    }
+
+    public List<ResponseLikeRamenDto> fetchLikedRamens(Long memberId) {
+        Optional<Member> optionalMember = memberRepository.findById(memberId);
+        if (optionalMember.isEmpty()) {
+            throw new MemberNotFoundException();
+        }
+        Member member = optionalMember.get();
+        List<Ramen> likedRamens = memberLikeRamenRepository.findLikedRamens(member);
+        return likedRamens.stream()
+                .map(ramen -> ResponseLikeRamenDto.builder().ramen(ramen).build())
+                .collect(Collectors.toList());
     }
 }
