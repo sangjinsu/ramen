@@ -1,4 +1,7 @@
 package com.ramen.ramen.repository.member;
 
-public interface MemberLikeRamenRepository extends org.springframework.data.jpa.repository.JpaRepository<com.ramen.ramen.domain.MemberLikeRamen, java.lang.Long> {
+import com.ramen.ramen.domain.MemberLikeRamen;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface MemberLikeRamenRepository extends JpaRepository<MemberLikeRamen, Long> {
 }
