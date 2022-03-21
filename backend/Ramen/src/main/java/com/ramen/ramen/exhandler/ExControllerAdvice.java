@@ -1,6 +1,7 @@
 package com.ramen.ramen.exhandler;
 
 import com.ramen.ramen.controller.member.MemberController;
+import com.ramen.ramen.controller.ramen.RamenController;
 import com.ramen.ramen.exception.MemberNotFoundException;
 import com.ramen.ramen.exception.RamenNotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @Slf4j
-@RestControllerAdvice(assignableTypes = MemberController.class)
+@RestControllerAdvice(assignableTypes = {MemberController.class, RamenController.class})
 public class ExControllerAdvice {
 
     @ExceptionHandler(MemberNotFoundException.class)

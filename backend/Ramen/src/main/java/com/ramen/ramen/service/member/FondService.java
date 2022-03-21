@@ -30,9 +30,15 @@ public class FondService {
         return FondDto.builder()
                 .noodleLength(fond.getNoodleLength())
                 .noodleTexture(fond.getNoodleTexture())
-                .ingredient(fond.getIngredient())
-                .topping(fond.getTopping())
+                .ingredientNone(fond.getIngredientNone())
+                .ingredientGarlic(fond.getIngredientGarlic())
+                .ingredientPepper(fond.getIngredientPepper())
+                .ingredientGreenOnion(fond.getIngredientGreenOnion())
                 .egg(fond.getEgg())
+                .toppingNone(fond.getToppingNone())
+                .toppingCheese(fond.getToppingCheese())
+                .toppingTteok(fond.getToppingTteok())
+                .toppingDumpling(fond.getToppingDumpling())
                 .spicy(fond.getSpicy()).build();
     }
 
@@ -41,11 +47,17 @@ public class FondService {
         Fond fond = Fond.builder()
                 .noodleLength(requestFondDto.getNoodleLength())
                 .noodleTexture(requestFondDto.getNoodleTexture())
+                .ingredientNone(requestFondDto.getIngredientNone())
+                .ingredientGarlic(requestFondDto.getIngredientGarlic())
+                .ingredientPepper(requestFondDto.getIngredientPepper())
+                .ingredientGreenOnion(requestFondDto.getIngredientGreenOnion())
                 .egg(requestFondDto.getEgg())
-                .ingredient(requestFondDto.getIngredient())
-                .spicy(requestFondDto.getSpicy())
-                .topping(requestFondDto.getTopping())
-                .build();
+                .toppingNone(requestFondDto.getToppingNone())
+                .toppingCheese(requestFondDto.getToppingCheese())
+                .toppingTteok(requestFondDto.getToppingTteok())
+                .toppingDumpling(requestFondDto.getToppingDumpling())
+                .spicy(requestFondDto.getSpicy()).build();
+
         Optional<Member> optionalMember = memberRepository.findById(memberId);
         if (optionalMember.isEmpty()) {
             throw new MemberNotFoundException();

@@ -25,7 +25,8 @@ public class Member {
     private String name;
 
     @NonNull
-    private int sex;
+    @Enumerated(EnumType.STRING)
+    private Sex sex;
 
     @NonNull
     private String password;
