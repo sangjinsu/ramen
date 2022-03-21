@@ -4,7 +4,7 @@ plugins {
     id 'java'
 }
 
-group = 'com.ramen'
+group = 'com.ramen.ranking'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
@@ -19,15 +19,16 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'io.springfox:springfox-boot-starter:3.0.0'
     implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+    implementation "org.springframework.session:spring-session-data-redis"
 }
 
 tasks.named('test') {
