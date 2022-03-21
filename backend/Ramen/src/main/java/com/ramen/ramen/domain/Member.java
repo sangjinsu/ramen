@@ -38,7 +38,7 @@ public class Member {
     private LocalDateTime updatedAt;
 
     @Setter
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "fond_id")
     private Fond fond;
 
