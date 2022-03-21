@@ -160,4 +160,9 @@ public class Analysis {
     @NonNull
     private double crawlingCnt;
 
+    @Setter
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ramen_id")
+    private Ramen ramen;
+
 }
