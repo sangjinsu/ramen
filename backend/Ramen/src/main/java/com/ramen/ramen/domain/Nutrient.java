@@ -52,9 +52,4 @@ public class Nutrient {
     @NonNull
     private double sweetness;
 
-    @Setter
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ramen_id")
-    private Ramen ramen;
-
 }

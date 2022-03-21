@@ -38,12 +38,6 @@ public class Composition {
     @NonNull
     private boolean jjajang;
 
-    @Setter
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ramen_id")
-    private Ramen ramen;
-
-
     //Getter
 
     public boolean getLiquid() {
