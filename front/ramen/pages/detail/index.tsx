@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import Image from 'next/image';
 import * as React from 'react';
+import RamenTable from '../../components/RamenTable';
 
 
 const Detail: NextPage = () => {
@@ -27,6 +28,7 @@ const Detail: NextPage = () => {
             </div>
             <img src="/logo.png" className="right_ramen_img"/>
           </section>
+
           <section>
             <div className="ramen_infos">
               <div className="ramen_info">
@@ -51,12 +53,30 @@ const Detail: NextPage = () => {
               </div>
             </div>
           </section>
-          <section className="main_section">
-            <div className="right_ramenName">
-              신라면
-            </div>
-            <img src="/logo.png" className="right_ramen_img"/>
+
+          <section>
+            <p>원형 Chart 띄울 공간</p>
+            <p>원형 Chart 띄울 공간</p>
+            <p>원형 Chart 띄울 공간</p>
+            <p>원형 Chart 띄울 공간</p>
           </section>
+
+          <section>
+            <RamenTable />
+          </section>
+
+          <section>
+           <p>유사한 라면 보여줄 공간!</p>
+           <p>유사한 라면 보여줄 공간!</p>
+           <p>유사한 라면 보여줄 공간!</p>
+          </section>
+
+          <section>
+           <p>유튜브!!</p>
+           <p>유튜브!!</p>
+           <p>유튜브!!</p>
+          </section>
+
         </div>
       </div>
 
