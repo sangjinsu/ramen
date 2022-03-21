@@ -25,7 +25,7 @@ public class RamenService {
     private final NutrientRepository nutrientRepository;
 
     public RamenDetailDto fetchDetailRamen(Long ramenId) { // 영양정보, 구성, 유사 라면, 라면 정보 -> 한영 구분?
-                                                           // 그렇다면 영양 정보, 구성 모두 영어 속성?
+        // 그렇다면 영양 정보, 구성 모두 영어 속성?
 
         Optional<Ramen> optionalRamen = ramenRepository.findById(ramenId);
         if (optionalRamen.isEmpty()) {
@@ -46,8 +46,6 @@ public class RamenService {
 
     // nutreint에 대한 조건, analysis에 대한 조건, composition에 대한 조건
     // 반환 데이터 dtd 는 어떻게 구성?? 영어는 어떻게 구성???
-
-
 
 
 }

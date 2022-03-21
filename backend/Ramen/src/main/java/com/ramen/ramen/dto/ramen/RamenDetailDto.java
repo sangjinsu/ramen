@@ -44,7 +44,7 @@ public class RamenDetailDto implements Serializable {
 
     // 유사 라면 리스트?
 
-    public RamenDetailDto(Ramen ramen){
+    public RamenDetailDto(Ramen ramen) {
         this.ramenId = ramen.getRamenId();
         this.sampleId = ramen.getSampleId();
         this.name = ramen.getName();
