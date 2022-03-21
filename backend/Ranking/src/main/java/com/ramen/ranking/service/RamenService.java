@@ -2,6 +2,7 @@ package com.ramen.ranking.service;
 
 
 import com.ramen.ranking.component.RankingZset;
+import com.ramen.ranking.domain.RamenLike;
 import com.ramen.ranking.domain.RamenView;
 import com.ramen.ranking.repository.RamenLikeRedisRepository;
 import com.ramen.ranking.repository.RamenViewRedisRepository;
@@ -28,77 +29,61 @@ public class RamenService {
 
 
     @Transactional
-    public void saveRamenView(Long postId, Long memberId) {
+    public void saveRamenView(Long ramenId, Long userIp) {
         RamenView ramenview = new RamenView();
-        Optional<RamenView> ramen = Optional.ofNullable(ramenViewRedisRepository.findByPostIdAndMemberId(postId, memberId));
+        Optional<RamenView> ramen = Optional.ofNullable(ramenViewRedisRepository.findByRamenIdAndUserIp(ramenId, userIp));
         if (ramen.isEmpty()) { // 비어 있는 경우 추가
-            postview.setPostId(postId);
-            postview.setMemberId(memberId);
-            postViewRedisRepository.save(postview);
-            rankingZset.postViewCount(postId);
-        } else if (ramen.get().getMemberId() != memberId) { // 기존 post 있는 경우에  post 조회한 memberId와 새로운 memberId 비교 후 중복이 아니라면 저장
-            ramenview.setPostId(postId);
-            ramenview.setMemberId(memberId);
+            ramenview.setRamenId(ramenId);
+            ramenview.setUserIp(userIp);
             ramenViewRedisRepository.save(ramenview);
-            rankingZset.ramenViewCount(postId);
+            rankingZset.ramenViewCount(ramenId);
+        } else if (ramen.get().getUserIp() != userIp) { // 기존 post 있는 경우에  post 조회한 memberId와 새로운 memberId 비교 후 중복이 아니라면 저장
+            ramenview.setRamenId(ramenId);
+            ramenview.setUserIp(userIp);
+            ramenViewRedisRepository.save(ramenview);
+            rankingZset.ramenViewCount(ramenId);
         }
 
     }
 
     @Transactional
-    public void savePostLike(Long postId, Long memberId) {
-        PostLike postlike = new PostLike();
-        Optional<PostLike> post = Optional.ofNullable(postLikeRedisRepository.findByPostIdAndMemberId(postId, memberId));
+    public void saveRamenLike(Long ramenId, Long memberId) {
+        RamenLike ramenlike = new RamenLike();
+        Optional<RamenLike> ramen = Optional.ofNullable(ramenLikeRedisRepository.findByRamenIdAndMemberId(ramenId, memberId));
 
-        if (post.isEmpty()) {
-            postlike.setPostId(postId);
-            postlike.setMemberId(memberId);
-            postLikeRedisRepository.save(postlike);
-            rankingZset.postLikeCountUp(postId);
-        } else if (post.get().getMemberId() != memberId) { // 기존 post 있는 경우에  post 조회한 memberId와 새로운 memberId 비교 후 중복이 아니라면 저장
-            postlike.setPostId(postId);
-            postlike.setMemberId(memberId);
-            postLikeRedisRepository.save(postlike);
-            rankingZset.postLikeCountUp(postId);
-        } else if (post.get().getMemberId() == memberId) { // 좋아요 취소
-            postLikeRedisRepository.deleteById(post.get().getId());
-            rankingZset.postLikeCountDown(postId);
+        if (ramen.isEmpty()) {
+            ramenlike.setRamenId(ramenId);
+            ramenlike.setMemberId(memberId);
+            ramenLikeRedisRepository.save(ramenlike);
+            rankingZset.ramenLikeCountUp(ramenId);
+        } else if (ramen.get().getMemberId() != memberId) { // 기존 post 있는 경우에  post 조회한 memberId와 새로운 memberId 비교 후 중복이 아니라면 저장
+            ramenlike.setRamenId(ramenId);
+            ramenlike.setMemberId(memberId);
+            ramenLikeRedisRepository.save(ramenlike);
+            rankingZset.ramenLikeCountUp(ramenId);
+        } else if (ramen.get().getMemberId() == memberId) { // 좋아요 취소
+            ramenLikeRedisRepository.deleteById(ramen.get().getId());
+            rankingZset.ramenLikeCountDown(ramenId);
         }
     }
 
-    @Transactional
-    public void deletePost(Long postId) {
-
-        List<PostView> postViews = postViewRedisRepository.findAllByPostId(postId);
-        for (PostView postView : postViews) {
-            postViewRedisRepository.deleteById(postView.getId());
-        }
-
-        List<PostLike> postLikes = postLikeRedisRepository.findAllByPostId(postId);
-        for (PostLike postLike : postLikes) {
-            postViewRedisRepository.deleteById(postLike.getId());
-        }
-
-        rankingZset.deletePostById(postId);
+    public List<String> getRamenViewId() {
+        return rankingZset.getRamenViewId();
     }
 
-    public List<String> getPostViewId() {
-        return rankingZset.getPostViewId();
+    public List<String> getRamenLikeId() {
+        return rankingZset.getRamenLikeId();
     }
 
-    public List<String> getPostLikeId() {
-        return rankingZset.getPostLikeId();
-    }
+    public List<String> getPopRamen() {
+        List<String> ramenLikes = getRamenLikeId();
+        List<String> ramenViews = getRamenViewId();
 
-    public List<String> getHotPost() {
-        List<String> postLikes = getPostLikeId();
-        List<String> postViews = getPostViewId();
-
-        for (String postId : postViews) {
-            if (!postLikes.contains(postId))
-                postLikes.add(postId);
+        for (String ramenId : ramenViews) { // 중복 제거
+            if (!ramenLikes.contains(ramenId))
+                ramenLikes.add(ramenId);
         }
-        return postLikes;
+        return ramenLikes;
     }
 
 

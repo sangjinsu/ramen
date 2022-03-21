@@ -5,14 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="da6d15be-db12-4ad5-9415-e3b67f1393cf" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/backend.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ramen/src/main/java/com/ramen/ramen/config/SwaggerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Ramen/src/main/java/com/ramen/ramen/config/SwaggerConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ramen/src/main/java/com/ramen/ramen/controller/ramen/RamenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Ramen/src/main/java/com/ramen/ramen/controller/ramen/RamenController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ramen/src/main/java/com/ramen/ramen/dto/ramen/RamenDetailDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/Ramen/src/main/java/com/ramen/ramen/dto/ramen/RamenDetailDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ramen/src/main/java/com/ramen/ramen/service/ramen/RamenService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Ramen/src/main/java/com/ramen/ramen/service/ramen/RamenService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,6 +44,7 @@
       <option name="presentableId" value="Default" />
       <updated>1647844075117</updated>
       <workItem from="1647844076437" duration="142000" />
+      <workItem from="1647865893322" duration="72000" />
     </task>
     <servers />
   </component>

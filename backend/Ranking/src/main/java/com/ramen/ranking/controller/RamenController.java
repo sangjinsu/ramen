@@ -27,9 +27,13 @@ public class RamenController {
     }
 
     @GetMapping("/like/{ramenId}/{memberId}")
-    public void beerView(@PathVariable("ramenId") Long ramenId, @PathVariable("memberId") Long memberId) {
+    public void beeLike(@PathVariable("ramenId") Long ramenId, @PathVariable("memberId") Long memberId) {
         ramenService.saveRamenLike(ramenId, memberId);
     }
 
+    @GetMapping("/ramen")
+    public void fetchPopRamen() {
+        ramenService.getPopRamen();
+    }
 
 }
