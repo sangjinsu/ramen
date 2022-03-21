@@ -13,7 +13,7 @@ const Home2: NextPage = () => {
   return <>
   <Container>
   <Row>
-    <Col><h1>index2</h1></Col>
+    <Col></Col>
     <Col><Box
       sx={{
         width: 500,
@@ -23,6 +23,13 @@ const Home2: NextPage = () => {
       <TextField fullWidth label="검색" id="fullWidth" value={search} onChange={handleChange}/>
     </Box></Col>
     <Col>{search}</Col>
+  </Row>
+  <Row>
+    <Col>1</Col>
+    <Col>2</Col>
+    <Col>3</Col>
+    <Col>4</Col>
+
   </Row>
 </Container>
 

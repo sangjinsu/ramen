@@ -4,6 +4,8 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Ibox from '../components/main/box'
+import Lank from '../components/main/Lank'
+import Sug from '../components/main/Suggestion'
 
 const Home: NextPage = () => {
   const [search, setSearch] = React.useState('');
@@ -13,7 +15,7 @@ const Home: NextPage = () => {
   return <>
   <Container>
   <Row>
-    <Col><h1>index1</h1></Col>
+    <Col></Col>
     <Col><Box
       sx={{
         width: 500,
@@ -25,6 +27,15 @@ const Home: NextPage = () => {
     <Col>{search}</Col>
   </Row>
  <Ibox></Ibox>
+ <Row>
+   <Col></Col>
+   <Col ><Lank></Lank></Col>
+   <Col ><Sug></Sug></Col>
+   <Col ><Sug></Sug></Col>
+   <Col ><Sug></Sug></Col>
+   <Col></Col>
+
+ </Row>
   
 </Container>
 
