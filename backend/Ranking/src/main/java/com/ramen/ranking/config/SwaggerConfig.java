@@ -19,8 +19,8 @@ import java.util.Set;
 public class SwaggerConfig {
 
     private ApiInfo swaggerInfo() {
-        return new ApiInfoBuilder().title("MacJU Ranking API")
-                .description("MacJU Ranking API Docs").build();
+        return new ApiInfoBuilder().title("Ramen Ranking API")
+                .description("Ramen Ranking API Docs").build();
     }
 
 
