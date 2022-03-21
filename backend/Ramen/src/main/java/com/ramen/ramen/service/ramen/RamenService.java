@@ -34,11 +34,11 @@ public class RamenService {
 
         Ramen ramen = optionalRamen.get();
 
-        Composition composition = compositionRepository.findByRamenId(ramenId);
+//        Composition composition = compositionRepository.findByRamenId(ramenId);
+//
+//        Nutrient nutrient = nutrientRepository.findByRamenId(ramenId);
 
-        Nutrient nutrient = nutrientRepository.findByRamenId(ramenId);
-
-        RamenDetailDto ramenDetailDto = new RamenDetailDto(ramen, nutrient, composition);
+        RamenDetailDto ramenDetailDto = new RamenDetailDto(ramen);
 
         return ramenDetailDto;
 
