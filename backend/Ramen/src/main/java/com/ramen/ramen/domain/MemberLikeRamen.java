@@ -20,7 +20,7 @@ public class MemberLikeRamen {
     @NonNull
     private Member member;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ramen_id")
     @NonNull
     private Ramen ramen;

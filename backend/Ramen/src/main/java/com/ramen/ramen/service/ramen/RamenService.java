@@ -11,9 +11,11 @@ import com.ramen.ramen.repository.ramen.CompositionRepository;
 import com.ramen.ramen.repository.ramen.NutrientRepository;
 import com.ramen.ramen.repository.ramen.RamenRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 @RequiredArgsConstructor
 public class RamenService {
 

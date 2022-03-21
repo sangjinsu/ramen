@@ -16,8 +16,8 @@ public class Analysis {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long analysisId;
 
-//    @NonNull
-//    private String sampleId; mariaDB in sampleId??? but not in ERD
+    @NonNull
+    private String sampleId;
 
     @NonNull
     private double kkoDeul;
