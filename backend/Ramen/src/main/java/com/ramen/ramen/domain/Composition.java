@@ -11,6 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Composition {
+
     @Id
     @Column(name = "composition_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,6 +43,36 @@ public class Composition {
     @JoinColumn(name = "ramen_id")
     private Ramen ramen;
 
+
+    //Getter
+
+    public boolean getLiquid() {
+        return liquid;
+    }
+
+    public boolean getPowder() {
+        return powder;
+    }
+
+    public boolean getSeasoning() {
+        return seasoning;
+    }
+
+    public boolean getSoup() {
+        return soup;
+    }
+
+    public boolean getCup() {
+        return cup;
+    }
+
+    public boolean getCold() {
+        return cold;
+    }
+
+    public boolean getJjajang() {
+        return jjajang;
+    }
 
 
 
