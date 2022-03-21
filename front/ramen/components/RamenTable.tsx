@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import PieCustom from './PieCustom';
 
 function createData(
   name: string,
@@ -57,6 +58,7 @@ function Row(props: { row: ReturnType<typeof createData> }) {
               <Typography variant="h6" gutterBottom component="div">
                 막대 Chart로 비교
               </Typography>
+              <PieCustom />
             </Box>
           </Collapse>
         </TableCell>

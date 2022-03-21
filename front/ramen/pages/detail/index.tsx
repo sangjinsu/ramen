@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import Image from 'next/image';
 import * as React from 'react';
+import PieCustom from '../../components/PieCustom';
 import RamenTable from '../../components/RamenTable';
 
 
@@ -55,10 +56,7 @@ const Detail: NextPage = () => {
           </section>
 
           <section>
-            <p>원형 Chart 띄울 공간</p>
-            <p>원형 Chart 띄울 공간</p>
-            <p>원형 Chart 띄울 공간</p>
-            <p>원형 Chart 띄울 공간</p>
+            <PieCustom />
           </section>
 
           <section>
