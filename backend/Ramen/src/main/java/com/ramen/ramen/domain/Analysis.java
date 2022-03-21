@@ -160,4 +160,7 @@ public class Analysis {
     @NonNull
     private double crawlingCnt;
 
+    @NonNull
+    private double taengGeul;
+
 }

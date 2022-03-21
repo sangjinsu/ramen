@@ -3,6 +3,8 @@ package com.ramen.ramen.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Builder
@@ -53,4 +55,6 @@ public class Ramen {
     @JoinColumn(name = "analysis_id")
     private Analysis analysis;
 
+    @OneToMany(mappedBy = "ramen", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MemberLikeRamen> likedMembers = new ArrayList<>();
 }

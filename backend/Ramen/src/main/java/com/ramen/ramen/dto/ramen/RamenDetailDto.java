@@ -34,13 +34,13 @@ public class RamenDetailDto implements Serializable {
     private final double sweetness;
 
     // composition
-    private final boolean liquid;
-    private final boolean powder;
-    private final boolean seasoning;
-    private final boolean soup;
-    private final boolean cup;
-    private final boolean cold;
-    private final boolean jjajang;
+    private final int liquid;
+    private final int powder;
+    private final int seasoning;
+    private final int soup;
+    private final int cup;
+    private final int cold;
+    private final int jjajang;
 
     // 유사 라면 리스트?
 

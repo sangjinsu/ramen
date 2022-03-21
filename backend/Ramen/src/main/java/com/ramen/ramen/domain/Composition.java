@@ -18,53 +18,53 @@ public class Composition {
     private Long compositionId;
 
     @NonNull
-    private boolean liquid; // tinyint <-> int? boolean?
+    private int liquid; // tinyint <-> int? boolean?
 
     @NonNull
-    private boolean powder;
+    private int powder;
 
     @NonNull
-    private boolean seasoning;
+    private int seasoning;
 
     @NonNull
-    private boolean soup;
+    private int soup;
 
     @NonNull
-    private boolean cup;
+    private int cup;
 
     @NonNull
-    private boolean cold;
+    private int cold;
 
     @NonNull
-    private boolean jjajang;
+    private int jjajang;
 
     //Getter
 
-    public boolean getLiquid() {
+    public int getLiquid() {
         return liquid;
     }
 
-    public boolean getPowder() {
+    public int getPowder() {
         return powder;
     }
 
-    public boolean getSeasoning() {
+    public int getSeasoning() {
         return seasoning;
     }
 
-    public boolean getSoup() {
+    public int getSoup() {
         return soup;
     }
 
-    public boolean getCup() {
+    public int getCup() {
         return cup;
     }
 
-    public boolean getCold() {
+    public int getCold() {
         return cold;
     }
 
-    public boolean getJjajang() {
+    public int getJjajang() {
         return jjajang;
     }
 
