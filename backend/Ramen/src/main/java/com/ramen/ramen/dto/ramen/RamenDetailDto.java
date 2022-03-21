@@ -44,7 +44,7 @@ public class RamenDetailDto implements Serializable {
 
     // 유사 라면 리스트?
 
-    public RamenDetailDto(Ramen ramen, Nutrient nutrient, Composition composition){
+    public RamenDetailDto(Ramen ramen){
         this.ramenId = ramen.getRamenId();
         this.sampleId = ramen.getSampleId();
         this.name = ramen.getName();
@@ -55,25 +55,25 @@ public class RamenDetailDto implements Serializable {
         this.noodle = ramen.getNoodle();
         this.code = ramen.getCode();
 
-        this.volume = nutrient.getVolume();
-        this.protein = nutrient.getProtein();
-        this.kcal = nutrient.getKcal();
-        this.lipid = nutrient.getLipid();
-        this.transFat = nutrient.getTransFat();
-        this.carbs = nutrient.getCarbs();
-        this.sugar = nutrient.getSugar();
-        this.sodium = nutrient.getSodium();
-        this.cholesterol = nutrient.getCholesterol();
-        this.saturated_fat = nutrient.getSaturated_fat();
-        this.salty = nutrient.getSalty();
-        this.sweetness = nutrient.getSweetness();
+        this.volume = ramen.getNutrient().getVolume();
+        this.protein = ramen.getNutrient().getProtein();
+        this.kcal = ramen.getNutrient().getKcal();
+        this.lipid = ramen.getNutrient().getLipid();
+        this.transFat = ramen.getNutrient().getTransFat();
+        this.carbs = ramen.getNutrient().getCarbs();
+        this.sugar = ramen.getNutrient().getSugar();
+        this.sodium = ramen.getNutrient().getSodium();
+        this.cholesterol = ramen.getNutrient().getCholesterol();
+        this.saturated_fat = ramen.getNutrient().getSaturated_fat();
+        this.salty = ramen.getNutrient().getSalty();
+        this.sweetness = ramen.getNutrient().getSweetness();
 
-        this.liquid = composition.getLiquid();
-        this.powder = composition.getPowder();
-        this.seasoning = composition.getSeasoning();
-        this.soup = composition.getSoup();
-        this.cup = composition.getCup();
-        this.cold = composition.getCold();
-        this.jjajang = composition.getJjajang();
+        this.liquid = ramen.getComposition().getLiquid();
+        this.powder = ramen.getComposition().getPowder();
+        this.seasoning = ramen.getComposition().getSeasoning();
+        this.soup = ramen.getComposition().getSoup();
+        this.cup = ramen.getComposition().getCup();
+        this.cold = ramen.getComposition().getCold();
+        this.jjajang = ramen.getComposition().getJjajang();
     }
 }

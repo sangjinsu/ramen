@@ -7,6 +7,6 @@ import org.springframework.data.repository.query.Param;
 
 public interface AnalysisRepository extends JpaRepository<Analysis, Long> {
 
-    @Query("SELECT a from Analysis a where a.ramen.ramenId=:ramenId ")
-    public Analysis findByRamenId(@Param("ramenId") Long ramenId);
+//    @Query("SELECT a from Analysis a where a.ramen.ramenId=:ramenId ")
+//    public Analysis findByRamenId(@Param("ramenId") Long ramenId);
 }

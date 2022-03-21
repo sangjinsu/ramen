@@ -74,6 +74,4 @@ public class Composition {
         return jjajang;
     }
 
-
-
 }

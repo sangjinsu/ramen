@@ -2,10 +2,7 @@ package com.ramen.ramen.domain;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 @Builder
@@ -40,5 +37,20 @@ public class Ramen {
 
     @NonNull
     private String code;
+
+    @Setter
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "composition_id")
+    private Composition composition;
+
+    @Setter
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "nutrient_id")
+    private Nutrient nutrient;
+
+    @Setter
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "analysis_id")
+    private Analysis analysis;
 
 }

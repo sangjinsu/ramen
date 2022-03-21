@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface NutrientRepository extends JpaRepository<Nutrient, Long> {
 
-    @Query("SELECT n from Nutrient n where n.ramen.ramenId=:ramenId ")
-    public Nutrient findByRamenId(@Param("ramenId") Long ramenId);
+//    @Query("SELECT n from Nutrient n where n.ramen.ramenId=:ramenId ")
+//    public Nutrient findByRamenId(@Param("ramenId") Long ramenId);
 
 }
