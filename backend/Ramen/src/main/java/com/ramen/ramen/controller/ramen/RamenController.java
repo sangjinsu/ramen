@@ -25,9 +25,9 @@ public class RamenController {
     }
 
 
-    // 라면 조건별로 리스트 조회
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/") // ????? 어떤 조건을 받을지? 어떤 자료 반환할지??
+//    // 라면 조건별로 리스트 조회
+//    @ResponseStatus(HttpStatus.OK)
+//    @GetMapping("/") // ????? 어떤 조건을 받을지? 어떤 자료 반환할지??
 
 
 
