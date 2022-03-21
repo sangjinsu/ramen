@@ -14,6 +14,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import Link from "next/link";
 import FormHelperText from "@mui/material/FormHelperText";
+import { Container, Row, Col } from "react-bootstrap";
 
 function Signup() {
   const [userInfo, setUserInfo] = useState({});
@@ -25,7 +26,6 @@ function Signup() {
   const [inputName, setInputName] = useState("");
   const [inputGender, setInputGender] = useState("");
   const [canGoNext, setCanGoNext] = useState(false);
-
   // input data 의 변화가 있을 때마다 value 값을 변경해서 useState 해준다
   const handleInputEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputEmail(event.target.value);
@@ -96,149 +96,165 @@ function Signup() {
   return (
     <>
       <div>
-        <h2>회원 정보입력</h2>
-        <Box sx={{ "& > :not(style)": { m: 1 } }}>
-          <FormControl variant="standard">
-            <InputLabel htmlFor="input_email">Email</InputLabel>
-            <Input
-              id="input_email"
-              value={inputEmail}
-              onChange={handleInputEmail}
-              placeholder="이메일을 입력해주세요"
-              startAdornment={
-                <InputAdornment position="start">
-                  <MailOutlineIcon />
-                </InputAdornment>
-              }
-            />
-          </FormControl>
-          <br />
-          <FormControl variant="standard">
-            <InputLabel htmlFor="input_pw">Choose password</InputLabel>
-            <Input
-              id="input_pw"
-              type="password"
-              value={inputPw}
-              onChange={handleInputPw}
-              startAdornment={
-                <InputAdornment position="start">
-                  <LockIcon />
-                </InputAdornment>
-              }
-            />
-          </FormControl>
-          <br />
-          {isSamePw ? (
-            <FormControl variant="standard">
-              <InputLabel htmlFor="input_pw_confirm">
-                Confirm password
-              </InputLabel>
-              <Input
-                id="input_pw_confirm"
-                type="password"
-                value={inputPwConfirm}
-                onChange={handleInputPwConfirm}
-                onBlur={handleIsSamePw}
-                startAdornment={
-                  <InputAdornment position="start">
-                    <LockIcon />
-                  </InputAdornment>
-                }
-              />
-            </FormControl>
-          ) : (
-            <FormControl error variant="standard">
-              <InputLabel htmlFor="input_pw_confirm">
-                Confirm password
-              </InputLabel>
-              <Input
-                id="input_pw_confirm"
-                type="password"
-                value={inputPwConfirm}
-                onChange={handleInputPwConfirm}
-                onBlur={handleIsSamePw}
-                aria-describedby="component-error-text"
-                startAdornment={
-                  <InputAdornment position="start">
-                    <LockIcon />
-                  </InputAdornment>
-                }
-              />
-              <FormHelperText id="component-error-text">Error</FormHelperText>
-            </FormControl>
-          )}
+        <Container>
+          <Row>
+            <Col></Col>
+            <Col>
+              <h2>회원 정보입력</h2>
+              <Box sx={{ "& > :not(style)": { m: 1 } }}>
+                <FormControl variant="standard">
+                  <InputLabel htmlFor="input_email">Email</InputLabel>
+                  <Input
+                    id="input_email"
+                    value={inputEmail}
+                    onChange={handleInputEmail}
+                    placeholder="이메일을 입력해주세요"
+                    startAdornment={
+                      <InputAdornment position="start">
+                        <MailOutlineIcon />
+                      </InputAdornment>
+                    }
+                  />
+                </FormControl>
+                <br />
+                <FormControl variant="standard">
+                  <InputLabel htmlFor="input_pw">Choose password</InputLabel>
+                  <Input
+                    id="input_pw"
+                    type="password"
+                    value={inputPw}
+                    onChange={handleInputPw}
+                    startAdornment={
+                      <InputAdornment position="start">
+                        <LockIcon />
+                      </InputAdornment>
+                    }
+                  />
+                </FormControl>
+                <br />
+                {isSamePw ? (
+                  <FormControl variant="standard">
+                    <InputLabel htmlFor="input_pw_confirm">
+                      Confirm password
+                    </InputLabel>
+                    <Input
+                      id="input_pw_confirm"
+                      type="password"
+                      value={inputPwConfirm}
+                      onChange={handleInputPwConfirm}
+                      onBlur={handleIsSamePw}
+                      startAdornment={
+                        <InputAdornment position="start">
+                          <LockIcon />
+                        </InputAdornment>
+                      }
+                    />
+                  </FormControl>
+                ) : (
+                  <FormControl error variant="standard">
+                    <InputLabel htmlFor="input_pw_confirm">
+                      Confirm password
+                    </InputLabel>
+                    <Input
+                      id="input_pw_confirm"
+                      type="password"
+                      value={inputPwConfirm}
+                      onChange={handleInputPwConfirm}
+                      onBlur={handleIsSamePw}
+                      aria-describedby="component-error-text"
+                      startAdornment={
+                        <InputAdornment position="start">
+                          <LockIcon />
+                        </InputAdornment>
+                      }
+                    />
+                    <FormHelperText id="component-error-text">
+                      Error
+                    </FormHelperText>
+                  </FormControl>
+                )}
 
-          <br />
-          <FormControl variant="standard">
-            <InputLabel htmlFor="input_name">Name</InputLabel>
-            <Input
-              id="input_name"
-              value={inputName}
-              onChange={handleInputName}
-              startAdornment={
-                <InputAdornment position="start">
-                  <PersonOutlineIcon />
-                </InputAdornment>
-              }
-            />
-          </FormControl>
-          <br />
-          <FormControl variant="standard">
-            <InputLabel htmlFor="input_age">Ages</InputLabel>
-            <Input
-              id="input_age"
-              type="number"
-              value={inputAge}
-              onChange={handleInputAge}
-              startAdornment={
-                <InputAdornment position="start">
-                  <CakeIcon />
-                </InputAdornment>
-              }
-            />
-          </FormControl>
-          <br />
-          <div style={{ color: "rgba(0, 0, 0, 0.54)" }}>
-            <WcIcon />
-            <label htmlFor="input_gender">Gender </label>
-            <br />
-            <ButtonGroup
-              color="primary"
-              aria-label="medium secondary button group"
-            >
-              {inputGender === "Male" ? (
-                <Button variant="contained" onClick={handleInputGenderMale}>
-                  Male
-                </Button>
-              ) : (
-                <Button onClick={handleInputGenderMale}>Male</Button>
-              )}
-              {inputGender === "Female" ? (
-                <Button variant="contained" onClick={handleInputGenderFemale}>
-                  Female
-                </Button>
-              ) : (
-                <Button onClick={handleInputGenderFemale}>Female</Button>
-              )}
-            </ButtonGroup>
-          </div>
-        </Box>
-        <div>
-          {canGoNext ? (
-            <button onClick={onClickNext}>
-              <Link
-                href={{
-                  pathname: "/ramenpreference",
-                  query: { userInfo: JSON.stringify(userInfo) },
-                }}
-              >
-                <a>
-                  <ArrowForwardIosIcon />
-                </a>
-              </Link>
-            </button>
-          ) : null}
-        </div>
+                <br />
+                <FormControl variant="standard">
+                  <InputLabel htmlFor="input_name">Name</InputLabel>
+                  <Input
+                    id="input_name"
+                    value={inputName}
+                    onChange={handleInputName}
+                    startAdornment={
+                      <InputAdornment position="start">
+                        <PersonOutlineIcon />
+                      </InputAdornment>
+                    }
+                  />
+                </FormControl>
+                <br />
+                <FormControl variant="standard">
+                  <InputLabel htmlFor="input_age">Ages</InputLabel>
+                  <Input
+                    id="input_age"
+                    type="number"
+                    value={inputAge}
+                    onChange={handleInputAge}
+                    startAdornment={
+                      <InputAdornment position="start">
+                        <CakeIcon />
+                      </InputAdornment>
+                    }
+                  />
+                </FormControl>
+                <br />
+                <div style={{ color: "rgba(0, 0, 0, 0.54)" }}>
+                  <WcIcon />
+                  <label htmlFor="input_gender">Gender </label>
+                  <br />
+                  <ButtonGroup
+                    color="primary"
+                    aria-label="medium secondary button group"
+                  >
+                    {inputGender === "Male" ? (
+                      <Button
+                        variant="contained"
+                        onClick={handleInputGenderMale}
+                      >
+                        Male
+                      </Button>
+                    ) : (
+                      <Button onClick={handleInputGenderMale}>Male</Button>
+                    )}
+                    {inputGender === "Female" ? (
+                      <Button
+                        variant="contained"
+                        onClick={handleInputGenderFemale}
+                      >
+                        Female
+                      </Button>
+                    ) : (
+                      <Button onClick={handleInputGenderFemale}>Female</Button>
+                    )}
+                  </ButtonGroup>
+                </div>
+              </Box>
+              <div>
+                {canGoNext ? (
+                  <button onClick={onClickNext}>
+                    <Link
+                      href={{
+                        pathname: "/ramenpreference",
+                        query: { userInfo: JSON.stringify(userInfo) },
+                      }}
+                    >
+                      <a>
+                        <ArrowForwardIosIcon />
+                      </a>
+                    </Link>
+                  </button>
+                ) : null}
+              </div>
+            </Col>
+            <Col></Col>
+          </Row>
+        </Container>
       </div>
     </>
   );
