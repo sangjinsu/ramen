@@ -26,12 +26,12 @@ export class Member {
   @Column({ type: 'int' })
   age: number;
 
-  @Column({ type: 'bigint' })
-  fond_id: number;
-
   @CreateDateColumn()
   created_at: Date;
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @Column({ type: 'bigint' })
+  fond_id: number;
 }

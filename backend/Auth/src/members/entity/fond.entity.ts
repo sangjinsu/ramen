@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
-export class Member {
+export class Fond {
   @PrimaryGeneratedColumn({ type: 'bigint' })
   fond_id: number;
 
@@ -15,7 +15,7 @@ export class Member {
   ingredientNone: boolean;
 
   @Column({ type: 'binary' })
-  ingredientGalic: boolean;
+  ingredientGarlic: boolean;
 
   @Column({ type: 'binary' })
   ingredientPepper: boolean;
