@@ -1,10 +1,17 @@
 import type { NextPage } from 'next'
 import Image from 'next/image';
 import * as React from 'react';
+import PieCustom from '../../components/PieCustom';
 import RamenTable from '../../components/RamenTable';
+import { DataProps } from '../../components/Types';
 
 
 const Detail: NextPage = () => {
+  const [testData, setData] = React.useState<DataProps>({testData:[0, 0, 0, 0, 0, 0]});
+  
+  React.useEffect( () => {
+    setData({testData:[92, 69, 8, 1.3, 4, 1.95]})
+  }, [])
   
   return (
     <>
@@ -55,14 +62,13 @@ const Detail: NextPage = () => {
           </section>
 
           <section>
-            <p>원형 Chart 띄울 공간</p>
-            <p>원형 Chart 띄울 공간</p>
-            <p>원형 Chart 띄울 공간</p>
-            <p>원형 Chart 띄울 공간</p>
+            <div className="pie_area">
+              <PieCustom testData={testData}/>
+            </div>
           </section>
 
           <section>
-            <RamenTable />
+            <RamenTable testData={testData} />
           </section>
 
           <section>
@@ -217,7 +223,7 @@ const Detail: NextPage = () => {
             font-weight: 700;
             margin-bottom: 0.25rem;
           }
-
+        
           * {
             margin: 0;
             padding: 0;
