@@ -22,6 +22,9 @@ public class Member {
     private Long memberId;
 
     @NonNull
+    private String email;
+
+    @NonNull
     private String name;
 
     @NonNull
