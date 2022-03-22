@@ -29,7 +29,7 @@ public class Member {
 
     @NonNull
     @Enumerated(EnumType.STRING)
-    private Sex sex;
+    private Gender gender;
 
     @NonNull
     private String password;

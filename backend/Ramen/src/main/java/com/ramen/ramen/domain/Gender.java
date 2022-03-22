@@ -1,5 +1,5 @@
 package com.ramen.ramen.domain;
 
-public enum Sex {
+public enum Gender {
     M, F
 }
