@@ -10,6 +10,7 @@ import Link from "next/link";
 
 function RamenPreference({ router: { query } }) {
   const [userInfo, setUserInfo] = useState(JSON.parse(query.userInfo));
+  console.log("start", JSON.parse(query.userInfo));
   const [flagLength, setFlagLength] = useState(true);
   const [flagTexture, setFlagTexture] = useState(true);
   const [flagSoup, setFlagSoup] = useState(true);
@@ -129,12 +130,8 @@ function RamenPreference({ router: { query } }) {
   };
 
   const onClickNext = () => {
-    console.log(userInfo);
-    console.log("click Next");
+    console.log("clickNext", userInfo);
     console.log(JSON.stringify(userInfo));
-  };
-
-  useEffect(() => {
     setUserInfo((prevUserInfo) => {
       return {
         ...prevUserInfo,
@@ -151,14 +148,21 @@ function RamenPreference({ router: { query } }) {
         selectToppingDumpling: selectToppingDumpling,
       };
     });
+  };
+
+  useEffect(() => {
     if (
       selectLength !== 0 &&
       selectTexture !== 0 &&
       (selectSoupNothing ||
-        (selectSoupGarlic && selectSoupPepper && selectSoupGreenOnion)) &&
+        selectSoupGarlic ||
+        selectSoupPepper ||
+        selectSoupGreenOnion) &&
       selectEgg !== 0 &&
       (selectToppingNothing ||
-        (selectToppingCheese && selectToppingRicecake && selectToppingDumpling))
+        selectToppingCheese ||
+        selectToppingRicecake ||
+        selectToppingDumpling)
     ) {
       setCanGoNext(true);
     }
@@ -546,35 +550,41 @@ function RamenPreference({ router: { query } }) {
             </Col>
             <Col></Col>
           </Row>
+          <br />
+          <Row>
+            <Col>
+              <button onClick={onClickNext}>
+                <Link
+                  href={{
+                    pathname: "/signup",
+                    query: { userInfo: JSON.stringify(userInfo) },
+                  }}
+                >
+                  <a>
+                    <ArrowBackIosIcon />
+                  </a>
+                </Link>
+              </button>
+            </Col>
+            <Col></Col>
+            <Col>
+              {canGoNext ? (
+                <button onClick={onClickNext}>
+                  <Link
+                    href={{
+                      pathname: "/ramenselect",
+                      query: { userInfo: JSON.stringify(userInfo) },
+                    }}
+                  >
+                    <a>
+                      <ArrowForwardIosIcon />
+                    </a>
+                  </Link>
+                </button>
+              ) : null}
+            </Col>
+          </Row>
         </Container>
-        <div>
-          <button onClick={onClickNext}>
-            <Link
-              href={{
-                pathname: "/signup",
-                query: { userInfo: JSON.stringify(userInfo) },
-              }}
-            >
-              <a>
-                <ArrowBackIosIcon />
-              </a>
-            </Link>
-          </button>
-          {canGoNext ? (
-            <button onClick={onClickNext}>
-              <Link
-                href={{
-                  pathname: "/ramenselect",
-                  query: { userInfo: JSON.stringify(userInfo) },
-                }}
-              >
-                <a>
-                  <ArrowForwardIosIcon />
-                </a>
-              </Link>
-            </button>
-          ) : null}
-        </div>
       </div>
     </>
   );

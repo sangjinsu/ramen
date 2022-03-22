@@ -15,8 +15,9 @@ import FormControl from "@mui/material/FormControl";
 import Link from "next/link";
 import FormHelperText from "@mui/material/FormHelperText";
 import { Container, Row, Col } from "react-bootstrap";
+import { withRouter } from "next/router";
 
-function Signup() {
+function Signup({ router: { query } }) {
   const [userInfo, setUserInfo] = useState({});
   const [inputEmail, setInputEmail] = useState("");
   const [inputPw, setInputPw] = useState("");
@@ -24,8 +25,9 @@ function Signup() {
   const [isSamePw, setIsSamePw] = useState(true);
   const [inputAge, setInputAge] = useState("");
   const [inputName, setInputName] = useState("");
-  const [inputGender, setInputGender] = useState(2);
+  const [inputGender, setInputGender] = useState("");
   const [canGoNext, setCanGoNext] = useState(false);
+
   // input data 의 변화가 있을 때마다 value 값을 변경해서 useState 해준다
   const handleInputEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputEmail(event.target.value);
@@ -57,11 +59,11 @@ function Signup() {
   };
 
   const handleInputGenderMale = () => {
-    setInputGender(1);
+    setInputGender("M");
   };
 
   const handleInputGenderFemale = () => {
-    setInputGender(0);
+    setInputGender("F");
   };
 
   // login 버튼 클릭 이벤트
@@ -78,7 +80,7 @@ function Signup() {
         inputEmail: inputEmail,
         inputPw: inputPw,
         inputName: inputName,
-        inputAge: inputAge,
+        inputAge: Number(inputAge),
         inputGender: inputGender,
       };
     });
@@ -87,11 +89,33 @@ function Signup() {
       inputEmail !== "" &&
       inputName != "" &&
       inputAge !== "" &&
-      inputGender !== 2
+      inputGender !== "" &&
+      inputPw === inputPwConfirm
     ) {
       setCanGoNext(true);
+    } else {
+      setCanGoNext(false);
     }
-  }, [inputEmail, isSamePw, inputName, inputAge, inputGender]);
+  }, [
+    inputEmail,
+    isSamePw,
+    inputName,
+    inputAge,
+    inputGender,
+    inputPw,
+    inputPwConfirm,
+  ]);
+
+  useEffect(() => {
+    if (query.userInfo) {
+      const prevUserInfo = JSON.parse(query.userInfo);
+      setInputEmail(prevUserInfo["inputEmail"]);
+      setInputPw(prevUserInfo["inputPw"]);
+      setInputAge(prevUserInfo["inputAge"]);
+      setInputName(prevUserInfo["inputName"]);
+      setInputGender(prevUserInfo["inputGender"]);
+    }
+  }, []);
 
   return (
     <>
@@ -212,7 +236,7 @@ function Signup() {
                     color="primary"
                     aria-label="medium secondary button group"
                   >
-                    {inputGender === 1 ? (
+                    {inputGender === "M" ? (
                       <Button
                         variant="contained"
                         onClick={handleInputGenderMale}
@@ -222,7 +246,7 @@ function Signup() {
                     ) : (
                       <Button onClick={handleInputGenderMale}>Male</Button>
                     )}
-                    {inputGender === 0 ? (
+                    {inputGender === "F" ? (
                       <Button
                         variant="contained"
                         onClick={handleInputGenderFemale}
@@ -235,6 +259,13 @@ function Signup() {
                   </ButtonGroup>
                 </div>
               </Box>
+            </Col>
+            <Col></Col>
+          </Row>
+          <Row>
+            <Col></Col>
+            <Col></Col>
+            <Col>
               <div>
                 {canGoNext ? (
                   <button onClick={onClickNext}>
@@ -252,7 +283,6 @@ function Signup() {
                 ) : null}
               </div>
             </Col>
-            <Col></Col>
           </Row>
         </Container>
       </div>
@@ -260,4 +290,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default withRouter(Signup);
