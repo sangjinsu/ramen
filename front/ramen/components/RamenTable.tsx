@@ -12,7 +12,8 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import PieCustom from './PieCustom';
+import BarCustom from './BarCustom';
+import { DataProps } from './Types';
 
 function createData(
   name: string,
@@ -31,6 +32,11 @@ function createData(
 function Row(props: { row: ReturnType<typeof createData> }) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
+
+  const [testData, setData] = React.useState<DataProps>({testData:[0, 0, 0]});
+  React.useEffect( ()=> {
+    setData({testData:[row.ingredient, row.ingredient_recommend, row.ingredient_average]})
+  },[])
 
   return (
     <React.Fragment>
@@ -58,7 +64,7 @@ function Row(props: { row: ReturnType<typeof createData> }) {
               <Typography variant="h6" gutterBottom component="div">
                 막대 Chart로 비교
               </Typography>
-              <PieCustom />
+              {row.ingredient && <BarCustom testData={{testData:[row.ingredient, row.ingredient_recommend, row.ingredient_average]}} />}
             </Box>
           </Collapse>
         </TableCell>
@@ -67,16 +73,17 @@ function Row(props: { row: ReturnType<typeof createData> }) {
   );
 }
 
-const rows = [
-  createData('에너지 (Kcal)', 159, 6.0, 24),
-  createData('탄수화물(g)', 237, 9.0, 37),
-  createData('단백질(g)', 262, 16.0, 24),
-  createData('지방(g)', 305, 3.7, 67),
-  createData('당류(g)', 356, 16.0, 49),
-  createData('나트륨(mg)', 356, 16.0, 49),
-];
 
-export default function RamenTable() {
+export default function RamenTable({testData}: {testData:DataProps}) {
+  const rows = [
+    createData('에너지 (Kcal)', testData.testData[0], 330, 443.26),
+    createData('탄수화물(g)', testData.testData[1], 330, 68.05),
+    createData('단백질(g)', testData.testData[2], 50, 8.32),
+    createData('지방(g)', testData.testData[3], 0, 13.56),
+    createData('당류(g)', testData.testData[4], 25, 4.72),
+    createData('나트륨(mg)', testData.testData[5], 1500, 1467.95),
+  ];
+  
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
