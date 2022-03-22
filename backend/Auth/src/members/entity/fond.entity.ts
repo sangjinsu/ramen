@@ -1,10 +1,4 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  UpdateDateColumn,
-  CreateDateColumn,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
 export class Member {
@@ -17,9 +11,33 @@ export class Member {
   @Column({ type: 'varchar' })
   noodleTexture: string;
 
-  @Column({ type: 'varchar' })
-  ingredient: string;
+  @Column({ type: 'binary' })
+  ingredientNone: boolean;
 
-  @Column()
+  @Column({ type: 'binary' })
+  ingredientGalic: boolean;
+
+  @Column({ type: 'binary' })
+  ingredientPepper: boolean;
+
+  @Column({ type: 'binary' })
+  ingredientGreenOnion: boolean;
+
+  @Column({ type: 'varchar' })
   egg: string;
+
+  @Column({ type: 'binary' })
+  toppingNone: boolean;
+
+  @Column({ type: 'binary' })
+  toppingCheese: boolean;
+
+  @Column({ type: 'binary' })
+  toppingTteok: boolean;
+
+  @Column({ type: 'binary' })
+  toppingDumpling: boolean;
+
+  @Column({ type: 'varchar' })
+  spicy: string;
 }
