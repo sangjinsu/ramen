@@ -12,6 +12,8 @@ const BarCustom = ({testData}: {testData:DataProps}) => {
 
     const ctx = canvas.getContext("2d");
     if (ctx) {
+      console.log(testData)
+      console.log(testData.testData[0])
       chartRef.current = new Chart(ctx, {
         type: "bar",
         data: {
@@ -19,22 +21,39 @@ const BarCustom = ({testData}: {testData:DataProps}) => {
           datasets: [
             {
               label: "라면 성분",
-              data: [Number(testData.testData[0]), testData.testData[1], testData.testData[2]],
+              data: [testData.testData[0], testData.testData[1], testData.testData[2]],
               backgroundColor: ["rgba(46, 204, 113, 0.2)", "rgba(46, 204, 54, 0.2)", "rgba(46, 204, 70, 0.2)"],
               borderColor: "black",
               borderWidth: 1
             },
-            // {
-            //   label: "권장 섭취량",
-            //   data: [3, 5, 5, 5, 2, 330],
-            //   backgroundColor: "rgba(41, 128, 185, 0.2)", // 남자일 때 : rgba(41, 128, 185, 0.2), 여자일 때 : rgba(192, 57, 43, 0.2)
-            //   borderColor: "black",
-            //   borderWidth: 1
-            // }
+            // datasets: [
+            //   {
+            //     label: "라면 성분",
+            //     data: [testData.testData[0]],
+            //     backgroundColor: ["rgba(46, 204, 113, 0.2)", "rgba(46, 204, 54, 0.2)", "rgba(46, 204, 70, 0.2)"],
+            //     borderColor: "black",
+            //     borderWidth: 1
+            //   },
+            //   {
+            //     label: "권장 섭취량",
+            //     data: [testData.testData[1]],
+            //     backgroundColor: "rgba(41, 128, 185, 0.2)", // 남자일 때 : rgba(41, 128, 185, 0.2), 여자일 때 : rgba(192, 57, 43, 0.2)
+            //     borderColor: "black",
+            //     borderWidth: 1
+            //   },
+            //   {
+            //     label: "평균",
+            //     data: [testData.testData[2]],
+            //     backgroundColor: "rgba(192, 57, 43, 0.2)", // 남자일 때 : rgba(41, 128, 185, 0.2), 여자일 때 : rgba(192, 57, 43, 0.2)
+            //     borderColor: "black",
+            //     borderWidth: 1
+            //   }
+            // ]
           ]
         },
-
-        options: { responsive: true}
+        
+        options: { 
+          responsive: true}
       });
     }
   };
