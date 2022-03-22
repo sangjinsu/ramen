@@ -22,10 +22,14 @@ public class Member {
     private Long memberId;
 
     @NonNull
+    private String email;
+
+    @NonNull
     private String name;
 
     @NonNull
-    private int sex;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
     @NonNull
     private String password;
@@ -37,7 +41,7 @@ public class Member {
     private LocalDateTime updatedAt;
 
     @Setter
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "fond_id")
     private Fond fond;
 

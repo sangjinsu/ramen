@@ -1,4 +1,5 @@
-package com.ramen.ramen.config;
+package com.ramen.ranking.config;
+
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,8 +19,8 @@ import java.util.Set;
 public class SwaggerConfig {
 
     private ApiInfo swaggerInfo() {
-        return new ApiInfoBuilder().title("Ramen API")
-                .description("Ramen API Docs").build();
+        return new ApiInfoBuilder().title("Ramen Ranking API")
+                .description("Ramen Ranking API Docs").build();
     }
 
 
@@ -29,7 +30,7 @@ public class SwaggerConfig {
                 .consumes(getConsumeContentTypes())
                 .produces(getProduceContentTypes())
                 .apiInfo(swaggerInfo()).select()
-                .apis(RequestHandlerSelectors.basePackage("com.ramen.ramen"))
+                .apis(RequestHandlerSelectors.basePackage("com.ramen.ranking"))
                 .paths(PathSelectors.any())
                 .build()
                 .useDefaultResponseMessages(false);
@@ -47,9 +48,5 @@ public class SwaggerConfig {
         produces.add("application/json;charset=UTF-8");
         return produces;
     }
+
 }
-
-
-
-
-

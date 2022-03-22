@@ -15,13 +15,11 @@ public class MemberLikeRamen {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberLikeRamenId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id")
-    @NonNull
     private Member member;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "ramen_id")
-    @NonNull
     private Ramen ramen;
 }
