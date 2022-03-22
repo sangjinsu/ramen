@@ -1,6 +1,7 @@
 package com.ramen.ramen.controller.ramen;
 
 import com.ramen.ramen.dto.ramen.RamenDetailDto;
+import com.ramen.ramen.dto.ramen.RamenListDto;
 import com.ramen.ramen.service.ramen.RamenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,9 +26,23 @@ public class RamenController {
     }
 
 
-//    // 라면 조건별로 리스트 조회
-//    @ResponseStatus(HttpStatus.OK)
-//    @GetMapping("/") // ????? 어떤 조건을 받을지? 어떤 자료 반환할지??
+    // 라면 조건 카테고리 별로 리스트 조회
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/category/{category}") // 1개부터 최대 3개까지
+    RamenListDto fetchRamensByCategory(@PathVariable("category") String category){
+        return ramenService.fetchRamensByCategory(category);
+    }
+
+
+    // 라면 조건 Analysis 별로 리스트 조회
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/analysis/{analysis}") // 1개부터 최대 3개까지
+    RamenListDto fetchRamensByAnalysis(@PathVariable("analysis") String analysis){
+        return ramenService.fetchRamensByAnalysis(analysis);
+    }
+
+
+
 
 
 }

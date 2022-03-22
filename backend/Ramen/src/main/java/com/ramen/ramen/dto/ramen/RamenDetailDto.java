@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 @Data
 public class RamenDetailDto implements Serializable {
+
     private final Long ramenId;
     private final String sampleId;
     private final String name;
