@@ -64,7 +64,7 @@ function Row(props: { row: ReturnType<typeof createData> }) {
               <Typography variant="h6" gutterBottom component="div">
                 막대 Chart로 비교
               </Typography>
-              {row.ingredient && <BarCustom testData={{testData:[row.ingredient, row.ingredient_recommend, row.ingredient_average]}} />}
+              {testData.testData[0] !== 0 && <BarCustom testData={testData} />}
             </Box>
           </Collapse>
         </TableCell>

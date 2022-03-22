@@ -7,7 +7,7 @@ import { DataProps } from '../../components/Types';
 
 
 const Detail: NextPage = () => {
-  const [testData, setData] = React.useState<DataProps>({testData:[0, 0, 0, 0, 0, 0]});
+  const [testData, setData] = React.useState<DataProps>({testData:[]});
   
   React.useEffect( () => {
     setData({testData:[92, 69, 8, 1.3, 4, 1.95]})
@@ -66,11 +66,14 @@ const Detail: NextPage = () => {
               <PieCustom testData={testData}/>
             </div>
           </section>
-
-          <section>
-            <RamenTable testData={testData} />
-          </section>
-
+          
+          {
+            testData.testData.length &&
+            <section>
+              <RamenTable testData={testData} />
+            </section>
+          }
+          
           <section>
            <p>유사한 라면 보여줄 공간!</p>
            <p>유사한 라면 보여줄 공간!</p>
