@@ -28,6 +28,9 @@ public class Member {
     private String name;
 
     @NonNull
+    private int age;
+
+    @NonNull
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
