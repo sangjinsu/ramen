@@ -8,7 +8,7 @@ import { Card } from "react-bootstrap";
 import { withRouter } from "next/router";
 import Link from "next/link";
 
-function FirstPost({ router: { query } }) {
+function RamenPreference({ router: { query } }) {
   const [userInfo, setUserInfo] = useState(JSON.parse(query.userInfo));
   const [flagLength, setFlagLength] = useState(true);
   const [flagTexture, setFlagTexture] = useState(true);
@@ -18,9 +18,17 @@ function FirstPost({ router: { query } }) {
 
   const [selectLength, setSelectLength] = useState(0);
   const [selectTexture, setSelectTexture] = useState(0);
-  const [selectSoup, setSelectSoup] = useState(0);
+  const [selectSoupNothing, setSelectSoupNothing] = useState(false);
+  const [selectSoupGarlic, setSelectSoupGarlic] = useState(false);
+  const [selectSoupPepper, setSelectSoupPepper] = useState(false);
+  const [selectSoupGreenOnion, setSelectSoupGreenOnion] = useState(false);
+
   const [selectEgg, setSelectEgg] = useState(0);
-  const [selectTopping, setSelectTopping] = useState(0);
+  const [selectToppingNothing, setSelectToppingNothing] = useState(false);
+  const [selectToppingCheese, setSelectToppingCheese] = useState(false);
+  const [selectToppingRicecake, setSelectToppingRicecake] = useState(false);
+  const [selectToppingDumpling, setSelectToppingDumpling] = useState(false);
+
   const [canGoNext, setCanGoNext] = useState(false);
 
   const onClickLength1 = () => {
@@ -59,19 +67,25 @@ function FirstPost({ router: { query } }) {
 
   const onClickSoup1 = () => {
     setFlagSoup(false);
-    setSelectSoup(1);
+    setSelectSoupNothing(true);
+    setSelectSoupGarlic(false);
+    setSelectSoupPepper(false);
+    setSelectSoupGreenOnion(false);
   };
   const onClickSoup2 = () => {
     setFlagSoup(false);
-    setSelectSoup(2);
+    setSelectSoupNothing(false);
+    setSelectSoupGarlic(true);
   };
   const onClickSoup3 = () => {
     setFlagSoup(false);
-    setSelectSoup(3);
+    setSelectSoupNothing(false);
+    setSelectSoupPepper(true);
   };
   const onClickSoup4 = () => {
     setFlagSoup(false);
-    setSelectSoup(4);
+    setSelectSoupNothing(false);
+    setSelectSoupGreenOnion(true);
   };
 
   const onClickEgg1 = () => {
@@ -93,19 +107,25 @@ function FirstPost({ router: { query } }) {
 
   const onClickTopping1 = () => {
     setFlagTopping(false);
-    setSelectTopping(1);
+    setSelectToppingNothing(true);
+    setSelectToppingCheese(false);
+    setSelectToppingRicecake(false);
+    setSelectToppingDumpling(false);
   };
   const onClickTopping2 = () => {
     setFlagTopping(false);
-    setSelectTopping(2);
+    setSelectToppingNothing(false);
+    setSelectToppingCheese(true);
   };
   const onClickTopping3 = () => {
     setFlagTopping(false);
-    setSelectTopping(3);
+    setSelectToppingNothing(false);
+    setSelectToppingRicecake(true);
   };
   const onClickTopping4 = () => {
     setFlagTopping(false);
-    setSelectTopping(4);
+    setSelectToppingNothing(false);
+    setSelectToppingDumpling(true);
   };
 
   const onClickNext = () => {
@@ -120,21 +140,41 @@ function FirstPost({ router: { query } }) {
         ...prevUserInfo,
         selectLength: selectLength,
         selectTexture: selectTexture,
-        selectSoup: selectSoup,
+        selectSoupNothing: selectSoupNothing,
+        selectSoupGarlic: selectSoupGarlic,
+        selectSoupPepper: selectSoupPepper,
+        selectSoupGreenOnion: selectSoupGreenOnion,
         selectEgg: selectEgg,
-        selectTopping: selectTopping,
+        selectToppingNothing: selectToppingNothing,
+        selectToppingCheese: selectToppingCheese,
+        selectToppingRicecake: selectToppingRicecake,
+        selectToppingDumpling: selectToppingDumpling,
       };
     });
     if (
       selectLength !== 0 &&
       selectTexture !== 0 &&
-      selectSoup !== 0 &&
+      (selectSoupNothing ||
+        (selectSoupGarlic && selectSoupPepper && selectSoupGreenOnion)) &&
       selectEgg !== 0 &&
-      selectTopping !== 0
+      (selectToppingNothing ||
+        (selectToppingCheese && selectToppingRicecake && selectToppingDumpling))
     ) {
       setCanGoNext(true);
     }
-  }, [selectLength, selectTexture, selectSoup, selectEgg, selectTopping]);
+  }, [
+    selectLength,
+    selectTexture,
+    selectSoupNothing,
+    selectSoupGarlic,
+    selectSoupPepper,
+    selectSoupGreenOnion,
+    selectEgg,
+    selectToppingNothing,
+    selectToppingCheese,
+    selectToppingRicecake,
+    selectToppingDumpling,
+  ]);
 
   return (
     <>
@@ -296,7 +336,7 @@ function FirstPost({ router: { query } }) {
               <Card
                 border="secondary"
                 style={
-                  flagSoup || selectSoup === 1
+                  flagSoup || selectSoupNothing
                     ? { width: "9rem" }
                     : { width: "9rem", opacity: "0.5" }
                 }
@@ -313,7 +353,7 @@ function FirstPost({ router: { query } }) {
               <Card
                 border="secondary"
                 style={
-                  flagSoup || selectSoup === 2
+                  flagSoup || selectSoupGarlic
                     ? { width: "9rem" }
                     : { width: "9rem", opacity: "0.5" }
                 }
@@ -330,7 +370,7 @@ function FirstPost({ router: { query } }) {
               <Card
                 border="secondary"
                 style={
-                  flagSoup || selectSoup === 3
+                  flagSoup || selectSoupPepper
                     ? { width: "9rem" }
                     : { width: "9rem", opacity: "0.5" }
                 }
@@ -347,7 +387,7 @@ function FirstPost({ router: { query } }) {
               <Card
                 border="secondary"
                 style={
-                  flagSoup || selectSoup === 4
+                  flagSoup || selectSoupGreenOnion
                     ? { width: "9rem" }
                     : { width: "9rem", opacity: "0.5" }
                 }
@@ -442,7 +482,7 @@ function FirstPost({ router: { query } }) {
               <Card
                 border="secondary"
                 style={
-                  flagTopping || selectTopping === 1
+                  flagTopping || selectToppingNothing
                     ? { width: "9rem" }
                     : { width: "9rem", opacity: "0.5" }
                 }
@@ -459,7 +499,7 @@ function FirstPost({ router: { query } }) {
               <Card
                 border="secondary"
                 style={
-                  flagTopping || selectTopping === 2
+                  flagTopping || selectToppingCheese
                     ? { width: "9rem" }
                     : { width: "9rem", opacity: "0.5" }
                 }
@@ -476,7 +516,7 @@ function FirstPost({ router: { query } }) {
               <Card
                 border="secondary"
                 style={
-                  flagTopping || selectTopping === 3
+                  flagTopping || selectToppingRicecake
                     ? { width: "9rem" }
                     : { width: "9rem", opacity: "0.5" }
                 }
@@ -492,7 +532,7 @@ function FirstPost({ router: { query } }) {
               <Card
                 border="secondary"
                 style={
-                  flagTopping || selectTopping === 4
+                  flagTopping || selectToppingDumpling
                     ? { width: "9rem" }
                     : { width: "9rem", opacity: "0.5" }
                 }
@@ -524,7 +564,7 @@ function FirstPost({ router: { query } }) {
             <button onClick={onClickNext}>
               <Link
                 href={{
-                  pathname: "/ramenpreference",
+                  pathname: "/ramenselect",
                   query: { userInfo: JSON.stringify(userInfo) },
                 }}
               >
@@ -540,4 +580,4 @@ function FirstPost({ router: { query } }) {
   );
 }
 
-export default withRouter(FirstPost);
+export default withRouter(RamenPreference);

@@ -24,7 +24,7 @@ function Signup() {
   const [isSamePw, setIsSamePw] = useState(true);
   const [inputAge, setInputAge] = useState("");
   const [inputName, setInputName] = useState("");
-  const [inputGender, setInputGender] = useState("");
+  const [inputGender, setInputGender] = useState(2);
   const [canGoNext, setCanGoNext] = useState(false);
   // input data 의 변화가 있을 때마다 value 값을 변경해서 useState 해준다
   const handleInputEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,11 +57,11 @@ function Signup() {
   };
 
   const handleInputGenderMale = () => {
-    setInputGender("Male");
+    setInputGender(1);
   };
 
   const handleInputGenderFemale = () => {
-    setInputGender("Female");
+    setInputGender(0);
   };
 
   // login 버튼 클릭 이벤트
@@ -87,7 +87,7 @@ function Signup() {
       inputEmail !== "" &&
       inputName != "" &&
       inputAge !== "" &&
-      inputGender !== ""
+      inputGender !== 2
     ) {
       setCanGoNext(true);
     }
@@ -212,7 +212,7 @@ function Signup() {
                     color="primary"
                     aria-label="medium secondary button group"
                   >
-                    {inputGender === "Male" ? (
+                    {inputGender === 1 ? (
                       <Button
                         variant="contained"
                         onClick={handleInputGenderMale}
@@ -222,7 +222,7 @@ function Signup() {
                     ) : (
                       <Button onClick={handleInputGenderMale}>Male</Button>
                     )}
-                    {inputGender === "Female" ? (
+                    {inputGender === 0 ? (
                       <Button
                         variant="contained"
                         onClick={handleInputGenderFemale}
