@@ -26,7 +26,5 @@ export class AppController {
   // jwt 체크
   @UseGuards(JwtAuthGuard)
   @Get('check')
-  getProfile(@Req() request: Request) {
-    request.cookies
-  }
+  getProfile(@Req() request: Request) {}
 }
