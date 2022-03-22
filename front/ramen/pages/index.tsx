@@ -6,6 +6,7 @@ import TextField from '@mui/material/TextField';
 import Ibox from '../components/main/box'
 import Lank from '../components/main/Lank'
 import Sug from '../components/main/Suggestion'
+import Button from '@mui/material/Button';
 
 const Home: NextPage = () => {
   const [search, setSearch] = React.useState('');
@@ -23,18 +24,20 @@ const Home: NextPage = () => {
       }}
     >
       <TextField fullWidth label="검색" id="fullWidth" value={search} onChange={handleChange}/>
+      
     </Box></Col>
-    <Col>{search}</Col>
+    <Col> {search}</Col>
   </Row>
- <Ibox></Ibox>
- <Row>
-   <Col></Col>
-   <Col ><Lank></Lank></Col>
-   <Col ><Sug></Sug></Col>
-   <Col ><Sug></Sug></Col>
-   <Col ><Sug></Sug></Col>
-   <Col></Col>
+ <Ibox></Ibox> 
+   
+   
 
+ <Row>
+ <Col ></Col>
+ <Col ><Lank></Lank></Col>
+   <Col ><Sug></Sug></Col>
+   <Col ><Sug></Sug></Col>
+   <Col></Col>
  </Row>
   
 </Container>

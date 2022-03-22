@@ -9,7 +9,8 @@ export default function Layout(){
     <Col xs={3} md={3}></Col>
     <Col xs={2} md={2}>  
     <div>
-    <Figure>
+    
+<Figure>
   <Figure.Image
     width={100}
     // height={180}
@@ -20,6 +21,8 @@ export default function Layout(){
     봉지라면
   </Figure.Caption>
 </Figure>
+
+    
     </div>
     <div>
     <Figure>

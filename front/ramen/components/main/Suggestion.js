@@ -1,21 +1,21 @@
 import * as React from 'react';
-import { useTheme } from '@mui/material/styles';
-import { Figure} from 'react-bootstrap';
+import { Container,Row,Col,Card} from 'react-bootstrap';
 
-export default function MediaControlCard() {
-  const theme = useTheme();
+
+
+
+
+export default function Suggestion() {
 
   return (
-<Figure>
-  <Figure.Image
-    width={100}
-    // height={180}
-    alt="171x180"
-    src="icon/bongji.png"
-  />
-  <Figure.Caption>
-    봉지라면
-  </Figure.Caption>
-</Figure>
+<Card style={{ width: '12rem' }}>
+  <Card.Img variant="top" src="text.jpg" />
+  <Card.Body>
+    <Card.Title>추천라면</Card.Title>
+    <Card.Text>
+      알고리즘 기반으로 추천드리는 라면입니다.
+    </Card.Text>
+  </Card.Body>
+</Card>
   );
 }
