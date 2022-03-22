@@ -25,7 +25,9 @@ const Home: NextPage = () => {
     >
       <TextField fullWidth label="검색" id="fullWidth" value={search} onChange={handleChange}/>
       
-    </Box></Col>
+    </Box>
+    
+    </Col>
     <Col> {search}</Col>
   </Row>
  <Ibox></Ibox> 

@@ -8,10 +8,11 @@ const Search2: NextPage = () => {
   let image = ['j.jpg','j2.jpg','jja.jpg']
 
   return <>
-  <h1>SearchTextResult</h1>
   <Row>
   <Col xs={2} md={2}></Col>
     <Col xs={8} md={8}>
+    <h1>텍스트검색결과</h1>
+
     {
         name.map(function(n,i){
           return(
