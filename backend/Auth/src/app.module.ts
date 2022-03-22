@@ -1,18 +1,21 @@
-import { Module } from '@nestjs/common'
-import { TypeOrmModule } from '@nestjs/typeorm'
-import { AppController } from './app.controller'
-import { MemberModule } from './member/member.module'
-import { AuthModule } from './auth/auth.module'
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { getConnectionOptions } from 'typeorm';
+import { MembersModule } from './members/members.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      autoLoadEntities: true
+    TypeOrmModule.forRootAsync({
+      useFactory: async () =>
+        Object.assign(await getConnectionOptions(), {
+          autoLoadEntities: true,
+        }),
     }),
-    MemberModule,
-    AuthModule
+    MembersModule,
   ],
   controllers: [AppController],
-  providers: []
+  providers: [AppService],
 })
 export class AppModule {}
