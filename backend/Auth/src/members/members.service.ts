@@ -26,7 +26,7 @@ export class MembersService {
     const salt = bcrypt.genSaltSync(saltOrRounds);
     const hashedPassword = bcrypt.hashSync(inputPw, salt);
 
-    const member = await this.membersRepository.create({
+    this.membersRepository.create({
       email: inputEmail,
       name: inputName,
       gender: inputGender,
