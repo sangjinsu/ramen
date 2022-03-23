@@ -19,6 +19,7 @@ import { withRouter } from "next/router";
 
 function Signup({ router: { query } }) {
   const [userInfo, setUserInfo] = useState({});
+  // 이메일 형식 확인: "@" + ".com"
   const [inputEmail, setInputEmail] = useState("");
   const [inputPw, setInputPw] = useState("");
   const [inputPwConfirm, setInputPwConfirm] = useState("");
