@@ -27,6 +27,7 @@ public class RamenController {
 
 
     // 라면 조건 카테고리 별로 리스트 조회
+    // query dsl 적용 필요
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/category/{category}") // 1개부터 최대 3개까지
     RamenListDto fetchRamensByCategory(@PathVariable("category") String category){
@@ -35,9 +36,11 @@ public class RamenController {
 
 
     // 라면 조건 Analysis 별로 리스트 조회
+    // query dsl 적용 필요
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/analysis/{analysis}") // 1개부터 최대 3개까지
-    RamenListDto fetchRamensByAnalysis(@PathVariable("analysis") String analysis){
+    @GetMapping("/analysis/{analysis}")
+//    RamenListDto fetchRamensByAnalysis(@PathVariable("analysis") String analysis){
+    List<Object[]> fetchRamensByAnalysis(@PathVariable("analysis") String analysis){
         return ramenService.fetchRamensByAnalysis(analysis);
     }
 
