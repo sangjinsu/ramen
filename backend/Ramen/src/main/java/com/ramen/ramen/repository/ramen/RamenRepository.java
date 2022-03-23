@@ -1,6 +1,5 @@
 package com.ramen.ramen.repository.ramen;
 
-import com.ramen.ramen.domain.Member;
 import com.ramen.ramen.domain.Ramen;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -22,14 +21,27 @@ public interface RamenRepository extends JpaRepository<Ramen, Long> {
     @Query("select r, a.crawlingCnt from Ramen r join fetch Composition c, Analysis a where c.seasoning = 1")
     List<Object[]> findRamensByCompositionSeasoning();
 
-    @Query("select r, a.crawlingCnt from Ramen r join fetch Composition c, Analysis a where c.soup = 1")
-    List<Object[]> findRamensByCompositionSoup();
+    @Query("select r, a.crawlingCnt from Ramen r join fetch Composition c, Analysis a where c.cold = 1")
+    List<Object[]> findRamensByCompositionCold();
+
+    // category 1
+    @Query("select r, a.crawlingCnt from Ramen r join fetch Composition c, Analysis a where c.cup = 0")
+    List<Object[]> findRamensByCompositionBongji();
 
     @Query("select r, a.crawlingCnt from Ramen r join fetch Composition c, Analysis a where c.cup = 1")
     List<Object[]> findRamensByCompositionCup();
 
-    @Query("select r, a.crawlingCnt from Ramen r join fetch Composition c, Analysis a where c.cold = 1")
-    List<Object[]> findRamensByCompositionCold();
+    // category 2
+    // noodle
+    @Query("select r from Ramen r where r.noodle = :noodle")
+    List<Object[]> findRamensByNoodle(@Param("noodle") String noodle);
+
+    @Query("select r from Ramen r where r.noodle <> '건면' and r.noodle <> '유탕면' ")
+    List<Object[]> findRamensBySoftNoodle();
+
+    // category 3
+    @Query("select r, a.crawlingCnt from Ramen r join fetch Composition c, Analysis a where c.soup = 1")
+    List<Object[]> findRamensByCompositionSoup();
 
     @Query("select r, a.crawlingCnt from Ramen r join fetch Composition c, Analysis a where c.jjajang = 1")
     List<Object[]> findRamensByCompositionJjajang();
@@ -37,13 +49,6 @@ public interface RamenRepository extends JpaRepository<Ramen, Long> {
     // 볶음, 비빔
     @Query("select r, a.crawlingCnt from Ramen r join fetch Composition c, Analysis a where c.jjajang = 0 and c.soup = 0")
     List<Object[]> findRamensByCompositionBB();
-
-    // noodle
-    @Query("select r from Ramen r where r.noodle = :noodle")
-    List<Object[]> findRamensByNoodle(@Param("noodle") String noodle);
-
-    @Query("select r from Ramen r where r.noodle <> '건면' and r.noodle <> '유탕면' ")
-    List<Object[]> findRamensBySoftNoodle();
 
 
     // Analysis 선택
@@ -62,7 +67,7 @@ public interface RamenRepository extends JpaRepository<Ramen, Long> {
     @Query("select r, a.crawlingCnt from Ramen r join fetch Analysis a where a.egg > 0 ")
     List<Object[]> findRamensByAnalysisEgg();
 
-    @Query("select r, a.crawlingCnt from Ramen r join fetch Analysis a where a.beef > 0 ")
+    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.crawlingCnt from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.beef > 0 ")
     List<Object[]> findRamensByAnalysisBeef();
 
     @Query("select r, a.crawlingCnt from Ramen r join fetch Analysis a where a.pork > 0 ")
@@ -139,5 +144,4 @@ public interface RamenRepository extends JpaRepository<Ramen, Long> {
 
     @Query("select r, a.crawlingCnt from Ramen r join fetch Analysis a where a.haejang > 0 ")
     List<Object[]> findRamensByAnalysisHaejang();
-
 }
