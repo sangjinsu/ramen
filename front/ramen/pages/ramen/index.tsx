@@ -6,6 +6,7 @@ import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import Link from 'next/link';
 
 
 const RamentList: NextPage = () => {
@@ -139,10 +140,12 @@ const RamentList: NextPage = () => {
               alt={ramen.title}
               loading="lazy"
             />
-            <ImageListItemBar
-              title={ramen.title}
-              position="below"
-            />
+            <Link href={`/ramen/${1}`}>
+              <ImageListItemBar
+                title={ramen.title}
+                position="below"
+              />
+            </Link>
           </ImageListItem>
         ))}
       </ImageList>
