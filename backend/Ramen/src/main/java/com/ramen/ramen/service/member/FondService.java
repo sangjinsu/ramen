@@ -9,6 +9,7 @@ import com.ramen.ramen.repository.member.FondRepository;
 import com.ramen.ramen.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -42,6 +43,7 @@ public class FondService {
                 .spicy(fond.getSpicy()).build();
     }
 
+    @Transactional
     public void createFond(RequestFondDto requestFondDto) {
         Long memberId = requestFondDto.getMemberId();
         Fond fond = Fond.builder()
@@ -68,6 +70,7 @@ public class FondService {
         member.setFond(fond);
     }
 
+    @Transactional
     public void updateFond(RequestFondDto requestFondDto) {
         Long memberId = requestFondDto.getMemberId();
         Optional<Member> optionalMember = memberRepository.findById(memberId);
