@@ -15,9 +15,10 @@ let [ramenresult,setRamenresult] = useState([0,0,0])
   
     <div className="box">
     <Row>
-      <Col xs={3} md={3}></Col>
+      <Col xs={2} md={3} lg={3}></Col>
       {/* 반응형에서 찌그러져서 xs속성줘야함 */}
-      <Col xs={8} md={5}>    <div className="iconbox" width={400}>
+      <Col xs={9} md={6} lg={5}>    <div className="iconbox" width={500}>
+        
         <div style={{display:"inline"}}><img src="icon/rightarrow.png" width={45}></img> </div>
         <R1 ramen1={ramen1}></R1>
         <R2 ramen2={ramen2}></R2>
@@ -34,16 +35,19 @@ let [ramenresult,setRamenresult] = useState([0,0,0])
         newArray[2] = 0
         setRamenresult(newArray)
         }}><img src="reset.png" width={45}></img></div>
-      </div>
       
-
+      
+      </div>
 </Col>
-      <Col></Col>
+      <Col xs={1} md={3} lg={4}></Col>
 
     </Row>
+    
   <Row>
     <Col xs={3} md={3}></Col>
+    
     <Col xs={2} md={2}>  
+    
     {/* <div >
     <h5><Badge bg="light" text="dark">
     패키지
@@ -87,6 +91,7 @@ setRamenresult(newArray)
   </Figure.Caption>
 </Figure>
     </div>
+    
     </Col>
     <Col xs={2} md={2}>
     {/* <div >
@@ -207,7 +212,12 @@ setRamenresult(newArray)
   <style jsx>{`
         .box {
           margin:20px;
+        
           
+          
+        }
+        .boxinbox{
+          border: solid;
         }
         .figure{
           cursor: pointer;

@@ -68,9 +68,10 @@ export default function NavBar() {
       
     </Nav>
     <Nav>
-    <div class="search-container">
+    <div className="search-container">
     <form action="/action_page.php">
-      <input type="text" placeholder="라면검색" name="search" value=""></input>
+      <input type="text" placeholder="라면검색" name="search"></input>
+      {/* value로 값조정 */}
       <button type="submit">검색</button>
     </form>
   </div>
@@ -107,16 +108,7 @@ export default function NavBar() {
           display:inline-block;
           
         }
-        .search-container button {
-          float: right;
-          padding: 6px 10px;
-          margin-top: 8px;
-          margin-right: 16px;
-          background: #ddd;
-          font-size: 17px;
-          border: none;
-          cursor: pointer;
-        }
+        
         
         
       `}</style>

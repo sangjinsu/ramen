@@ -42,8 +42,12 @@ const Home: NextPage = () => {
    
 
  <Row>
+ <Col xs={1} md={2} lg={3}></Col>
+ <Col xs={10} md={8} lg={5}><Lank></Lank></Col>
+   <Col xs={1} md={2} lg={4}></Col>
+ </Row>
+ <Row>
  <Col ></Col>
- <Col ><Lank></Lank></Col>
    <Col ><Sug></Sug></Col>
    <Col ><Sug></Sug></Col>
    <Col></Col>
