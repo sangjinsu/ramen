@@ -1,7 +1,5 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { getConnectionOptions } from 'typeorm';
 import { MembersModule } from './members/members.module';
 
@@ -15,7 +13,5 @@ import { MembersModule } from './members/members.module';
     }),
     MembersModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
