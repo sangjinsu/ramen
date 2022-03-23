@@ -42,7 +42,13 @@ let [ramenresult,setRamenresult] = useState([0,0,0])
       <Col xs={1} md={3} lg={4}></Col>
 
     </Row>
-    
+    <div className='marginbox'></div>
+    {/* <Row>
+      <Col></Col>
+      <Col><hr></hr></Col>
+      <Col></Col>
+
+    </Row> */}
   <Row>
     <Col xs={3} md={3}></Col>
     
@@ -212,12 +218,10 @@ setRamenresult(newArray)
   <style jsx>{`
         .box {
           margin:20px;
-        
-          
-          
+                
         }
-        .boxinbox{
-          border: solid;
+        .marginbox{
+          margin:40px;
         }
         .figure{
           cursor: pointer;

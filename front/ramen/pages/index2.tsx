@@ -1,8 +1,6 @@
 import type { NextPage } from 'next'
 import { Container,Row,Col} from 'react-bootstrap';
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
 
 
 const Home2: NextPage = () => {
@@ -37,7 +35,7 @@ const Home2: NextPage = () => {
     
     </Col>
     <Col xs={2} md={2}>   
-    <div className='cloud2'>
+    <div className='cloud'>
     <div className='side'>#마요네즈</div> 
     <div className='side2'>#치즈</div>
     <div className='side'>#마늘</div>
@@ -49,7 +47,7 @@ const Home2: NextPage = () => {
     
     </Col>
     <Col xs={2} md={2}>    
-    <div className='cloud'>
+    <div className='cloud2'>
     <div className='side'>#고추</div>
     <div className='side2'>#콩나물</div>
     <div className='side'>#해산물</div>
@@ -63,7 +61,7 @@ const Home2: NextPage = () => {
     </Col>
 
     <Col xs={2} md={2}>   
-    <div className='cloud2'>
+    <div className='cloud'>
     <div className='side'>#비건</div>
     <div className='side2'>#다이어트</div> 
     <div className='side'>#매운맛</div>
@@ -92,12 +90,12 @@ const Home2: NextPage = () => {
    @-webkit-keyframes glide  {
     from {
        left:0px;
-       top:10px;
+       top:70px;
     }
     
     to {
        left:0px;
-       top:40px;
+       top:100px;
     }
  
  }
