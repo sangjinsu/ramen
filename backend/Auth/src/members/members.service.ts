@@ -1,21 +1,16 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { SignupRequestDto } from './dto/signup.request.dto';
-import { Member } from './entity/member.entity';
 import * as bcrypt from 'bcrypt';
-import { Fond } from './entity/fond.entity';
-import { MemberLikeRamen } from './entity/memberLikeRamen.entity';
+import { MembersRepository } from './repository/member.repository';
+import { FondRepository } from './repository/fond.repository';
+import { MemberLikeRamenRepository } from './repository/memberLikeRamen.repository';
 
 @Injectable()
 export class MembersService {
   constructor(
-    @InjectRepository(Member)
-    private readonly membersRepository: Repository<Member>,
-    @InjectRepository(Fond)
-    private readonly fondRepository: Repository<Fond>,
-    @InjectRepository(MemberLikeRamen)
-    private readonly memberLikeRamenRepository: Repository<MemberLikeRamen>,
+    private readonly membersRepository: MembersRepository,
+    private readonly fondRepository: FondRepository,
+    private readonly memberLikeRamenRepository: MemberLikeRamenRepository,
   ) {}
 
   async signup(body: SignupRequestDto) {
@@ -44,8 +39,8 @@ export class MembersService {
       throw new UnauthorizedException('해당하는 멤버가 이미 존재합니다.');
     }
 
-    const saltOrRounds = 10;
-    const salt = await bcrypt.genSalt(saltOrRounds);
+    const rounds = 10;
+    const salt = await bcrypt.genSalt(rounds);
     const hashedPassword = await bcrypt.hash(inputPw, salt);
 
     const fond = this.fondRepository.create({
@@ -81,5 +76,7 @@ export class MembersService {
       });
       this.memberLikeRamenRepository.save(memberLikeRamen);
     });
+
+    return newMember;
   }
 }
