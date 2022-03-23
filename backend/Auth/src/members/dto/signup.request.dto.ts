@@ -171,7 +171,7 @@ export class SignupRequestDto {
     description: 'spicy',
     required: true,
   })
-  @IsBoolean()
+  @IsString()
   @IsNotEmpty()
   readonly spicy: string;
 
