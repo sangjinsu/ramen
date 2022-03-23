@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
 import ButtonGroup from "@mui/material/ButtonGroup";
-import Button from "@mui/material/Button";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import LockIcon from "@mui/icons-material/Lock";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import CakeIcon from "@mui/icons-material/Cake";
 import WcIcon from "@mui/icons-material/Wc";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Box from "@mui/material/Box";
 import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
-import Link from "next/link";
 import FormHelperText from "@mui/material/FormHelperText";
 import { Container, Row, Col } from "react-bootstrap";
 import { withRouter } from "next/router";
+import FrontArrow from "../../components/signup/FrontArrow";
+import SignupUserInfoForm from "../../components/signup/SignupUserInfoForm";
+import GenderButton from "../../components/signup/GenderButton";
 
 function Signup({ router: { query } }) {
   const [userInfo, setUserInfo] = useState({});
@@ -65,13 +65,6 @@ function Signup({ router: { query } }) {
 
   const handleInputGenderFemale = () => {
     setInputGender("F");
-  };
-
-  // login 버튼 클릭 이벤트
-  const onClickNext = async () => {
-    console.log(userInfo);
-    console.log("click Next");
-    console.log(JSON.stringify(userInfo));
   };
 
   useEffect(() => {
@@ -127,35 +120,23 @@ function Signup({ router: { query } }) {
             <Col>
               <h2>회원 정보입력</h2>
               <Box sx={{ "& > :not(style)": { m: 1 } }}>
-                <FormControl variant="standard">
-                  <InputLabel htmlFor="input_email">Email</InputLabel>
-                  <Input
-                    id="input_email"
-                    value={inputEmail}
-                    onChange={handleInputEmail}
-                    placeholder="이메일을 입력해주세요"
-                    startAdornment={
-                      <InputAdornment position="start">
-                        <MailOutlineIcon />
-                      </InputAdornment>
-                    }
-                  />
-                </FormControl>
+                <SignupUserInfoForm
+                  infoName={"Email"}
+                  infoId={"input_email"}
+                  handleFunction={handleInputEmail}
+                  value={inputEmail}
+                  type={"text"}
+                  icon={<MailOutlineIcon />}
+                />
                 <br />
-                <FormControl variant="standard">
-                  <InputLabel htmlFor="input_pw">Choose password</InputLabel>
-                  <Input
-                    id="input_pw"
-                    type="password"
-                    value={inputPw}
-                    onChange={handleInputPw}
-                    startAdornment={
-                      <InputAdornment position="start">
-                        <LockIcon />
-                      </InputAdornment>
-                    }
-                  />
-                </FormControl>
+                <SignupUserInfoForm
+                  infoName={"Choose password"}
+                  infoId={"input_pw"}
+                  handleFunction={handleInputPw}
+                  value={inputPw}
+                  type={"password"}
+                  icon={<LockIcon />}
+                />
                 <br />
                 {isSamePw ? (
                   <FormControl variant="standard">
@@ -200,34 +181,23 @@ function Signup({ router: { query } }) {
                 )}
 
                 <br />
-                <FormControl variant="standard">
-                  <InputLabel htmlFor="input_name">Name</InputLabel>
-                  <Input
-                    id="input_name"
-                    value={inputName}
-                    onChange={handleInputName}
-                    startAdornment={
-                      <InputAdornment position="start">
-                        <PersonOutlineIcon />
-                      </InputAdornment>
-                    }
-                  />
-                </FormControl>
+                <SignupUserInfoForm
+                  infoName={"Name"}
+                  infoId={"input_name"}
+                  handleFunction={handleInputName}
+                  value={inputName}
+                  type={"text"}
+                  icon={<PersonOutlineIcon />}
+                />
                 <br />
-                <FormControl variant="standard">
-                  <InputLabel htmlFor="input_age">Ages</InputLabel>
-                  <Input
-                    id="input_age"
-                    type="number"
-                    value={inputAge}
-                    onChange={handleInputAge}
-                    startAdornment={
-                      <InputAdornment position="start">
-                        <CakeIcon />
-                      </InputAdornment>
-                    }
-                  />
-                </FormControl>
+                <SignupUserInfoForm
+                  infoName={"Ages"}
+                  infoId={"input_age"}
+                  handleFunction={handleInputAge}
+                  value={inputAge}
+                  type={"number"}
+                  icon={<CakeIcon />}
+                />
                 <br />
                 <div style={{ color: "rgba(0, 0, 0, 0.54)" }}>
                   <WcIcon />
@@ -237,26 +207,18 @@ function Signup({ router: { query } }) {
                     color="primary"
                     aria-label="medium secondary button group"
                   >
-                    {inputGender === "M" ? (
-                      <Button
-                        variant="contained"
-                        onClick={handleInputGenderMale}
-                      >
-                        Male
-                      </Button>
-                    ) : (
-                      <Button onClick={handleInputGenderMale}>Male</Button>
-                    )}
-                    {inputGender === "F" ? (
-                      <Button
-                        variant="contained"
-                        onClick={handleInputGenderFemale}
-                      >
-                        Female
-                      </Button>
-                    ) : (
-                      <Button onClick={handleInputGenderFemale}>Female</Button>
-                    )}
+                    <GenderButton
+                      inputGender={inputGender}
+                      inputGenderFlag={"M"}
+                      gender={"Male"}
+                      handleFunction={handleInputGenderMale}
+                    />
+                    <GenderButton
+                      inputGender={inputGender}
+                      inputGenderFlag={"F"}
+                      gender={"Female"}
+                      handleFunction={handleInputGenderFemale}
+                    />
                   </ButtonGroup>
                 </div>
               </Box>
@@ -269,18 +231,10 @@ function Signup({ router: { query } }) {
             <Col>
               <div>
                 {canGoNext ? (
-                  <button onClick={onClickNext}>
-                    <Link
-                      href={{
-                        pathname: "/ramenpreference",
-                        query: { userInfo: JSON.stringify(userInfo) },
-                      }}
-                    >
-                      <a>
-                        <ArrowForwardIosIcon />
-                      </a>
-                    </Link>
-                  </button>
+                  <FrontArrow
+                    pathname={"/ramenpreference"}
+                    userInfo={userInfo}
+                  />
                 ) : null}
               </div>
             </Col>

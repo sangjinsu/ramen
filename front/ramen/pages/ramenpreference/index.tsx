@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 import { orange } from "@mui/material/colors";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { Container, Row, Col } from "react-bootstrap";
 import { Card } from "react-bootstrap";
 import { withRouter } from "next/router";
-import Link from "next/link";
+import BackArrow from "../../components/signup/BackArrow";
+import FrontArrow from "../../components/signup/FrontArrow";
 
 function RamenPreference({ router: { query } }) {
   const [userInfo, setUserInfo] = useState(JSON.parse(query.userInfo));
@@ -184,10 +183,10 @@ function RamenPreference({ router: { query } }) {
       setFlagTopping((prevState) => false);
     }
   }, [
-    selectSoupNothing,
-    selectSoupGarlic,
-    selectSoupPepper,
-    selectSoupGreenOnion,
+    selectToppingNothing,
+    selectToppingCheese,
+    selectToppingRicecake,
+    selectToppingDumpling,
   ]);
 
   return (
@@ -293,34 +292,12 @@ function RamenPreference({ router: { query } }) {
           })}
           <Row>
             <Col>
-              <button>
-                <Link
-                  href={{
-                    pathname: "/signup",
-                    query: { userInfo: JSON.stringify(userInfo) },
-                  }}
-                >
-                  <a>
-                    <ArrowBackIosIcon />
-                  </a>
-                </Link>
-              </button>
+              <BackArrow pathname={"/signup"} userInfo={userInfo} />
             </Col>
             <Col></Col>
             <Col>
               {canGoNext ? (
-                <button>
-                  <Link
-                    href={{
-                      pathname: "/ramenselect",
-                      query: { userInfo: JSON.stringify(userInfo) },
-                    }}
-                  >
-                    <a>
-                      <ArrowForwardIosIcon />
-                    </a>
-                  </Link>
-                </button>
+                <FrontArrow pathname={"/ramenselect"} userInfo={userInfo} />
               ) : null}
             </Col>
           </Row>
