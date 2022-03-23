@@ -124,13 +124,13 @@ const RamentList: NextPage = () => {
   const currentPageFirst = currentPageLast -ramenPerPage; /// 현재 페이지의 끝
   const currentRamens = ramenData.slice(currentPageFirst, currentPageLast); // 0 ~ 8
   const pageNumber = Math.ceil(ramenData.length / ramenPerPage);
-  const imageListheight = currentRamens.length <= 4 ? 350 : 550; // 현재 페이지 갯수에 따른 높이 조정
+  // const imageListheight = currentRamens.length <= 4 ? 350 : 550; // 현재 페이지 갯수에 따른 높이 조정
 
   
 
   return (
     <div className="img_list">
-      <ImageList sx={{ width: "100%", height: imageListheight }} cols={4} gap={10}>
+      <ImageList sx={{ width: "100%" }} cols={4} gap={10}>
         {currentRamens.map((ramen) => (
           <ImageListItem key={ramen.img}>
             <img
