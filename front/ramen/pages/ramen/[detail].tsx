@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import * as React from 'react';
 import PieCustom from '../../components/PieCustom';
 import RamenTable from '../../components/RamenTable';
@@ -7,6 +8,10 @@ import { DataProps } from '../../components/Types';
 
 
 const Detail: NextPage = () => {
+  const router = useRouter();
+  const dynamicValue = router.query.detail
+  console.log(dynamicValue)
+
   const [testData, setData] = React.useState<DataProps>({testData:[]});
   
   React.useEffect( () => {
