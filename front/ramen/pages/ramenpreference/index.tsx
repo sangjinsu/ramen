@@ -7,24 +7,23 @@ import { Container, Row, Col } from "react-bootstrap";
 import { Card } from "react-bootstrap";
 import { withRouter } from "next/router";
 import Link from "next/link";
+import { style } from "@mui/system";
 
 function RamenPreference({ router: { query } }) {
   const [userInfo, setUserInfo] = useState(JSON.parse(query.userInfo));
-  console.log("start", JSON.parse(query.userInfo));
-  const [flagLength, setFlagLength] = useState(true);
-  const [flagTexture, setFlagTexture] = useState(true);
+
   const [flagSoup, setFlagSoup] = useState(true);
-  const [flagEgg, setFlagEgg] = useState(true);
   const [flagTopping, setFlagTopping] = useState(true);
 
-  const [selectLength, setSelectLength] = useState(0);
-  const [selectTexture, setSelectTexture] = useState(0);
+  const [selectLength, setSelectLength] = useState("");
+  const [selectTexture, setSelectTexture] = useState("");
+  const [selectEgg, setSelectEgg] = useState("");
+
   const [selectSoupNothing, setSelectSoupNothing] = useState(false);
   const [selectSoupGarlic, setSelectSoupGarlic] = useState(false);
   const [selectSoupPepper, setSelectSoupPepper] = useState(false);
   const [selectSoupGreenOnion, setSelectSoupGreenOnion] = useState(false);
 
-  const [selectEgg, setSelectEgg] = useState(0);
   const [selectToppingNothing, setSelectToppingNothing] = useState(false);
   const [selectToppingCheese, setSelectToppingCheese] = useState(false);
   const [selectToppingRicecake, setSelectToppingRicecake] = useState(false);
@@ -32,153 +31,144 @@ function RamenPreference({ router: { query } }) {
 
   const [canGoNext, setCanGoNext] = useState(false);
 
-  const onClickLength1 = () => {
-    setFlagLength(false);
-    setSelectLength(1);
-  };
-  const onClickLength2 = () => {
-    setFlagLength(false);
-    setSelectLength(2);
-  };
-  const onClickLength3 = () => {
-    setFlagLength(false);
-    setSelectLength(3);
-  };
-  const onClickLength4 = () => {
-    setFlagLength(false);
-    setSelectLength(4);
-  };
-
-  const onClickTexture1 = () => {
-    setFlagTexture(false);
-    setSelectTexture(1);
-  };
-  const onClickTexture2 = () => {
-    setFlagTexture(false);
-    setSelectTexture(2);
-  };
-  const onClickTexture3 = () => {
-    setFlagTexture(false);
-    setSelectTexture(3);
-  };
-  const onClickTexture4 = () => {
-    setFlagTexture(false);
-    setSelectTexture(4);
-  };
-
-  const onClickSoup1 = () => {
-    setFlagSoup(false);
-    setSelectSoupNothing(true);
-    setSelectSoupGarlic(false);
-    setSelectSoupPepper(false);
-    setSelectSoupGreenOnion(false);
-  };
-  const onClickSoup2 = () => {
-    setFlagSoup(false);
-    setSelectSoupNothing(false);
-    setSelectSoupGarlic(true);
-  };
-  const onClickSoup3 = () => {
-    setFlagSoup(false);
-    setSelectSoupNothing(false);
-    setSelectSoupPepper(true);
-  };
-  const onClickSoup4 = () => {
-    setFlagSoup(false);
-    setSelectSoupNothing(false);
-    setSelectSoupGreenOnion(true);
-  };
-
-  const onClickEgg1 = () => {
-    setFlagEgg(false);
-    setSelectEgg(1);
-  };
-  const onClickEgg2 = () => {
-    setFlagEgg(false);
-    setSelectEgg(2);
-  };
-  const onClickEgg3 = () => {
-    setFlagEgg(false);
-    setSelectEgg(3);
-  };
-  const onClickEgg4 = () => {
-    setFlagEgg(false);
-    setSelectEgg(4);
-  };
-
-  const onClickTopping1 = () => {
-    setFlagTopping(false);
-    setSelectToppingNothing(true);
-    setSelectToppingCheese(false);
-    setSelectToppingRicecake(false);
-    setSelectToppingDumpling(false);
-  };
-  const onClickTopping2 = () => {
-    setFlagTopping(false);
-    setSelectToppingNothing(false);
-    setSelectToppingCheese(true);
-  };
-  const onClickTopping3 = () => {
-    setFlagTopping(false);
-    setSelectToppingNothing(false);
-    setSelectToppingRicecake(true);
-  };
-  const onClickTopping4 = () => {
-    setFlagTopping(false);
-    setSelectToppingNothing(false);
-    setSelectToppingDumpling(true);
-  };
-
-  const onClickNext = () => {
-    console.log("clickNext", userInfo);
-    console.log(JSON.stringify(userInfo));
+  useEffect(() => {
     setUserInfo((prevUserInfo) => {
       return {
         ...prevUserInfo,
-        selectLength: selectLength,
-        selectTexture: selectTexture,
-        selectSoupNothing: selectSoupNothing,
-        selectSoupGarlic: selectSoupGarlic,
-        selectSoupPepper: selectSoupPepper,
-        selectSoupGreenOnion: selectSoupGreenOnion,
-        selectEgg: selectEgg,
-        selectToppingNothing: selectToppingNothing,
-        selectToppingCheese: selectToppingCheese,
-        selectToppingRicecake: selectToppingRicecake,
-        selectToppingDumpling: selectToppingDumpling,
+        noodleLength: selectLength,
+        noodleTexture: selectTexture,
+        egg: selectEgg,
+        ingredientNone: selectSoupNothing,
+        ingredientGarlic: selectSoupGarlic,
+        ingredientPepper: selectSoupPepper,
+        ingredientGreenOnion: selectSoupGreenOnion,
+        toppingNone: selectToppingNothing,
+        toppingCheese: selectToppingCheese,
+        toppingTteok: selectToppingRicecake,
+        toppingDumpling: selectToppingDumpling,
       };
     });
-  };
-
-  useEffect(() => {
     if (
-      selectLength !== 0 &&
-      selectTexture !== 0 &&
+      selectLength !== "" &&
+      selectTexture !== "" &&
       (selectSoupNothing ||
         selectSoupGarlic ||
         selectSoupPepper ||
         selectSoupGreenOnion) &&
-      selectEgg !== 0 &&
+      selectEgg !== "" &&
       (selectToppingNothing ||
         selectToppingCheese ||
         selectToppingRicecake ||
         selectToppingDumpling)
     ) {
+      console.log("click", selectEgg);
+
       setCanGoNext(true);
+    } else {
+      console.log("click", selectEgg);
+      setCanGoNext(false);
     }
   }, [
     selectLength,
     selectTexture,
+    selectEgg,
     selectSoupNothing,
     selectSoupGarlic,
     selectSoupPepper,
     selectSoupGreenOnion,
-    selectEgg,
     selectToppingNothing,
     selectToppingCheese,
     selectToppingRicecake,
     selectToppingDumpling,
   ]);
+
+  const labelList = ["A", "B", "C", "D"];
+  const ramenPreferences = [
+    ["그냥", "2개로 분리", "4개로 분리", "잘게"],
+    ["쫄깃하게", "부드럽게", "심지가 있게", "퍼지게"],
+    ["안 넣음", "완숙", "반숙", "풀어서"],
+    ["안 넣음", "마늘", "고추", "파"],
+    ["안 넣음", "치즈", "떡", "만두"],
+  ];
+  const ramenPreferenceName = [
+    "1. 면의 길이",
+    "2. 면의 식감",
+    "3. 계란",
+    "4. 국물 재료",
+    "5. 토핑",
+  ];
+
+  const onClickChoice = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const idArray = event.target.id.split("-");
+    const categoryId = Number(idArray[1]);
+    const choiceId = Number(idArray[2]);
+    const choice = ramenPreferences[categoryId][choiceId];
+    console.log(categoryId, choiceId, choice);
+    if (categoryId === 0) {
+      if (selectLength === choice) {
+        console.log("prevLength", selectLength);
+        setSelectLength((prevLength) => "");
+      } else {
+        setSelectLength((prevLength) => choice);
+      }
+    } else if (categoryId === 1) {
+      if (selectTexture === choice) {
+        setSelectTexture((prevTexture) => "");
+      } else {
+        setSelectTexture((prevTextutre) => choice);
+      }
+    } else if (categoryId === 2) {
+      if (selectEgg === choice) {
+        setSelectEgg((prevEgg) => "");
+      } else {
+        setSelectEgg((prevEgg) => choice);
+      }
+    } else if (categoryId === 3) {
+      if (
+        !selectSoupNothing &&
+        !selectSoupGarlic &&
+        !selectSoupPepper &&
+        !selectSoupGreenOnion
+      ) {
+        setFlagSoup((prevState) => true);
+      } else {
+        setFlagSoup((prevState) => false);
+      }
+
+      if (choiceId === 0) {
+        setSelectSoupNothing((prevSelect) => true);
+        setSelectSoupGarlic((prevSelect) => false);
+        setSelectSoupPepper((prevSelect) => false);
+        setSelectSoupGreenOnion((prevSelect) => false);
+      } else {
+        setSelectSoupNothing((prevSelect) => false);
+        if (choiceId === 1) {
+          setSelectSoupGarlic((prevSelect) => true);
+        } else if (choiceId === 2) {
+          setSelectSoupPepper((prevSelect) => true);
+        } else if (choiceId === 3) {
+          setSelectSoupGreenOnion((prevSelect) => true);
+        }
+      }
+    } else if (categoryId === 4) {
+      setFlagTopping((prevState) => false);
+      if (choiceId === 0) {
+        setSelectToppingNothing((prevSelect) => true);
+        setSelectToppingCheese((prevSelect) => false);
+        setSelectToppingRicecake((prevSelect) => false);
+        setSelectToppingDumpling((prevSelect) => false);
+      } else {
+        setSelectToppingNothing((prevSelect) => false);
+        if (choiceId === 1) {
+          setSelectToppingCheese((prevSelect) => true);
+        } else if (choiceId === 2) {
+          setSelectToppingRicecake((prevSelect) => true);
+        } else if (choiceId === 3) {
+          setSelectToppingDumpling((prevSelect) => true);
+        }
+      }
+    }
+  };
 
   return (
     <>
@@ -192,368 +182,98 @@ function RamenPreference({ router: { query } }) {
             <Col></Col>
           </Row>
           <br />
-          <Row>
-            <Col>1. 면의 길이</Col>
-            <Col id="lenght1" type="button" onClick={onClickLength1}>
-              <Card
-                border="secondary"
-                style={
-                  flagLength || selectLength === 1
-                    ? { width: "9rem" }
-                    : { width: "9rem", opacity: "0.5" }
-                }
-              >
-                <Avatar sx={{ bgcolor: orange[500] }} aria-label="recipe">
-                  A
-                </Avatar>
-                <Card.Img width="50" src="/ramenpreference/length_1.jpg" />
-                <Card.Header>그냥</Card.Header>
-              </Card>
-            </Col>
-            <Col type="button" onClick={onClickLength2}>
-              <Card
-                border="secondary"
-                style={
-                  flagLength || selectLength === 2
-                    ? { width: "9rem" }
-                    : { width: "9rem", opacity: "0.5" }
-                }
-              >
-                <Avatar sx={{ bgcolor: orange[500] }} aria-label="recipe">
-                  B
-                </Avatar>
-                <Card.Img width="50" src="/ramenpreference/length_2.jpg" />
-                <Card.Header>2개로 분리</Card.Header>
-              </Card>
-            </Col>
-            <Col type="button" onClick={onClickLength3}>
-              <Card
-                border="secondary"
-                style={
-                  flagLength || selectLength === 3
-                    ? { width: "9rem" }
-                    : { width: "9rem", opacity: "0.5" }
-                }
-              >
-                <Avatar sx={{ bgcolor: orange[500] }} aria-label="recipe">
-                  C
-                </Avatar>
-                <Card.Img width="50" src="/ramenpreference/length_3.jpg" />
-                <Card.Header>4개로 분리</Card.Header>
-              </Card>
-            </Col>
-            <Col type="button" onClick={onClickLength4}>
-              <Card
-                border="secondary"
-                style={
-                  flagLength || selectLength === 4
-                    ? { width: "9rem" }
-                    : { width: "9rem", opacity: "0.5" }
-                }
-              >
-                <Avatar sx={{ bgcolor: orange[500] }} aria-label="recipe">
-                  D
-                </Avatar>
-                <Card.Img width="50" src="/ramenpreference/length_4.jpg" />
-                <Card.Header>잘게</Card.Header>
-              </Card>
-            </Col>
-            <Col></Col>
-          </Row>
-          <br />
-          <Row>
-            <Col>2. 면의 식감</Col>
-            <Col type="button" onClick={onClickTexture1}>
-              <Card
-                border="secondary"
-                style={
-                  flagTexture || selectTexture === 1
-                    ? { width: "9rem" }
-                    : { width: "9rem", opacity: "0.5" }
-                }
-              >
-                {" "}
-                <Avatar sx={{ bgcolor: orange[500] }} aria-label="recipe">
-                  A
-                </Avatar>
-                <Card.Img width="50" src="/ramenpreference/texture_1.jpg" />
-                <Card.Header>쫄깃하게</Card.Header>
-              </Card>
-            </Col>
-            <Col type="button" onClick={onClickTexture2}>
-              <Card
-                border="secondary"
-                style={
-                  flagTexture || selectTexture === 2
-                    ? { width: "9rem" }
-                    : { width: "9rem", opacity: "0.5" }
-                }
-              >
-                {" "}
-                <Avatar sx={{ bgcolor: orange[500] }} aria-label="recipe">
-                  B
-                </Avatar>
-                <Card.Img width="50" src="/ramenpreference/texture_2.jpg" />
-                <Card.Header>부드럽게</Card.Header>
-              </Card>
-            </Col>
-            <Col type="button" onClick={onClickTexture3}>
-              <Card
-                border="secondary"
-                style={
-                  flagTexture || selectTexture === 3
-                    ? { width: "9rem" }
-                    : { width: "9rem", opacity: "0.5" }
-                }
-              >
-                {" "}
-                <Avatar sx={{ bgcolor: orange[500] }} aria-label="recipe">
-                  C
-                </Avatar>
-                <Card.Img width="50" src="/ramenpreference/texture_3.jpg" />
-                <Card.Header>심지가 있게</Card.Header>
-              </Card>
-            </Col>
-            <Col type="button" onClick={onClickTexture4}>
-              <Card
-                border="secondary"
-                style={
-                  flagTexture || selectTexture === 4
-                    ? { width: "9rem" }
-                    : { width: "9rem", opacity: "0.5" }
-                }
-              >
-                {" "}
-                <Avatar sx={{ bgcolor: orange[500] }} aria-label="recipe">
-                  D
-                </Avatar>
-                <Card.Img width="50" src="/ramenpreference/texture_4.jpg" />
-                <Card.Header>퍼지게</Card.Header>
-              </Card>
-            </Col>
-            <Col></Col>
-          </Row>
-          <br />
-          <Row>
-            <Col>3. 국물 재료</Col>
-            <Col type="button" onClick={onClickSoup1}>
-              <Card
-                border="secondary"
-                style={
-                  flagSoup || selectSoupNothing
-                    ? { width: "9rem" }
-                    : { width: "9rem", opacity: "0.5" }
-                }
-              >
-                {" "}
-                <Avatar sx={{ bgcolor: orange[500] }} aria-label="recipe">
-                  A
-                </Avatar>
-                <Card.Img width="50" src="/ramenpreference/soup_1.jpg" />
-                <Card.Header>안 넣음</Card.Header>
-              </Card>
-            </Col>
-            <Col type="button" onClick={onClickSoup2}>
-              <Card
-                border="secondary"
-                style={
-                  flagSoup || selectSoupGarlic
-                    ? { width: "9rem" }
-                    : { width: "9rem", opacity: "0.5" }
-                }
-              >
-                {" "}
-                <Avatar sx={{ bgcolor: orange[500] }} aria-label="recipe">
-                  B
-                </Avatar>
-                <Card.Img width="50" src="/ramenpreference/soup_2.jpg" />
-                <Card.Header>마늘</Card.Header>
-              </Card>
-            </Col>
-            <Col type="button" onClick={onClickSoup3}>
-              <Card
-                border="secondary"
-                style={
-                  flagSoup || selectSoupPepper
-                    ? { width: "9rem" }
-                    : { width: "9rem", opacity: "0.5" }
-                }
-              >
-                {" "}
-                <Avatar sx={{ bgcolor: orange[500] }} aria-label="recipe">
-                  C
-                </Avatar>
-                <Card.Img width="50" src="/ramenpreference/soup_3.jpg" />
-                <Card.Header>고추</Card.Header>
-              </Card>
-            </Col>
-            <Col type="button" onClick={onClickSoup4}>
-              <Card
-                border="secondary"
-                style={
-                  flagSoup || selectSoupGreenOnion
-                    ? { width: "9rem" }
-                    : { width: "9rem", opacity: "0.5" }
-                }
-              >
-                {" "}
-                <Avatar sx={{ bgcolor: orange[500] }} aria-label="recipe">
-                  D
-                </Avatar>
-                <Card.Img width="50" src="/ramenpreference/soup_4.jpg" />
-                <Card.Header>파</Card.Header>
-              </Card>
-            </Col>
-            <Col></Col>
-          </Row>
-          <br />
-          <Row>
-            <Col>4. 계란</Col>
-            <Col type="button" onClick={onClickEgg1}>
-              <Card
-                border="secondary"
-                style={
-                  flagEgg || selectEgg === 1
-                    ? { width: "9rem" }
-                    : { width: "9rem", opacity: "0.5" }
-                }
-              >
-                {" "}
-                <Avatar sx={{ bgcolor: orange[500] }} aria-label="recipe">
-                  A
-                </Avatar>
-                <Card.Img width="50" src="/ramenpreference/egg_1.jpg" />
-                <Card.Header>안 넣음</Card.Header>
-              </Card>
-            </Col>
-            <Col type="button" onClick={onClickEgg2}>
-              <Card
-                border="secondary"
-                style={
-                  flagEgg || selectEgg === 2
-                    ? { width: "9rem" }
-                    : { width: "9rem", opacity: "0.5" }
-                }
-              >
-                {" "}
-                <Avatar sx={{ bgcolor: orange[500] }} aria-label="recipe">
-                  B
-                </Avatar>
-                <Card.Img width="50" src="/ramenpreference/egg_2.jpg" />
-                <Card.Header>완숙</Card.Header>
-              </Card>
-            </Col>
-            <Col type="button" onClick={onClickEgg3}>
-              <Card
-                border="secondary"
-                style={
-                  flagEgg || selectEgg === 3
-                    ? { width: "9rem" }
-                    : { width: "9rem", opacity: "0.5" }
-                }
-              >
-                {" "}
-                <Avatar sx={{ bgcolor: orange[500] }} aria-label="recipe">
-                  C
-                </Avatar>
-                <Card.Img width="50" src="/ramenpreference/egg_3.jpg" />
-                <Card.Header>반숙</Card.Header>
-              </Card>
-            </Col>
-            <Col type="button" onClick={onClickEgg4}>
-              <Card
-                border="secondary"
-                style={
-                  flagEgg || selectEgg === 4
-                    ? { width: "9rem" }
-                    : { width: "9rem", opacity: "0.5" }
-                }
-              >
-                {" "}
-                <Avatar sx={{ bgcolor: orange[500] }} aria-label="recipe">
-                  D
-                </Avatar>
-                <Card.Img width="50" src="/ramenpreference/egg_4.jpg" />
-                <Card.Header>풀어서</Card.Header>
-              </Card>
-            </Col>
-            <Col></Col>
-          </Row>
-          <br />
-          <Row>
-            <Col>5. 토핑</Col>
-            <Col type="button" onClick={onClickTopping1}>
-              <Card
-                border="secondary"
-                style={
-                  flagTopping || selectToppingNothing
-                    ? { width: "9rem" }
-                    : { width: "9rem", opacity: "0.5" }
-                }
-              >
-                {" "}
-                <Avatar sx={{ bgcolor: orange[500] }} aria-label="recipe">
-                  A
-                </Avatar>
-                <Card.Img width="50" src="/ramenpreference/ingre_1.jpg" />
-                <Card.Header>안 넣음</Card.Header>
-              </Card>
-            </Col>
-            <Col type="button" onClick={onClickTopping2}>
-              <Card
-                border="secondary"
-                style={
-                  flagTopping || selectToppingCheese
-                    ? { width: "9rem" }
-                    : { width: "9rem", opacity: "0.5" }
-                }
-              >
-                {" "}
-                <Avatar sx={{ bgcolor: orange[500] }} aria-label="recipe">
-                  B
-                </Avatar>
-                <Card.Img width="50" src="/ramenpreference/ingre_2.jpg" />
-                <Card.Header>치즈</Card.Header>
-              </Card>
-            </Col>
-            <Col type="button" onClick={onClickTopping3}>
-              <Card
-                border="secondary"
-                style={
-                  flagTopping || selectToppingRicecake
-                    ? { width: "9rem" }
-                    : { width: "9rem", opacity: "0.5" }
-                }
-              >
-                <Avatar sx={{ bgcolor: orange[500] }} aria-label="recipe">
-                  C
-                </Avatar>
-                <Card.Img width="50" src="/ramenpreference/ingre_3.jpg" />
-                <Card.Header>떡</Card.Header>
-              </Card>
-            </Col>
-            <Col type="button" onClick={onClickTopping4}>
-              <Card
-                border="secondary"
-                style={
-                  flagTopping || selectToppingDumpling
-                    ? { width: "9rem" }
-                    : { width: "9rem", opacity: "0.5" }
-                }
-              >
-                <Avatar sx={{ bgcolor: orange[500] }} aria-label="recipe">
-                  D
-                </Avatar>
-                <Card.Img width="50" src="/ramenpreference/ingre_4.jpg" />
-                <Card.Header>만두</Card.Header>
-              </Card>
-            </Col>
-            <Col></Col>
-          </Row>
-          <br />
+          {ramenPreferences.map((ramenPreference, idxPreference) => {
+            return (
+              <div key={idxPreference}>
+                <Row>
+                  <Col>{ramenPreferenceName[idxPreference]}</Col>
+                  {ramenPreferences[idxPreference].map((choice, idxChoice) => {
+                    return (
+                      <Col
+                        id={`choice-${idxPreference}-${idxChoice}`}
+                        key={idxChoice}
+                        type="button"
+                        onClick={onClickChoice}
+                      >
+                        <Card
+                          id={`choice-${idxPreference}-${idxChoice}`}
+                          border="secondary"
+                          style={
+                            (idxPreference === 0 &&
+                              (selectLength === "" ||
+                                selectLength ===
+                                  ramenPreferences[idxPreference][
+                                    idxChoice
+                                  ])) ||
+                            (idxPreference === 1 &&
+                              (selectTexture === "" ||
+                                selectTexture ===
+                                  ramenPreferences[idxPreference][
+                                    idxChoice
+                                  ])) ||
+                            (idxPreference === 2 &&
+                              (selectEgg === "" ||
+                                selectEgg ===
+                                  ramenPreferences[idxPreference][
+                                    idxChoice
+                                  ])) ||
+                            (idxPreference === 3 &&
+                              idxChoice === 0 &&
+                              (flagSoup || selectSoupNothing)) ||
+                            (idxPreference === 3 &&
+                              idxChoice === 1 &&
+                              (flagSoup || selectSoupGarlic)) ||
+                            (idxPreference === 3 &&
+                              idxChoice === 2 &&
+                              (flagSoup || selectSoupPepper)) ||
+                            (idxPreference === 3 &&
+                              idxChoice === 3 &&
+                              (flagSoup || selectSoupGreenOnion)) ||
+                            (idxPreference === 4 &&
+                              idxChoice === 0 &&
+                              (flagTopping || selectToppingNothing)) ||
+                            (idxPreference === 4 &&
+                              idxChoice === 1 &&
+                              (flagTopping || selectToppingCheese)) ||
+                            (idxPreference === 4 &&
+                              idxChoice === 2 &&
+                              (flagTopping || selectToppingRicecake)) ||
+                            (idxPreference === 4 &&
+                              idxChoice === 3 &&
+                              (flagTopping || selectToppingDumpling))
+                              ? { width: "9rem" }
+                              : { width: "9rem", opacity: "0.5" }
+                          }
+                        >
+                          <Avatar
+                            id={`choice-${idxPreference}-${idxChoice}`}
+                            sx={{ bgcolor: orange[500] }}
+                            aria-label="recipe"
+                          >
+                            {labelList[idxChoice]}
+                          </Avatar>
+                          <Card.Img
+                            id={`choice-${idxPreference}-${idxChoice}`}
+                            width="50"
+                            src={`/ramenpreference/image_${idxPreference}_${idxChoice}.jpg`}
+                          />
+                          <Card.Header
+                            id={`choice-${idxPreference}-${idxChoice}`}
+                          >
+                            {ramenPreferences[idxPreference][idxChoice]}
+                          </Card.Header>
+                        </Card>
+                      </Col>
+                    );
+                  })}
+                </Row>
+                <br />
+              </div>
+            );
+          })}
           <Row>
             <Col>
-              <button onClick={onClickNext}>
+              <button>
                 <Link
                   href={{
                     pathname: "/signup",
@@ -569,7 +289,7 @@ function RamenPreference({ router: { query } }) {
             <Col></Col>
             <Col>
               {canGoNext ? (
-                <button onClick={onClickNext}>
+                <button>
                   <Link
                     href={{
                       pathname: "/ramenselect",
