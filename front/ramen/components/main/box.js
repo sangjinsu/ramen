@@ -1,5 +1,5 @@
 import { Figure} from 'react-bootstrap';
-import { Container,Row,Col} from 'react-bootstrap';
+import { Container,Row,Col,Badge} from 'react-bootstrap';
 import React, { useEffect, useState } from 'react';
 
 export default function Layout(){
@@ -9,19 +9,30 @@ export default function Layout(){
 let [ramen1,setRamen1] = useState(0)
 let [ramen2,setRamen2] = useState(0)
 let [ramen3,setRamen3] = useState(0)
-let [ramenresult,setRamenresult] = useState([])
+let [ramenresult,setRamenresult] = useState([0,0,0])
 // 1,2,3,4,5,6,7,8
   return <>
+  
     <div className="box">
     <Row>
-      <Col></Col>
-      <Col>    <div className="iconbox">
+      <Col xs={3} md={3}></Col>
+      {/* 반응형에서 찌그러져서 xs속성줘야함 */}
+      <Col xs={8} md={5}>    <div className="iconbox" width={400}>
+        <div style={{display:"inline"}}><img src="icon/rightarrow.png" width={45}></img> </div>
         <R1 ramen1={ramen1}></R1>
         <R2 ramen2={ramen2}></R2>
         <R3 ramen3={ramen3}></R3>
         {/* 순서가 왜바뀌는지는 모르지만 서치랑,리셋버튼바뀜 */}
-        <div className="icon" ><img src="search.png" width={45}></img></div>
+        <div className="icon" width={20}></div>
+        <div className="icon" onClick={()=>{
+          alert(ramenresult)
+        }}><img src="search.png" width={45}></img></div>
         <div className="icon" onClick={()=>{setRamen1(0);setRamen2(0);setRamen3(0)
+        let newArray = [...ramenresult]
+        newArray[0] = 0
+        newArray[1] = 0
+        newArray[2] = 0
+        setRamenresult(newArray)
         }}><img src="reset.png" width={45}></img></div>
       </div>
       
@@ -33,10 +44,19 @@ let [ramenresult,setRamenresult] = useState([])
   <Row>
     <Col xs={3} md={3}></Col>
     <Col xs={2} md={2}>  
+    {/* <div >
+    <h5><Badge bg="light" text="dark">
+    패키지
+  </Badge></h5>
+    </div> */}
     <div className="figure">
       {/* classname N오타 */}
     
-<Figure onClick={()=>{setRamen1(1)}}>
+<Figure onClick={()=>{setRamen1(1)
+let newArray = [...ramenresult]
+newArray[0] = 1
+setRamenresult(newArray)
+}}>
   <Figure.Image 
     width={100}
     // height={180}
@@ -51,7 +71,11 @@ let [ramenresult,setRamenresult] = useState([])
     
     </div>
     <div className="figure">
-    <Figure onClick={()=>{setRamen1(2)}}>
+    <Figure onClick={()=>{setRamen1(2)
+    let newArray = [...ramenresult]
+    newArray[0] = 2
+    setRamenresult(newArray)
+    }}>
   <Figure.Image
     width={100}
     // height={180}
@@ -65,7 +89,16 @@ let [ramenresult,setRamenresult] = useState([])
     </div>
     </Col>
     <Col xs={2} md={2}>
-      <div className="figure"><Figure onClick={()=>{setRamen2(1)}}>
+    {/* <div >
+    <h5><Badge bg="light" text="dark">
+    면종류
+  </Badge></h5>
+    </div> */}
+      <div className="figure"><Figure onClick={()=>{setRamen2(1)
+      let newArray = [...ramenresult]
+      newArray[1] = 1
+      setRamenresult(newArray)
+      }}>
   <Figure.Image
     width={100}
     // height={180}
@@ -76,7 +109,11 @@ let [ramenresult,setRamenresult] = useState([])
     건면
   </Figure.Caption>
 </Figure></div>  
-      <div className="figure"><Figure onClick={()=>{setRamen2(2)}}>
+      <div className="figure"><Figure onClick={()=>{setRamen2(2)
+      let newArray = [...ramenresult]
+      newArray[1] = 2
+      setRamenresult(newArray)
+      }}>
   <Figure.Image
     width={100}
     // height={180}
@@ -87,7 +124,11 @@ let [ramenresult,setRamenresult] = useState([])
     유탕면
   </Figure.Caption>
 </Figure></div>  
-      <div className="figure"><Figure onClick={()=>{setRamen2(3)}}>
+      <div className="figure"><Figure onClick={()=>{setRamen2(3)
+      let newArray = [...ramenresult]
+      newArray[1] = 3
+      setRamenresult(newArray)
+      }}>
   <Figure.Image
     width={100}
     // height={180}
@@ -104,7 +145,16 @@ let [ramenresult,setRamenresult] = useState([])
 
     </Col>
     <Col xs={2} md={2}>  
-    <div className="figure"><Figure onClick={()=>{setRamen3(1)}}>
+    {/* <div >
+    <h5><Badge bg="light" text="dark">
+    요리종류
+  </Badge></h5>
+    </div> */}
+    <div className="figure"><Figure onClick={()=>{setRamen3(1)
+    let newArray = [...ramenresult]
+    newArray[2] = 1
+    setRamenresult(newArray)
+    }}>
   <Figure.Image
     width={100}
     // height={180}
@@ -115,7 +165,11 @@ let [ramenresult,setRamenresult] = useState([])
     국물
   </Figure.Caption>
 </Figure></div>
-    <div className="figure"><Figure onClick={()=>{setRamen3(2)}}>
+    <div className="figure"><Figure onClick={()=>{setRamen3(2)
+    let newArray = [...ramenresult]
+    newArray[2] = 2
+    setRamenresult(newArray)
+    }}>
   <Figure.Image
     width={100}
     // height={180}
@@ -127,7 +181,11 @@ let [ramenresult,setRamenresult] = useState([])
   </Figure.Caption>
 </Figure></div>
     <div className="figure">
-<Figure>
+<Figure onClick={()=>{setRamen3(3)
+let newArray = [...ramenresult]
+newArray[2] = 3
+setRamenresult(newArray)
+}}>
   <Figure.Image
     width={100}
     // height={180}
@@ -161,12 +219,14 @@ let [ramenresult,setRamenresult] = useState([])
         .iconbox {
           border: 1px solid;
           height: 50px;
+          border-radius: 15px;
           
 
         }
         .icon{
           float:right;
           cursor: pointer;
+          margin-right: 10px;
 
         }
         .icon:active{
@@ -174,6 +234,10 @@ let [ramenresult,setRamenresult] = useState([])
         }
         .sbicon{
           display:inline;
+        }
+        .boxstyle {
+          border: solid;
+          
         }
 
         
@@ -216,7 +280,7 @@ function R3(props){
   }else if(props.ramen3===2){
     return <div style={{display:"inline"}}><img src="icon/bok.png" width={45}></img></div>
   }
-  else if(props.ramen3===2){
+  else if(props.ramen3===3){
     return <div style={{display:"inline"}}><img src="icon/jjajang.png" width={45}></img></div>
   }
 }

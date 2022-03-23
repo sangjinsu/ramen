@@ -21,10 +21,10 @@ export default function NavBar() {
       {/* 최종 네브바, 반응형 위함 Link안에서 링크는 없애주고 안에넣기 */}
 
       <Link href="/">
-          <a className='navmenu'>카테고리검색 &nbsp;</a>
+          <a className='navmenu'>카테고리 &nbsp;</a>
         </Link>
     <Link href="/index2">
-          <a className='navmenu'>키워드검색 &nbsp;</a>
+          <a className='navmenu'>키워드 &nbsp;</a>
         </Link>
     <Link href="/SearchResult">
           <a className='navmenu'>검색결과 &nbsp;</a>
@@ -68,6 +68,13 @@ export default function NavBar() {
       
     </Nav>
     <Nav>
+    <div class="search-container">
+    <form action="/action_page.php">
+      <input type="text" placeholder="라면검색" name="search" value=""></input>
+      <button type="submit">검색</button>
+    </form>
+  </div>
+    
     <Dropdown>
   <Dropdown.Toggle variant="" id="dropdown-basic">
   <FontAwesomeIcon icon={faUser} /> 회원메뉴
@@ -100,6 +107,17 @@ export default function NavBar() {
           display:inline-block;
           
         }
+        .search-container button {
+          float: right;
+          padding: 6px 10px;
+          margin-top: 8px;
+          margin-right: 16px;
+          background: #ddd;
+          font-size: 17px;
+          border: none;
+          cursor: pointer;
+        }
+        
         
       `}</style>
     </>

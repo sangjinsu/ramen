@@ -14,10 +14,14 @@ const Home: NextPage = () => {
     setSearch(event.target.value);
   };
   return <>
+
   <Container>
-  <Row>
+  {/* <Row>
+    
     <Col></Col>
-    <Col><Box
+    <Col>
+    
+    <Box
       sx={{
         width: 500,
         maxWidth: '100%',
@@ -27,10 +31,13 @@ const Home: NextPage = () => {
       
     </Box>
     
+    
     </Col>
     <Col> {search}</Col>
-  </Row>
- <Ibox></Ibox> 
+  </Row> */}
+ 
+  <Ibox></Ibox> 
+ 
    
    
 
@@ -43,6 +50,7 @@ const Home: NextPage = () => {
  </Row>
   
 </Container>
+
 
 
   </>
