@@ -11,15 +11,15 @@ public class RamenSortDto implements Serializable {
     private final String englishName;
     private final String brand;
     private final String englishBrand;
-    private final double crawlingCnt;
+    private final double c;
 
-    public RamenSortDto(Long ramenId, String name, String englishName, String brand, String englishBrand, double crawlingCnt){
+    public RamenSortDto(Long ramenId, String name, String englishName, String brand, String englishBrand, double c){
         this.ramenId = ramenId;
         this.name = name;
         this.englishName = englishName;
         this.brand = brand;
         this.englishBrand = englishBrand;
-        this.crawlingCnt = crawlingCnt;
+        this.c = c;
     }
 
 }
