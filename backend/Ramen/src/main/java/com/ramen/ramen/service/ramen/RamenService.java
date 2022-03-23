@@ -1,15 +1,18 @@
 package com.ramen.ramen.service.ramen;
 
 
+import com.ramen.ramen.domain.Member;
+import com.ramen.ramen.domain.MemberLikeRamen;
 import com.ramen.ramen.domain.Ramen;
 import com.ramen.ramen.dto.ramen.CategoryVo;
 import com.ramen.ramen.dto.ramen.RamenDetailDto;
 import com.ramen.ramen.dto.ramen.RamenListDto;
 import com.ramen.ramen.dto.ramen.RamenSortDto;
+import com.ramen.ramen.exception.LikeNotFoundException;
+import com.ramen.ramen.exception.MemberNotFoundException;
 import com.ramen.ramen.exception.RamenNotFoundException;
-import com.ramen.ramen.repository.ramen.AnalysisRepository;
-import com.ramen.ramen.repository.ramen.CompositionRepository;
-import com.ramen.ramen.repository.ramen.NutrientRepository;
+import com.ramen.ramen.repository.member.MemberLikeRamenRepository;
+import com.ramen.ramen.repository.member.MemberRepository;
 import com.ramen.ramen.repository.ramen.RamenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,9 +25,10 @@ import java.util.stream.Collectors;
 public class RamenService {
 
     private final RamenRepository ramenRepository;
-    private final AnalysisRepository analysisRepository;
-    private final CompositionRepository compositionRepository;
-    private final NutrientRepository nutrientRepository;
+    private final MemberRepository memberRepository;
+    private final MemberLikeRamenRepository memberLikeRamenRepository;
+
+
 
     public RamenDetailDto fetchDetailRamen(Long ramenId) {
 
@@ -37,6 +41,23 @@ public class RamenService {
         RamenDetailDto ramenDetailDto = new RamenDetailDto(ramen);
 
         return ramenDetailDto;
+    }
+
+    public void ramenislike(Long ramenId, Long memberId){
+        Optional<Member> optionalMember = memberRepository.findById(memberId);
+        if (optionalMember.isEmpty()) {
+            throw new MemberNotFoundException();
+        }
+
+        Optional<Ramen> optionalRamen = ramenRepository.findById(ramenId);
+        if (optionalRamen.isEmpty()) {
+            throw new RamenNotFoundException();
+        }
+
+        Optional<MemberLikeRamen> memberLikeRamen = Optional.ofNullable(memberLikeRamenRepository.findRamenIsLiked(ramenId, memberId));
+        if (memberLikeRamen.isEmpty()) {
+            throw new LikeNotFoundException();
+        }
     }
 
     public List<RamenListDto> fetchRamensByCategory(CategoryVo category) { // List composition
@@ -53,7 +74,7 @@ public class RamenService {
             ramens1 = ramenRepository.findRamensByCompositionCup();
             result[0] = true;
             result_cnt++;
-        } else if (category.getRamenType() != 1) {
+        } else if (category.getRamenType() == 2) {
             ramens1 = ramenRepository.findRamensByCompositionBongji();
             result[0] = true;
             result_cnt++;
@@ -61,11 +82,11 @@ public class RamenService {
 
         // category 2
         if (category.getNoodleType() == 1) {
-            ramens2 = ramenRepository.findRamensByNoodle("category");
+            ramens2 = ramenRepository.findRamensByFriedNoodle();
             result[1] = true;
             result_cnt++;
         } else if (category.getNoodleType() == 2) {
-            ramens2 = ramenRepository.findRamensByNoodle("category");
+            ramens2 = ramenRepository.findRamensByOiledNoodle();
             result[1] = true;
             result_cnt++;
         } else if (category.getNoodleType() == 3) {
@@ -80,7 +101,7 @@ public class RamenService {
             result[2] = true;
             result_cnt++;
         } else if (category.getRamenStyle() == 2) {
-            ramens3 = ramenRepository.findRamensByCompositionJjajang();
+            ramens3 = ramenRepository.findRamensByCompositionBB();
             result[2] = true;
             result_cnt++;
         } else if (category.getRamenStyle() == 3) {
@@ -88,9 +109,6 @@ public class RamenService {
             result[2] = true;
             result_cnt++;
         }
-
-        // 3개 다 && 로 합친 후에
-        // crawling count로 for 문 돌리면서 정렬
 
         if (result_cnt == 1) {
             for (int i = 0; i < 3; i++) {
@@ -101,67 +119,66 @@ public class RamenService {
                     else if(i == 1) {
                         ramens = ramens2;
                     }
-                    else {
-                        ramens = ramens2;
+                    else if (i == 2){
+                        ramens = ramens3;
                     }
                     break;
                 }
             }
         } else if (result_cnt == 2) {
-            int a = 0;
-            int b = 0;
+            int a = -1;
+            int b = -1;
             for (int i = 0; i < 3; i++) {
                 if (result[i] == true) {
-                    if (a == 0) {
+                    if (a == -1) {
                         a = i;
                         continue;
                     }
                     b = i;
                 }
             }
+
             // intersection
+            if (a==0 && b==1){
+                ramens = getIntersectOfLists2(ramens1, ramens2);
+            }
+
+            if (a==0 && b==2){
+                ramens = getIntersectOfLists2(ramens1, ramens3);
+            }
+
             if (a==1 && b==2){
-
+                ramens = getIntersectOfLists2(ramens2, ramens3);
             }
 
-            if (a==1 && b==3){
-
-            }
-
-            if (a==2 && b==3){
-
-            }
-
-        } else {
-
+        } else if (result_cnt == 3){
+            ramens = getIntersectOfLists3(ramens1, ramens2, ramens3);
         }
 
         List<RamenSortDto> ramenSortDtos = new ArrayList<>();
 
 //      객체 cast to RamenSort Dto
-        for (Object o[] : ramens) {
-            Long ramenId = (Long) o[0];
-            String name = (String) o[1];
-            String englishName = (String) o[2];
-            String brand = (String) o[3];
-            String englishBrand = (String) o[4];
-            double c = (double) o[5];
+        if (ramens != null) {
+            for (Object o[] : ramens) {
+                Long ramenId = (Long) o[0];
+                String name = (String) o[1];
+                String englishName = (String) o[2];
+                String brand = (String) o[3];
+                String englishBrand = (String) o[4];
+                double c = (double) o[5];
 
-            ramenSortDtos.add(new RamenSortDto(ramenId, name, englishName, brand, englishBrand, c));
+                ramenSortDtos.add(new RamenSortDto(ramenId, name, englishName, brand, englishBrand, c));
+            }
+
+            // 크롤링 순으로 정렬
+            Collections.sort(ramenSortDtos, new RamenComparator());
+
+            // dto 변환
+            List<RamenListDto> ramenListDtos = ramenSortDtos.stream().map(RamenListDto::new).collect(Collectors.toList());
+
+            return ramenListDtos;
         }
-
-
-        // 크롤링 순으로 정렬
-        Collections.sort(ramenSortDtos, new RamenComparator());
-
-        // dto 변환
-        List<RamenListDto> ramenListDtos = ramenSortDtos.stream().map(RamenListDto::new).collect(Collectors.toList());
-
-        // 임시
-        List<RamenListDto> ramenListDtos = new ArrayList<>();
-
-        return ramenListDtos;
-
+        return null;
     }
 
     public List<RamenListDto> fetchRamensByAnalysis(String analysis) {
@@ -278,7 +295,6 @@ public class RamenService {
             ramenSortDtos.add(new RamenSortDto(ramenId, name, englishName, brand, englishBrand, c));
         }
 
-
         // 크롤링 순으로 정렬
         Collections.sort(ramenSortDtos, new RamenComparator());
 
@@ -292,11 +308,54 @@ public class RamenService {
     class RamenComparator implements Comparator<RamenSortDto> {
         @Override
         public int compare(RamenSortDto a, RamenSortDto b) {
-            if (a.getCrawlingCnt() < b.getCrawlingCnt()) return 1; // 내림차순
-            if (a.getCrawlingCnt() > b.getCrawlingCnt()) return -1;
+            if (a.getC() < b.getC()) return 1; // 내림차순
+            if (a.getC() > b.getC()) return -1;
             return 0;
         }
     }
 
-    public
+    static List<Object[]> getIntersectOfLists2(List<Object[]> list1, List<Object[]> list2) {
+//        List<Object[]> intersectElements = list1.stream()
+//                .filter(list2 :: contains)
+//                .collect(Collectors.toList());
+        List<Object[]> intersectElements = list1.stream()
+                .filter(l1 -> list2.stream()
+                        .anyMatch(l2 ->
+                                l1[0].equals(l2[0])))
+                .collect(Collectors.toList());
+
+        if(!intersectElements.isEmpty()) {
+            return intersectElements;
+        }else {
+            return Collections.emptyList();
+        }
+    }
+
+    static List<Object[]> getIntersectOfLists3(List<Object[]> list1, List<Object[]> list2, List<Object[]> list3) {
+//        List<Object[]> intersectElements = list1.stream()
+//                .filter(list2 :: contains)
+//                .collect(Collectors.toList());
+//
+//        List<Object[]> final_intersectElements = intersectElements.stream()
+//                .filter(list3 :: contains)
+//                .collect(Collectors.toList());
+
+        List<Object[]> intersectElements = list1.stream()
+                .filter(l1 -> list2.stream()
+                        .anyMatch(l2 ->
+                                l1[0].equals(l2[0])))
+                .collect(Collectors.toList());
+
+        List<Object[]> final_intersectElements = intersectElements.stream()
+                .filter(l1 -> list3.stream()
+                        .anyMatch(l3 ->
+                                l1[0].equals(l3[0])))
+                .collect(Collectors.toList());
+
+        if(!final_intersectElements.isEmpty()) {
+            return final_intersectElements;
+        }else {
+            return Collections.emptyList();
+        }
+    }
 }

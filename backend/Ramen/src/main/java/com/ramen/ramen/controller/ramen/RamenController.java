@@ -8,10 +8,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@RestController("/v1/ramen")
+@RestController
+@RequestMapping("/v1/ramen")
 @RequiredArgsConstructor
 public class RamenController {
 
@@ -24,14 +24,17 @@ public class RamenController {
         return ramenService.fetchDetailRamen(ramenId);
     }
 
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/islike/{ramenId}{memberId}")
+    void ramenislike(@PathVariable("ramenId") Long ramenId, @PathVariable("memberId") Long memberId) {
+        ramenService.ramenislike(ramenId, memberId);
+    }
+
     // 라면 조건 카테고리 별로 리스트 조회
     // query dsl 적용 필요
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/category") // 1개부터 최대 3개까지
     List<RamenListDto> fetchRamensByCategory(@RequestBody CategoryVo category){
-//        System.out.println(category);
-//        List<RamenListDto> ramenListDtos = new ArrayList<>();
-//        return ramenListDtos;
         return ramenService.fetchRamensByCategory(category);
     }
 
@@ -39,13 +42,7 @@ public class RamenController {
     // query dsl 적용 필요
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/analysis/{analysis}")
-//    RamenListDto fetchRamensByAnalysis(@PathVariable("analysis") String analysis){
     List<RamenListDto> fetchRamensByAnalysis(@PathVariable("analysis") String analysis){
         return ramenService.fetchRamensByAnalysis(analysis);
     }
-
-
-
-
-
 }
