@@ -88,14 +88,19 @@ public class RamenService {
 
         // 3개 다 && 로 합친 후에
         // crawling count로 for 문 돌리면서 정렬
+    
+        
+        // 임시
+        RamenListDto ramenListDto = null;
 
-        return ;
+        return ramenListDto;
     }
 
-    public RamenListDto fetchRamensByAnalysis(String analysis){
+//    public RamenListDto fetchRamensByAnalysis(String analysis){
+    public List<Object[]> fetchRamensByAnalysis(String analysis){
         // 리스트 가져온 후 crawling cnt 로 정렬
         // List<Ramen> ramens = ramenRepository.findRamensByAnalysis(analysis);
-        List<Object[]> ramens;
+        List<Object[]> ramens = null;
 
         switch(analysis) {
             case "kkoDeul": ramens = ramenRepository.findRamensByAnalysisKkoDeul(); break;
@@ -133,7 +138,7 @@ public class RamenService {
 
         // crawling cnt로 정렬
 
-        return ;
+        return ramens;
     }
 
 }
