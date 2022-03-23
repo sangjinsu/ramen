@@ -1,10 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { SignupRequestDto } from './dto/signup.request.dto';
 import * as bcrypt from 'bcrypt';
-import { Fond } from './entity/fond.entity';
-import { MemberLikeRamen } from './entity/memberLikeRamen.entity';
 import { MembersRepository } from './repository/member.repository';
 import { FondRepository } from './repository/fond.repository';
 import { MemberLikeRamenRepository } from './repository/memberLikeRamen.repository';
