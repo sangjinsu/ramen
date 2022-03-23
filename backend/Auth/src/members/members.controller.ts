@@ -8,8 +8,7 @@ export class MembersController {
 
   @Post('signup')
   async signup(@Body() body: SignupRequestDto) {
-    console.log(body);
-    return this.membersService.signup(body);
+    return await this.membersService.signup(body);
   }
 
   @Post('login')

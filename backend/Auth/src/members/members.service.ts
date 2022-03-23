@@ -81,5 +81,7 @@ export class MembersService {
       });
       this.memberLikeRamenRepository.save(memberLikeRamen);
     });
+
+    return newMember;
   }
 }
