@@ -19,17 +19,20 @@ export default function NavBar() {
   <Navbar.Collapse id="responsive-navbar-nav">
     <Nav className="me-auto">
       {/* 최종 네브바, 반응형 위함 Link안에서 링크는 없애주고 안에넣기 */}
-      <Nav.Link >
-      <Link href="/">
-          <div><a className='navmenu'>키워드검색</a></div>
-        </Link>
-    </Nav.Link>
 
-    <Nav.Link >
-    <Link href="/index2">
-          <div><a className='navmenu'>카테고리검색</a></div>
+      <Link href="/">
+          <a className='navmenu'>카테고리 &nbsp;</a>
         </Link>
-    </Nav.Link>
+    <Link href="/index2">
+          <a className='navmenu'>키워드 &nbsp;</a>
+        </Link>
+    <Link href="/SearchResult">
+          <a className='navmenu'>검색결과 &nbsp;</a>
+        </Link>
+    <Link href="/SearchTextResult">
+          <a className='navmenu'>텍스트검색결과 &nbsp;</a>
+        </Link>
+
     {/* <Nav.Link >
     <Link href="/">
     <div><a className='navmenu'>테스트메뉴</a></div>
@@ -65,6 +68,14 @@ export default function NavBar() {
       
     </Nav>
     <Nav>
+    <div className="search-container">
+    <form action="/action_page.php">
+      <input type="text" placeholder="라면검색" name="search"></input>
+      {/* value로 값조정 */}
+      <button type="submit">검색</button>
+    </form>
+  </div>
+    
     <Dropdown>
   <Dropdown.Toggle variant="" id="dropdown-basic">
   <FontAwesomeIcon icon={faUser} /> 회원메뉴
@@ -88,12 +99,17 @@ export default function NavBar() {
   </Navbar.Collapse>
   </Container>
 </Navbar>
+
 <style jsx>{`
         .navmenu {
           color:grey;
           text-decoration-line: none;
           font-size:20px;
+          display:inline-block;
+          
         }
+        
+        
         
       `}</style>
     </>
