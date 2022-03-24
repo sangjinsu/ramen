@@ -4,11 +4,32 @@ import * as React from 'react';
 import Ibox from '../components/main/box'
 import Lank from '../components/main/Lank'
 import Sug from '../components/main/Suggestion'
+// import { useRouter } from "next/router";
+
 
 const Home: NextPage = () => {
-  
+  // const router = useRouter()
+  // const tt = 'hihi'
   return <>
-
+{/* <button
+      type="button"
+      onClick={() => {
+        router.push(
+          {
+          pathname: '/test',
+          query: { 
+            "ramenType":0,
+            "noodleType":0,
+            "ramenStyle":tt
+           },
+        },
+        `/test`
+        )
+        // masking해서 넘어가는 쿼리 숨기기
+      }}
+    >
+      Click here to read more
+    </button> */}
   <Container>
   <Ibox></Ibox> 
  <Row>

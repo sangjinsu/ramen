@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Container,Row,Col,Navbar,Nav,NavDropdown,Dropdown} from 'react-bootstrap';
+import { Container,Row,Col,Navbar,Nav,Dropdown} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee,faUser } from '@fortawesome/free-solid-svg-icons'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
 
 
 export default function NavBar() {
@@ -27,10 +27,13 @@ export default function NavBar() {
           <a className='navmenu'>키워드 &nbsp;</a>
         </Link>
     <Link href="/SearchResult">
-          <a className='navmenu'>검색결과 &nbsp;</a>
+          <a className='navmenu'>카테고리결과 &nbsp;</a>
         </Link>
     <Link href="/SearchTextResult">
-          <a className='navmenu'>텍스트검색결과 &nbsp;</a>
+          <a className='navmenu'>텍스트결과 &nbsp;</a>
+        </Link>
+        <Link href="/test">
+          <a className='navmenu'>AxiosTest &nbsp;</a>
         </Link>
 
     {/* <Nav.Link >
