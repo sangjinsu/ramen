@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/ramen")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class RamenController {
 
     private final RamenService ramenService;
