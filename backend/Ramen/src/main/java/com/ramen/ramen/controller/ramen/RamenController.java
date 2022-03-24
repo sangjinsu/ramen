@@ -25,7 +25,7 @@ public class RamenController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/islike/{ramenId}{memberId}")
+    @GetMapping("/islike/{ramenId}/{memberId}")
     void ramenislike(@PathVariable("ramenId") Long ramenId, @PathVariable("memberId") Long memberId) {
         ramenService.ramenislike(ramenId, memberId);
     }
