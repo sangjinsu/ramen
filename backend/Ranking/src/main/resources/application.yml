@@ -9,7 +9,7 @@ spring:
   cache:
     type: redis
   redis:
-    # host: host.docker.internal # ??? ??
-    # host: localhost # ???? ??
+    # host: host.docker.internal
     host: "j6c104.p.ssafy.io"
+#    host: localhost
     port: 6380

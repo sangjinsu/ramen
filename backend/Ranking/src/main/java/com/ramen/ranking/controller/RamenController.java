@@ -9,20 +9,33 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("v1/ranking/")
 public class RamenController {
 
+//    @Autowired
+//    private final RamenLikeRedisRepository ramenLikeRedisRepository;
+//    @Autowired
+//    private final RamenViewRedisRepository ramenViewRedisRepository;
     @Autowired
-    RamenLikeRedisRepository ramenLikeRedisRepository;
-    @Autowired
-    RamenViewRedisRepository ramenViewRedisRepository;
-    @Autowired
-    RamenService ramenService;
+    private final RamenService ramenService;
 
-    @GetMapping("/view/{ramenId}/{userIp}")
-    public void beerView(@PathVariable("ramenId") Long ramenId, @PathVariable("userIp") Long userIp) {
+    @GetMapping("/view/{ramenId}")// /{userIp}
+    public void beerView(@PathVariable("ramenId") Long ramenId){//, @PathVariable("userIp") Long userIp) {
+
+            HttpServletRequest req = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
+            String ip = req.getHeader("X-FORWARDED-FOR");
+            if (ip == null) {
+                ip = req.getRemoteAddr();
+            }
+            String userIp = ip;
+        System.out.println(ip);
         ramenService.saveRamenView(ramenId, userIp);
     }
 

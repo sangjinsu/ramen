@@ -27,9 +27,8 @@ public class RamenService {
     @Autowired
     RankingZset rankingZset = new RankingZset(redisTemplate);
 
-
     @Transactional
-    public void saveRamenView(Long ramenId, Long userIp) {
+    public void saveRamenView(Long ramenId, String userIp) {
         RamenView ramenview = new RamenView();
         Optional<RamenView> ramen = Optional.ofNullable(ramenViewRedisRepository.findByRamenIdAndUserIp(ramenId, userIp));
         if (ramen.isEmpty()) { // 비어 있는 경우 추가
@@ -85,7 +84,5 @@ public class RamenService {
         }
         return ramenLikes;
     }
-
-
 
 }
