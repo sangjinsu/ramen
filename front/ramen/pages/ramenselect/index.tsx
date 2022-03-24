@@ -6,7 +6,6 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Link from "next/link";
 import Button from "@mui/material/Button";
 
-// function RamenPreference() {
 function RamenPreference({ router: { query } }) {
   const ramenCodes = {
     "生生(생생)우동": "P020318",
@@ -254,7 +253,6 @@ function RamenPreference({ router: { query } }) {
   const makeSelectList = () => {
     const select: Array<string> = [];
     for (let key in likedRamens) {
-      console.log(key);
       if (likedRamens[key]) {
         select.push(ramenCodes[key]);
       }
@@ -295,12 +293,6 @@ function RamenPreference({ router: { query } }) {
                     ] === true
                   ) {
                     return (
-                      // <div>
-                      //   <h1>{idxRamen}</h1>
-                      //   <h1>{idxRamen % 4}</h1>
-                      //   <h1>{idxRamen - (idxRamen % 4)}</h1>
-                      //   <br />
-                      // </div>
                       <Col
                         sm={2}
                         style={{ margin: "15px" }}
@@ -366,6 +358,5 @@ function RamenPreference({ router: { query } }) {
     </>
   );
 }
-// export default RamenPreference;
 
 export default withRouter(RamenPreference);
