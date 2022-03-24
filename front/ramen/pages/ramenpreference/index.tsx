@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Avatar from "@mui/material/Avatar";
-import { orange } from "@mui/material/colors";
 import { Container, Row, Col } from "react-bootstrap";
-import { Card } from "react-bootstrap";
 import { withRouter } from "next/router";
 import BackArrow from "../../components/signup/BackArrow";
 import FrontArrow from "../../components/signup/FrontArrow";
+import SignupPreference from "../../components/signup/SignupPreference";
 
 function RamenPreference({ router: { query } }) {
   const [userInfo, setUserInfo] = useState(JSON.parse(query.userInfo));
@@ -193,103 +191,23 @@ function RamenPreference({ router: { query } }) {
     <>
       <div>
         <Container>
-          <Row>
-            <Col></Col>
-            <Col>
-              <h1>라면 취향 선택</h1>
-            </Col>
-            <Col></Col>
-          </Row>
-          <br />
-          {ramenPreferences.map((ramenPreference, idxPreference) => {
-            return (
-              <div key={idxPreference}>
-                <Row>
-                  <Col>{ramenPreferenceName[idxPreference]}</Col>
-                  {ramenPreferences[idxPreference].map((choice, idxChoice) => {
-                    return (
-                      <Col
-                        id={`choice-${idxPreference}-${idxChoice}`}
-                        key={idxChoice}
-                        type="button"
-                        onClick={onClickChoice}
-                      >
-                        <Card
-                          id={`choice-${idxPreference}-${idxChoice}`}
-                          border="secondary"
-                          style={
-                            (idxPreference === 0 &&
-                              (selectLength === "" ||
-                                selectLength ===
-                                  ramenPreferences[idxPreference][
-                                    idxChoice
-                                  ])) ||
-                            (idxPreference === 1 &&
-                              (selectTexture === "" ||
-                                selectTexture ===
-                                  ramenPreferences[idxPreference][
-                                    idxChoice
-                                  ])) ||
-                            (idxPreference === 2 &&
-                              (selectEgg === "" ||
-                                selectEgg ===
-                                  ramenPreferences[idxPreference][
-                                    idxChoice
-                                  ])) ||
-                            (idxPreference === 3 &&
-                              idxChoice === 0 &&
-                              (flagSoup || selectSoupNothing)) ||
-                            (idxPreference === 3 &&
-                              idxChoice === 1 &&
-                              (flagSoup || selectSoupGarlic)) ||
-                            (idxPreference === 3 &&
-                              idxChoice === 2 &&
-                              (flagSoup || selectSoupPepper)) ||
-                            (idxPreference === 3 &&
-                              idxChoice === 3 &&
-                              (flagSoup || selectSoupGreenOnion)) ||
-                            (idxPreference === 4 &&
-                              idxChoice === 0 &&
-                              (flagTopping || selectToppingNothing)) ||
-                            (idxPreference === 4 &&
-                              idxChoice === 1 &&
-                              (flagTopping || selectToppingCheese)) ||
-                            (idxPreference === 4 &&
-                              idxChoice === 2 &&
-                              (flagTopping || selectToppingRicecake)) ||
-                            (idxPreference === 4 &&
-                              idxChoice === 3 &&
-                              (flagTopping || selectToppingDumpling))
-                              ? { width: "9rem" }
-                              : { width: "9rem", opacity: "0.5" }
-                          }
-                        >
-                          <Avatar
-                            id={`choice-${idxPreference}-${idxChoice}`}
-                            sx={{ bgcolor: orange[500] }}
-                            aria-label="recipe"
-                          >
-                            {labelList[idxChoice]}
-                          </Avatar>
-                          <Card.Img
-                            id={`choice-${idxPreference}-${idxChoice}`}
-                            width="50"
-                            src={`/ramenpreference/image_${idxPreference}_${idxChoice}.jpg`}
-                          />
-                          <Card.Header
-                            id={`choice-${idxPreference}-${idxChoice}`}
-                          >
-                            {ramenPreferences[idxPreference][idxChoice]}
-                          </Card.Header>
-                        </Card>
-                      </Col>
-                    );
-                  })}
-                </Row>
-                <br />
-              </div>
-            );
-          })}
+          <SignupPreference
+            flagSoup={flagSoup}
+            flagTopping={flagTopping}
+            selectLength={selectLength}
+            selectTexture={selectTexture}
+            selectEgg={selectEgg}
+            selectSoupNothing={selectSoupNothing}
+            selectSoupGarlic={selectSoupGarlic}
+            selectSoupPepper={selectSoupPepper}
+            selectSoupGreenOnion={selectSoupGreenOnion}
+            selectToppingNothing={selectToppingNothing}
+            selectToppingCheese={selectToppingCheese}
+            selectToppingRicecake={selectToppingRicecake}
+            selectToppingDumpling={selectToppingDumpling}
+            onClickChoice={onClickChoice}
+          />
+
           <Row>
             <Col>
               <BackArrow pathname={"/signup"} userInfo={userInfo} />

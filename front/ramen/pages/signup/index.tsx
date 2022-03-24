@@ -16,11 +16,14 @@ import { withRouter } from "next/router";
 import FrontArrow from "../../components/signup/FrontArrow";
 import SignupUserInfoForm from "../../components/signup/SignupUserInfoForm";
 import GenderButton from "../../components/signup/GenderButton";
+import Button from "@mui/material/Button";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
 
 function Signup({ router: { query } }) {
   const [userInfo, setUserInfo] = useState({});
   // 이메일 형식 확인: "@" + ".com"
   const [inputEmail, setInputEmail] = useState("");
+  const [flagEmail, setFlagEmail] = useState(false);
   const [inputPw, setInputPw] = useState("");
   const [inputPwConfirm, setInputPwConfirm] = useState("");
   const [isSamePw, setIsSamePw] = useState(true);
@@ -32,6 +35,20 @@ function Signup({ router: { query } }) {
   // input data 의 변화가 있을 때마다 value 값을 변경해서 useState 해준다
   const handleInputEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputEmail(event.target.value);
+  };
+
+  const onClickEmailCheck = () => {
+    const email = inputEmail;
+    const regEmail =
+      /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+    // 이메일 형식이면 서버에 중복 검사 확인 보냄
+    if (regEmail.test(email) === true) {
+      console.log("이메일 형식이 맞음", email);
+      // 중복 검사해서 가능한 이메일이면 true로 바꿈
+      setFlagEmail((prevState) => true);
+    } else {
+      console.log("이메일 형식이 아님", email);
+    }
   };
 
   const handleInputPw = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,7 +97,7 @@ function Signup({ router: { query } }) {
     });
     if (
       isSamePw === true &&
-      inputEmail !== "" &&
+      flagEmail === true &&
       inputName != "" &&
       inputAge !== "" &&
       inputGender !== "" &&
@@ -91,7 +108,7 @@ function Signup({ router: { query } }) {
       setCanGoNext(false);
     }
   }, [
-    inputEmail,
+    flagEmail,
     isSamePw,
     inputName,
     inputAge,
@@ -120,85 +137,101 @@ function Signup({ router: { query } }) {
             <Col>
               <h2>회원 정보입력</h2>
               <Box sx={{ "& > :not(style)": { m: 1 } }}>
-                <SignupUserInfoForm
-                  infoName={"Email"}
-                  infoId={"input_email"}
-                  handleFunction={handleInputEmail}
-                  value={inputEmail}
-                  type={"text"}
-                  icon={<MailOutlineIcon />}
-                />
-                <br />
-                <SignupUserInfoForm
-                  infoName={"Choose password"}
-                  infoId={"input_pw"}
-                  handleFunction={handleInputPw}
-                  value={inputPw}
-                  type={"password"}
-                  icon={<LockIcon />}
-                />
-                <br />
-                {isSamePw ? (
-                  <FormControl variant="standard">
-                    <InputLabel htmlFor="input_pw_confirm">
-                      Confirm password
-                    </InputLabel>
-                    <Input
-                      id="input_pw_confirm"
-                      type="password"
-                      value={inputPwConfirm}
-                      onChange={handleInputPwConfirm}
-                      onBlur={handleIsSamePw}
-                      startAdornment={
-                        <InputAdornment position="start">
-                          <LockIcon />
-                        </InputAdornment>
-                      }
-                    />
-                  </FormControl>
-                ) : (
-                  <FormControl error variant="standard">
-                    <InputLabel htmlFor="input_pw_confirm">
-                      Confirm password
-                    </InputLabel>
-                    <Input
-                      id="input_pw_confirm"
-                      type="password"
-                      value={inputPwConfirm}
-                      onChange={handleInputPwConfirm}
-                      onBlur={handleIsSamePw}
-                      aria-describedby="component-error-text"
-                      startAdornment={
-                        <InputAdornment position="start">
-                          <LockIcon />
-                        </InputAdornment>
-                      }
-                    />
-                    <FormHelperText id="component-error-text">
-                      Error
-                    </FormHelperText>
-                  </FormControl>
-                )}
-
-                <br />
-                <SignupUserInfoForm
-                  infoName={"Name"}
-                  infoId={"input_name"}
-                  handleFunction={handleInputName}
-                  value={inputName}
-                  type={"text"}
-                  icon={<PersonOutlineIcon />}
-                />
-                <br />
-                <SignupUserInfoForm
-                  infoName={"Ages"}
-                  infoId={"input_age"}
-                  handleFunction={handleInputAge}
-                  value={inputAge}
-                  type={"number"}
-                  icon={<CakeIcon />}
-                />
-                <br />
+                <div style={{ width: "100%" }}>
+                  <SignupUserInfoForm
+                    infoName={"Email"}
+                    infoId={"input_email"}
+                    handleFunction={handleInputEmail}
+                    value={inputEmail}
+                    type={"text"}
+                    icon={<MailOutlineIcon />}
+                  />
+                  {flagEmail ? (
+                    <CheckBoxIcon color="success" />
+                  ) : (
+                    <Button variant="outlined" onClick={onClickEmailCheck}>
+                      중복검사
+                    </Button>
+                  )}
+                  <br />
+                </div>
+                <div>
+                  <SignupUserInfoForm
+                    infoName={"Choose password"}
+                    infoId={"input_pw"}
+                    handleFunction={handleInputPw}
+                    value={inputPw}
+                    type={"password"}
+                    icon={<LockIcon />}
+                  />
+                  <br />
+                </div>
+                <div>
+                  {isSamePw ? (
+                    <FormControl variant="standard">
+                      <InputLabel htmlFor="input_pw_confirm">
+                        Confirm password
+                      </InputLabel>
+                      <Input
+                        id="input_pw_confirm"
+                        type="password"
+                        value={inputPwConfirm}
+                        onChange={handleInputPwConfirm}
+                        onBlur={handleIsSamePw}
+                        startAdornment={
+                          <InputAdornment position="start">
+                            <LockIcon />
+                          </InputAdornment>
+                        }
+                      />
+                    </FormControl>
+                  ) : (
+                    <FormControl error variant="standard">
+                      <InputLabel htmlFor="input_pw_confirm">
+                        Confirm password
+                      </InputLabel>
+                      <Input
+                        id="input_pw_confirm"
+                        type="password"
+                        value={inputPwConfirm}
+                        onChange={handleInputPwConfirm}
+                        onBlur={handleIsSamePw}
+                        aria-describedby="component-error-text"
+                        startAdornment={
+                          <InputAdornment position="start">
+                            <LockIcon />
+                          </InputAdornment>
+                        }
+                      />
+                      <FormHelperText id="component-error-text">
+                        Error
+                      </FormHelperText>
+                    </FormControl>
+                  )}
+                  <br />
+                </div>
+                <div>
+                  <SignupUserInfoForm
+                    infoName={"Name"}
+                    infoId={"input_name"}
+                    handleFunction={handleInputName}
+                    value={inputName}
+                    type={"text"}
+                    icon={<PersonOutlineIcon />}
+                  />
+                  <br />
+                </div>
+                <div>
+                  <SignupUserInfoForm
+                    infoName={"Ages"}
+                    infoId={"input_age"}
+                    handleFunction={handleInputAge}
+                    value={inputAge}
+                    type={"number"}
+                    icon={<CakeIcon />}
+                  />
+                  <br />
+                </div>
                 <div style={{ color: "rgba(0, 0, 0, 0.54)" }}>
                   <WcIcon />
                   <label htmlFor="input_gender">Gender </label>
