@@ -20,5 +20,7 @@ public class RamenView implements Serializable {
     private Long ramenId;
     @Indexed
     private String userIp; // 로그인 안 했을 시
+    @Indexed
+    private Long memberId; // 로그인 했을 시
 
 }

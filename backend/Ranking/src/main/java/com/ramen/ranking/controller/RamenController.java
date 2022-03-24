@@ -1,30 +1,31 @@
 package com.ramen.ranking.controller;
+import com.ramen.ranking.domain.RamenVo;
 import com.ramen.ranking.repository.RamenLikeRedisRepository;
 import com.ramen.ranking.repository.RamenViewRedisRepository;
+import com.ramen.ranking.service.ClearService;
 import com.ramen.ranking.service.RamenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("v1/ranking/")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class RamenController {
 
-//    @Autowired
-//    private final RamenLikeRedisRepository ramenLikeRedisRepository;
-//    @Autowired
-//    private final RamenViewRedisRepository ramenViewRedisRepository;
     @Autowired
     private final RamenService ramenService;
+
+    @Autowired
+    private final ClearService clearService;
 
     @GetMapping("/view/{ramenId}")// /{userIp}
     public void beerView(@PathVariable("ramenId") Long ramenId){//, @PathVariable("userIp") Long userIp) {
@@ -45,8 +46,14 @@ public class RamenController {
     }
 
     @GetMapping("/ramen")
-    public void fetchPopRamen() {
-        ramenService.getPopRamen();
+    public List<RamenVo> fetchPopRamen() {
+        List<String> ramens = ramenService.getPopRamen();
+        return ramens.stream().map(RamenVo::new).collect(Collectors.toList());
+    }
+
+    @DeleteMapping("/clear")
+    public void clearAll(){
+        clearService.flushALl();
     }
 
 }
