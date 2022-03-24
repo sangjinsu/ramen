@@ -27,8 +27,8 @@ public class RamenController {
     @Autowired
     private final ClearService clearService;
 
-    @GetMapping("/view/{ramenId}")// /{userIp}
-    public void beerView(@PathVariable("ramenId") Long ramenId){//, @PathVariable("userIp") Long userIp) {
+    @GetMapping("/view/{ramenId}")
+    public void ramenView(@PathVariable("ramenId") Long ramenId){//, @PathVariable("userIp") Long userIp) {
 
             HttpServletRequest req = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
             String ip = req.getHeader("X-FORWARDED-FOR");
@@ -40,8 +40,14 @@ public class RamenController {
         ramenService.saveRamenView(ramenId, userIp);
     }
 
+    @GetMapping("/view/{ramenId}/{memberId}")
+    public void ramenLoginView(@PathVariable("ramenId") Long ramenId, @PathVariable("memberId") Long memberId) {
+        ramenService.saveRamenLoginView(ramenId, memberId);
+    }
+
+
     @GetMapping("/like/{ramenId}/{memberId}")
-    public void beeLike(@PathVariable("ramenId") Long ramenId, @PathVariable("memberId") Long memberId) {
+    public void ramenLike(@PathVariable("ramenId") Long ramenId, @PathVariable("memberId") Long memberId) {
         ramenService.saveRamenLike(ramenId, memberId);
     }
 
