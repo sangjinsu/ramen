@@ -1,7 +1,22 @@
-import { PickType } from '@nestjs/swagger';
-import { SignupRequestDto } from 'src/members/dto/signup.request.dto';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
-export class LoginRequestDto extends PickType(SignupRequestDto, [
-  'inputEmail',
-  'inputPw',
-] as const) {}
+export class LoginRequestDto {
+  @ApiProperty({
+    example: 'climbplant39@example.com',
+    description: 'email',
+    required: true,
+  })
+  @IsEmail()
+  @IsNotEmpty()
+  readonly inputEmail: string;
+
+  @ApiProperty({
+    example: '123456789',
+    description: 'inputPw',
+    required: true,
+  })
+  @IsString()
+  @IsNotEmpty()
+  readonly inputPw: string;
+}

@@ -1,44 +1,110 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { LoginRequestDto } from './dto/login.request.dto';
+import { MemberService } from 'src/member/member.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { MembersRepository } from 'src/members/repository/member.repository';
+import { jwtConstants } from './constants';
+import { SignupRequestDto } from './dto/signup.request.dto';
+import { Fond } from 'src/member/entity/fond.entity';
+import { Member } from 'src/member/entity/member.entity';
+import { MemberLikeRamen } from 'src/member/entity/memberLikeRamen.entity';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly membersRepository: MembersRepository,
+    private memberService: MemberService,
     private jwtService: JwtService,
   ) {}
 
-  async jwtLogin(data: LoginRequestDto) {
-    const { inputEmail, inputPw } = data;
-
-    const member = await this.membersRepository.findOne({
-      where: { email: inputEmail },
-    });
-
-    if (!member) {
-      throw new UnauthorizedException('이메일과 비밀번호를 확인해주세요.');
-    }
-
-    const rounds = 10;
-    const salt = await bcrypt.genSalt(rounds);
-    const hashedPassword = await bcrypt.hash(inputPw, salt);
-
-    const isPasswordValidated = await bcrypt.compare(
-      hashedPassword,
+  async vaildateMember(email: string, plainTextPassword: string): Promise<any> {
+    const member = await this.memberService.findByEmail(email);
+    const isPasswordMatch = await bcrypt.compare(
+      plainTextPassword,
       member.password,
     );
+    if (!isPasswordMatch) {
+      throw new UnauthorizedException('이메일과 비밀번호를 확인해주세요');
+    }
+    const { password, ...result } = member;
+    return result;
+  }
 
-    if (!isPasswordValidated) {
-      throw new UnauthorizedException('이메일과 비밀번호를 확인해주세요.');
+  async register(body: SignupRequestDto) {
+    const { inputEmail, inputPw, inputName, inputAge, inputGender } = body;
+    const {
+      noodleLength,
+      noodleTexture,
+      ingredientNone,
+      ingredientGarlic,
+      ingredientPepper,
+      ingredientGreenOnion,
+      egg,
+      toppingNone,
+      toppingCheese,
+      toppingDumpling,
+      toppingTteok,
+      spicy,
+    } = body;
+    const { selectRamens } = body;
+
+    const isMemberExisted = await this.memberService.findByEmail(inputEmail);
+
+    if (isMemberExisted) {
+      throw new UnauthorizedException('해당하는 멤버가 이미 존재합니다.');
     }
 
-    const payload = { email: member.email, sub: member.member_id };
+    const hashedPassword = await bcrypt.hash(inputPw, 10);
 
-    return {
-      token: this.jwtService.sign(payload),
-    };
+    const fond = Fond.createFond({
+      noodleLength,
+      noodleTexture,
+      ingredientNone,
+      ingredientGarlic,
+      ingredientPepper,
+      ingredientGreenOnion,
+      egg,
+      toppingNone,
+      toppingCheese,
+      toppingDumpling,
+      toppingTteok,
+      spicy,
+    });
+
+    const newFond = await this.memberService.createNewFond(fond);
+
+    const member = Member.createMember({
+      email: inputEmail,
+      name: inputName,
+      gender: inputGender,
+      age: inputAge,
+      hashedPassword,
+      fond_id: newFond.fond_id,
+    });
+
+    const newMember = await this.memberService.createNewMember(member);
+
+    selectRamens.forEach((ramen_id) => {
+      const memberLikeRamen = MemberLikeRamen.createMemberLikeRamen({
+        member_id: newMember.member_id,
+        ramen_id,
+      });
+      this.memberService.createNewMemberLikeRamen(memberLikeRamen);
+    });
+
+    return newMember;
+  }
+
+  getJwtAccessToken(member: Member) {
+    const payload = { sub: member.member_id, email: member.email };
+    return this.jwtService.sign(payload, {
+      expiresIn: '20s',
+    });
+  }
+
+  async getJwtRefreshToken(member: Member) {
+    const hash = await bcrypt.hash(member.email, 10);
+    const payload = { sub: member.member_id, email: member.email, key: hash };
+    return this.jwtService.sign(payload, {
+      expiresIn: '3600s',
+    });
   }
 }
