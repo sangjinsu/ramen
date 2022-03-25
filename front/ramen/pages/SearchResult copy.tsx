@@ -10,24 +10,18 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
 const Search: NextPage = () => {
+  let name= ['진라면 매운맛','잔라면 순한맛','짜파게티']
+  let image = ['j.jpg','j2.jpg','jja.jpg']
   const {query} = useRouter()
+  // let [q,Setq] = useState([query.ramenType,query.noodleType,query.ramenStyle])
   let [array,setArray] = useState([])
+  let [pagenation,setPagenation] = useState([])
+  let [pagetmp,setPagetmp] = useState([])
 
-  // const [page, setPage] = React.useState(1);
-  // const handleChange = (event, value) => {
-  //   setPage(value);
-  // };
-  const [currentPage, setCurrentPage] = React.useState(1); // 현재 페이지
-  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    setCurrentPage(value);
-    console.log(value)
+  const [page, setPage] = React.useState(1);
+  const handleChange = (event, value) => {
+    setPage(value);
   };
-
-  const ramenPerPage = 5; // 페이지당 리스트 개수
-  const currentPageLast = currentPage * ramenPerPage; // 현재 페이지의 처음
-  const currentPageFirst = currentPageLast -ramenPerPage; /// 현재 페이지의 끝
-  const currentRamens = array.slice(currentPageFirst, currentPageLast); // 동일이 고마오
-  const pageNumber = Math.ceil(array.length / ramenPerPage);
 
    useEffect(()=>{
      axios({
@@ -41,8 +35,40 @@ const Search: NextPage = () => {
     })
     .then((result)=>{console.log('요청성공')
     console.log(result)
+    // console.log(result.data)
+    // console.log('------여기부터출력------')
+    // let temp = []
+    // temp.push(...result.data)
     setArray(result.data)
- 
+    // console.log(array)
+    // console.log('여긴 안나오지만 밑에 삼항연산자에는 나옴')
+    let arr = []
+    let range = Math.ceil(result.data.length/5)-1
+    let remain = result.data.length%5
+    for(let i=0;i<range;i++){
+      let arr2=[]
+      arr2.push(...result.data.slice(5*i,5*i+5))
+      arr.push(arr2)
+    }
+    let arr2=[]
+    arr2.push(result.data.slice(5*range,5*range+remain))
+    arr.push(...arr2)
+    setPagenation(arr)
+    // ...써봐..?
+    // 
+    console.log(arr)
+    console.log('========')
+    console.log(arr[0])
+    // ...으로 벗기는것도 좋네
+    console.log('========')
+    console.log(arr[1])
+    console.log(arr[2])
+    console.log(arr[3])
+    console.log(arr[3][0].name)
+    console.log(arr[3].length)
+
+    // console.log(page)
+    setPagetmp(arr[1])
   })
     .catch((error)=>{console.log('요청실패')
     console.log(error)  
@@ -55,7 +81,9 @@ const Search: NextPage = () => {
     <Col xs={2} md={2}></Col>
     <Col xs={8} md={8}>
     <h1>카테고리결과</h1> 
-
+    {
+      pagenation.length
+    }
     
     {/* {
   page.length ===0
@@ -70,7 +98,7 @@ const Search: NextPage = () => {
     })
   )
 } */}
-{/* {
+{
   array.length ===0
   ?null
   :(
@@ -82,23 +110,13 @@ const Search: NextPage = () => {
       )
     })
   )
-} */}
-
-
-{currentRamens.map(function(a,index){
-  return(
-    <ResultBox key = {index} name={a.name} brand={a.brand}></ResultBox>
-  )
-})}
-
-<Stack spacing={2} >
-        <Pagination count={pageNumber} shape="rounded" onChange={handleChange}/>
-      </Stack>
-{/* <Stack spacing={2}>
+}
+<Stack spacing={2}>
+{/* 여기가 page별로 다른거 보여주면될듯 */}
 
       <Typography>Page: {page}</Typography>
       <Pagination count={5} page={page} onChange={handleChange} />
-    </Stack> */}
+    </Stack>
   
       {/* {
         name.map(function(n,i){

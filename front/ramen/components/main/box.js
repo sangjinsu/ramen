@@ -32,18 +32,24 @@ const router = useRouter()
         <div className="icon" width={20}></div>
         <div className="icon" onClick={()=>{
           // alert(ramenresult)
-          router.push(
-            {
-            pathname: '/SearchResult',
-            query: { 
-              "ramenType":ramenresult[0],
-              "noodleType":ramenresult[1],
-              "ramenStyle":ramenresult[2]
-             },
-          },
-          `/SearchResult`
-          )
-          // masking해서 넘어가는 쿼리 숨기기
+          if(ramenresult[0]===0 || ramenresult[1]===0 ||ramenresult[2]===0){
+            alert('최소 하나이상 골라주세요')
+          }else{
+
+            router.push(
+              {
+              pathname: '/SearchResult',
+              query: { 
+                "ramenType":ramenresult[0],
+                "noodleType":ramenresult[1],
+                "ramenStyle":ramenresult[2]
+               },
+            },
+            `/SearchResult`
+            )
+            // masking해서 넘어가는 쿼리 숨기기
+          }
+          
         }}><img src="search.png" width={45}></img></div>
         <div className="icon" onClick={()=>{setRamen1(0);setRamen2(0);setRamen3(0)
         let newArray = [...ramenresult]

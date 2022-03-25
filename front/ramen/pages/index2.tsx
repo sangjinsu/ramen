@@ -23,11 +23,21 @@ const Home2: NextPage = () => {
     <Col xs={0} md={1}></Col>
     <Col xs={2} md={2}>
     <div className="cloud">
-    <div className='side'>#꼬들</div>
-    <div className='side2'>#탱글</div>
-    <div className='side'>#쫄깃</div>
-    <div className='side2'>#파</div>
-    <div className='side'>#달걀</div>
+    <div className='side' onClick={()=>{
+       handleKeyword('kkoDeul')
+    }}>#꼬들</div>
+    <div className='side2' onClick={()=>{
+       handleKeyword('taengGeul')
+    }}>#탱글</div>
+    <div className='side' onClick={()=>{
+       handleKeyword('jjolGit')
+    }}>#쫄깃</div>
+    <div className='side2' onClick={()=>{
+       handleKeyword('greenOnion')
+    }}>#파</div>
+    <div className='side' onClick={()=>{
+       handleKeyword('egg')
+    }}>#달걀</div>
     <div className='side2' onClick={()=>{
        handleKeyword('beef')
     }}>#소고기</div>
@@ -37,37 +47,77 @@ const Home2: NextPage = () => {
     </Col>
     <Col xs={2} md={2}>    
  <div className='cloud2'>
- <div className='side'>#돼지고기</div>
-    <div className='side2'>#닭가슴살</div>
-    <div className='side'>#우유</div>
-    <div className='side2'>#떡</div>
-    <div className='side'>#만두</div>
-    <div className='side2'>#순두부</div>
-    <div className='side'>#김치</div>
+ <div className='side' onClick={()=>{
+       handleKeyword('pork')
+    }}>#돼지고기</div>
+    <div className='side2' onClick={()=>{
+       handleKeyword('chickenBreast')
+    }}>#닭가슴살</div>
+    <div className='side' onClick={()=>{
+       handleKeyword('milk')
+    }}>#우유</div>
+    <div className='side2' onClick={()=>{
+       handleKeyword('riceCake')
+    }}>#떡</div>
+    <div className='side' onClick={()=>{
+       handleKeyword('dumpling')
+    }}>#만두</div>
+    <div className='side2' onClick={()=>{
+       handleKeyword('softTofu')
+    }}>#순두부</div>
+    <div className='side' onClick={()=>{
+       handleKeyword('kimchi')
+    }}>#김치</div>
  </div>
     
     </Col>
     <Col xs={2} md={2}>   
     <div className='cloud'>
-    <div className='side'>#마요네즈</div> 
-    <div className='side2'>#치즈</div>
-    <div className='side'>#마늘</div>
-    <div className='side2'>#후추</div>
-    <div className='side'>#고춧가루</div>
-    <div className='side2'>#숙주</div>
+    <div className='side' onClick={()=>{
+       handleKeyword('mayonnaise')
+    }}>#마요네즈</div> 
+    <div className='side2' onClick={()=>{
+       handleKeyword('cheese')
+    }}>#치즈</div>
+    <div className='side' onClick={()=>{
+       handleKeyword('garlic')
+    }}>#마늘</div>
+    <div className='side2' onClick={()=>{
+       handleKeyword('pepper')
+    }}>#후추</div>
+    <div className='side' onClick={()=>{
+       handleKeyword('chiliPowder')
+    }}>#고춧가루</div>
+    <div className='side2' onClick={()=>{
+       handleKeyword('beanSprouts')
+    }}>#숙주</div>
       </div>
     
     
     </Col>
     <Col xs={2} md={2}>    
     <div className='cloud2'>
-    <div className='side'>#고추</div>
-    <div className='side2'>#콩나물</div>
-    <div className='side'>#해산물</div>
-    <div className='side2'>#미역</div>
-    <div className='side'>#소세지</div>
-    <div className='side2'>#참치</div>
-    <div className='side'>#케찹</div>
+    <div className='side' onClick={()=>{
+       handleKeyword('redPepper')
+    }}>#고추</div>
+    <div className='side2' onClick={()=>{
+       handleKeyword('soyaSprouts')
+    }}>#콩나물</div>
+    <div className='side' onClick={()=>{
+       handleKeyword('seafood')
+    }}>#해산물</div>
+    <div className='side2' onClick={()=>{
+       handleKeyword('seaweed')
+    }}>#미역</div>
+    <div className='side' onClick={()=>{
+       handleKeyword('sausage')
+    }}>#소세지</div>
+    <div className='side2' onClick={()=>{
+       handleKeyword('tuna')
+    }}>#참치</div>
+    <div className='side' onClick={()=>{
+       handleKeyword('ketchup')
+    }}>#케찹</div>
     </div>
     
     
@@ -75,12 +125,22 @@ const Home2: NextPage = () => {
 
     <Col xs={2} md={2}>   
     <div className='cloud'>
-    <div className='side'>#비건</div>
-    <div className='side2'>#다이어트</div> 
-    <div className='side'>#매운맛</div>
-    <div className='side2'>#담백</div>
-    <div className='side'>#쫄깃쫄깃</div>
-    <div className='side2'>#파넣는라면</div>
+    <div className='side' onClick={()=>{
+       handleKeyword('vegan')
+    }}>#비건</div>
+    <div className='side2' onClick={()=>{
+       handleKeyword('diet')
+    }}>#다이어트</div> 
+    <div className='side' onClick={()=>{
+       handleKeyword('spicy')
+    }}>#매운맛</div>
+    <div className='side2' onClick={()=>{
+       handleKeyword('lightness')
+    }}>#담백</div>
+    <div className='side' onClick={()=>{
+       handleKeyword('haejang')
+    }}>#해장</div>
+    
     </div>
     
     </Col>
