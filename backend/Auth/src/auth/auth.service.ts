@@ -1,8 +1,4 @@
-import {
-  BadRequestException,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { MemberService } from 'src/member/member.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
@@ -20,27 +16,16 @@ export class AuthService {
   ) {}
 
   async vaildateMember(email: string, plainTextPassword: string): Promise<any> {
-    try {
-      const member = await this.memberService.findByEmail(email);
-      await this.verifyPassword(plainTextPassword, member.password);
-      const { password, ...result } = member;
-      return result;
-    } catch (error) {
-      throw new BadRequestException('Wrong credentials provided');
-    }
-  }
-
-  private async verifyPassword(
-    plainTextPassword: string,
-    hashedPassword: string,
-  ) {
+    const member = await this.memberService.findByEmail(email);
     const isPasswordMatch = await bcrypt.compare(
       plainTextPassword,
-      hashedPassword,
+      member.password,
     );
     if (!isPasswordMatch) {
-      throw new BadRequestException('Wrong credentials provided');
+      throw new UnauthorizedException('이메일과 비밀번호를 확인해주세요');
     }
+    const { password, ...result } = member;
+    return result;
   }
 
   async register(body: SignupRequestDto) {
@@ -108,52 +93,18 @@ export class AuthService {
     return newMember;
   }
 
-  getCookieWithJwtAccessToken(id: number) {
-    const payload = { id };
-    const token = this.jwtService.sign(payload, {
-      secret: jwtConstants.secret,
-      expiresIn: '10s',
+  getJwtAccessToken(member: Member) {
+    const payload = { sub: member.member_id, email: member.email };
+    return this.jwtService.sign(payload, {
+      expiresIn: '20s',
     });
-
-    return {
-      accessToken: token,
-      domain: 'localhost',
-      path: '/',
-      httpOnly: true,
-      maxAge: 10 * 1000,
-    };
   }
 
-  getCookieWithJwtRefreshToken(id: number) {
-    const payload = { id };
-    const token = this.jwtService.sign(payload, {
-      secret: jwtConstants.secret,
+  async getJwtRefreshToken(member: Member) {
+    const hash = await bcrypt.hash(member.email, 10);
+    const payload = { sub: member.member_id, email: member.email, key: hash };
+    return this.jwtService.sign(payload, {
       expiresIn: '3600s',
     });
-
-    return {
-      refreshToken: token,
-      domain: 'localhost',
-      path: '/',
-      httpOnly: true,
-      maxAge: 3600 * 1000,
-    };
-  }
-
-  getCookiesForLogOut() {
-    return {
-      accessOption: {
-        domain: 'localhost',
-        path: '/',
-        httpOnly: true,
-        maxAge: 0,
-      },
-      refreshOption: {
-        domain: 'localhost',
-        path: '/',
-        httpOnly: true,
-        maxAge: 0,
-      },
-    };
   }
 }
