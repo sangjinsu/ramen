@@ -17,6 +17,7 @@ export class SignupRequestDto {
   })
   @IsEmail()
   @IsNotEmpty()
+  @IsString()
   readonly inputEmail: string;
 
   @ApiProperty({
