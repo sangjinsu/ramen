@@ -3,6 +3,7 @@ import {
   Inject,
   Injectable,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -74,6 +75,10 @@ export class MemberService {
       id,
     )) as string;
 
+    if (!currentHashedRefreshToken) {
+      throw new UnauthorizedException('refresh token is expired');
+    }
+
     const isRefreshTokenMatching = await bcrypt.compare(
       refreshToken,
       currentHashedRefreshToken,
@@ -87,7 +92,7 @@ export class MemberService {
     }
   }
 
-  async removeRefreshToken(id: number) {
-    await this.cacheManager.del(String(id));
+  async removeRefreshToken(id: string) {
+    await this.cacheManager.del(id);
   }
 }
