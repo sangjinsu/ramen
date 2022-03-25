@@ -37,6 +37,13 @@ const Detail: NextPage = ({ params, ramenInfos }) => {
           <section>
             <img src="/logo.png" className="left_ramen_img" />
           </section>
+          <section className="left_area_btn">
+            <label className="like">
+              <input type="checkbox" />
+              <div className="hearth" />
+            </label>
+            <div>좋아요</div>
+          </section>
         </div>
 
         <div className="right_area">
@@ -139,6 +146,12 @@ const Detail: NextPage = ({ params, ramenInfos }) => {
 
           .left_ramen_img {
             width: 100%;
+          }
+
+          .left_area_btn {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
           }
 
           .right_ramen_img {
@@ -245,6 +258,44 @@ const Detail: NextPage = ({ params, ramenInfos }) => {
             box-sizing: border-box;
             vertical-align: baseline;
             -webkit-tap-highlight-color: transparent;
+          }
+
+          // 하트효과
+          input {
+            display: none;
+          }
+
+          .like {
+            display: block;
+            cursor: pointer;
+            border-radius: 999px;
+            overflow: visible;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            -webkit-tap-highlight-color: transparent;
+          }
+
+          .hearth {
+            background-image: url("/heartEffect.svg");
+            background-size: calc(50px * 62) 50px;
+            background-repeat: no-repeat;
+            background-position-x: calc(50px * (62 * -1 + 2));
+            background-position-y: calc(50px * 0.02);
+            width: 50px;
+            height: 50px;
+          }
+
+          input:checked + .hearth {
+            animation: like 1s steps(calc(62 - 3));
+            animation-fill-mode: forwards;
+          }
+
+          @keyframes like {
+            0% {
+              background-position-x: 0;
+            }
+            100% {
+              background-position-x: calc(50px * (62 * -1 + 3));
+            }
           }
         `}
       </style>
