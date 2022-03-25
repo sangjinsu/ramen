@@ -36,13 +36,29 @@ public class RamenService {
             ramenview.setUserIp(userIp);
             ramenViewRedisRepository.save(ramenview);
             rankingZset.ramenViewCount(ramenId);
-        } else if (ramen.get().getUserIp() != userIp) { // 기존 post 있는 경우에  post 조회한 memberId와 새로운 memberId 비교 후 중복이 아니라면 저장
+        } else if (!ramen.get().getUserIp().equals(userIp)) { // 기존 post 있는 경우에  post 조회한 memberId와 새로운 memberId 비교 후 중복이 아니라면 저장
             ramenview.setRamenId(ramenId);
             ramenview.setUserIp(userIp);
             ramenViewRedisRepository.save(ramenview);
             rankingZset.ramenViewCount(ramenId);
         }
+    }
 
+    @Transactional
+    public void saveRamenLoginView(Long ramenId, Long memberId) {
+        RamenView ramenview = new RamenView();
+        Optional<RamenView> ramen = Optional.ofNullable(ramenViewRedisRepository.findByRamenIdAndMemberId(ramenId, memberId));
+        if (ramen.isEmpty()) { // 비어 있는 경우 추가
+            ramenview.setRamenId(ramenId);
+            ramenview.setMemberId(memberId);
+            ramenViewRedisRepository.save(ramenview);
+            rankingZset.ramenViewCount(ramenId);
+        } else if (ramen.get().getMemberId() != memberId) { // 기존 post 있는 경우에  post 조회한 memberId와 새로운 memberId 비교 후 중복이 아니라면 저장
+            ramenview.setRamenId(ramenId);
+            ramenview.setMemberId(memberId);
+            ramenViewRedisRepository.save(ramenview);
+            rankingZset.ramenViewCount(ramenId);
+        }
     }
 
     @Transactional
