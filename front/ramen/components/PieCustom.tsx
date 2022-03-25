@@ -1,25 +1,29 @@
-import 'chart.js/auto';
+import "chart.js/auto";
 import React from "react";
 import { Pie } from "react-chartjs-2";
-import { DataProps } from './Types';
+import { DataProps } from "./Types";
 
-const PieCustom = ({testData}: {testData:DataProps}) => {
+const PieCustom = ({ pieChartData }: { pieChartData: DataProps }) => {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
     legend: {
-      display: false
-    }
+      display: false,
+    },
   };
 
   const pieData = {
-    labels: ["1회제공량", "탄수화물", "단백질", "지방", "당류", "나트륨"],
+    labels: ["탄수화물", "단백질", "지방"],
     datasets: [
       {
-        data: testData.testData,
-        backgroundColor: ["rgb(232, 189, 125)", "rgb(125, 168, 232)"]
-      }
-    ]
+        data: pieChartData.data,
+        backgroundColor: [
+          "rgb(255, 99, 132)",
+          "rgb(54, 162, 235)",
+          "rgb(255, 205, 86)",
+        ],
+      },
+    ],
   };
 
   return (
@@ -31,4 +35,4 @@ const PieCustom = ({testData}: {testData:DataProps}) => {
   );
 };
 
-export default PieCustom
+export default PieCustom;
