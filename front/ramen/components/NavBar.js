@@ -21,14 +21,17 @@ export default function NavBar() {
       {/* 최종 네브바, 반응형 위함 Link안에서 링크는 없애주고 안에넣기 */}
 
       <Link href="/">
-          <a className='navmenu'>카테고리 &nbsp;</a>
+          <a className='navmenu'>카테고리검색 &nbsp;</a>
         </Link>
     <Link href="/index2">
-          <a className='navmenu'>키워드 &nbsp;</a>
+          <a className='navmenu'>키워드검색 &nbsp;</a>
         </Link>
-    <Link href="/SearchResult">
+    {/* <Link href="/SearchResult">
           <a className='navmenu'>카테고리결과 &nbsp;</a>
         </Link>
+        <Link href="/SearchKeywordResult">
+          <a className='navmenu'>키워드결과 &nbsp;</a>
+        </Link> */}
     <Link href="/SearchTextResult">
           <a className='navmenu'>텍스트결과 &nbsp;</a>
         </Link>

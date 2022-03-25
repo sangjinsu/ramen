@@ -4,32 +4,12 @@ import * as React from 'react';
 import Ibox from '../components/main/box'
 import Lank from '../components/main/Lank'
 import Sug from '../components/main/Suggestion'
-// import { useRouter } from "next/router";
 
 
 const Home: NextPage = () => {
-  // const router = useRouter()
-  // const tt = 'hihi'
+
   return <>
-{/* <button
-      type="button"
-      onClick={() => {
-        router.push(
-          {
-          pathname: '/test',
-          query: { 
-            "ramenType":0,
-            "noodleType":0,
-            "ramenStyle":tt
-           },
-        },
-        `/test`
-        )
-        // masking해서 넘어가는 쿼리 숨기기
-      }}
-    >
-      Click here to read more
-    </button> */}
+
   <Container>
   <Ibox></Ibox> 
  <Row>
@@ -38,14 +18,22 @@ const Home: NextPage = () => {
    <Col xs={1} md={2} lg={4}></Col>
  </Row>
  <Row>
- <Col ></Col>
-   <Col ><Sug></Sug></Col>
-   <Col ><Sug></Sug></Col>
-   <Col></Col>
+ <Col xs={0} md={2} lg={3}></Col>
+   <Col xs={12} md={4} lg={3}><div className='sug'><Sug></Sug></div></Col>
+   <Col xs={12} md={4} lg={3}><div className='sug'><Sug></Sug></div></Col>
+   <Col xs={0} md={2} lg={3}></Col>
  </Row>
   
 </Container>
 
+<style jsx>{`
+        .sug{
+          margin:10px;
+        }
+        
+
+        
+      `}</style>
 
 
   </>

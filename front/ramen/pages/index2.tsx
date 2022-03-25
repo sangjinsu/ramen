@@ -1,15 +1,26 @@
 import type { NextPage } from 'next'
 import { Container,Row,Col} from 'react-bootstrap';
 import * as React from 'react';
-
+import { useRouter } from "next/router";
 
 const Home2: NextPage = () => {
-
+   const router = useRouter()
+   const handleKeyword = (keyWord) =>{
+      router.push(
+        {
+        pathname: '/SearchKeywordResult',
+        query: { 
+          "keyWord":keyWord,
+         },
+      },
+      `/SearchKeywordResult`
+      )
+    }
   return <>
   <Container>
  
   <Row>
-    <Col xs={1} md={1}></Col>
+    <Col xs={0} md={1}></Col>
     <Col xs={2} md={2}>
     <div className="cloud">
     <div className='side'>#꼬들</div>
@@ -17,7 +28,9 @@ const Home2: NextPage = () => {
     <div className='side'>#쫄깃</div>
     <div className='side2'>#파</div>
     <div className='side'>#달걀</div>
-    <div className='side2'>#소고기</div>
+    <div className='side2' onClick={()=>{
+       handleKeyword('beef')
+    }}>#소고기</div>
     </div>
     
     
@@ -71,7 +84,7 @@ const Home2: NextPage = () => {
     </div>
     
     </Col>
-    <Col xs={1} md={1}></Col>
+    <Col xs={0} md={1}></Col>
   </Row>
 </Container>
 <style jsx>{`
@@ -115,11 +128,14 @@ const Home2: NextPage = () => {
   position:relative;
   left:30px;
   margin:50px;
+  cursor:pointer;
 }
 .side2{
   position:relative;
   right:30px;
   margin:50px;
+  cursor:pointer;
+
 }
         
       `}</style>

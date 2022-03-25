@@ -14,14 +14,15 @@ let [ramen3,setRamen3] = useState(0)
 let [ramenresult,setRamenresult] = useState([0,0,0])
 // 1,2,3,4,5,6,7,8
 const router = useRouter()
+
   return <>
 
   
     <div className="box">
     <Row>
-      <Col xs={2} md={3} lg={3}></Col>
+      <Col xs={0} md={3} lg={3}></Col>
       {/* 반응형에서 찌그러져서 xs속성줘야함 */}
-      <Col xs={9} md={6} lg={5}>    <div className="iconbox" width={500}>
+      <Col xs={12} md={6} lg={5}>    <div className="iconbox" width={500}>
         
         <div style={{display:"inline"}}><img src="icon/rightarrow.png" width={45}></img> </div>
         <R1 ramen1={ramen1}></R1>
@@ -55,7 +56,7 @@ const router = useRouter()
       
       </div>
 </Col>
-      <Col xs={1} md={3} lg={4}></Col>
+      <Col xs={0} md={3} lg={4}></Col>
 
     </Row>
     <div className='marginbox'></div>
