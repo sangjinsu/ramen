@@ -22,7 +22,9 @@ export class AuthController {
     private readonly authService: AuthService,
     private readonly memberService: MemberService,
   ) {}
+
   @Post('signup')
+  @HttpCode(HttpStatus.CREATED)
   async register(@Body() SignupRequestDto: SignupRequestDto): Promise<any> {
     const member = await this.authService.register(SignupRequestDto);
 
@@ -69,13 +71,16 @@ export class AuthController {
     };
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post('logout')
+  @HttpCode(HttpStatus.ACCEPTED)
   async logOut(@Req() req) {
-    await this.memberService.removeRefreshToken(req.member.member_id);
+    await this.memberService.removeRefreshToken(req.user.member_id);
   }
 
   @UseGuards(JwtRefreshGuard)
   @Get('refresh')
+  @HttpCode(HttpStatus.ACCEPTED)
   refresh(@Req() req) {
     const member = req.user;
     const accessToken = this.authService.getJwtAccessToken(member);
@@ -84,6 +89,7 @@ export class AuthController {
 
   @UseGuards(JwtAuthGuard)
   @Get('check-jwt')
+  @HttpCode(HttpStatus.ACCEPTED)
   checkJwt() {
     return true;
   }
