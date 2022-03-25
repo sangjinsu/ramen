@@ -10,6 +10,7 @@ export default function SignupPreference({
   selectLength,
   selectTexture,
   selectEgg,
+  selectSpicy,
   selectSoupNothing,
   selectSoupGarlic,
   selectSoupPepper,
@@ -21,19 +22,21 @@ export default function SignupPreference({
   onClickChoice,
 }) {
   const labelList = ["A", "B", "C", "D"];
-  const ramenPreferences = [
-    ["그냥", "2개로 분리", "4개로 분리", "잘게"],
-    ["쫄깃하게", "부드럽게", "심지가 있게", "퍼지게"],
-    ["안 넣음", "완숙", "반숙", "풀어서"],
-    ["안 넣음", "마늘", "고추", "파"],
-    ["안 넣음", "치즈", "떡", "만두"],
-  ];
   const ramenPreferenceName = [
     "1. 면의 길이",
     "2. 면의 식감",
     "3. 계란",
-    "4. 국물 재료",
+    "4. 맴기",
     "5. 토핑",
+    "6. 국물 재료",
+  ];
+  const ramenPreferences = [
+    ["그냥", "2개로 분리", "4개로 분리", "잘게"],
+    ["쫄깃하게", "부드럽게", "심지가 있게", "퍼지게"],
+    ["안 넣음", "완숙", "반숙", "풀어서"],
+    ["안 맴게", "조금 맵게", "맴게", "아주 맴게"],
+    ["안 넣음", "치즈", "떡", "만두"],
+    ["안 넣음", "마늘", "고추", "파"],
   ];
 
   return (
@@ -76,17 +79,9 @@ export default function SignupPreference({
                             selectEgg ===
                               ramenPreferences[idxPreference][idxChoice])) ||
                         (idxPreference === 3 &&
-                          idxChoice === 0 &&
-                          (flagSoup || selectSoupNothing)) ||
-                        (idxPreference === 3 &&
-                          idxChoice === 1 &&
-                          (flagSoup || selectSoupGarlic)) ||
-                        (idxPreference === 3 &&
-                          idxChoice === 2 &&
-                          (flagSoup || selectSoupPepper)) ||
-                        (idxPreference === 3 &&
-                          idxChoice === 3 &&
-                          (flagSoup || selectSoupGreenOnion)) ||
+                          (selectSpicy === "" ||
+                            selectSpicy ===
+                              ramenPreferences[idxPreference][idxChoice])) ||
                         (idxPreference === 4 &&
                           idxChoice === 0 &&
                           (flagTopping || selectToppingNothing)) ||
@@ -98,7 +93,19 @@ export default function SignupPreference({
                           (flagTopping || selectToppingRicecake)) ||
                         (idxPreference === 4 &&
                           idxChoice === 3 &&
-                          (flagTopping || selectToppingDumpling))
+                          (flagTopping || selectToppingDumpling)) ||
+                        (idxPreference === 5 &&
+                          idxChoice === 0 &&
+                          (flagSoup || selectSoupNothing)) ||
+                        (idxPreference === 5 &&
+                          idxChoice === 1 &&
+                          (flagSoup || selectSoupGarlic)) ||
+                        (idxPreference === 5 &&
+                          idxChoice === 2 &&
+                          (flagSoup || selectSoupPepper)) ||
+                        (idxPreference === 5 &&
+                          idxChoice === 3 &&
+                          (flagSoup || selectSoupGreenOnion))
                           ? { width: "9rem" }
                           : { width: "9rem", opacity: "0.5" }
                       }
