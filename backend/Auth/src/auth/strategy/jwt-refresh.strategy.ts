@@ -1,8 +1,7 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { jwtConstants } from '../constants';
-import { Payload } from '../jwt.payload';
+import { Injectable } from '@nestjs/common';
+import { jwtConstants } from '../constant';
 import { MemberService } from 'src/member/member.service';
 
 @Injectable()
@@ -19,7 +18,7 @@ export class JwtRefreshStrategy extends PassportStrategy(
   }
 
   async validate(payload: any) {
-    const { key, member_id } = payload;
+    const { key, sub: member_id } = payload;
     return this.memberService.getMemberIfRefreshTokenMatches(key, member_id);
   }
 }

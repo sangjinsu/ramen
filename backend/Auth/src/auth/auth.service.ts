@@ -2,7 +2,6 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { MemberService } from 'src/member/member.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { jwtConstants } from './constants';
 import { SignupRequestDto } from './dto/signup.request.dto';
 import { Fond } from 'src/member/entity/fond.entity';
 import { Member } from 'src/member/entity/member.entity';
@@ -96,15 +95,16 @@ export class AuthService {
   getJwtAccessToken(member: Member) {
     const payload = { sub: member.member_id, email: member.email };
     return this.jwtService.sign(payload, {
-      expiresIn: '20s',
+      expiresIn: '60s',
     });
   }
 
   async getJwtRefreshToken(member: Member) {
-    const hash = await bcrypt.hash(member.email, 10);
-    const payload = { sub: member.member_id, email: member.email, key: hash };
-    return this.jwtService.sign(payload, {
+    const key = await bcrypt.hash(member.email, 10);
+    const payload = { sub: member.member_id, email: member.email, key };
+    const refreshToken = this.jwtService.sign(payload, {
       expiresIn: '3600s',
     });
+    return { refreshToken, key };
   }
 }

@@ -28,11 +28,13 @@ export class AuthController {
 
     const accessToken = this.authService.getJwtAccessToken(member);
 
-    const refreshToken = await this.authService.getJwtRefreshToken(member);
+    const { refreshToken, key } = await this.authService.getJwtRefreshToken(
+      member,
+    );
 
     await this.memberService.setCurrentRefreshToken(
-      refreshToken,
-      member.member_id,
+      key,
+      String(member.member_id),
     );
 
     return {
@@ -54,11 +56,11 @@ export class AuthController {
     }
 
     const accessToken = this.authService.getJwtAccessToken(member);
-    const refreshToken = await this.authService.getJwtRefreshToken(member);
-    await this.memberService.setCurrentRefreshToken(
-      refreshToken,
-      member.member_id,
+    const { refreshToken, key } = await this.authService.getJwtRefreshToken(
+      member,
     );
+    await this.memberService.setCurrentRefreshToken(key, member.member_id);
+
     return {
       member_id: member.member_id,
       name: member.name,

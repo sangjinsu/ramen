@@ -19,9 +19,7 @@ export class MemberService {
     private readonly memberRepository: Repository<Member>,
     @InjectRepository(Fond)
     private readonly fondRepository: Repository<Fond>,
-    @InjectRepository(MemberLikeRamen)
-    @Inject(CACHE_MANAGER)
-    private readonly cacheManager: Cache,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
   async findAll(): Promise<Member[]> {
@@ -66,17 +64,16 @@ export class MemberService {
     return savedMemberLikeRamen;
   }
 
-  async setCurrentRefreshToken(refreshToken: string, id: number) {
+  async setCurrentRefreshToken(refreshToken: string, id: string) {
     const currentHashedRefreshToken = await bcrypt.hash(refreshToken, 10);
-    console.log(this.cacheManager.store);
-    await this.cacheManager.set(String(id), currentHashedRefreshToken);
+    await this.cacheManager.set(id, currentHashedRefreshToken, { ttl: 5000 });
   }
 
-  async getMemberIfRefreshTokenMatches(refreshToken: string, id: number) {
+  async getMemberIfRefreshTokenMatches(refreshToken: string, id: string) {
     const currentHashedRefreshToken = (await this.cacheManager.get(
-      String(id),
+      id,
     )) as string;
-    console.log(currentHashedRefreshToken);
+
     const isRefreshTokenMatching = await bcrypt.compare(
       refreshToken,
       currentHashedRefreshToken,
@@ -84,9 +81,8 @@ export class MemberService {
 
     if (isRefreshTokenMatching) {
       const member = await this.memberRepository.findOne({
-        where: { member_id: id },
+        where: { member_id: Number(id) },
       });
-
       return member;
     }
   }
