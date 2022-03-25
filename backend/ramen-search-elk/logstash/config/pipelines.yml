@@ -5,13 +5,4 @@
 - pipeline.id: fetch-ramen-pipeline
   path.config: "/usr/share/logstash/pipeline/fetch-ramen.conf"
 
-# - pipeline.id: fetch-nutrient-pipeline
-#   path.config: "/usr/share/logstash/pipeline/fetch-nutrient.conf"
-
-# - pipeline.id: fetch-composition-pipeline
-#   path.config: "/usr/share/logstash/pipeline/fetch-composition.conf"
-
-# - pipeline.id: fetch-analysis-pipeline
-#   path.config: "/usr/share/logstash/pipeline/fetch-analysis.conf"
-
 
