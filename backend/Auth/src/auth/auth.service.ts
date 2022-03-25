@@ -1,44 +1,159 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { LoginRequestDto } from './dto/login.request.dto';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { MemberService } from 'src/member/member.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { MembersRepository } from 'src/members/repository/member.repository';
+import { jwtConstants } from './constants';
+import { SignupRequestDto } from './dto/signup.request.dto';
+import { Fond } from 'src/member/entity/fond.entity';
+import { Member } from 'src/member/entity/member.entity';
+import { MemberLikeRamen } from 'src/member/entity/memberLikeRamen.entity';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly membersRepository: MembersRepository,
+    private memberService: MemberService,
     private jwtService: JwtService,
   ) {}
 
-  async jwtLogin(data: LoginRequestDto) {
-    const { inputEmail, inputPw } = data;
+  async vaildateMember(email: string, plainTextPassword: string): Promise<any> {
+    try {
+      const member = await this.memberService.findByEmail(email);
+      await this.verifyPassword(plainTextPassword, member.password);
+      const { password, ...result } = member;
+      return result;
+    } catch (error) {
+      throw new BadRequestException('Wrong credentials provided');
+    }
+  }
 
-    const member = await this.membersRepository.findOne({
-      where: { email: inputEmail },
+  private async verifyPassword(
+    plainTextPassword: string,
+    hashedPassword: string,
+  ) {
+    const isPasswordMatch = await bcrypt.compare(
+      plainTextPassword,
+      hashedPassword,
+    );
+    if (!isPasswordMatch) {
+      throw new BadRequestException('Wrong credentials provided');
+    }
+  }
+
+  async register(body: SignupRequestDto) {
+    const { inputEmail, inputPw, inputName, inputAge, inputGender } = body;
+    const {
+      noodleLength,
+      noodleTexture,
+      ingredientNone,
+      ingredientGarlic,
+      ingredientPepper,
+      ingredientGreenOnion,
+      egg,
+      toppingNone,
+      toppingCheese,
+      toppingDumpling,
+      toppingTteok,
+      spicy,
+    } = body;
+    const { selectRamens } = body;
+
+    const isMemberExisted = await this.memberService.findByEmail(inputEmail);
+
+    if (isMemberExisted) {
+      throw new UnauthorizedException('해당하는 멤버가 이미 존재합니다.');
+    }
+
+    const hashedPassword = await bcrypt.hash(inputPw, 10);
+
+    const fond = Fond.createFond({
+      noodleLength,
+      noodleTexture,
+      ingredientNone,
+      ingredientGarlic,
+      ingredientPepper,
+      ingredientGreenOnion,
+      egg,
+      toppingNone,
+      toppingCheese,
+      toppingDumpling,
+      toppingTteok,
+      spicy,
     });
 
-    if (!member) {
-      throw new UnauthorizedException('이메일과 비밀번호를 확인해주세요.');
-    }
+    const newFond = await this.memberService.createNewFond(fond);
 
-    const rounds = 10;
-    const salt = await bcrypt.genSalt(rounds);
-    const hashedPassword = await bcrypt.hash(inputPw, salt);
-
-    const isPasswordValidated = await bcrypt.compare(
+    const member = Member.createMember({
+      email: inputEmail,
+      name: inputName,
+      gender: inputGender,
+      age: inputAge,
       hashedPassword,
-      member.password,
-    );
+      fond_id: newFond.fond_id,
+    });
 
-    if (!isPasswordValidated) {
-      throw new UnauthorizedException('이메일과 비밀번호를 확인해주세요.');
-    }
+    const newMember = await this.memberService.createNewMember(member);
 
-    const payload = { email: member.email, sub: member.member_id };
+    selectRamens.forEach((ramen_id) => {
+      const memberLikeRamen = MemberLikeRamen.createMemberLikeRamen({
+        member_id: newMember.member_id,
+        ramen_id,
+      });
+      this.memberService.createNewMemberLikeRamen(memberLikeRamen);
+    });
+
+    return newMember;
+  }
+
+  getCookieWithJwtAccessToken(id: number) {
+    const payload = { id };
+    const token = this.jwtService.sign(payload, {
+      secret: jwtConstants.secret,
+      expiresIn: '10s',
+    });
 
     return {
-      token: this.jwtService.sign(payload),
+      accessToken: token,
+      domain: 'localhost',
+      path: '/',
+      httpOnly: true,
+      maxAge: 10 * 1000,
+    };
+  }
+
+  getCookieWithJwtRefreshToken(id: number) {
+    const payload = { id };
+    const token = this.jwtService.sign(payload, {
+      secret: jwtConstants.secret,
+      expiresIn: '3600s',
+    });
+
+    return {
+      refreshToken: token,
+      domain: 'localhost',
+      path: '/',
+      httpOnly: true,
+      maxAge: 3600 * 1000,
+    };
+  }
+
+  getCookiesForLogOut() {
+    return {
+      accessOption: {
+        domain: 'localhost',
+        path: '/',
+        httpOnly: true,
+        maxAge: 0,
+      },
+      refreshOption: {
+        domain: 'localhost',
+        path: '/',
+        httpOnly: true,
+        maxAge: 0,
+      },
     };
   }
 }
