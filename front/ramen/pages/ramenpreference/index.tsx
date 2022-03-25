@@ -14,6 +14,7 @@ function RamenPreference({ router: { query } }) {
   const [selectLength, setSelectLength] = useState("");
   const [selectTexture, setSelectTexture] = useState("");
   const [selectEgg, setSelectEgg] = useState("");
+  const [selectSpicy, setSelectSpicy] = useState("");
 
   const [selectSoupNothing, setSelectSoupNothing] = useState(false);
   const [selectSoupGarlic, setSelectSoupGarlic] = useState(false);
@@ -26,21 +27,13 @@ function RamenPreference({ router: { query } }) {
   const [selectToppingDumpling, setSelectToppingDumpling] = useState(false);
 
   const [canGoNext, setCanGoNext] = useState(false);
-
-  const labelList = ["A", "B", "C", "D"];
   const ramenPreferences = [
     ["그냥", "2개로 분리", "4개로 분리", "잘게"],
     ["쫄깃하게", "부드럽게", "심지가 있게", "퍼지게"],
     ["안 넣음", "완숙", "반숙", "풀어서"],
+    ["안 맴게", "조금 맵게", "맴게", "아주 맴게"],
     ["안 넣음", "마늘", "고추", "파"],
     ["안 넣음", "치즈", "떡", "만두"],
-  ];
-  const ramenPreferenceName = [
-    "1. 면의 길이",
-    "2. 면의 식감",
-    "3. 계란",
-    "4. 국물 재료",
-    "5. 토핑",
   ];
 
   const onClickChoice = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -68,6 +61,12 @@ function RamenPreference({ router: { query } }) {
         setSelectEgg((prevEgg) => choice);
       }
     } else if (categoryId === 3) {
+      if (selectSpicy === choice) {
+        setSelectSpicy((prevEgg) => "");
+      } else {
+        setSelectSpicy((prevEgg) => choice);
+      }
+    } else if (categoryId === 5) {
       if (choiceId === 0) {
         setSelectSoupNothing((prevSelect) => !prevSelect);
         setSelectSoupGarlic((prevSelect) => false);
@@ -110,28 +109,30 @@ function RamenPreference({ router: { query } }) {
         noodleLength: selectLength,
         noodleTexture: selectTexture,
         egg: selectEgg,
-        ingredientNone: selectSoupNothing,
-        ingredientGarlic: selectSoupGarlic,
-        ingredientPepper: selectSoupPepper,
-        ingredientGreenOnion: selectSoupGreenOnion,
+        spicy: selectSpicy,
         toppingNone: selectToppingNothing,
         toppingCheese: selectToppingCheese,
         toppingTteok: selectToppingRicecake,
         toppingDumpling: selectToppingDumpling,
+        ingredientNone: selectSoupNothing,
+        ingredientGarlic: selectSoupGarlic,
+        ingredientPepper: selectSoupPepper,
+        ingredientGreenOnion: selectSoupGreenOnion,
       };
     });
     if (
       selectLength !== "" &&
       selectTexture !== "" &&
-      (selectSoupNothing ||
-        selectSoupGarlic ||
-        selectSoupPepper ||
-        selectSoupGreenOnion) &&
       selectEgg !== "" &&
+      selectSpicy !== "" &&
       (selectToppingNothing ||
         selectToppingCheese ||
         selectToppingRicecake ||
-        selectToppingDumpling)
+        selectToppingDumpling) &&
+      (selectSoupNothing ||
+        selectSoupGarlic ||
+        selectSoupPepper ||
+        selectSoupGreenOnion)
     ) {
       setCanGoNext(true);
     } else {
@@ -141,6 +142,7 @@ function RamenPreference({ router: { query } }) {
     selectLength,
     selectTexture,
     selectEgg,
+    selectSpicy,
     selectSoupNothing,
     selectSoupGarlic,
     selectSoupPepper,
@@ -197,6 +199,7 @@ function RamenPreference({ router: { query } }) {
             selectLength={selectLength}
             selectTexture={selectTexture}
             selectEgg={selectEgg}
+            selectSpicy={selectSpicy}
             selectSoupNothing={selectSoupNothing}
             selectSoupGarlic={selectSoupGarlic}
             selectSoupPepper={selectSoupPepper}
