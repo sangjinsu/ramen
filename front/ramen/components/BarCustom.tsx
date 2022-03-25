@@ -16,7 +16,7 @@ const BarCustom = ({ barChartData }: { barChartData: DataProps }) => {
     const ctx = canvas.getContext("2d");
     if (ctx) {
       console.log(barChartData);
-      console.log(barChartData.testData[0]);
+      console.log(barChartData.data[0]);
       chartRef.current = new Chart(ctx, {
         type: "bar",
         data: {
@@ -25,9 +25,9 @@ const BarCustom = ({ barChartData }: { barChartData: DataProps }) => {
             {
               label: "라면 성분",
               data: [
-                barChartData.testData[0],
-                barChartData.testData[1],
-                barChartData.testData[2],
+                barChartData.data[0],
+                barChartData.data[1],
+                barChartData.data[2],
               ],
               backgroundColor: [
                 "rgba(46, 204, 113, 0.2)",
