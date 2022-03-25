@@ -40,4 +40,35 @@ export class Fond {
 
   @Column({ type: 'varchar', name: 'spicy' })
   spicy: string;
+
+  static createFond(options: {
+    noodleLength: string;
+    noodleTexture: string;
+    ingredientNone: boolean;
+    ingredientGarlic: boolean;
+    ingredientPepper: boolean;
+    ingredientGreenOnion: boolean;
+    egg: string;
+    toppingNone: boolean;
+    toppingCheese: boolean;
+    toppingDumpling: boolean;
+    toppingTteok: boolean;
+    spicy: string;
+  }) {
+    const fond = new Fond();
+    fond.noodleLength = options.noodleLength;
+    fond.noodleTexture = options.noodleTexture;
+    fond.ingredientNone = options.ingredientNone;
+    fond.ingredientGarlic = options.ingredientGarlic;
+    fond.ingredientPepper = options.ingredientPepper;
+    fond.ingredientGreenOnion = options.ingredientGreenOnion;
+    fond.egg = options.egg;
+    fond.toppingNone = options.toppingNone;
+    fond.toppingCheese = options.toppingCheese;
+    fond.toppingDumpling = options.toppingDumpling;
+    fond.toppingTteok = options.toppingTteok;
+    fond.spicy = options.spicy;
+
+    return fond;
+  }
 }

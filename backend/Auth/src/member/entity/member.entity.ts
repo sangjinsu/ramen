@@ -34,4 +34,25 @@ export class Member {
 
   @Column({ type: 'bigint' })
   fond_id: number;
+
+  static createMember(options: {
+    age: number;
+    gender: string;
+    email: string;
+    name: string;
+    hashedPassword: string;
+    fond_id: number;
+  }) {
+    const member = new Member();
+    member.age = options.age;
+    member.gender = options.gender;
+    member.email = options.email;
+    member.name = options.name;
+    member.password = options.hashedPassword;
+    member.created_at = new Date();
+    member.updated_at = new Date();
+    member.fond_id = options.fond_id;
+
+    return member;
+  }
 }
