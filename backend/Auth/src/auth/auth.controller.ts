@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { MemberService } from 'src/member/member.service';
 import { AuthService } from './auth.service';
+import { CheckEmailDto } from './dto/check-email.request.dto';
 import { LoginRequestDto } from './dto/login.request.dto';
 import { SignupRequestDto } from './dto/signup.request.dto';
 import { JwtRefreshGuard } from './guard/jwt-refresh.guard';
@@ -23,10 +24,20 @@ export class AuthController {
     private readonly memberService: MemberService,
   ) {}
 
+  @Post('check-email')
+  @HttpCode(HttpStatus.OK)
+  async checkEmail(@Body() checkEmailDto: CheckEmailDto) {
+    const { inputEmail } = checkEmailDto;
+    const member = await this.memberService.findByEmail(inputEmail);
+    if (member) {
+      throw new UnauthorizedException('email was existed already');
+    }
+  }
+
   @Post('signup')
   @HttpCode(HttpStatus.CREATED)
-  async register(@Body() SignupRequestDto: SignupRequestDto): Promise<any> {
-    const member = await this.authService.register(SignupRequestDto);
+  async register(@Body() signupRequestDto: SignupRequestDto) {
+    const member = await this.authService.register(signupRequestDto);
 
     const accessToken = this.authService.getJwtAccessToken(member);
 
@@ -72,7 +83,7 @@ export class AuthController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Post('logout')
+  @Get('logout')
   @HttpCode(HttpStatus.ACCEPTED)
   async logOut(@Req() req) {
     await this.memberService.removeRefreshToken(req.user.member_id);
