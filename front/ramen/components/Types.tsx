@@ -1,3 +1,3 @@
-export interface DataProps{
-  testData:number[];
+export interface DataProps {
+  data: number[];
 }

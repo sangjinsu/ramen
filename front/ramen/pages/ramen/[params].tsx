@@ -13,7 +13,7 @@ const Detail: NextPage = ({ params, ramenInfos }) => {
   // console.log(dynamicValue);
 
   const barChartData: DataProps = {
-    testData: [
+    data: [
       ramenInfos.kcal,
       ramenInfos.carbs,
       ramenInfos.protein,
@@ -24,7 +24,7 @@ const Detail: NextPage = ({ params, ramenInfos }) => {
   };
 
   const pieChartData: DataProps = {
-    testData: [ramenInfos.carbs, ramenInfos.protein, ramenInfos.lipid],
+    data: [ramenInfos.carbs, ramenInfos.protein, ramenInfos.lipid],
   };
 
   return (
@@ -84,7 +84,7 @@ const Detail: NextPage = ({ params, ramenInfos }) => {
             </div>
           </section>
 
-          {barChartData.testData[0] && (
+          {barChartData.data[0] && (
             <section>
               <RamenTable barChartData={barChartData} />
             </section>

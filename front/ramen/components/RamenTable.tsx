@@ -1,31 +1,31 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Collapse from '@mui/material/Collapse';
-import IconButton from '@mui/material/IconButton';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import BarCustom from './BarCustom';
-import { DataProps } from './Types';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Collapse from "@mui/material/Collapse";
+import IconButton from "@mui/material/IconButton";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import BarCustom from "./BarCustom";
+import { DataProps } from "./Types";
 
 function createData(
   name: string,
   ingredient: number,
-  ingredient_recommend: number,
   ingredient_average: number,
+  ingredient_recommend: number
 ) {
   return {
     name,
     ingredient,
-    ingredient_recommend,
     ingredient_average,
+    ingredient_recommend,
   };
 }
 
@@ -33,14 +33,18 @@ function Row(props: { row: ReturnType<typeof createData> }) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
 
-  const [testData, setData] = React.useState<DataProps>({testData:[0, 0, 0]});
-  React.useEffect( ()=> {
-    setData({testData:[row.ingredient, row.ingredient_recommend, row.ingredient_average]})
-  },[])
+  const [barChartData, setData] = React.useState<DataProps>({
+    data: [0, 0, 0],
+  });
+  React.useEffect(() => {
+    setData({
+      data: [row.ingredient, row.ingredient_average, row.ingredient_recommend],
+    });
+  }, []);
 
   return (
     <React.Fragment>
-      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+      <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
         <TableCell>
           <IconButton
             aria-label="expand row"
@@ -54,8 +58,8 @@ function Row(props: { row: ReturnType<typeof createData> }) {
           {row.name}
         </TableCell>
         <TableCell align="right">{row.ingredient}</TableCell>
-        <TableCell align="right">{row.ingredient_recommend}</TableCell>
         <TableCell align="right">{row.ingredient_average}</TableCell>
+        <TableCell align="right">{row.ingredient_recommend}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -64,7 +68,9 @@ function Row(props: { row: ReturnType<typeof createData> }) {
               <Typography variant="h6" gutterBottom component="div">
                 막대 Chart로 비교
               </Typography>
-              {testData.testData[0] !== 0 && <BarCustom testData={testData} />}
+              {barChartData.data[0] !== 0 && (
+                <BarCustom barChartData={barChartData} />
+              )}
             </Box>
           </Collapse>
         </TableCell>
@@ -73,17 +79,20 @@ function Row(props: { row: ReturnType<typeof createData> }) {
   );
 }
 
-
-export default function RamenTable({testData}: {testData:DataProps}) {
+export default function RamenTable({
+  barChartData,
+}: {
+  barChartData: DataProps;
+}) {
   const rows = [
-    createData('에너지 (Kcal)', testData.testData[0], 330, 443.26),
-    createData('탄수화물(g)', testData.testData[1], 330, 68.05),
-    createData('단백질(g)', testData.testData[2], 50, 8.32),
-    createData('지방(g)', testData.testData[3], 0, 13.56),
-    createData('당류(g)', testData.testData[4], 25, 4.72),
-    createData('나트륨(mg)', testData.testData[5], 1500, 1467.95),
+    createData("에너지 (Kcal)", barChartData.data[0], 443.26, 2000),
+    createData("탄수화물(g)", barChartData.data[1], 68.05, 330),
+    createData("단백질(g)", barChartData.data[2], 8.32, 50),
+    createData("지방(g)", barChartData.data[3], 13.56, 0),
+    createData("당류(g)", barChartData.data[4], 4.72, 25),
+    createData("나트륨(mg)", barChartData.data[5], 1467.95, 1500),
   ];
-  
+
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
@@ -92,8 +101,8 @@ export default function RamenTable({testData}: {testData:DataProps}) {
             <TableCell />
             <TableCell>성분</TableCell>
             <TableCell align="right">One</TableCell>
-            <TableCell align="right">Recommend</TableCell>
             <TableCell align="right">Average</TableCell>
+            <TableCell align="right">Recommend</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
