@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"Search/utils/loaddotenv"
+	"Search/util/loaddotenv"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 )
