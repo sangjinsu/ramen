@@ -5,6 +5,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Link from "next/link";
 import Button from "@mui/material/Button";
+import axios from "axios";
 
 function RamenPreference({ router: { query } }) {
   const ramenCodes = {
@@ -263,9 +264,16 @@ function RamenPreference({ router: { query } }) {
   const onClickSubmit = async () => {
     const userInfo = await JSON.parse(query.userInfo);
     const select = await makeSelectList();
-    console.log(select);
     userInfo["selectRamens"] = select;
     console.log(userInfo);
+    axios
+      .post("api/member/signup", userInfo)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        alert("에러");
+      });
   };
 
   useEffect(() => {
@@ -335,15 +343,15 @@ function RamenPreference({ router: { query } }) {
           <Col variant="contained">
             {canGoNext ? (
               <Button variant="outlined" onClick={onClickSubmit}>
-                <Link
+                {/* <Link
                   href={
                     {
                       // pathname: "/",
                     }
                   }
-                >
-                  <a>회원가입</a>
-                </Link>
+                > */}
+                <a>회원가입</a>
+                {/* </Link> */}
               </Button>
             ) : (
               <Button variant="outlined" disabled>

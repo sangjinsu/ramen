@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import axios from "axios";
 
 function Login() {
   const [inputEmail, setInputEmail] = useState("");
@@ -14,6 +15,17 @@ function Login() {
     setInputPw(event.target.value);
   };
 
+  const onClickLogin = () => {
+    axios
+      .post("api/member/login", {
+        inputEmail: inputEmail,
+        inputPw: inputPw,
+      })
+      .then(function (response) {
+        console.log(response);
+      });
+  };
+
   return (
     <>
       <div>
@@ -22,6 +34,29 @@ function Login() {
             <Col></Col>
             <Col>
               <h2>로그인</h2>
+              <div>
+                <label htmlFor="input_email">ID : </label>
+                <input
+                  type="text"
+                  name="input_email"
+                  value={inputEmail}
+                  onChange={handleInputEmail}
+                />
+              </div>
+              <div>
+                <label htmlFor="input_pw">PW : </label>
+                <input
+                  type="password"
+                  name="input_pw"
+                  value={inputPw}
+                  onChange={handleInputPw}
+                />
+              </div>
+              <div>
+                <button type="button" onClick={onClickLogin}>
+                  Login
+                </button>
+              </div>
             </Col>
             <Col></Col>
           </Row>
