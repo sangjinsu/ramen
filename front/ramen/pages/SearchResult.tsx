@@ -13,8 +13,22 @@ const Search: NextPage = () => {
   const { query } = useRouter()
   let [array, setArray] = useState([])
   const queryResult = [query.ramenType, query.noodleType, query.ramenStyle]
-  const name = [['봉지라면', '컵라면'], ['건면', '유탕면', '생면,숙면'], ['국물', '비빔,볶음면', '짜장라면']]
 
+  // const name = [['봉지라면', '컵라면'], ['건면', '유탕면', '생면,숙면'], ['국물', '비빔,볶음면', '짜장라면']]
+  const ramenType = {
+    1: '봉지라면',
+    2: '컵라면',
+  }
+  const noodleType = {
+    1: '건면',
+    2: '유탕면',
+    3: '생면,숙면'
+  }
+  const ramenStyle = {
+    1: '국물',
+    2: '비빔,볶음면',
+    3: '짜장라면'
+  }
 
   const [currentPage, setCurrentPage] = React.useState(1); // 현재 페이지
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
@@ -54,17 +68,21 @@ const Search: NextPage = () => {
   }, [])
 
   return <>
-
-    <Row>
-      <Col xs={2} md={2}></Col>
-      <Col xs={8} md={8}>
-        <h1>카테고리결과 </h1>
-        {/* {result[0]}{result[1]}{result[2]} */}
-        {/* {result[0]}
+    <Container>
+      <Row>
+        <Col xs={2} md={2}></Col>
+        <Col xs={8} md={8}>
+          <h1>카테고리결과 </h1>
+          {ramenType[queryResult[0]]}
+          {noodleType[queryResult[1]]}
+          {ramenStyle[queryResult[2]]}
+          {/* [query.ramenType, query.noodleType, query.ramenStyle] */}
+          {/* {result[0]}{result[1]}{result[2]} */}
+          {/* {result[0]}
         {result[1]}
         {result[2]} */}
 
-        {/* {
+          {/* {
   page.length ===0
   ?null
   :(
@@ -77,7 +95,7 @@ const Search: NextPage = () => {
     })
   )
 } */}
-        {/* {
+          {/* {
   array.length ===0
   ?null
   :(
@@ -92,23 +110,23 @@ const Search: NextPage = () => {
 } */}
 
 
-        {currentRamens.map(function (a, index) {
-          let imgpath = `ramen/${a.name}.png`
-          return (
-            <ResultBox key={index} name={a.name} brand={a.brand} image={imgpath}></ResultBox>
-          )
-        })}
+          {currentRamens.map(function (a, index) {
+            let imgpath = `ramen/${a.name}.png`
+            return (
+              <ResultBox key={index} name={a.name} brand={a.brand} image={imgpath}></ResultBox>
+            )
+          })}
 
-        <Stack spacing={2} >
-          <Pagination count={pageNumber} shape="rounded" onChange={handleChange} />
-        </Stack>
-        {/* <Stack spacing={2}>
+          <Stack spacing={2} >
+            <Pagination count={pageNumber} shape="rounded" onChange={handleChange} />
+          </Stack>
+          {/* <Stack spacing={2}>
 
       <Typography>Page: {page}</Typography>
       <Pagination count={5} page={page} onChange={handleChange} />
     </Stack> */}
 
-        {/* {
+          {/* {
         name.map(function(n,i){
           return(
             <ResultBox key = {i} name={n} image={image[i]}></ResultBox>
@@ -117,11 +135,11 @@ const Search: NextPage = () => {
       }   */}
 
 
-      </Col>
-      <Col xs={2} md={2}></Col>
+        </Col>
+        <Col xs={2} md={2}></Col>
 
-    </Row>
-
+      </Row>
+    </Container>
 
   </>
 
