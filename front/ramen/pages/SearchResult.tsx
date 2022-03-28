@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import { Container,Row,Col} from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import ResultBox from '../components/search/ResultBox'
 import { useRouter } from "next/router";
 import axios from 'axios'
@@ -10,8 +10,8 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
 const Search: NextPage = () => {
-  const {query} = useRouter()
-  let [array,setArray] = useState([])
+  const { query } = useRouter()
+  let [array, setArray] = useState([])
 
   // const [page, setPage] = React.useState(1);
   // const handleChange = (event, value) => {
@@ -25,39 +25,41 @@ const Search: NextPage = () => {
 
   const ramenPerPage = 5; // 페이지당 리스트 개수
   const currentPageLast = currentPage * ramenPerPage; // 현재 페이지의 처음
-  const currentPageFirst = currentPageLast -ramenPerPage; /// 현재 페이지의 끝
+  const currentPageFirst = currentPageLast - ramenPerPage; /// 현재 페이지의 끝
   const currentRamens = array.slice(currentPageFirst, currentPageLast); // 동일이 고마오
   const pageNumber = Math.ceil(array.length / ramenPerPage);
 
-   useEffect(()=>{
-     axios({
-      method:'post',
-      url:'http://j6c104.p.ssafy.io:8080/v1/ramen/category',
+  useEffect(() => {
+    axios({
+      method: 'post',
+      url: 'http://j6c104.p.ssafy.io:8080/v1/ramen/category',
       data: {
         noodleType: query.noodleType,
         ramenStyle: query.ramenStyle,
         ramenType: query.ramenType,
       },
     })
-    .then((result)=>{console.log('요청성공')
-    console.log(result)
-    setArray(result.data)
- 
-  })
-    .catch((error)=>{console.log('요청실패')
-    console.log(error)  
-  })
-  },[])
+      .then((result) => {
+        console.log('요청성공')
+        console.log(result)
+        setArray(result.data)
+
+      })
+      .catch((error) => {
+        console.log('요청실패')
+        console.log(error)
+      })
+  }, [])
 
   return <>
-  
-  <Row>
-    <Col xs={2} md={2}></Col>
-    <Col xs={8} md={8}>
-    <h1>카테고리결과</h1> 
 
-    
-    {/* {
+    <Row>
+      <Col xs={2} md={2}></Col>
+      <Col xs={8} md={8}>
+        <h1>카테고리결과</h1>
+
+
+        {/* {
   page.length ===0
   ?null
   :(
@@ -70,7 +72,7 @@ const Search: NextPage = () => {
     })
   )
 } */}
-{/* {
+        {/* {
   array.length ===0
   ?null
   :(
@@ -85,22 +87,23 @@ const Search: NextPage = () => {
 } */}
 
 
-{currentRamens.map(function(a,index){
-  return(
-    <ResultBox key = {index} name={a.name} brand={a.brand}></ResultBox>
-  )
-})}
+        {currentRamens.map(function (a, index) {
+          let imgpath = `ramen/${a.name}.png`
+          return (
+            <ResultBox key={index} name={a.name} brand={a.brand} image={imgpath}></ResultBox>
+          )
+        })}
 
-<Stack spacing={2} >
-        <Pagination count={pageNumber} shape="rounded" onChange={handleChange}/>
-      </Stack>
-{/* <Stack spacing={2}>
+        <Stack spacing={2} >
+          <Pagination count={pageNumber} shape="rounded" onChange={handleChange} />
+        </Stack>
+        {/* <Stack spacing={2}>
 
       <Typography>Page: {page}</Typography>
       <Pagination count={5} page={page} onChange={handleChange} />
     </Stack> */}
-  
-      {/* {
+
+        {/* {
         name.map(function(n,i){
           return(
             <ResultBox key = {i} name={n} image={image[i]}></ResultBox>
@@ -109,15 +112,15 @@ const Search: NextPage = () => {
       }   */}
 
 
- </Col>
-    <Col xs={2} md={2}></Col>
+      </Col>
+      <Col xs={2} md={2}></Col>
 
-  </Row>
+    </Row>
 
 
   </>
-   
-  
+
+
 }
 
 export default Search
