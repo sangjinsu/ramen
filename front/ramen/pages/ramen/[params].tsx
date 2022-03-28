@@ -2,15 +2,22 @@ import axios from "axios";
 import type { NextPage } from "next";
 // import Image from "next/image";
 // import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import PieCustom from "../../components/PieCustom";
 import RamenTable from "../../components/RamenTable";
 import { DataProps } from "../../components/Types";
 
-const Detail: NextPage = ({ params, ramenInfos }) => {
+const Detail: NextPage = ({ params, ramenInfos, userLikeBoolean }) => {
   console.log(ramenInfos);
   // const dynamicValue = router.query.detail;
   // console.log(dynamicValue);
+
+  const [likeCheck, setLike] = useState<boolean>(userLikeBoolean);
+
+  const likeChange = () => {
+    // const
+    setLike(!likeCheck);
+  };
 
   const barChartData: DataProps = {
     data: [
@@ -39,7 +46,7 @@ const Detail: NextPage = ({ params, ramenInfos }) => {
           </section>
           <section className="left_area_btn">
             <label className="like">
-              <input type="checkbox" />
+              <input type="checkbox" checked={likeCheck} onClick={likeChange} />
               <div className="hearth" />
             </label>
             <div>좋아요</div>
@@ -48,7 +55,17 @@ const Detail: NextPage = ({ params, ramenInfos }) => {
 
         <div className="right_area">
           <section className="main_section">
-            <div className="right_ramenName">{ramenInfos.name}</div>
+            <div className="right_ramenName">
+              {ramenInfos.name}
+              <label className="like">
+                <input
+                  type="checkbox"
+                  checked={likeCheck}
+                  onClick={likeChange}
+                />
+                <div className="hearth" />
+              </label>
+            </div>
             <img src="/logo.png" className="right_ramen_img" />
           </section>
 
@@ -307,10 +324,18 @@ export async function getServerSideProps({ params: { params } }) {
   const { data: ramenInfos } = await axios.get(
     `http://j6c104.p.ssafy.io:8080/v1/ramen/detail/${params}`
   );
+  // login 구현되면 주석해제
+  // const { status: userLikeStatus } = await axios.get(
+  //   `http://j6c104.p.ssafy.io:8080/v1/ramen/islike/${params}/${1}`
+  // );
+  // const userLikeBoolean =
+  // 200 <= userLikeStatus && userLikeStatus < 300 ? true : false;
+  const userLikeBoolean = true;
   return {
     props: {
       params,
       ramenInfos,
+      userLikeBoolean,
     },
   };
 }
