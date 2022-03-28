@@ -1,43 +1,56 @@
+import axios from "axios";
+import { withRouter, useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import SignupPreference from "../../../components/signup/SignupPreference";
 
-function UserPreference() {
-  const [userInfo, setUserInfo] = useState([]);
+function UserPreference({ params, router: { query } }) {
+  const router = useRouter();
+  const [userInfo, setUserInfo] = useState(JSON.parse(query.fonds));
 
   const [flagSoup, setFlagSoup] = useState(true);
   const [flagTopping, setFlagTopping] = useState(true);
 
-  const [selectLength, setSelectLength] = useState("");
-  const [selectTexture, setSelectTexture] = useState("");
-  const [selectEgg, setSelectEgg] = useState("");
+  const [selectLength, setSelectLength] = useState(userInfo.noodleLength);
+  const [selectTexture, setSelectTexture] = useState(userInfo.noodleTexture);
+  const [selectEgg, setSelectEgg] = useState(userInfo.egg);
+  const [selectSpicy, setSelectSpicy] = useState(userInfo.spicy);
 
-  const [selectSoupNothing, setSelectSoupNothing] = useState(false);
-  const [selectSoupGarlic, setSelectSoupGarlic] = useState(false);
-  const [selectSoupPepper, setSelectSoupPepper] = useState(false);
-  const [selectSoupGreenOnion, setSelectSoupGreenOnion] = useState(false);
+  const [selectSoupNothing, setSelectSoupNothing] = useState(
+    userInfo.ingredientNone
+  );
+  const [selectSoupGarlic, setSelectSoupGarlic] = useState(
+    userInfo.ingredientGarlic
+  );
+  const [selectSoupPepper, setSelectSoupPepper] = useState(
+    userInfo.ingredientPepper
+  );
+  const [selectSoupGreenOnion, setSelectSoupGreenOnion] = useState(
+    userInfo.ingredientGreenOnion
+  );
 
-  const [selectToppingNothing, setSelectToppingNothing] = useState(false);
-  const [selectToppingCheese, setSelectToppingCheese] = useState(false);
-  const [selectToppingRicecake, setSelectToppingRicecake] = useState(false);
-  const [selectToppingDumpling, setSelectToppingDumpling] = useState(false);
+  const [selectToppingNothing, setSelectToppingNothing] = useState(
+    userInfo.toppingNone
+  );
+  const [selectToppingCheese, setSelectToppingCheese] = useState(
+    userInfo.toppingCheese
+  );
+  const [selectToppingRicecake, setSelectToppingRicecake] = useState(
+    userInfo.toppingTteok
+  );
+  const [selectToppingDumpling, setSelectToppingDumpling] = useState(
+    userInfo.toppingDumpling
+  );
 
   const [canGoNext, setCanGoNext] = useState(false);
 
-  const labelList = ["A", "B", "C", "D"];
   const ramenPreferences = [
     ["그냥", "2개로 분리", "4개로 분리", "잘게"],
     ["쫄깃하게", "부드럽게", "심지가 있게", "퍼지게"],
     ["안 넣음", "완숙", "반숙", "풀어서"],
+    ["안 맴게", "조금 맵게", "맴게", "아주 맴게"],
     ["안 넣음", "마늘", "고추", "파"],
     ["안 넣음", "치즈", "떡", "만두"],
-  ];
-  const ramenPreferenceName = [
-    "1. 면의 길이",
-    "2. 면의 식감",
-    "3. 계란",
-    "4. 국물 재료",
-    "5. 토핑",
   ];
 
   const onClickChoice = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -65,6 +78,12 @@ function UserPreference() {
         setSelectEgg((prevEgg) => choice);
       }
     } else if (categoryId === 3) {
+      if (selectSpicy === choice) {
+        setSelectSpicy((prevEgg) => "");
+      } else {
+        setSelectSpicy((prevEgg) => choice);
+      }
+    } else if (categoryId === 5) {
       if (choiceId === 0) {
         setSelectSoupNothing((prevSelect) => !prevSelect);
         setSelectSoupGarlic((prevSelect) => false);
@@ -100,34 +119,48 @@ function UserPreference() {
     }
   };
 
+  const updatePreference = async () => {
+    try {
+      const sendPreference = Object.assign({}, userInfo);
+      sendPreference.memberId = 1;
+      await axios.put("v1/member/fond", sendPreference);
+      router.push(`/user/${params}`);
+    } catch {
+      alert("다시 시도해주세요!!");
+      router.push(`/user/${params}`);
+    }
+  };
+
   useEffect(() => {
     setUserInfo(() => {
       return {
+        egg: selectEgg,
+        ingredientGarlic: selectSoupGarlic,
+        ingredientGreenOnion: selectSoupGreenOnion,
+        ingredientNone: selectSoupNothing,
+        ingredientPepper: selectSoupPepper,
         noodleLength: selectLength,
         noodleTexture: selectTexture,
-        egg: selectEgg,
-        ingredientNone: selectSoupNothing,
-        ingredientGarlic: selectSoupGarlic,
-        ingredientPepper: selectSoupPepper,
-        ingredientGreenOnion: selectSoupGreenOnion,
-        toppingNone: selectToppingNothing,
+        spicy: selectSpicy,
         toppingCheese: selectToppingCheese,
-        toppingTteok: selectToppingRicecake,
         toppingDumpling: selectToppingDumpling,
+        toppingNone: selectToppingNothing,
+        toppingTteok: selectToppingRicecake,
       };
     });
     if (
       selectLength !== "" &&
       selectTexture !== "" &&
-      (selectSoupNothing ||
-        selectSoupGarlic ||
-        selectSoupPepper ||
-        selectSoupGreenOnion) &&
       selectEgg !== "" &&
+      selectSpicy !== "" &&
       (selectToppingNothing ||
         selectToppingCheese ||
         selectToppingRicecake ||
-        selectToppingDumpling)
+        selectToppingDumpling) &&
+      (selectSoupNothing ||
+        selectSoupGarlic ||
+        selectSoupPepper ||
+        selectSoupGreenOnion)
     ) {
       setCanGoNext(true);
     } else {
@@ -137,6 +170,7 @@ function UserPreference() {
     selectLength,
     selectTexture,
     selectEgg,
+    selectSpicy,
     selectSoupNothing,
     selectSoupGarlic,
     selectSoupPepper,
@@ -193,6 +227,7 @@ function UserPreference() {
             selectLength={selectLength}
             selectTexture={selectTexture}
             selectEgg={selectEgg}
+            selectSpicy={selectSpicy}
             selectSoupNothing={selectSoupNothing}
             selectSoupGarlic={selectSoupGarlic}
             selectSoupPepper={selectSoupPepper}
@@ -205,7 +240,9 @@ function UserPreference() {
           />
 
           <Row>
-            <Col>{canGoNext ? <div>submit</div> : null}</Col>
+            <Col>
+              {canGoNext ? <div onClick={updatePreference}>submit</div> : null}
+            </Col>
           </Row>
         </Container>
       </div>
@@ -213,4 +250,12 @@ function UserPreference() {
   );
 }
 
-export default UserPreference;
+export async function getServerSideProps({ params: { params } }) {
+  return {
+    props: {
+      params,
+    },
+  };
+}
+
+export default withRouter(UserPreference);
