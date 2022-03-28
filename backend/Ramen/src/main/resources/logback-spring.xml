@@ -10,6 +10,7 @@
         <deliveryStrategy class="com.github.danielwegener.logback.kafka.delivery.AsynchronousDeliveryStrategy"/>
         <producerConfig>retries=1</producerConfig>
         <producerConfig>bootstrap.servers=j6c104.p.ssafy.io:9092</producerConfig>
+        <destination>j6c104.p.ssafy.io:9092</destination>
         <producerConfig>compression.type=snappy</producerConfig>
         <producerConfig>max.block.ms=1000</producerConfig>
     </appender>
