@@ -9,7 +9,7 @@ import { MemberService } from 'src/member/member.service';
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor(private readonly memberService: MemberService) {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken,
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: jwtConstants.secret,
       ignoreExpiration: false,
     });
