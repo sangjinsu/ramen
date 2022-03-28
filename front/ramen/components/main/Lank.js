@@ -1,9 +1,22 @@
 import * as React from 'react';
 import { Container,Row,Col,ListGroup} from 'react-bootstrap';
-
-
+import axios from 'axios'
+import { useEffect, useState } from 'react';
 
 export default function Lank() {
+  // useEffect(()=>{
+  //   axios.get('http://j6c104.p.ssafy.io:8081/v1/ranking/ramen')
+  //   .then((result)=>{console.log('랭킹요청성공')
+  // console.log(result)
+  // // console.log(result.data)
+  // // console.log(result.data[0])
+  
+  // })
+  //   .catch((error)=>{console.log('요청실패')
+  //   console.log(error)
+  
+  // })
+  // },[])
   return <>
  
     <div className='list'>
