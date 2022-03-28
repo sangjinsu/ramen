@@ -150,7 +150,13 @@ const Detail: NextPage = ({ params, fonds }) => {
           </section>
           <section>
             <div className="user_info">
-              <Link href={`/user/${params}/preferenceupdate`}>
+              <Link
+                href={{
+                  pathname: `/user/${params}/preferenceupdate`,
+                  query: { fonds: JSON.stringify(fonds) },
+                }}
+                as={`/user/${params}/preferenceupdate`}
+              >
                 <a className="fond_update">
                   <FontAwesomeIcon icon={faUtensils} />
                   <p className="font_right">취향 수정</p>
@@ -506,7 +512,7 @@ export async function getServerSideProps({ params: { params } }) {
     ingredientPepper: true,
     noodleLength: "4개로 분리",
     noodleTexture: "쫄깃하게",
-    spicy: "1단계",
+    spicy: "안 맴게",
     toppingCheese: true,
     toppingDumpling: true,
     toppingNone: false,
