@@ -56,6 +56,7 @@ func (st *search) Query(buf bytes.Buffer, index string) map[string]interface{} {
 
 type SearchBuilder interface {
 	Addresses(...string) SearchBuilder
+	Build() Search
 }
 
 type searchBuilder struct {
