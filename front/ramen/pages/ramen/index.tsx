@@ -9,9 +9,7 @@ import Stack from "@mui/material/Stack";
 import Link from "next/link";
 import axios from "axios";
 
-const RamentList: NextPage = ({ bongiList, cupList }) => {
-  console.log(bongiList);
-  console.log(cupList);
+const RamentList: NextPage = ({ AllList, bongiList, cupList }) => {
   // 임시데이터
   const ramenData = [
     {
@@ -179,8 +177,10 @@ export async function getServerSideProps() {
   const { data: cupList } = await axios.get(
     `http://j6c104.p.ssafy.io:8080/v1/ramen/list/cup`
   );
+  const AllList = [...bongiList, ...cupList];
   return {
     props: {
+      AllList,
       bongiList,
       cupList,
     },
