@@ -11,8 +11,8 @@ import java.util.List;
 // Query dsl 추후 적용
 public interface RamenRepository extends JpaRepository<Ramen, Long> {
 
-    // Composition 선택 // 최대 3개까지 받은 후 중복 제거 및 crawl cnt 필터링 후 카테고리 별 정렬
 
+    // Composition 선택 // 최대 3개까지 받은 후 중복 제거 및 crawl cnt 필터링 후 카테고리 별 정렬
     // category 1
     @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.crawlingCnt from Ramen r join Composition c on c.compositionId = r.ramenId join Analysis a on r.ramenId = a.analysisId where c.cup = 0")
     List<Object[]> findRamensByCompositionBongji();

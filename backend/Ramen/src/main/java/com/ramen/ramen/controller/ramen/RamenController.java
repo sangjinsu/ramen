@@ -46,4 +46,19 @@ public class RamenController {
     List<RamenListDto> fetchRamensByAnalysis(@PathVariable("analysis") String analysis){
         return ramenService.fetchRamensByAnalysis(analysis);
     }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/list/bongji")
+    List<RamenListDto> fetchRamensListBongji(){
+        return ramenService.fetchRamenListBongji();
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/list/cup")
+    List<RamenListDto> fetchRamensByCup(){
+        return ramenService.fetchRamenListCup();
+    }
+
+
+
 }

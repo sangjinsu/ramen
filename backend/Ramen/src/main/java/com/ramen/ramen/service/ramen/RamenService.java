@@ -60,6 +60,59 @@ public class RamenService {
         }
     }
 
+    public List<RamenListDto> fetchRamenListBongji() {
+
+        List<Object[]> ramens = ramenRepository.findRamensByCompositionBongji();
+
+        List<RamenSortDto> ramenSortDtos = new ArrayList<>();
+
+        for (Object o[] : ramens) {
+            Long ramenId = (Long) o[0];
+            String name = (String) o[1];
+            String englishName = (String) o[2];
+            String brand = (String) o[3];
+            String englishBrand = (String) o[4];
+            double c = (double) o[5];
+
+            ramenSortDtos.add(new RamenSortDto(ramenId, name, englishName, brand, englishBrand, c));
+        }
+
+        // 크롤링 순으로 정렬
+        Collections.sort(ramenSortDtos, new RamenComparator());
+
+        // dto 변환
+        List<RamenListDto> ramenListDtos = ramenSortDtos.stream().map(RamenListDto::new).collect(Collectors.toList());
+
+        return ramenListDtos;
+    }
+
+    public List<RamenListDto> fetchRamenListCup() {
+
+        List<Object[]> ramens = ramenRepository.findRamensByCompositionCup();
+
+        List<RamenSortDto> ramenSortDtos = new ArrayList<>();
+
+        for (Object o[] : ramens) {
+            Long ramenId = (Long) o[0];
+            String name = (String) o[1];
+            String englishName = (String) o[2];
+            String brand = (String) o[3];
+            String englishBrand = (String) o[4];
+            double c = (double) o[5];
+
+            ramenSortDtos.add(new RamenSortDto(ramenId, name, englishName, brand, englishBrand, c));
+        }
+
+        // 크롤링 순으로 정렬
+        Collections.sort(ramenSortDtos, new RamenComparator());
+
+        // dto 변환
+        List<RamenListDto> ramenListDtos = ramenSortDtos.stream().map(RamenListDto::new).collect(Collectors.toList());
+
+        return ramenListDtos;
+    }
+
+
     public List<RamenListDto> fetchRamensByCategory(CategoryVo category) { // List composition
         List<Object[]> ramens1 = null; // category 1
         List<Object[]> ramens2 = null; // category 2
