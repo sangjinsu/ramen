@@ -4,9 +4,13 @@ import * as React from 'react';
 import Ibox from '../components/main/box'
 import Lank from '../components/main/Lank'
 import Sug from '../components/main/Suggestion'
-
+import axios from 'axios'
+import { useEffect, useState } from 'react';
 
 const Home: NextPage = () => {
+
+
+
 
   return <>
     <Container>
