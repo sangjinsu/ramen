@@ -1,16 +1,13 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Container,Row,Col,Navbar,Nav,Dropdown} from 'react-bootstrap';
+import { Container,Navbar,Nav,Dropdown} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import * as React from 'react';
-import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
-import { useEffect, useState } from 'react';
-import { off } from "process";
+import {  useState } from 'react';
 
 export default function NavBar() {
   const [search,setSearch] = useState('')
@@ -33,10 +30,14 @@ export default function NavBar() {
     <Nav className="me-auto">
       {/* 최종 네브바, 반응형 위함 Link안에서 링크는 없애주고 안에넣기 */}
       <Link href="/">
-          <a className='navmenu'>카테고리검색 &nbsp;</a>
+          <a className='navmenu'>
+          <img src="/choice.png" width={35}/>
+          &nbsp;카테고리검색 &nbsp;</a>
         </Link>
     <Link href="/index2">
-          <a className='navmenu'>키워드검색 &nbsp;</a>
+          <a className='navmenu'>
+          <img src="/chat.png" width={35}/>
+          &nbsp;키워드검색 &nbsp;</a>
         </Link>
 
     {/* <Link href="/SearchTextResult">
@@ -118,6 +119,11 @@ export default function NavBar() {
           text-decoration-line: none;
           font-size:20px;
           display:inline-block;
+          font-weight: bold;
+          
+        }
+        .navmenu:hover{
+          color:orange
           
         }
         .searchform{
