@@ -1,125 +1,3 @@
-# version: '3.2'
-
-# services:
-#   es01:
-#     build:
-#       context: elasticsearch/
-#       args:
-#         ELK_VERSION: $ELK_VERSION
-#     volumes:
-#       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro,z
-#       - data01:/usr/share/elasticsearch/data:z
-#     ports:
-#       - "9200:9200"
-#       - "9300:9300"
-#     environment:
-#       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-#       - node.name=es01
-#       - cluster.name=es-log-cluster
-#       - discovery.seed_hosts=es02,es03
-#       - cluster.initial_master_nodes=es01,es02,es03
-#       - bootstrap.memory_lock=true
-#     ulimits:
-#       memlock:
-#         soft: -1
-#         hard: -1
-#     networks:
-#       - elk
-  
-#   es02:
-#     build:
-#       context: elasticsearch/
-#       args:
-#         ELK_VERSION: $ELK_VERSION
-#     volumes:
-#       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro,z
-#       - data02:/usr/share/elasticsearch/data:z
-#     environment:
-#       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-#       - node.name=es02
-#       - cluster.name=es-log-cluster
-#       - discovery.seed_hosts=es01,es03
-#       - cluster.initial_master_nodes=es01,es02,es03
-#       - bootstrap.memory_lock=true
-#     ulimits:
-#       memlock:
-#         soft: -1
-#         hard: -1
-#     networks:
-#       - elk
-
-#   es03:
-#     build:
-#       context: elasticsearch/
-#       args:
-#         ELK_VERSION: $ELK_VERSION
-#     volumes:
-#       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro,z
-#       - data03:/usr/share/elasticsearch/data:z
-#     environment:
-#       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-#       - node.name=es03
-#       - cluster.name=es-log-cluster
-#       - discovery.seed_hosts=es01,es02
-#       - cluster.initial_master_nodes=es01,es02,es03
-#       - bootstrap.memory_lock=true
-#     ulimits:
-#       memlock:
-#         soft: -1
-#         hard: -1
-#     networks:
-#       - elk
-
-#   logstash:
-#     build:
-#       context: logstash/
-#       args:
-#         ELK_VERSION: $ELK_VERSION
-#     volumes:
-#       - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro,z
-#       - ./logstash/pipeline:/usr/share/logstash/pipeline:ro,z
-#     ports:
-#       - "5044:5044"
-#       - "5000:5000/tcp"
-#       - "5000:5000/udp"
-#       - "9600:9600"
-#     environment:
-#       LS_JAVA_OPTS: "-Xms512m -Xmx512m"
-#     networks:
-#       - elk
-#     depends_on:
-#       - es01
-
-#   kibana:
-#     build:
-#       context: kibana/
-#       args:
-#         ELK_VERSION: $ELK_VERSION
-#     volumes:
-#       - ./kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml:ro,z
-#     ports:
-#       - "5601:5601"
-#     networks:
-#       - elk
-#     depends_on:
-#       - es03
-
-# networks:
-#   elk:
-#     driver: bridge
-
-# volumes:
-#   data01:
-#     driver: local
-#   data02:
-#     driver: local
-#   data03:
-#     driver: local
-
-
-
-# -----------------------------------------------------------------------------------------------------------------------
-
 version: '3.2'
 
 services:
@@ -153,6 +31,7 @@ services:
       context: elasticsearch/
       args:
         ELK_VERSION: $ELK_VERSION
+    container_name: 'ramen-log_es01'
     volumes:
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro,z
       - data01:/usr/share/elasticsearch/data:z
@@ -178,6 +57,7 @@ services:
       context: elasticsearch/
       args:
         ELK_VERSION: $ELK_VERSION
+    container_name: 'ramen-log_es02'
     volumes:
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro,z
       - data02:/usr/share/elasticsearch/data:z
@@ -200,6 +80,7 @@ services:
       context: elasticsearch/
       args:
         ELK_VERSION: $ELK_VERSION
+    container_name: 'ramen-log_es03'
     volumes:
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro,z
       - data03:/usr/share/elasticsearch/data:z
@@ -222,6 +103,7 @@ services:
       context: logstash/
       args:
         ELK_VERSION: $ELK_VERSION
+    container_name: 'ramen-log_logstash'
     volumes:
       # - type: bind
       #   source: ./logstash/config/logstash.yml
@@ -250,6 +132,7 @@ services:
       context: kibana/
       args:
         ELK_VERSION: $ELK_VERSION
+    container_name: 'ramen-log_kibana'
     volumes:
       # - type: bind
       #   source: ./kibana/config/kibana.yml
@@ -264,7 +147,7 @@ services:
       - es03
 
   zookeeper:
-    container_name: zookeeper
+    container_name: 'ramen-log_zookeeper'
     image: confluentinc/cp-zookeeper:latest
     ports:
       - "9900:2181"
@@ -275,7 +158,7 @@ services:
       - kafka-elk
 
   kafka:
-    container_name: kafka
+    container_name: 'ramen-log_kafka'
     image: confluentinc/cp-kafka:latest
     depends_on:
       - zookeeper
@@ -283,7 +166,7 @@ services:
       - "9092:9092"
     environment:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://j6c104.p.ssafy.io:9092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
