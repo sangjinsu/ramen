@@ -6,8 +6,6 @@ import {
   faUser,
   faCakeCandles,
   faPerson,
-  faPencil,
-  faBowlFood,
   faUtensils,
 } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -19,140 +17,62 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 
-const Detail: NextPage = () => {
+const Detail: NextPage = ({ params, fonds }) => {
+  const [likeRamens, setLikeRamens] = React.useState([]);
+  const eatFond = [
+    fonds.noodleLength,
+    fonds.noodleTexture,
+    fonds.egg,
+    fonds.spicy,
+  ];
+  const toppingFonds = fonds.toppingNone
+    ? ["없음"]
+    : [
+        fonds.toppingCheese ? "치즈" : false,
+        fonds.toppingDumpling ? "만두" : false,
+        fonds.toppingTteok ? "떡" : false,
+      ].filter((fond) => fond !== false);
+  const ingredientFonds = fonds.ingredientNone
+    ? ["없음"]
+    : [
+        fonds.ingredientGarlic ? "마늘" : false,
+        fonds.ingredientGreenOnion ? "파" : false,
+        fonds.ingredientPepper ? "고추" : false,
+      ].filter((fond) => fond !== false);
+
+  console.log(ingredientFonds);
+  console.log(toppingFonds);
+
   const likeRamen = [
     {
-      img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
-      title: "Breakfast",
-      author: "@bkristastucchio",
+      img: "간짬뽕",
+      name: "간짬뽕",
+      ramenId: "1",
     },
     {
-      img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-      title: "Burger",
-      author: "@rollelflex_graphy726",
+      img: "감자면큰사발면",
+      name: "감자면큰사발면",
+      ramenId: "2",
     },
     {
-      img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
-      title: "Camera",
-      author: "@helloimnik",
+      img: "7가지 채소가득 우리밀라면",
+      name: "7가지 채소가득 우리밀라면",
+      ramenId: "3",
     },
     {
-      img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
-      title: "Coffee",
-      author: "@nolanissac",
+      img: "강릉 교동반점 직화짬뽕소컵",
+      name: "강릉 교동반점 직화짬뽕소컵",
+      ramenId: "4",
     },
     {
-      img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
-      title: "Hats",
-      author: "@hjrc33",
+      img: "까르보불닭볶음면",
+      name: "까르보불닭볶음면",
+      ramenId: "5",
     },
     {
-      img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
-      title: "Honey",
-      author: "@arwinneil",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1516802273409-68526ee1bdd6",
-      title: "Basketball",
-      author: "@tjdragotta",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1518756131217-31eb79b20e8f",
-      title: "Fern",
-      author: "@katie_wasserman",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1597645587822-e99fa5d45d25",
-      title: "Mushrooms",
-      author: "@silverdalex",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1567306301408-9b74779a11af",
-      title: "Tomato basil",
-      author: "@shelleypauls",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
-      title: "Breakfast",
-      author: "@bkristastucchio",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-      title: "Burger",
-      author: "@rollelflex_graphy726",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
-      title: "Camera",
-      author: "@helloimnik",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
-      title: "Coffee",
-      author: "@nolanissac",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
-      title: "Hats",
-      author: "@hjrc33",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
-      title: "Honey",
-      author: "@arwinneil",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1516802273409-68526ee1bdd6",
-      title: "Basketball",
-      author: "@tjdragotta",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1518756131217-31eb79b20e8f",
-      title: "Fern",
-      author: "@katie_wasserman",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1597645587822-e99fa5d45d25",
-      title: "Mushrooms",
-      author: "@silverdalex",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1567306301408-9b74779a11af",
-      title: "Tomato basil",
-      author: "@shelleypauls",
-    },
-  ];
-
-  const userTaste = [
-    {
-      img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
-      title: "Breakfast",
-      author: "@bkristastucchio",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-      title: "Burger",
-      author: "@rollelflex_graphy726",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
-      title: "Camera",
-      author: "@helloimnik",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
-      title: "Breakfast",
-      author: "@bkristastucchio",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-      title: "Burger",
-      author: "@rollelflex_graphy726",
-    },
-    {
-      img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
-      title: "Camera",
-      author: "@helloimnik",
+      img: "꽃게탕면",
+      name: "꽃게탕면",
+      ramenId: "6",
     },
   ];
 
@@ -165,8 +85,48 @@ const Detail: NextPage = () => {
   const ramenPerPage = 3; // 페이지당 라면 개수
   const currentPageLast = currentPage * ramenPerPage; // 현재 페이지의 처음
   const currentPageFirst = currentPageLast - ramenPerPage; /// 현재 페이지의 끝
-  const currentRamens = likeRamen.slice(currentPageFirst, currentPageLast); // 0 ~ 8
-  const pageNumber = Math.ceil(likeRamen.length / ramenPerPage);
+  const currentRamens = likeRamens.slice(currentPageFirst, currentPageLast); // 0 ~ 8
+  const pageNumber = Math.ceil(likeRamens.length / ramenPerPage);
+
+  React.useEffect(() => {
+    const userLikeData = async () => {
+      // const { data: likeRamenList } = await axios.get(
+      //   `http://j6c104.p.ssafy.io:8080/v1/membmer/${params}/like`
+      // );
+      // const userLikeList = likeRamenList.map((ramen) => [
+      //   ramen.ramenId,
+      //   ramen.ramen.name,
+      // ]);
+      const test = likeRamen.map((test) => [test.img, test.name, test.ramenId]);
+      console.log(test);
+      setLikeRamens(test);
+    };
+    userLikeData();
+  }, []);
+
+  // React.useEffect(() => {
+  //   const userfondData = async () => {
+  //     // const { data: fondList } = await axios.get(
+  //     //   `http://j6c104.p.ssafy.io:8080/v1/membmer/${1}/fond`
+  //     // );
+  //     const test = {
+  //       egg: "완숙",
+  //       ingredientGarlic: true,
+  //       ingredientGreenOnion: true,
+  //       ingredientNone: false,
+  //       ingredientPepper: true,
+  //       noodleLength: "4등분",
+  //       noodleTexture: "꼬들",
+  //       spicy: "조금 맵게",
+  //       toppingCheese: true,
+  //       toppingDumpling: true,
+  //       toppingNone: false,
+  //       toppingTteok: true,
+  //     };
+  //     setLikeRamens(fondList);
+  //   };
+  //   userfondData();
+  // }, []);
 
   return (
     <>
@@ -190,16 +150,12 @@ const Detail: NextPage = () => {
           </section>
           <section>
             <div className="user_info">
-              <FontAwesomeIcon icon={faPencil} />
-              <p className="font_right">회원정보 수정</p>
-            </div>
-            <div className="user_info">
-              <FontAwesomeIcon icon={faBowlFood} />
-              <p className="font_right">선호라면 수정</p>
-            </div>
-            <div className="user_info">
-              <FontAwesomeIcon icon={faUtensils} />
-              <p className="font_right">취향 수정</p>
+              <Link href={`/user/${params}/preferenceupdate`}>
+                <a className="fond_update">
+                  <FontAwesomeIcon icon={faUtensils} />
+                  <p className="font_right">취향 수정</p>
+                </a>
+              </Link>
             </div>
           </section>
         </div>
@@ -214,40 +170,82 @@ const Detail: NextPage = () => {
 
             <div className="taste_infos">
               <div className="taste_info">
-                <div className="taste_info_title">면 종류</div>
-                <div className="taste_info_detail">건면</div>
+                <div className="taste_info_title">면 크기</div>
+                <div className="taste_info_detail">{eatFond[0]}</div>
               </div>
               <div className="taste_info">
-                <div className="taste_info_title">라면 타입</div>
-                <div className="taste_info_detail">국물</div>
+                <div className="taste_info_title">면의 식감</div>
+                <div className="taste_info_detail">{eatFond[1]}</div>
               </div>
               <div className="taste_info">
-                <div className="taste_info_title">스프</div>
-                <div className="taste_info_detail">분말</div>
-              </div>
-              <div className="taste_info">
-                <div className="taste_info_title">조미유</div>
-                <div className="taste_info_detail">X</div>
-              </div>
-              <div className="taste_info">
-                <div className="taste_info_title">Cold</div>
-                <div className="taste_info_detail">X</div>
+                <div className="taste_info_title">계란</div>
+                <div className="taste_info_detail">{eatFond[2]}</div>
               </div>
               <div className="taste_info">
                 <div className="taste_info_title">맵기</div>
-                <div className="taste_info_detail">3</div>
+                <div className="taste_info_detail">{eatFond[3]}</div>
+              </div>
+            </div>
+
+            <div className="like_infos">
+              <ImageList sx={{ width: "100%" }} cols={2} gap={10}>
+                {eatFond.map((eat) => (
+                  <div className="like_info" key={eat}>
+                    <ImageListItem>
+                      <img
+                        src={`/topping/${eat}.jpg?w=248&fit=crop&auto=format`}
+                        srcSet={`/topping/${eat}.jpg?w=248&fit=crop&auto=format&dpr=2 2x`}
+                        alt={eat}
+                        loading="lazy"
+                      />
+                    </ImageListItem>
+                  </div>
+                ))}
+              </ImageList>
+            </div>
+
+            <div className="taste_infos">
+              <div className="taste_info">
+                <div className="taste_info_title">토핑</div>
+                <div className="taste_info_detail topping_info">
+                  {toppingFonds.map(function (topping, i) {
+                    return <p key={i}>{topping}</p>;
+                  })}
+                </div>
+              </div>
+              <div className="taste_info">
+                <div className="taste_info_title">국물 재료</div>
+                <div className="taste_info_detail topping_info">
+                  {ingredientFonds.map(function (ingredientFond, i) {
+                    return <p key={i}>{ingredientFond}</p>;
+                  })}
+                </div>
               </div>
             </div>
 
             <div className="like_infos">
               <ImageList sx={{ width: "100%" }} cols={3} gap={10}>
-                {userTaste.map((taste) => (
-                  <div className="like_info" key={taste.img}>
+                {toppingFonds.map((topping) => (
+                  <div className="like_info" key={topping}>
                     <ImageListItem>
                       <img
-                        src={`${taste.img}?w=248&fit=crop&auto=format`}
-                        srcSet={`${taste.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                        alt={taste.title}
+                        src={`/topping/${topping}.jpg?w=248&fit=crop&auto=format`}
+                        srcSet={`/topping/${topping}.jpg?w=248&fit=crop&auto=format&dpr=2 2x`}
+                        alt={topping}
+                        loading="lazy"
+                      />
+                    </ImageListItem>
+                  </div>
+                ))}
+              </ImageList>
+              <ImageList sx={{ width: "100%" }} cols={3} gap={10}>
+                {ingredientFonds.map((ingredient) => (
+                  <div className="like_info" key={ingredient}>
+                    <ImageListItem>
+                      <img
+                        src={`/topping/${ingredient}.jpg?w=248&fit=crop&auto=format`}
+                        srcSet={`/topping/${ingredient}.jpg?w=248&fit=crop&auto=format&dpr=2 2x`}
+                        alt={ingredient}
                         loading="lazy"
                       />
                     </ImageListItem>
@@ -262,21 +260,21 @@ const Detail: NextPage = () => {
             <div className="like_infos">
               <ImageList sx={{ width: "100%" }} cols={1} gap={10}>
                 {currentRamens.map((ramen) => (
-                  <div className="like_info" key={ramen.img}>
+                  <div className="like_info" key={ramen[0]}>
                     <ImageListItem>
-                      <Link href={`/detail`}>
+                      <Link href={`/ramen/${ramen[2]}`}>
                         <a className="left_link_area">
                           <img
-                            src={`${ramen.img}?w=248&fit=crop&auto=format`}
-                            srcSet={`${ramen.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                            alt={ramen.title}
+                            src={`/ramen/${ramen[0]}.png?w=248&fit=crop&auto=format`}
+                            srcSet={`/ramen/${ramen[0]}.png?w=248&fit=crop&auto=format&dpr=2 2x`}
+                            alt={ramen[1]}
                             loading="lazy"
                           />
                         </a>
                       </Link>
                     </ImageListItem>
                     <div className="right_link_area">
-                      <ImageListItemBar title={ramen.title} position="below" />
+                      <ImageListItemBar title={ramen[1]} position="below" />
                       <div>하트 놔둘 곳</div>
                     </div>
                   </div>
@@ -341,6 +339,13 @@ const Detail: NextPage = () => {
             border-left: 0.25rem solid transparent;
             flex: 1 1 0%;
             height: 3.25rem;
+          }
+          .fond_update {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            color: black;
+            text-decoration: none;
           }
 
           .right_area {
@@ -471,6 +476,10 @@ const Detail: NextPage = () => {
             font-weight: 700;
             margin-bottom: 0.25rem;
           }
+          .topping_info {
+            display: flex;
+            flex-direction: row;
+          }
 
           * {
             margin: 0;
@@ -484,5 +493,31 @@ const Detail: NextPage = () => {
     </>
   );
 };
+
+export async function getServerSideProps({ params: { params } }) {
+  // const { data: fondList } = await axios.get(
+  //   `http://j6c104.p.ssafy.io:8080/v1/membmer/${params}/fond`
+  // );
+  const fonds = {
+    egg: "완숙",
+    ingredientGarlic: true,
+    ingredientGreenOnion: true,
+    ingredientNone: false,
+    ingredientPepper: true,
+    noodleLength: "4개로 분리",
+    noodleTexture: "쫄깃하게",
+    spicy: "1단계",
+    toppingCheese: true,
+    toppingDumpling: true,
+    toppingNone: false,
+    toppingTteok: true,
+  };
+  return {
+    props: {
+      params,
+      fonds,
+    },
+  };
+}
 
 export default Detail;
