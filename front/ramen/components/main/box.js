@@ -1,6 +1,8 @@
 import { Figure} from 'react-bootstrap';
 import { Container,Row,Col,Badge} from 'react-bootstrap';
 import React, { useEffect, useState } from 'react';
+import { useRouter } from "next/router";
+
 
 export default function Layout(){
   // 여기다가 변수로 저장한다음 어케어케 하면 될거같은데 말이지 ㅇㅇ..
@@ -11,13 +13,16 @@ let [ramen2,setRamen2] = useState(0)
 let [ramen3,setRamen3] = useState(0)
 let [ramenresult,setRamenresult] = useState([0,0,0])
 // 1,2,3,4,5,6,7,8
+const router = useRouter()
+
   return <>
+
   
     <div className="box">
     <Row>
-      <Col xs={2} md={3} lg={3}></Col>
+      <Col xs={0} md={3} lg={3}></Col>
       {/* 반응형에서 찌그러져서 xs속성줘야함 */}
-      <Col xs={9} md={6} lg={5}>    <div className="iconbox" width={500}>
+      <Col xs={12} md={6} lg={5}>    <div className="iconbox" width={500}>
         
         <div style={{display:"inline"}}><img src="icon/rightarrow.png" width={45}></img> </div>
         <R1 ramen1={ramen1}></R1>
@@ -26,7 +31,37 @@ let [ramenresult,setRamenresult] = useState([0,0,0])
         {/* 순서가 왜바뀌는지는 모르지만 서치랑,리셋버튼바뀜 */}
         <div className="icon" width={20}></div>
         <div className="icon" onClick={()=>{
-          alert(ramenresult)
+          // alert(ramenresult)
+          // router.push(
+          //   {
+          //   pathname: '/SearchResult',
+          //   query: { 
+          //     "ramenType":ramenresult[0],
+          //     "noodleType":ramenresult[1],
+          //     "ramenStyle":ramenresult[2]
+          //    },
+          // },
+          // `/SearchResult`
+          // )
+          // ||가아니라 &&가 and엿구낭 ㅎㅎ
+          if(ramenresult[0]===0 && ramenresult[1]===0 &&ramenresult[2]===0){
+            // alert('최소 하나이상 골라주세요')
+          }else{
+
+            router.push(
+              {
+              pathname: '/SearchResult',
+              query: { 
+                "ramenType":ramenresult[0],
+                "noodleType":ramenresult[1],
+                "ramenStyle":ramenresult[2]
+               },
+            },
+            `/SearchResult`
+            )
+            // masking해서 넘어가는 쿼리 숨기기
+          }
+          
         }}><img src="search.png" width={45}></img></div>
         <div className="icon" onClick={()=>{setRamen1(0);setRamen2(0);setRamen3(0)
         let newArray = [...ramenresult]
@@ -39,7 +74,7 @@ let [ramenresult,setRamenresult] = useState([0,0,0])
       
       </div>
 </Col>
-      <Col xs={1} md={3} lg={4}></Col>
+      <Col xs={0} md={3} lg={4}></Col>
 
     </Row>
     <div className='marginbox'></div>

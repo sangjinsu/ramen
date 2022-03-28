@@ -5,8 +5,9 @@ import Ibox from '../components/main/box'
 import Lank from '../components/main/Lank'
 import Sug from '../components/main/Suggestion'
 
+
 const Home: NextPage = () => {
-  
+
   return <>
 
   <Container>
@@ -17,14 +18,22 @@ const Home: NextPage = () => {
    <Col xs={1} md={2} lg={4}></Col>
  </Row>
  <Row>
- <Col ></Col>
-   <Col ><Sug></Sug></Col>
-   <Col ><Sug></Sug></Col>
-   <Col></Col>
+ <Col xs={0} md={2} lg={3}></Col>
+   <Col xs={12} md={4} lg={3}><div className='sug'><Sug></Sug></div></Col>
+   <Col xs={12} md={4} lg={3}><div className='sug'><Sug></Sug></div></Col>
+   <Col xs={0} md={2} lg={3}></Col>
  </Row>
   
 </Container>
 
+<style jsx>{`
+        .sug{
+          margin:10px;
+        }
+        
+
+        
+      `}</style>
 
 
   </>
