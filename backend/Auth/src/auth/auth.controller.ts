@@ -6,11 +6,9 @@ import {
   HttpStatus,
   Post,
   Req,
-  Res,
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
-import { Response } from 'express';
 import { MemberService } from 'src/member/member.service';
 import { AuthService } from './auth.service';
 import { CheckEmailDto } from './dto/check-email.request.dto';
@@ -38,10 +36,7 @@ export class AuthController {
 
   @Post('signup')
   @HttpCode(HttpStatus.CREATED)
-  async register(
-    @Body() signupRequestDto: SignupRequestDto,
-    @Res({ passthrough: true }) response: Response,
-  ) {
+  async register(@Body() signupRequestDto: SignupRequestDto) {
     const member = await this.authService.register(signupRequestDto);
 
     const accessToken = this.authService.getJwtAccessToken(member);
@@ -55,32 +50,19 @@ export class AuthController {
       String(member.member_id),
     );
 
-    response.cookie('accessToken', accessToken, {
-      httpOnly: true,
-      maxAge: 3600 * 12,
-      domain: 'localhost:3000',
-    });
-
-    response.cookie('refreshToken', refreshToken, {
-      httpOnly: true,
-      maxAge: 3600 * 12,
-      domain: 'localhost:3000',
-    });
-
     return {
       member_id: member.member_id,
       name: member.name,
       age: member.age,
       gender: member.gender,
+      accessToken,
+      refreshToken,
     };
   }
 
   @Post('login')
   @HttpCode(HttpStatus.OK)
-  async login(
-    @Body() loginRequestDto: LoginRequestDto,
-    @Res({ passthrough: true }) response: Response,
-  ) {
+  async login(@Body() loginRequestDto: LoginRequestDto) {
     const { inputEmail, inputPw } = loginRequestDto;
 
     const member = await this.authService.vaildateMember(inputEmail, inputPw);
@@ -93,56 +75,25 @@ export class AuthController {
       member,
     );
     await this.memberService.setCurrentRefreshToken(key, member.member_id);
-
-    response.cookie('accessToken', accessToken, {
-      httpOnly: true,
-      maxAge: 3600 * 12,
-      domain: 'localhost:3000',
-    });
-
-    response.cookie('refreshToken', refreshToken, {
-      httpOnly: true,
-      maxAge: 3600 * 12,
-      domain: 'localhost:3000',
-    });
-
     return {
       member_id: member.member_id,
       name: member.name,
       age: member.age,
       gender: member.gender,
+      accessToken,
+      refreshToken,
     };
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Get('logout')
-  @HttpCode(HttpStatus.ACCEPTED)
-  async logOut(@Req() req, @Res({ passthrough: true }) response: Response) {
-    await this.memberService.removeRefreshToken(req.user.member_id);
-    response.cookie('accessToken', '', {
-      httpOnly: true,
-      maxAge: 0,
-      domain: 'localhost:3000',
-    });
-
-    response.cookie('refreshToken', '', {
-      httpOnly: true,
-      maxAge: 0,
-      domain: 'localhost:3000',
-    });
   }
 
   @UseGuards(JwtRefreshGuard)
   @Get('refresh')
   @HttpCode(HttpStatus.ACCEPTED)
-  refresh(@Req() req, @Res({ passthrough: true }) response: Response) {
+  refresh(@Req() req) {
     const member = req.user;
     const accessToken = this.authService.getJwtAccessToken(member);
-    response.cookie('accessToken', accessToken, {
-      httpOnly: true,
-      maxAge: 3600 * 12,
-      domain: 'localhost:3000',
-    });
+    return {
+      accessToken,
+    };
   }
 
   @UseGuards(JwtAuthGuard)
