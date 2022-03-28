@@ -1,11 +1,37 @@
 version: '3.2'
 
 services:
+  # elasticsearch:
+  #   build:
+  #     context: elasticsearch/
+  #     args:
+  #       ELK_VERSION: $ELK_VERSION
+  #   volumes:
+  #     - type: bind
+  #       source: ./elasticsearch/config/elasticsearch.yml
+  #       target: /usr/share/elasticsearch/config/elasticsearch.yml
+  #       read_only: true
+  #     - type: volume
+  #       source: elasticsearch
+  #       target: /usr/share/elasticsearch/data
+  #   ports:
+  #     - "9200:9200"
+  #     - "9300:9300"
+  #   environment:
+  #     ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+  #     # ELASTIC_PASSWORD: changeme
+  #     # Use single node discovery in order to disable production mode and avoid bootstrap checks.
+  #     # see: https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
+  #     discovery.type: single-node
+  #   networks:
+  #     - kafka-elk
+
   es01:
     build:
       context: elasticsearch/
       args:
         ELK_VERSION: $ELK_VERSION
+    container_name: 'ramen-log_es01'
     volumes:
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro,z
       - data01:/usr/share/elasticsearch/data:z
@@ -24,13 +50,14 @@ services:
         soft: -1
         hard: -1
     networks:
-      - elk
+      - kafka-elk
   
   es02:
     build:
       context: elasticsearch/
       args:
         ELK_VERSION: $ELK_VERSION
+    container_name: 'ramen-log_es02'
     volumes:
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro,z
       - data02:/usr/share/elasticsearch/data:z
@@ -46,13 +73,14 @@ services:
         soft: -1
         hard: -1
     networks:
-      - elk
+      - kafka-elk
 
   es03:
     build:
       context: elasticsearch/
       args:
         ELK_VERSION: $ELK_VERSION
+    container_name: 'ramen-log_es03'
     volumes:
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro,z
       - data03:/usr/share/elasticsearch/data:z
@@ -68,14 +96,23 @@ services:
         soft: -1
         hard: -1
     networks:
-      - elk
+      - kafka-elk
 
   logstash:
     build:
       context: logstash/
       args:
         ELK_VERSION: $ELK_VERSION
+    container_name: 'ramen-log_logstash'
     volumes:
+      # - type: bind
+      #   source: ./logstash/config/logstash.yml
+      #   target: /usr/share/logstash/config/logstash.yml
+      #   read_only: true
+      # - type: bind
+      #   source: ./logstash/pipeline
+      #   target: /usr/share/logstash/pipeline
+      #   read_only: true
       - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro,z
       - ./logstash/pipeline:/usr/share/logstash/pipeline:ro,z
     ports:
@@ -84,9 +121,9 @@ services:
       - "5000:5000/udp"
       - "9600:9600"
     environment:
-      LS_JAVA_OPTS: "-Xms512m -Xmx512m"
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
     networks:
-      - elk
+      - kafka-elk
     depends_on:
       - es01
 
@@ -95,17 +132,52 @@ services:
       context: kibana/
       args:
         ELK_VERSION: $ELK_VERSION
+    container_name: 'ramen-log_kibana'
     volumes:
+      # - type: bind
+      #   source: ./kibana/config/kibana.yml
+      #   target: /usr/share/kibana/config/kibana.yml
+      #   read_only: true
       - ./kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml:ro,z
     ports:
       - "5601:5601"
     networks:
-      - elk
+      - kafka-elk
     depends_on:
       - es03
 
+  zookeeper:
+    container_name: 'ramen-log_zookeeper'
+    image: confluentinc/cp-zookeeper:latest
+    ports:
+      - "9900:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - kafka-elk
+
+  kafka:
+    container_name: 'ramen-log_kafka'
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://j6c104.p.ssafy.io:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_CREATE_TOPICS: "test-topic:1:1" # Springboot
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - kafka-elk
+
 networks:
-  elk:
+  kafka-elk:
     driver: bridge
 
 volumes:
