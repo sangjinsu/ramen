@@ -10,8 +10,7 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
 const Search: NextPage = () => {
-  let name= ['진라면 매운맛','잔라면 순한맛','짜파게티']
-  let image = ['j.jpg','j2.jpg','jja.jpg']
+
   const {query} = useRouter()
   // let [q,Setq] = useState([query.ramenType,query.noodleType,query.ramenStyle])
   let [array,setArray] = useState([])

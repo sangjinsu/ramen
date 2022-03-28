@@ -32,8 +32,20 @@ const router = useRouter()
         <div className="icon" width={20}></div>
         <div className="icon" onClick={()=>{
           // alert(ramenresult)
-          if(ramenresult[0]===0 || ramenresult[1]===0 ||ramenresult[2]===0){
-            alert('최소 하나이상 골라주세요')
+          // router.push(
+          //   {
+          //   pathname: '/SearchResult',
+          //   query: { 
+          //     "ramenType":ramenresult[0],
+          //     "noodleType":ramenresult[1],
+          //     "ramenStyle":ramenresult[2]
+          //    },
+          // },
+          // `/SearchResult`
+          // )
+          // ||가아니라 &&가 and엿구낭 ㅎㅎ
+          if(ramenresult[0]===0 && ramenresult[1]===0 &&ramenresult[2]===0){
+            // alert('최소 하나이상 골라주세요')
           }else{
 
             router.push(
