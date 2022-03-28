@@ -68,6 +68,8 @@ export class AuthController {
     return {
       member_id: member.member_id,
       name: member.name,
+      age: member.age,
+      gender: member.gender,
     };
   }
 
@@ -103,6 +105,8 @@ export class AuthController {
     return {
       member_id: member.member_id,
       name: member.name,
+      age: member.age,
+      gender: member.gender,
     };
   }
 
