@@ -14,7 +14,6 @@ const Search: NextPage = () => {
   let [array, setArray] = useState([])
   const queryResult = [query.ramenType, query.noodleType, query.ramenStyle]
 
-  // const name = [['봉지라면', '컵라면'], ['건면', '유탕면', '생면,숙면'], ['국물', '비빔,볶음면', '짜장라면']]
   const ramenType = {
     1: '봉지라면',
     2: '컵라면',
@@ -72,10 +71,17 @@ const Search: NextPage = () => {
       <Row>
         <Col xs={2} md={2}></Col>
         <Col xs={8} md={8}>
-          <h1>카테고리결과 </h1>
-          {ramenType[queryResult[0]]}
-          {noodleType[queryResult[1]]}
-          {ramenStyle[queryResult[2]]}
+          {/* <h1>카테고리결과 </h1> */}
+          <div className="title">
+            <img src={`icon/rename/${ramenType[queryResult[0]]}.png`} width={45}></img>
+            <img src={`icon/rename/${noodleType[queryResult[1]]}.png`} width={45}></img>
+            <img src={`icon/rename/${ramenStyle[queryResult[2]]}.png`} width={45}></img>
+            &nbsp;{ramenType[queryResult[0]]}&nbsp;/&nbsp;
+            {noodleType[queryResult[1]]}&nbsp;/&nbsp;
+            {ramenStyle[queryResult[2]]}&nbsp;검색결과
+          </div>
+
+          <hr></hr>
           {/* [query.ramenType, query.noodleType, query.ramenStyle] */}
           {/* {result[0]}{result[1]}{result[2]} */}
           {/* {result[0]}
@@ -140,7 +146,15 @@ const Search: NextPage = () => {
 
       </Row>
     </Container>
-
+    <style jsx>{`
+        .title {
+          display: inline;
+          font-weight: bold;
+          font-size:20px;
+        }
+        
+        
+      `}</style>
   </>
 
 
