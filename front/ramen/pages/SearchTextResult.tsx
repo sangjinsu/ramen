@@ -45,13 +45,25 @@ const Search2: NextPage = () => {
       <Row>
         <Col xs={2} md={2}></Col>
         <Col xs={8} md={8}>
-          <h1>텍스트검색결과</h1>
-          {query.textResult}
+          <div className='title'>{query.textResult} 검색결과</div>
+          <hr></hr>
+          {/* <h1>텍스트검색결과</h1> */}
+          {/* {query.textResult} */}
           {/* 여긴 백엔드 api받으면 해야할곳 */}
         </Col>
         <Col xs={2} md={2}></Col>
       </Row>
     </Container>
+
+    <style jsx>{`
+        .title {
+          display: inline;
+          font-weight: bold;
+          font-size:30px;
+        }
+        
+        
+      `}</style>
   </>
 
 
