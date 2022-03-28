@@ -12,11 +12,10 @@ import Stack from '@mui/material/Stack';
 const Search: NextPage = () => {
   const { query } = useRouter()
   let [array, setArray] = useState([])
+  const queryResult = [query.ramenType, query.noodleType, query.ramenStyle]
+  const name = [['봉지라면', '컵라면'], ['건면', '유탕면', '생면,숙면'], ['국물', '비빔,볶음면', '짜장라면']]
 
-  // const [page, setPage] = React.useState(1);
-  // const handleChange = (event, value) => {
-  //   setPage(value);
-  // };
+
   const [currentPage, setCurrentPage] = React.useState(1); // 현재 페이지
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
@@ -35,8 +34,11 @@ const Search: NextPage = () => {
       url: 'http://j6c104.p.ssafy.io:8080/v1/ramen/category',
       data: {
         noodleType: query.noodleType,
+        // 면타입
         ramenStyle: query.ramenStyle,
+        // 국물,비빔,짜장..
         ramenType: query.ramenType,
+        // 봉지,컵
       },
     })
       .then((result) => {
@@ -56,8 +58,11 @@ const Search: NextPage = () => {
     <Row>
       <Col xs={2} md={2}></Col>
       <Col xs={8} md={8}>
-        <h1>카테고리결과</h1>
-
+        <h1>카테고리결과 </h1>
+        {/* {result[0]}{result[1]}{result[2]} */}
+        {/* {result[0]}
+        {result[1]}
+        {result[2]} */}
 
         {/* {
   page.length ===0
