@@ -18,6 +18,7 @@ import {
   Stack,
 } from "@mui/material";
 import Link from "next/link";
+import withAuth from "../../../components/hoc/withAuth";
 
 const Detail: NextPage = () => {
   const likeRamen = [
@@ -485,4 +486,4 @@ const Detail: NextPage = () => {
   );
 };
 
-export default Detail;
+export default withAuth(Detail);
