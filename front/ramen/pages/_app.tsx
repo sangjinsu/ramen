@@ -12,6 +12,16 @@ function MyApp({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
         </Layout>
       </SSRProvider>
+      {/* <style jsx global>
+        {
+          `
+          @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&family=Nanum+Pen+Script&display=swap');
+body {
+      font-family: 'Nanum Pen Script', cursive;
+    }
+    `
+        }
+      </style> */}
     </>
   );
 }

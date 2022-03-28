@@ -22,7 +22,9 @@ export default function ResultBox(props) {
      {/* <img src='ramen/default.png'></img>
      <img src='../../public/ramen/default.png'></img> */}
      {/* {default_img} */}
-     <div className='explain'><img src={props.image} onError={handleImage} width={150}></img></div>
+     <div className='explain'><img src={props.image} onError={handleImage} width={150} alt="제품이미지"></img></div>
+     {/* <div className='explain'><img src={props.image} onError={handleImage} width={150} alt="제품이미지"></img></div> */}
+
      <div className="explain">
      <Card style={{ width: '' }}>
   <Card.Body>
