@@ -20,7 +20,6 @@ const Home: NextPage = () => {
         console.log('==========')
 
         setRamen(result.data)
-        id.push(result.data[0].remenId)
         console.log(ramen)
         // setArray(result.data)
       })
