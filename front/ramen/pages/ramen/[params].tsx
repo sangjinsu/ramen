@@ -2,15 +2,22 @@ import axios from "axios";
 import type { NextPage } from "next";
 // import Image from "next/image";
 // import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import PieCustom from "../../components/PieCustom";
 import RamenTable from "../../components/RamenTable";
 import { DataProps } from "../../components/Types";
 
-const Detail: NextPage = ({ params, ramenInfos }) => {
+const Detail: NextPage = ({ params, ramenInfos, userLikeBoolean }) => {
   console.log(ramenInfos);
   // const dynamicValue = router.query.detail;
   // console.log(dynamicValue);
+
+  const [likeCheck, setLike] = useState<boolean>(userLikeBoolean);
+
+  const likeChange = () => {
+    // const
+    setLike(!likeCheck);
+  };
 
   const barChartData: DataProps = {
     data: [
@@ -37,11 +44,28 @@ const Detail: NextPage = ({ params, ramenInfos }) => {
           <section>
             <img src="/logo.png" className="left_ramen_img" />
           </section>
+          <section className="left_area_btn">
+            <label className="like">
+              <input type="checkbox" checked={likeCheck} onClick={likeChange} />
+              <div className="hearth" />
+            </label>
+            <div>좋아요</div>
+          </section>
         </div>
 
         <div className="right_area">
           <section className="main_section">
-            <div className="right_ramenName">{ramenInfos.name}</div>
+            <div className="right_ramenName">
+              {ramenInfos.name}
+              <label className="like">
+                <input
+                  type="checkbox"
+                  checked={likeCheck}
+                  onClick={likeChange}
+                />
+                <div className="hearth" />
+              </label>
+            </div>
             <img src="/logo.png" className="right_ramen_img" />
           </section>
 
@@ -139,6 +163,12 @@ const Detail: NextPage = ({ params, ramenInfos }) => {
 
           .left_ramen_img {
             width: 100%;
+          }
+
+          .left_area_btn {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
           }
 
           .right_ramen_img {
@@ -246,6 +276,44 @@ const Detail: NextPage = ({ params, ramenInfos }) => {
             vertical-align: baseline;
             -webkit-tap-highlight-color: transparent;
           }
+
+          // 하트효과
+          input {
+            display: none;
+          }
+
+          .like {
+            display: block;
+            cursor: pointer;
+            border-radius: 999px;
+            overflow: visible;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            -webkit-tap-highlight-color: transparent;
+          }
+
+          .hearth {
+            background-image: url("/heartEffect.svg");
+            background-size: calc(50px * 62) 50px;
+            background-repeat: no-repeat;
+            background-position-x: calc(50px * (62 * -1 + 2));
+            background-position-y: calc(50px * 0.02);
+            width: 50px;
+            height: 50px;
+          }
+
+          input:checked + .hearth {
+            animation: like 1s steps(calc(62 - 3));
+            animation-fill-mode: forwards;
+          }
+
+          @keyframes like {
+            0% {
+              background-position-x: 0;
+            }
+            100% {
+              background-position-x: calc(50px * (62 * -1 + 3));
+            }
+          }
         `}
       </style>
     </>
@@ -256,10 +324,18 @@ export async function getServerSideProps({ params: { params } }) {
   const { data: ramenInfos } = await axios.get(
     `http://j6c104.p.ssafy.io:8080/v1/ramen/detail/${params}`
   );
+  // login 구현되면 주석해제
+  // const { status: userLikeStatus } = await axios.get(
+  //   `http://j6c104.p.ssafy.io:8080/v1/ramen/islike/${params}/${1}`
+  // );
+  // const userLikeBoolean =
+  // 200 <= userLikeStatus && userLikeStatus < 300 ? true : false;
+  const userLikeBoolean = true;
   return {
     props: {
       params,
       ramenInfos,
+      userLikeBoolean,
     },
   };
 }
