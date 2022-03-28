@@ -58,11 +58,13 @@ export class AuthController {
     response.cookie('accessToken', accessToken, {
       httpOnly: true,
       maxAge: 3600 * 12,
+      domain: 'localhost:3000',
     });
 
     response.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       maxAge: 3600 * 12,
+      domain: 'localhost:3000',
     });
 
     return {
@@ -95,11 +97,13 @@ export class AuthController {
     response.cookie('accessToken', accessToken, {
       httpOnly: true,
       maxAge: 3600 * 12,
+      domain: 'localhost:3000',
     });
 
     response.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       maxAge: 3600 * 12,
+      domain: 'localhost:3000',
     });
 
     return {
@@ -118,11 +122,13 @@ export class AuthController {
     response.cookie('accessToken', '', {
       httpOnly: true,
       maxAge: 0,
+      domain: 'localhost:3000',
     });
 
     response.cookie('refreshToken', '', {
       httpOnly: true,
       maxAge: 0,
+      domain: 'localhost:3000',
     });
   }
 
@@ -135,6 +141,7 @@ export class AuthController {
     response.cookie('accessToken', accessToken, {
       httpOnly: true,
       maxAge: 3600 * 12,
+      domain: 'localhost:3000',
     });
   }
 
