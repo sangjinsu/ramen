@@ -42,6 +42,7 @@ function RamenPreference({ router: { query } }) {
   ];
 
   const onClickChoice = (event: React.MouseEvent<HTMLButtonElement>) => {
+    console.log(event.target);
     const idArray = event.target.id.split("-");
     const categoryId = Number(idArray[1]);
     const choiceId = Number(idArray[2]);
