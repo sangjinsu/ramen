@@ -63,10 +63,10 @@ export default function SignupPreference({
                   <Col
                     id={`choice-${idxPreference}-${idxChoice}`}
                     key={idxChoice}
-                    type="button"
-                    onClick={onClickChoice}
                   >
                     <Card
+                      type="button"
+                      onClick={onClickChoice}
                       id={`choice-${idxPreference}-${idxChoice}`}
                       border="secondary"
                       style={
