@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds"> <!-- logback 구현체가 설정을 확인하는 주기 -->
+<!--    <property name="moduleId" value="around_hub_spring_boot"/>&lt;!&ndash; moduleId는 프로젝트가 설치된 폴더명 또는 구분할 수 있는 식별자이면 됨 &ndash;&gt;-->
+<!--    <property name="type" value="around_hub"/>&lt;!&ndash; 로그파일명을 구성하는 인자 &ndash;&gt;-->
+<!--    <property name="logback" value="logback"/>&lt;!&ndash; log를 저장할 최종 디렉토리명 &ndash;&gt;-->
+<!--    <property name="logdir" value="D:\Workspace\LogFiles"/>-->
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>Trace</level>
+        </filter>
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="logstash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>j6c104.p.ssafy.io:5000</destination>
+        <!-- ES가 알아먹도록 JSON 형태로 인코딩까지 해주고-->
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <timestamp/>
+                <message/>
+            </providers>
+        </encoder>
+    </appender>
+
+    <!-- Root Logger -->
+    <root level="INFO">
+        <appender-ref ref="console" />
+        <appender-ref ref="logstash" />
+    </root>
+</configuration>
