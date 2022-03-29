@@ -1,22 +1,24 @@
 from rest_framework.decorators import api_view
+from rest_framework import status
+from rest_framework.response import Response
 
-from recommend.utils.table import member_like_ramen, ramen
+from .utils.algo import item_based_cf, train_ai, user_based_cf, ramen_similarity
 
-ramen()   
-member_like_ramen() 
+
 
 @api_view(['GET'])  
-def ubcf(request, memberId):
-    pass 
+def ubcf(request, member_id):
+    return Response(user_based_cf(member_id), status=status.HTTP_200_OK)
+   
 
 @api_view(['GET'])
-def ibcf(request, memberId):
-    pass
+def ibcf(request, member_id):
+    return Response(item_based_cf(member_id), status=status.HTTP_200_OK)
 
 @api_view(['GET'])
-def dbrc(request, memberId):
-    pass
+def dbrc(request, member_id):
+    return Response(train_ai(member_id), status=status.HTTP_200_OK)
 
 @api_view(['GET'])
-def similarity(request, memberId):
-    pass
+def similarity(request, ramen_id):
+    return Response(ramen_similarity(ramen_id), status=status.HTTP_200_OK)

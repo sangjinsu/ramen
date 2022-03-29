@@ -3,8 +3,8 @@ from . import views
 
 app_name = 'recommend'
 urlpatterns = [
-    path('member/<str:memberId>', views.ubcf),
-    path('ramen/<str:memberId>', views.ibcf),
-    path('ramen/<str:memberId>', views.dbrc),
-    path('similarity', views.similarity)
+    path('ubcf/<int:member_id>', views.ubcf),
+    path('ibcf/<int:member_id>', views.ibcf),
+    path('dbrc/<int:member_id>', views.dbrc),
+    path('similarity/<int:ramen_id>', views.similarity)
 ]
