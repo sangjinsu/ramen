@@ -53,16 +53,20 @@ export default function SignupPreference({
         return (
           <div key={idxPreference}>
             <Row>
-              <Col>{ramenPreferenceName[idxPreference]}</Col>
+              <Col>
+                <h4>{ramenPreferenceName[idxPreference]}</h4>
+              </Col>
+            </Row>
+            <Row>
               {ramenPreferences[idxPreference].map((choice, idxChoice) => {
                 return (
                   <Col
                     id={`choice-${idxPreference}-${idxChoice}`}
                     key={idxChoice}
-                    type="button"
-                    onClick={onClickChoice}
                   >
                     <Card
+                      type="button"
+                      onClick={onClickChoice}
                       id={`choice-${idxPreference}-${idxChoice}`}
                       border="secondary"
                       style={
