@@ -10,6 +10,10 @@ import { useRouter } from "next/router";
 
 function RamenPreference({ router: { query } }) {
   const Router = useRouter();
+  const default_img = "ramen/default.png";
+  const handleImage = (e) => {
+    e.target.src = default_img;
+  };
 
   const ramenCodes = {
     "生生(생생)우동": 92,
@@ -355,6 +359,7 @@ function RamenPreference({ router: { query } }) {
                         <img
                           id={ramenLists[idxList][idxRamen]}
                           src={`/ramen/${ramenLists[idxList][idxRamen]}.png`}
+                          onError={handleImage}
                         ></img>
                         <h4 id={ramenLists[idxList][idxRamen]}>
                           {ramenLists[idxList][idxRamen]}

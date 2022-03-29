@@ -135,6 +135,9 @@ export default function SignupPreference({
               })}
             </Row>
             <br />
+            <br />
+            <br />
+            <br />
           </div>
         );
       })}
