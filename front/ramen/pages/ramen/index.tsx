@@ -8,8 +8,13 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import Link from "next/link";
 import axios from "axios";
+import { RamenListType } from "../../components/Types";
 
-const RamentList: NextPage = ({ AllList, bongiList, cupList }) => {
+const RamentList: React.FC<RamenListType> = ({
+  AllList,
+  bongiList,
+  cupList,
+}) => {
   console.log(AllList);
   console.log(bongiList);
   console.log(cupList);
@@ -32,7 +37,7 @@ const RamentList: NextPage = ({ AllList, bongiList, cupList }) => {
       <div className="img_list">
         <ImageList sx={{ width: "100%" }} cols={4} gap={10}>
           {currentRamens.map((ramen) => (
-            <ImageListItem key={ramen.id}>
+            <ImageListItem key={ramen.ramenId}>
               <img
                 src={`/ramen/${ramen.name}.png?w=248&fit=crop&auto=format`}
                 srcSet={`/ramen/${ramen.name}.png?w=248&fit=crop&auto=format&dpr=2 2x`}

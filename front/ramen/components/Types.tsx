@@ -2,7 +2,7 @@ export interface DataProps {
   data: number[];
 }
 
-export type RamenDetail = {
+export type RamenDetailType = {
   params: string;
   ramenInfos: {
     brand: string;
@@ -35,4 +35,28 @@ export type RamenDetail = {
     volume: number;
   };
   userLikeBoolean: boolean;
+};
+
+export type RamenListType = {
+  AllList: {
+    ramenId: number;
+    name: string;
+    englishName: string;
+    englishBrand: string;
+    brand: string;
+  }[];
+  bongiList: {
+    ramenId: number;
+    name: string;
+    englishName: string;
+    englishBrand: string;
+    brand: string;
+  }[];
+  cupList: {
+    ramenId: number;
+    name: string;
+    englishName: string;
+    englishBrand: string;
+    brand: string;
+  }[];
 };
