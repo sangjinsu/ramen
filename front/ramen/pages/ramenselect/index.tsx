@@ -7,8 +7,9 @@ import Button from "@mui/material/Button";
 import axios from "axios";
 import { setCookies, getCookie } from "cookies-next";
 import { useRouter } from "next/router";
+import { signupType } from "../../components/Types";
 
-function RamenPreference({ router: { query } }) {
+function RamenPreference({ router: { query } }: signupType) {
   const Router = useRouter();
 
   const ramenCodes = {

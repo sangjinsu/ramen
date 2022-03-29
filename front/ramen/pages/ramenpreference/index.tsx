@@ -8,7 +8,7 @@ import axios from "axios";
 import { setCookies, getCookie } from "cookies-next";
 import { useRouter } from "next/router";
 
-function RamenPreference({ router: { query } }) {
+function RamenPreference({ router: { query }: signupType }) {
   const Router = useRouter();
 
   const [userInfo, setUserInfo] = useState({});
