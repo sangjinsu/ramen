@@ -3,7 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { Button, Form } from "semantic-ui-react";
 import withAuth from "../../components/hoc/withAuth";
-import { setCookies, getCookies } from "cookies-next";
+import { setCookies, getCookies, getCookie } from "cookies-next";
 import { useRouter } from "next/router";
 
 function Login() {
@@ -20,6 +20,19 @@ function Login() {
     setInputPw(event.target.value);
   };
 
+  const setCookiesInLogin = async (response) => {
+    const gender = response.data.gender;
+    const age = response.data.age;
+    const name = response.data.name;
+    const accessToken = response.data.accessToken;
+    const refreshToken = response.data.refreshToken;
+    await setCookies("gender", gender);
+    await setCookies("age", age);
+    await setCookies("name", name);
+    await setCookies("accessToken", accessToken);
+    await setCookies("refreshToken", refreshToken);
+  };
+
   const onClickLogin = () => {
     axios
       .post("http://j6c104.p.ssafy.io:3000/v1/member/login", {
@@ -27,27 +40,30 @@ function Login() {
         inputPw: inputPw,
       })
       .then(function (response) {
-        const gender = response.data.gender;
-        const age = response.data.age;
-        const name = response.data.name;
-        const accessToken = response.data.accessToken;
-        const refreshToken = response.data.refreshToken;
         console.log(response);
-        setCookies("gender", gender);
-        setCookies("age", age);
-        setCookies("name", name);
-        setCookies("accessToken", accessToken);
-        setCookies("refreshToken", refreshToken);
-        // axios.defaults.headers.common["accessToken"] = `Bearer ${accessToken}`;
-        // console.log(axios.defaults.headers);
-        // axios.defaults.headers.common['accessToken'] = `Bearer %{accessToken}`
+        setCookiesInLogin(response);
         Router.replace("/");
+        // setCookies("gender", gender, { httpOnly: true });
+        // setCookies("age", age, { httpOnly: true });
+        // setCookies("name", name, { httpOnly: true });
+        // setCookies("accessToken", accessToken, { httpOnly: true });
+        // setCookies("refreshToken", refreshToken, { httpOnly: true });
+
         console.log(getCookies());
       })
       .catch(function (error) {
         alert(error);
       });
   };
+
+  useEffect(() => {
+    const accessToken = getCookie("accessToken");
+    if (accessToken) {
+      Router.push({
+        pathname: "/",
+      });
+    }
+  }, []);
 
   return (
     <>
@@ -79,6 +95,16 @@ function Login() {
                   </Form.Field>
                   <Button color="blue" onClick={onClickLogin}>
                     Login
+                  </Button>
+                  <Button
+                    color="blue"
+                    onClick={() => {
+                      Router.push({
+                        pathname: "signup",
+                      });
+                    }}
+                  >
+                    Signup
                   </Button>
                 </Form>
               </div>
