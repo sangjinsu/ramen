@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import { userPageType } from "../../../components/Types";
+import withAuth from "../../../components/hoc/withAuth";
 
 const Detail: React.FC<userPageType> = ({ params, fonds }) => {
   const [likeRamens, setLikeRamens] = React.useState([]);
@@ -527,4 +528,4 @@ export async function getServerSideProps({ params: { params } }) {
   };
 }
 
-export default Detail;
+export default withAuth(Detail);

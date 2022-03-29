@@ -5,6 +5,6 @@ export default function Layout( {children}){
   return <>
   <NavBar></NavBar>
   <div>{children}</div>
-  {/* <Footer></Footer> */}
+  <Footer></Footer>
   </>
 }
