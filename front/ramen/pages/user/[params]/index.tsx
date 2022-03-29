@@ -155,7 +155,7 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
               <Link
                 href={{
                   pathname: `/user/${params}/preferenceupdate`,
-                  query: { fonds: JSON.stringify(fonds) },
+                  query: fonds,
                 }}
                 as={`/user/${params}/preferenceupdate`}
               >

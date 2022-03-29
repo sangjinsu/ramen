@@ -13,7 +13,7 @@ const UserPreference: React.FC<userPreferenceType> = ({
   console.log(query);
 
   const router = useRouter();
-  const [userInfo, setUserInfo] = useState(JSON.parse(query.fonds));
+  const [userInfo, setUserInfo] = useState(query);
 
   const [flagSoup, setFlagSoup] = useState(true);
   const [flagTopping, setFlagTopping] = useState(true);
