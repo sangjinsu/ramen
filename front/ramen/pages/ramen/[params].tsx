@@ -5,9 +5,13 @@ import type { NextPage } from "next";
 import React, { useState } from "react";
 import PieCustom from "../../components/PieCustom";
 import RamenTable from "../../components/RamenTable";
-import { DataProps } from "../../components/Types";
+import { DataProps, RamenDetail } from "../../components/Types";
 
-const Detail: NextPage = ({ params, ramenInfos, userLikeBoolean }) => {
+const Detail: React.FC<RamenDetail> = ({
+  params,
+  ramenInfos,
+  userLikeBoolean,
+}) => {
   console.log(ramenInfos);
   // const dynamicValue = router.query.detail;
   // console.log(dynamicValue);
