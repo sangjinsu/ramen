@@ -30,8 +30,17 @@ dependencies {
     implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '7.0.1'
     runtimeOnly 'mysql:mysql-connector-java'
 
-    implementation 'com.github.danielwegener:logback-kafka-appender:0.1.0'
-    implementation 'net.logstash.logback:logstash-logback-encoder:6.2'
+//    compile 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+//    compile 'org.elasticsearch.client:elasticsearch-rest-high-level-client:7.9.1'
+//    compile 'org.elasticsearch.client:elasticsearch-rest-client:7.9.3'
+//    compile 'org.elasticsearch:elasticsearch:7.9.3'
+
+//    implementation('org.springframework.boot:spring-boot-starter-data-elasticsearch')
+//    implementation('org.springframework.data:spring-data-elasticsearch')
+//    implementation('org.elasticsearch.client:elasticsearch-rest-high-level-client:6.5.3')
+//    implementation('org.elasticsearch:elasticsearch:6.5.3')
+//    implementation('org.elasticsearch.client:elasticsearch-rest-client:7.9.3')
+//    implementation("org.springframework.boot:spring-boot-starter-data-elasticsearch")
 }
 
 tasks.named('test') {
