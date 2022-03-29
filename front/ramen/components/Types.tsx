@@ -60,3 +60,21 @@ export type RamenListType = {
     brand: string;
   }[];
 };
+
+export type userPageType = {
+  params: string;
+  fonds: {
+    egg: boolean;
+    ingredientGarlic: boolean;
+    ingredientGreenOnion: boolean;
+    ingredientNone: boolean;
+    ingredientPepper: boolean;
+    noodleLength: string;
+    noodleTexture: string;
+    spicy: string;
+    toppingCheese: boolean;
+    toppingDumpling: boolean;
+    toppingNone: boolean;
+    toppingTteok: boolean;
+  };
+};

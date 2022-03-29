@@ -16,8 +16,9 @@ import {
   Stack,
 } from "@mui/material";
 import Link from "next/link";
+import { userPageType } from "../../../components/Types";
 
-const Detail: NextPage = ({ params, fonds }) => {
+const Detail: React.FC<userPageType> = ({ params, fonds }) => {
   const [likeRamens, setLikeRamens] = React.useState([]);
   const eatFond = [
     fonds.noodleLength,
