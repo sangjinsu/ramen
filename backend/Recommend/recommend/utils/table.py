@@ -1,6 +1,6 @@
 from turtle import right
 import pandas as pd
-from ..models import Analysis, Composition, Fond, Member, Nutrient, Ramen
+from ..models import Analysis, Composition, Fond, Member, MemberLikeRamen, Nutrient, Ramen
 
 def member():
     def byte_to_int(x):
@@ -38,6 +38,13 @@ def ramen():
   
     return ramens  
    
+def member_like_ramen():
+    memberLikeRamens = MemberLikeRamen.objects.values().all()
+    memberLikeRamens = pd.DataFrame.from_records(memberLikeRamens)
+    memberLikeRamens['ratings'] = 5
+
+    return memberLikeRamens
+
     
     
     

@@ -1,8 +1,9 @@
 from rest_framework.decorators import api_view
 
-from recommend.utils.table import ramen
+from recommend.utils.table import member_like_ramen, ramen
 
-ramen()    
+ramen()   
+member_like_ramen() 
 
 @api_view(['GET'])  
 def ubcf(request, memberId):
