@@ -26,11 +26,11 @@ export default function ResultBox(props) {
      <div className='explain'><img src={props.image} onError={handleImage} width={150} alt="제품이미지"></img></div>
      </Link>
      {/* <div className='explain'><img src={props.image} onError={handleImage} width={150} alt="제품이미지"></img></div> */}
-     <Link href={`/ramen/${props.id}`}>
+     {/* <Link href={`/ramen/${props.id}`}>
        <a className="link">링크</a>
-     </Link>
+     </Link> */}
      
-     <div className="explain">
+     <div className="pic">
      <Card style={{ width: '' }}>
   <Card.Body>
   
