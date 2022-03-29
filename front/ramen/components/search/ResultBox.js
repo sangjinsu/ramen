@@ -351,16 +351,33 @@ export default function ResultBox(props) {
      <img src='../../public/ramen/default.png'></img> */}
      {/* {default_img} */}
      {/* {props.image} */}
-     {props.ramenName}
-     {
+     {/* {props.ramenName} */}
+     {/* {
        docc.includes(`${props.ramenName}`)
        ?<p>있어</p>
        :<p>없어</p>
+     } */}
+     {/* <Link href={`/ramen/${props.id}`}> */}
+     {/* {props.ramenName} */}
+     {
+       docc.includes(`${props.ramenName}`)
+       ?( <Link href={`/ramen/${props.id}`}>
+       <div className='explain'><img src={props.image} onError={handleImage} width={150} alt="제품이미지"></img></div>
+       </Link>
+       )
+       :(<Link href={`/ramen/${props.id}`}>
+         <div className='explain'><img src='ramen/default.png' onError={handleImage} width={150} alt="제품이미지"></img></div>
+         </Link>
+       )
+
      }
-     <Link href={`/ramen/${props.id}`}>
-     <div className='explain'><img src={props.image} onError={handleImage} width={150} alt="제품이미지"></img></div>
+     
+     {/* <div className='explain'><img src={props.image} onError={handleImage} width={150} alt="제품이미지"></img></div> */}
+     {/* <Link href={`/ramen/${props.id}`}>
+       <a>이동하기</a>
+     </Link> */}
      {/* props.image값 not null체크 */}
-     </Link>
+     {/* </Link> */}
      {/* <div className='explain'><img src={props.image} onError={handleImage} width={150} alt="제품이미지"></img></div> */}
      {/* <Link href={`/ramen/${props.id}`}>
        <a className="link">링크</a>
