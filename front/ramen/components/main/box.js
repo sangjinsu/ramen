@@ -17,7 +17,6 @@ const router = useRouter()
 
   return <>
 
-  
     <div className="box">
     <Row>
       <Col xs={0} md={3} lg={3}></Col>
