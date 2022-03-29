@@ -18,12 +18,17 @@ import SignupUserInfoForm from "../../components/signup/SignupUserInfoForm";
 import GenderButton from "../../components/signup/GenderButton";
 import Button from "@mui/material/Button";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import axios from "axios";
+import { setCookies, getCookie } from "cookies-next";
+import { useRouter } from "next/router";
 
-function Signup({ router: { query } }) {
+const Signup = ({ router: { query } }) => {
+  const Router = useRouter();
+
   const [userInfo, setUserInfo] = useState({});
   // 이메일 형식 확인: "@" + ".com"
   const [inputEmail, setInputEmail] = useState("");
-  const [flagEmail, setFlagEmail] = useState(false);
+  const [isEmailOnly, setIsEmailOnly] = useState(false);
   const [inputPw, setInputPw] = useState("");
   const [inputPwConfirm, setInputPwConfirm] = useState("");
   const [isSamePw, setIsSamePw] = useState(true);
@@ -34,6 +39,8 @@ function Signup({ router: { query } }) {
 
   // input data 의 변화가 있을 때마다 value 값을 변경해서 useState 해준다
   const handleInputEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // 중복 검사를 이미 마쳤다고 하더라도 이메일을 바꾸면 다시 검사
+    setIsEmailOnly((prevState) => false);
     setInputEmail(event.target.value);
   };
 
@@ -41,13 +48,28 @@ function Signup({ router: { query } }) {
     const email = inputEmail;
     const regEmail =
       /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-    // 이메일 형식이면 서버에 중복 검사 확인 보냄
+    // 이메일 형식, 중복 확인
     if (regEmail.test(email) === true) {
-      console.log("이메일 형식이 맞음", email);
-      // 중복 검사해서 가능한 이메일이면 true로 바꿈
-      setFlagEmail((prevState) => true);
+      console.log("이메일 형식이 맞음", inputEmail, typeof inputEmail);
+      axios
+        .post("http://j6c104.p.ssafy.io:3000/v1/member/check-email", {
+          inputEmail: inputEmail,
+        })
+        // 중복되지 않는 경우, 중복검사 확인
+        .then(function (response) {
+          if (response.status === 200) {
+            setIsEmailOnly((prevState) => true);
+          }
+          console.log("응답", response);
+        })
+        // 중복되는 경우, 다시 중복검사 + 알림(이미 사용중인 이메일)
+        .catch(function (error) {
+          alert("이미 사용중인 이메일입니다.");
+          setIsEmailOnly((prevState) => false);
+        });
+      // 이메일 형식 X, 다시 중복검사 + 알림(메일 형식 아님)
     } else {
-      console.log("이메일 형식이 아님", email);
+      alert("이메일 형식이 아닙니다.");
     }
   };
 
@@ -97,7 +119,7 @@ function Signup({ router: { query } }) {
     });
     if (
       isSamePw === true &&
-      flagEmail === true &&
+      isEmailOnly === true &&
       inputName != "" &&
       inputAge !== "" &&
       inputGender !== "" &&
@@ -108,7 +130,7 @@ function Signup({ router: { query } }) {
       setCanGoNext(false);
     }
   }, [
-    flagEmail,
+    isEmailOnly,
     isSamePw,
     inputName,
     inputAge,
@@ -125,6 +147,25 @@ function Signup({ router: { query } }) {
       setInputAge(prevUserInfo["inputAge"]);
       setInputName(prevUserInfo["inputName"]);
       setInputGender(prevUserInfo["inputGender"]);
+    }
+  }, []);
+
+  useEffect(() => {
+    const refreshToken = getCookie("refreshToken");
+    if (refreshToken) {
+      axios
+        .get("http://j6c104.p.ssafy.io:3000/v1/member/refresh", {
+          headers: {
+            Authorization: `Bearer ${refreshToken}`,
+          },
+        })
+        .then(function (response) {
+          console.log("refresh 성공", response);
+          setCookies("accessToken", response.data.accessToken);
+          Router.push({
+            pathname: "/",
+          });
+        });
     }
   }, []);
 
@@ -146,7 +187,7 @@ function Signup({ router: { query } }) {
                     type={"text"}
                     icon={<MailOutlineIcon />}
                   />
-                  {flagEmail ? (
+                  {isEmailOnly ? (
                     <CheckBoxIcon color="success" />
                   ) : (
                     <Button variant="outlined" onClick={onClickEmailCheck}>
@@ -276,6 +317,6 @@ function Signup({ router: { query } }) {
       </div>
     </>
   );
-}
+};
 
 export default withRouter(Signup);

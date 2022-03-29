@@ -4,9 +4,14 @@ import { withRouter } from "next/router";
 import BackArrow from "../../components/signup/BackArrow";
 import FrontArrow from "../../components/signup/FrontArrow";
 import SignupPreference from "../../components/signup/SignupPreference";
+import axios from "axios";
+import { setCookies, getCookie } from "cookies-next";
+import { useRouter } from "next/router";
 
 function RamenPreference({ router: { query } }) {
-  const [userInfo, setUserInfo] = useState(JSON.parse(query.userInfo));
+  const Router = useRouter();
+
+  const [userInfo, setUserInfo] = useState({});
 
   const [flagSoup, setFlagSoup] = useState(true);
   const [flagTopping, setFlagTopping] = useState(true);
@@ -31,7 +36,7 @@ function RamenPreference({ router: { query } }) {
     ["그냥", "2개로 분리", "4개로 분리", "잘게"],
     ["쫄깃하게", "부드럽게", "심지가 있게", "퍼지게"],
     ["안 넣음", "완숙", "반숙", "풀어서"],
-    ["안 맴게", "조금 맵게", "맴게", "아주 맴게"],
+    ["안 맵게", "조금 맵게", "맵게", "아주 맵게"],
     ["안 넣음", "마늘", "고추", "파"],
     ["안 넣음", "치즈", "떡", "만두"],
   ];
@@ -101,6 +106,31 @@ function RamenPreference({ router: { query } }) {
       }
     }
   };
+
+  useEffect(() => {
+    if (query.userInfo) {
+      setUserInfo((prevUserInfo) => JSON.parse(query.userInfo));
+    }
+  }, []);
+
+  useEffect(() => {
+    const refreshToken = getCookie("refreshToken");
+    if (refreshToken) {
+      axios
+        .get("http://j6c104.p.ssafy.io:3000/v1/member/refresh", {
+          headers: {
+            Authorization: `Bearer ${refreshToken}`,
+          },
+        })
+        .then(function (response) {
+          console.log("refresh 성공", response);
+          setCookies("accessToken", response.data.accessToken);
+          Router.push({
+            pathname: "/",
+          });
+        });
+    }
+  }, []);
 
   useEffect(() => {
     setUserInfo((prevUserInfo) => {

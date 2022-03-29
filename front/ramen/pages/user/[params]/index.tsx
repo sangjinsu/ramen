@@ -16,6 +16,7 @@ import {
   Stack,
 } from "@mui/material";
 import Link from "next/link";
+import withAuth from "../../../components/hoc/withAuth";
 
 const Detail: NextPage = ({ params, fonds }) => {
   const [likeRamens, setLikeRamens] = React.useState([]);
@@ -526,4 +527,4 @@ export async function getServerSideProps({ params: { params } }) {
   };
 }
 
-export default Detail;
+export default withAuth(Detail);
