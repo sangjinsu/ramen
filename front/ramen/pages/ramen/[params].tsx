@@ -5,9 +5,9 @@ import type { NextPage } from "next";
 import React, { useState } from "react";
 import PieCustom from "../../components/PieCustom";
 import RamenTable from "../../components/RamenTable";
-import { DataProps, RamenDetail } from "../../components/Types";
+import { DataProps, RamenDetailType } from "../../components/Types";
 
-const Detail: React.FC<RamenDetail> = ({
+const Detail: React.FC<RamenDetailType> = ({
   params,
   ramenInfos,
   userLikeBoolean,
