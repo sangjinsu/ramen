@@ -61,6 +61,7 @@ export default function NavBar() {
                   &nbsp;키워드검색 &nbsp;
                 </a>
               </Link>
+              
 
               {/* <Link href="/SearchTextResult">
           <a className='navmenu'>텍스트결과 &nbsp;</a>

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Table,Card} from 'react-bootstrap';
 // import default_img from '../../public/ramen/default.png'
 // import default_img from 'ramen/default.png'
-
+import Link from "next/link";
 
 
 
@@ -24,11 +24,12 @@ export default function ResultBox(props) {
      {/* {default_img} */}
      <div className='explain'><img src={props.image} onError={handleImage} width={150} alt="제품이미지"></img></div>
      {/* <div className='explain'><img src={props.image} onError={handleImage} width={150} alt="제품이미지"></img></div> */}
-
+     <Link href={`/ramen/${props.id}`}>링크</Link>
      <div className="explain">
      <Card style={{ width: '' }}>
   <Card.Body>
-    <Card.Title>제품명 : {props.name}</Card.Title>
+    <Card.Title>제품명 : {props.name}
+      </Card.Title>
     <Card.Subtitle className="mb-2 text-muted">제조사 : {props.brand}</Card.Subtitle>
     {/* <Card.Text>
       Some quick example text to build on the card title and make up the bulk of
@@ -36,6 +37,7 @@ export default function ResultBox(props) {
     </Card.Text> */}
 
   </Card.Body>
+  
 </Card>
      </div>
      {/* <div className='explain'>제품명: {props.name} /</div>
