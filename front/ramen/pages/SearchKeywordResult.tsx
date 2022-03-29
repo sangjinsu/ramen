@@ -12,6 +12,42 @@ import Stack from '@mui/material/Stack';
 const Search3: NextPage = () => {
   const { query } = useRouter()
   let [array, setArray] = useState([])
+  const resultImage = `/keyword/${query.keyWord}.png`
+  const eng = query.keyWord
+  const queryResult = {
+    kkoDeul: '꼬들',
+    taengGeul: '탱글',
+    jjolGit: '쫄깃',
+    greenOnion: '파',
+    egg: '달걀',
+    beef: '소고기',
+    pork: '돼지고기',
+    chickenBreast: '닭가슴살',
+    milk: '우유',
+    riceCake: '떡',
+    dumpling: '만두',
+    softTofu: '순두부',
+    kimchi: '김치',
+    mayonnaise: '마요네즈',
+    cheese: '치즈',
+    garlic: '마늘',
+    pepper: '후추',
+    chiliPowder: '고춧가루',
+    beanSprouts: '숙주',
+    redPepper: '고추',
+    soyaSprouts: '콩나물',
+    seafood: '해산물',
+    seaweed: '미역',
+    sausage: '소세지',
+    tuna: '참치',
+    ketchup: '케찹',
+    vegan: '비건',
+    diet: '다이어트',
+    spicy: '매운맛',
+    lightness: '담백',
+    haejang: '해장',
+  }
+
 
   const [currentPage, setCurrentPage] = React.useState(1); // 현재 페이지
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
@@ -42,25 +78,27 @@ const Search3: NextPage = () => {
 
   }, [])
 
-
   return <>
-    <Row>
-      <Col xs={2} md={2}></Col>
-      <Col xs={8} md={8}>
-        <h1>키워드결과</h1>
-        {/* <p>{query}</p> */}
-        <p>{query.keyWord}</p>
-        {currentRamens.map(function (a, index) {
-          let imgpath = `ramen/${a.name}.png`
-          return (
-            <ResultBox key={index} name={a.name} brand={a.brand} image={imgpath}></ResultBox>
-          )
-        })}
+    <Container>
+      <Row>
+        <Col xs={2} md={2}></Col>
+        <Col xs={8} md={8}>
+          <div className='keyword'><img src={`keyword/${query.keyWord}.png`} width={100}></img> </div>
+          <div className='keyword'>{queryResult[eng]}</div>
+          <hr></hr>
+          {/* <p>{query}</p> */}
+          {/* <p>{query.keyWord}</p> */}
+          {currentRamens.map(function (a, index) {
+            let imgpath = `ramen/${a.name}.png`
+            return (
+              <ResultBox key={index} name={a.name} brand={a.brand} image={imgpath}></ResultBox>
+            )
+          })}
 
-        <Stack spacing={2} >
-          <Pagination count={pageNumber} shape="rounded" onChange={handleChange} />
-        </Stack>
-        {/* {
+          <Stack spacing={2} >
+            <Pagination count={pageNumber} shape="rounded" onChange={handleChange} />
+          </Stack>
+          {/* {
   array.length ===0
   ?null
   :(
@@ -72,7 +110,7 @@ const Search3: NextPage = () => {
   )
 } */}
 
-        {/* {
+          {/* {
         name.map(function(n,i){
           return(
             <ResultBox key = {i} name={n} image={image[i]}></ResultBox>
@@ -81,11 +119,20 @@ const Search3: NextPage = () => {
       } */}
 
 
-      </Col>
-      <Col xs={2} md={2}></Col>
+        </Col>
+        <Col xs={2} md={2}></Col>
 
-    </Row>
-
+      </Row>
+    </Container>
+    <style jsx>{`
+        .keyword {
+          display: inline;
+          font-weight: bold;
+          font-size:30px;
+        }
+        
+        
+      `}</style>
 
   </>
 

@@ -12,11 +12,23 @@ import Stack from '@mui/material/Stack';
 const Search: NextPage = () => {
   const { query } = useRouter()
   let [array, setArray] = useState([])
+  const queryResult = [query.ramenType, query.noodleType, query.ramenStyle]
 
-  // const [page, setPage] = React.useState(1);
-  // const handleChange = (event, value) => {
-  //   setPage(value);
-  // };
+  const ramenType = {
+    1: '봉지라면',
+    2: '컵라면',
+  }
+  const noodleType = {
+    1: '건면',
+    2: '유탕면',
+    3: '생면,숙면'
+  }
+  const ramenStyle = {
+    1: '국물',
+    2: '비빔,볶음면',
+    3: '짜장라면'
+  }
+
   const [currentPage, setCurrentPage] = React.useState(1); // 현재 페이지
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
@@ -35,8 +47,11 @@ const Search: NextPage = () => {
       url: 'http://j6c104.p.ssafy.io:8080/v1/ramen/category',
       data: {
         noodleType: query.noodleType,
+        // 면타입
         ramenStyle: query.ramenStyle,
+        // 국물,비빔,짜장..
         ramenType: query.ramenType,
+        // 봉지,컵
       },
     })
       .then((result) => {
@@ -52,14 +67,28 @@ const Search: NextPage = () => {
   }, [])
 
   return <>
+    <Container>
+      <Row>
+        <Col xs={2} md={2}></Col>
+        <Col xs={8} md={8}>
+          {/* <h1>카테고리결과 </h1> */}
+          <div className="title">
+            <img src={`icon/rename/${ramenType[queryResult[0]]}.png`} width={45}></img>
+            <img src={`icon/rename/${noodleType[queryResult[1]]}.png`} width={45}></img>
+            <img src={`icon/rename/${ramenStyle[queryResult[2]]}.png`} width={45}></img>
+            &nbsp;{ramenType[queryResult[0]]}&nbsp;/&nbsp;
+            {noodleType[queryResult[1]]}&nbsp;/&nbsp;
+            {ramenStyle[queryResult[2]]}&nbsp;검색결과
+          </div>
 
-    <Row>
-      <Col xs={2} md={2}></Col>
-      <Col xs={8} md={8}>
-        <h1>카테고리결과</h1>
+          <hr></hr>
+          {/* [query.ramenType, query.noodleType, query.ramenStyle] */}
+          {/* {result[0]}{result[1]}{result[2]} */}
+          {/* {result[0]}
+        {result[1]}
+        {result[2]} */}
 
-
-        {/* {
+          {/* {
   page.length ===0
   ?null
   :(
@@ -72,7 +101,7 @@ const Search: NextPage = () => {
     })
   )
 } */}
-        {/* {
+          {/* {
   array.length ===0
   ?null
   :(
@@ -87,23 +116,23 @@ const Search: NextPage = () => {
 } */}
 
 
-        {currentRamens.map(function (a, index) {
-          let imgpath = `ramen/${a.name}.png`
-          return (
-            <ResultBox key={index} name={a.name} brand={a.brand} image={imgpath}></ResultBox>
-          )
-        })}
+          {currentRamens.map(function (a, index) {
+            let imgpath = `ramen/${a.name}.png`
+            return (
+              <ResultBox key={index} name={a.name} brand={a.brand} image={imgpath}></ResultBox>
+            )
+          })}
 
-        <Stack spacing={2} >
-          <Pagination count={pageNumber} shape="rounded" onChange={handleChange} />
-        </Stack>
-        {/* <Stack spacing={2}>
+          <Stack spacing={2} >
+            <Pagination count={pageNumber} shape="rounded" onChange={handleChange} />
+          </Stack>
+          {/* <Stack spacing={2}>
 
       <Typography>Page: {page}</Typography>
       <Pagination count={5} page={page} onChange={handleChange} />
     </Stack> */}
 
-        {/* {
+          {/* {
         name.map(function(n,i){
           return(
             <ResultBox key = {i} name={n} image={image[i]}></ResultBox>
@@ -112,12 +141,20 @@ const Search: NextPage = () => {
       }   */}
 
 
-      </Col>
-      <Col xs={2} md={2}></Col>
+        </Col>
+        <Col xs={2} md={2}></Col>
 
-    </Row>
-
-
+      </Row>
+    </Container>
+    <style jsx>{`
+        .title {
+          display: inline;
+          font-weight: bold;
+          font-size:20px;
+        }
+        
+        
+      `}</style>
   </>
 
 
