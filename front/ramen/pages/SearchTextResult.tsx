@@ -39,7 +39,7 @@ const Search2: NextPage = () => {
   const pageNumber2 = Math.ceil(brand.length / ramenPerPage2);
 
 
-
+  // let [쿼리,set쿼리] = useState('값')
   useEffect(() => {
     axios({
       method: 'get',
@@ -88,8 +88,10 @@ const Search2: NextPage = () => {
           {/* 여긴 백엔드 api받으면 해야할곳 */}
           {currentRamens.map(function (a, index) {
             let imgpath = `ramen/${a.name}.png`
+            let ramenName = `${a.name}.png`
+
             return (
-              <ResultBox key={index} name={a.name} brand={a.brand} image={imgpath}></ResultBox>
+              <ResultBox key={index} name={a.name} brand={a.brand} image={imgpath} id={a.ramenId} ramenName={ramenName}></ResultBox>
             )
           })}
 

@@ -118,8 +118,9 @@ const Search: NextPage = () => {
 
           {currentRamens.map(function (a, index) {
             let imgpath = `ramen/${a.name}.png`
+            let ramenName = `${a.name}.png`
             return (
-              <ResultBox key={index} name={a.name} brand={a.brand} image={imgpath}></ResultBox>
+              <ResultBox key={index} name={a.name} brand={a.brand} image={imgpath} id={a.ramenId} ramenName={ramenName}></ResultBox>
             )
           })}
 

@@ -3,6 +3,8 @@ import { Container,Row,Col,ListGroup} from 'react-bootstrap';
 import axios from 'axios'
 import { useEffect, useState } from 'react';
 import Lankdetail from './Lankdetail'
+import Link from "next/link";
+
 
 export default function Lank(props) {
 
@@ -105,7 +107,11 @@ function R1(props){
       })
   },[])
   return(
-    <div>{props.index}위 : {name} ({brand})</div>
+    <Link href={`/ramen/${props.id}`}>
+    <div style={{cursor:'pointer'}}>
+      {props.index}위 : {name} ({brand})
+      </div>
+      </Link>
   )
 
 }
