@@ -3,8 +3,15 @@ import { withRouter, useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import SignupPreference from "../../../components/signup/SignupPreference";
+import { userPreferenceType } from "../../../components/Types";
 
-function UserPreference({ params, router: { query } }) {
+const UserPreference: React.FC<userPreferenceType> = ({
+  params,
+  router: { query },
+}) => {
+  console.log(params);
+  console.log(query);
+
   const router = useRouter();
   const [userInfo, setUserInfo] = useState(JSON.parse(query.fonds));
 
@@ -248,7 +255,7 @@ function UserPreference({ params, router: { query } }) {
       </div>
     </>
   );
-}
+};
 
 export async function getServerSideProps({ params: { params } }) {
   return {

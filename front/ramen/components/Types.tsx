@@ -78,3 +78,33 @@ export type userPageType = {
     toppingTteok: boolean;
   };
 };
+
+export type userPreferenceType = {
+  params: string;
+  router: {
+    query: {
+      fonds: string;
+    };
+  };
+};
+// export type userPreferenceType = {
+//   params: string;
+//   router: {
+//     query: {
+//       fonds: {
+//         egg: boolean;
+//         ingredientGarlic: boolean;
+//         ingredientGreenOnion: boolean;
+//         ingredientNone: boolean;
+//         ingredientPepper: boolean;
+//         noodleLength: string;
+//         noodleTexture: string;
+//         spicy: string;
+//         toppingCheese: boolean;
+//         toppingDumpling: boolean;
+//         toppingNone: boolean;
+//         toppingTteok: boolean;
+//       };
+//     };
+//   };
+// };
