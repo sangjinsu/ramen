@@ -3,11 +3,14 @@ import { Container, Row, Col } from "react-bootstrap";
 import { withRouter } from "next/router";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import Link from "next/link";
 import Button from "@mui/material/Button";
 import axios from "axios";
+import { setCookies, getCookie } from "cookies-next";
+import { useRouter } from "next/router";
 
 function RamenPreference({ router: { query } }) {
+  const Router = useRouter();
+
   const ramenCodes = {
     "生生(생생)우동": "P020318",
     "生生(생생)우동1": "",
@@ -261,18 +264,40 @@ function RamenPreference({ router: { query } }) {
     return select;
   };
 
+  const setCookiesInLogin = async (response) => {
+    const member_id = response.data.member_id;
+    const gender = response.data.gender;
+    const age = response.data.age;
+    const name = response.data.name;
+    const accessToken = response.data.accessToken;
+    const refreshToken = response.data.refreshToken;
+    await setCookies("member_id", member_id);
+    await setCookies("gender", gender);
+    await setCookies("age", age);
+    await setCookies("name", name);
+    await setCookies("accessToken", accessToken);
+    await setCookies("refreshToken", refreshToken);
+  };
+
   const onClickSubmit = async () => {
     const userInfo = await JSON.parse(query.userInfo);
     const select = await makeSelectList();
     userInfo["selectRamens"] = select;
     console.log(userInfo);
     axios
-      .post("api/member/signup", userInfo)
+      .post("http://j6c104.p.ssafy.io:3000/v1/member/signup", userInfo)
       .then(function (response) {
-        console.log(response);
+        console.log(userInfo.inputEmail, userInfo.inputPW);
+        setCookiesInLogin(response);
+        Router.push({
+          pathname: "/",
+        });
       })
       .catch(function (error) {
-        alert("에러");
+        alert(error);
+        Router.push({
+          pathname: "/signup",
+        });
       });
   };
 
@@ -283,6 +308,25 @@ function RamenPreference({ router: { query } }) {
       setCanGoNext(false);
     }
   }, [likedRamenCnt]);
+
+  useEffect(() => {
+    const refreshToken = getCookie("refreshToken");
+    if (refreshToken) {
+      axios
+        .get("http://j6c104.p.ssafy.io:3000/v1/member/refresh", {
+          headers: {
+            Authorization: `Bearer ${refreshToken}`,
+          },
+        })
+        .then(function (response) {
+          console.log("refresh 성공", response);
+          setCookies("accessToken", response.data.accessToken);
+          Router.push({
+            pathname: "/",
+          });
+        });
+    }
+  }, []);
 
   return (
     <>
@@ -310,7 +354,7 @@ function RamenPreference({ router: { query } }) {
                       >
                         <img
                           id={ramenLists[idxList][idxRamen]}
-                          src={`/ramenselect/${ramenLists[idxList][idxRamen]}.jpg`}
+                          src={`/ramen/${ramenLists[idxList][idxRamen]}.png`}
                         ></img>
                         <h4 id={ramenLists[idxList][idxRamen]}>
                           {ramenLists[idxList][idxRamen]}
@@ -343,15 +387,7 @@ function RamenPreference({ router: { query } }) {
           <Col variant="contained">
             {canGoNext ? (
               <Button variant="outlined" onClick={onClickSubmit}>
-                {/* <Link
-                  href={
-                    {
-                      // pathname: "/",
-                    }
-                  }
-                > */}
                 <a>회원가입</a>
-                {/* </Link> */}
               </Button>
             ) : (
               <Button variant="outlined" disabled>

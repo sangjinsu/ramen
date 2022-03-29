@@ -19,10 +19,12 @@ import GenderButton from "../../components/signup/GenderButton";
 import Button from "@mui/material/Button";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import axios from "axios";
+import { setCookies, getCookie } from "cookies-next";
+import { useRouter } from "next/router";
 
-axios.defaults.withCredentials = true;
+const Signup = ({ router: { query } }) => {
+  const Router = useRouter();
 
-function Signup({ router: { query } }) {
   const [userInfo, setUserInfo] = useState({});
   // 이메일 형식 확인: "@" + ".com"
   const [inputEmail, setInputEmail] = useState("");
@@ -50,7 +52,7 @@ function Signup({ router: { query } }) {
     if (regEmail.test(email) === true) {
       console.log("이메일 형식이 맞음", inputEmail, typeof inputEmail);
       axios
-        .post("api/member/check-email", {
+        .post("http://j6c104.p.ssafy.io:3000/v1/member/check-email", {
           inputEmail: inputEmail,
         })
         // 중복되지 않는 경우, 중복검사 확인
@@ -145,6 +147,25 @@ function Signup({ router: { query } }) {
       setInputAge(prevUserInfo["inputAge"]);
       setInputName(prevUserInfo["inputName"]);
       setInputGender(prevUserInfo["inputGender"]);
+    }
+  }, []);
+
+  useEffect(() => {
+    const refreshToken = getCookie("refreshToken");
+    if (refreshToken) {
+      axios
+        .get("http://j6c104.p.ssafy.io:3000/v1/member/refresh", {
+          headers: {
+            Authorization: `Bearer ${refreshToken}`,
+          },
+        })
+        .then(function (response) {
+          console.log("refresh 성공", response);
+          setCookies("accessToken", response.data.accessToken);
+          Router.push({
+            pathname: "/",
+          });
+        });
     }
   }, []);
 
@@ -296,6 +317,6 @@ function Signup({ router: { query } }) {
       </div>
     </>
   );
-}
+};
 
 export default withRouter(Signup);

@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { Button, Form } from "semantic-ui-react";
-import withAuth from "../../components/hoc/withAuth";
-import { setCookies, getCookies, getCookie } from "cookies-next";
+import { setCookies, getCookie } from "cookies-next";
 import { useRouter } from "next/router";
 
 function Login() {
@@ -21,11 +20,13 @@ function Login() {
   };
 
   const setCookiesInLogin = async (response) => {
+    const member_id = response.data.member_id;
     const gender = response.data.gender;
     const age = response.data.age;
     const name = response.data.name;
     const accessToken = response.data.accessToken;
     const refreshToken = response.data.refreshToken;
+    await setCookies("member_id", member_id);
     await setCookies("gender", gender);
     await setCookies("age", age);
     await setCookies("name", name);
@@ -40,28 +41,33 @@ function Login() {
         inputPw: inputPw,
       })
       .then(function (response) {
-        console.log(response);
+        // 쿠키에 저장
         setCookiesInLogin(response);
+        // 메인 페이지로 보냄
         Router.replace("/");
-        // setCookies("gender", gender, { httpOnly: true });
-        // setCookies("age", age, { httpOnly: true });
-        // setCookies("name", name, { httpOnly: true });
-        // setCookies("accessToken", accessToken, { httpOnly: true });
-        // setCookies("refreshToken", refreshToken, { httpOnly: true });
-
-        console.log(getCookies());
       })
       .catch(function (error) {
         alert(error);
       });
   };
 
+  // 유효한 로그인을 한 사용자는 메인 페이지로 보냄
   useEffect(() => {
-    const accessToken = getCookie("accessToken");
-    if (accessToken) {
-      Router.push({
-        pathname: "/",
-      });
+    const refreshToken = getCookie("refreshToken");
+    if (refreshToken) {
+      axios
+        .get("http://j6c104.p.ssafy.io:3000/v1/member/refresh", {
+          headers: {
+            Authorization: `Bearer ${refreshToken}`,
+          },
+        })
+        .then(function (response) {
+          console.log("refresh 성공", response);
+          setCookies("accessToken", response.data.accessToken);
+          Router.push({
+            pathname: "/",
+          });
+        });
     }
   }, []);
 

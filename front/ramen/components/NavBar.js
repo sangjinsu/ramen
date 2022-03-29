@@ -129,6 +129,7 @@ export default function NavBar() {
                   {validRefreshToken ? (
                     <Dropdown.Item
                       onClick={() => {
+                        removeCookies("member_id");
                         removeCookies("accessToken");
                         removeCookies("refreshToken");
                         removeCookies("name");
