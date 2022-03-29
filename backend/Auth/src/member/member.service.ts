@@ -20,6 +20,8 @@ export class MemberService {
     private readonly memberRepository: Repository<Member>,
     @InjectRepository(Fond)
     private readonly fondRepository: Repository<Fond>,
+    @InjectRepository(MemberLikeRamen)
+    private readonly memberLikeRamenRepository: Repository<MemberLikeRamen>,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
@@ -58,8 +60,8 @@ export class MemberService {
 
   async createNewMemberLikeRamen(memberLikeRamen: MemberLikeRamen) {
     const createdMemberLikeRamen =
-      this.memberRepository.create(memberLikeRamen);
-    const savedMemberLikeRamen = await this.memberRepository.save(
+      this.memberLikeRamenRepository.create(memberLikeRamen);
+    const savedMemberLikeRamen = await this.memberLikeRamenRepository.save(
       createdMemberLikeRamen,
     );
     return savedMemberLikeRamen;
