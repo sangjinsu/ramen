@@ -1,3 +1,5 @@
+import { NextRouter } from "next/router";
+
 export interface DataProps {
   data: number[];
 }
@@ -81,11 +83,12 @@ export type userPageType = {
 
 export type userPreferenceType = {
   params: string;
-  router: {
-    query: {
-      fonds: string;
-    };
-  };
+  router: NextRouter;
+  // {
+  //   query: {
+  //     fonds: string;
+  //   };
+  // };
 };
 // export type userPreferenceType = {
 //   params: string;
@@ -108,3 +111,7 @@ export type userPreferenceType = {
 //     };
 //   };
 // };
+
+export type signupType = {
+  router: NextRouter;
+};

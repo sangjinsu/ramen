@@ -21,8 +21,10 @@ import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import axios from "axios";
 import { setCookies, getCookie } from "cookies-next";
 import { useRouter } from "next/router";
+import { signupType } from "../../components/Types";
 
-const Signup = ({ router: { query } }) => {
+const Signup: React.FC<signupType> = ({ router: { query } }) => {
+  console.log(query);
   const Router = useRouter();
 
   const [userInfo, setUserInfo] = useState({});
