@@ -17,8 +17,8 @@ spring:
     host: j6c104.p.ssafy.io
     port: 9200
     cluster_name : es-log-cluster
-    resthost: j6c104.p.ssafy.io
-    restport: 9200
+#    resthost: j6c104.p.ssafy.io
+#    restport: 9200
 
 #  logging.level:
 #    org.hibernate.SQL: debug
