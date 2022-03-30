@@ -40,7 +40,7 @@ export default function NavBar() {
           <Navbar.Brand>
             <Link href="/">
               <a className="navmenu">
-                <img src="/logo.png" width={200} /> &nbsp;
+                <img src="/logo.png" width={150} /> &nbsp;
               </a>
             </Link>
             {/* <img src="/logo.png" width={200}/> */}
@@ -173,7 +173,7 @@ export default function NavBar() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-<hr></hr>
+{/* <hr></hr> */}
       <style jsx>{`
         .navmenu {
           color: grey;
