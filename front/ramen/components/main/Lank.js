@@ -1,45 +1,11 @@
-<<<<<<< HEAD
 /* eslint-disable react/prop-types */
 import * as React from "react";
-import { Container, Row, Col, ListGroup } from "react-bootstrap";
+import { ListGroup } from "react-bootstrap";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Lankdetail from "./Lankdetail";
-=======
-import * as React from 'react';
-import {ListGroup} from 'react-bootstrap';
-import axios from 'axios'
-import { useEffect, useState } from 'react';
->>>>>>> ea71b3494930d8737194e7ccb10f2f3f0ccc987a
 import Link from "next/link";
 
 export default function Lank(props) {
-<<<<<<< HEAD
-  let [rank1, setRank1] = useState(false);
-  let [rank2, setRank2] = useState(false);
-  let [rank3, setRank3] = useState(false);
-  let [rank4, setRank4] = useState(false);
-  // useEffect(() => {
-  //   axios({
-  //     method: 'get',
-  //     url: `http://j6c104.p.ssafy.io:8080/v1/ramen/detail/${}`,
-  //   })
-  //     .then((result) => {
-  //       console.log('리스트요청성공')
-  //       console.log(result)
-  //       console.log(result.data)
-  //     })
-  //     .catch((error) => {
-  //       console.log('리스트요청실패')
-  //       console.log(error)
-  //     })
-  // }, [])
-=======
-
-
-  return <>
->>>>>>> ea71b3494930d8737194e7ccb10f2f3f0ccc987a
-
   return (
     <>
       <div className="list">
