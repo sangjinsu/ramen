@@ -173,7 +173,7 @@ export default function NavBar() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-
+<hr></hr>
       <style jsx>{`
         .navmenu {
           color: grey;
@@ -187,6 +187,9 @@ export default function NavBar() {
         }
         .searchform {
           width: 250px;
+        }
+        hr{
+          margin:1px;
         }
       `}</style>
     </>
