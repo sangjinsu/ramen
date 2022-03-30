@@ -1,12 +1,20 @@
+<<<<<<< HEAD
 /* eslint-disable react/prop-types */
 import * as React from "react";
 import { Container, Row, Col, ListGroup } from "react-bootstrap";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Lankdetail from "./Lankdetail";
+=======
+import * as React from 'react';
+import {ListGroup} from 'react-bootstrap';
+import axios from 'axios'
+import { useEffect, useState } from 'react';
+>>>>>>> ea71b3494930d8737194e7ccb10f2f3f0ccc987a
 import Link from "next/link";
 
 export default function Lank(props) {
+<<<<<<< HEAD
   let [rank1, setRank1] = useState(false);
   let [rank2, setRank2] = useState(false);
   let [rank3, setRank3] = useState(false);
@@ -26,6 +34,11 @@ export default function Lank(props) {
   //       console.log(error)
   //     })
   // }, [])
+=======
+
+
+  return <>
+>>>>>>> ea71b3494930d8737194e7ccb10f2f3f0ccc987a
 
   return (
     <>

@@ -1,7 +1,13 @@
+<<<<<<< HEAD
 /* eslint-disable react/prop-types */
 import { Figure } from "react-bootstrap";
 import { Container, Row, Col, Badge } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
+=======
+import { Figure} from 'react-bootstrap';
+import { Row,Col,Badge} from 'react-bootstrap';
+import React, { useState } from 'react';
+>>>>>>> ea71b3494930d8737194e7ccb10f2f3f0ccc987a
 import { useRouter } from "next/router";
 
 export default function Layout() {

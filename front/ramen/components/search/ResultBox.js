@@ -5,6 +5,7 @@ import { Table, Card } from "react-bootstrap";
 // import default_img from 'ramen/default.png'
 import Link from "next/link";
 import Image from "next/image";
+<<<<<<< HEAD
 import { useEffect, useState } from "react";
 
 export default function ResultBox(props) {
@@ -332,6 +333,22 @@ export default function ResultBox(props) {
     e.target.src = default_img;
     console.log(e.target.src);
   };
+=======
+import { useEffect, useState } from 'react';
+import DocData from '../main/data'
+
+
+
+export default function ResultBox(props) {
+  let docc = DocData
+  let doc = ['hi','bue']
+
+  const default_img = 'ramen/default.png'
+  const handleImage = (e)=>{
+    e.target.src=default_img
+    console.log(e.target.src)
+  }
+>>>>>>> ea71b3494930d8737194e7ccb10f2f3f0ccc987a
 
   return (
     <>
