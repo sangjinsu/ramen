@@ -1,3 +1,6 @@
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react/prop-types */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Avatar from "@mui/material/Avatar";
 import { orange } from "@mui/material/colors";
 import { Row, Col } from "react-bootstrap";

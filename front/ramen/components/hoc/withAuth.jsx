@@ -1,3 +1,5 @@
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react/display-name */
 // HOC/withAuth.jsx
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -21,7 +23,7 @@ const withAuth = (WrappedComponent) => {
       // accessToken 유효 검사
       else {
         await axios
-          .get("http://j6c104.p.ssafy.io:3000/v1/member/check-jwt", {
+          .get("http://j6c104.p.ssafy.io:8083/v1/member/check-jwt", {
             headers: {
               Authorization: `Bearer ${accessToken}`,
             },
@@ -38,7 +40,7 @@ const withAuth = (WrappedComponent) => {
             if (error.response.status === 401) {
               // refreshToken 유효 검사
               axios
-                .get("http://j6c104.p.ssafy.io:3000/v1/member/refresh", {
+                .get("http://j6c104.p.ssafy.io:8083/v1/member/refresh", {
                   headers: {
                     Authorization: `Bearer ${refreshToken}`,
                   },

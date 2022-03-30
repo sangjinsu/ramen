@@ -119,7 +119,7 @@ function RamenPreference({ router: { query } }: signupType) {
     const refreshToken = getCookie("refreshToken");
     if (refreshToken) {
       axios
-        .get("http://j6c104.p.ssafy.io:3000/v1/member/refresh", {
+        .get("http://j6c104.p.ssafy.io:8083/v1/member/refresh", {
           headers: {
             Authorization: `Bearer ${refreshToken}`,
           },
