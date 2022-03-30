@@ -1,3 +1,5 @@
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react/prop-types */
 import Button from "@mui/material/Button";
 
 export default function GenderButton({

@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { withRouter } from "next/router";
@@ -290,7 +291,7 @@ function RamenPreference({ router: { query } }: signupType) {
     userInfo["selectRamens"] = select;
     console.log(userInfo);
     axios
-      .post("http://j6c104.p.ssafy.io:3000/v1/member/signup", userInfo)
+      .post("http://j6c104.p.ssafy.io:8083/v1/member/signup", userInfo)
       .then(function (response) {
         console.log(userInfo.inputEmail, userInfo.inputPW);
         setCookiesInLogin(response);
@@ -318,7 +319,7 @@ function RamenPreference({ router: { query } }: signupType) {
     const refreshToken = getCookie("refreshToken");
     if (refreshToken) {
       axios
-        .get("http://j6c104.p.ssafy.io:3000/v1/member/refresh", {
+        .get("http://j6c104.p.ssafy.io:8083/v1/member/refresh", {
           headers: {
             Authorization: `Bearer ${refreshToken}`,
           },

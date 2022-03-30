@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import React, { useEffect, useState } from "react";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
@@ -54,7 +55,7 @@ const Signup: React.FC<signupType> = ({ router: { query } }) => {
     if (regEmail.test(email) === true) {
       console.log("이메일 형식이 맞음", inputEmail, typeof inputEmail);
       axios
-        .post("http://j6c104.p.ssafy.io:3000/v1/member/check-email", {
+        .post("http://j6c104.p.ssafy.io:8083/v1/member/check-email", {
           inputEmail: inputEmail,
         })
         // 중복되지 않는 경우, 중복검사 확인
@@ -156,7 +157,7 @@ const Signup: React.FC<signupType> = ({ router: { query } }) => {
     const refreshToken = getCookie("refreshToken");
     if (refreshToken) {
       axios
-        .get("http://j6c104.p.ssafy.io:3000/v1/member/refresh", {
+        .get("http://j6c104.p.ssafy.io:8083/v1/member/refresh", {
           headers: {
             Authorization: `Bearer ${refreshToken}`,
           },
