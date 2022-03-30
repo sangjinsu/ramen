@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import axios from 'axios'
 import { useEffect, useState } from 'react';
 import * as React from 'react';
-import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import Qr from '../components/main/QueryResult'
@@ -13,7 +12,7 @@ import Qr from '../components/main/QueryResult'
 const Search3: NextPage = () => {
   const { query } = useRouter()
   let [array, setArray] = useState([])
-  const resultImage = `/keyword/${query.keyWord}.png`
+  // const resultImage = `/keyword/${query.keyWord}.png`
   const eng = query.keyWord
   const queryResult = Qr
 

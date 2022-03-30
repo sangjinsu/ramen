@@ -1,6 +1,6 @@
 import { Figure} from 'react-bootstrap';
-import { Container,Row,Col,Badge} from 'react-bootstrap';
-import React, { useEffect, useState } from 'react';
+import { Row,Col,Badge} from 'react-bootstrap';
+import React, { useState } from 'react';
 import { useRouter } from "next/router";
 
 
