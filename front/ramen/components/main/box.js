@@ -268,7 +268,7 @@ setRamenresult(newArray)
           border: 2px solid;
           height: 50px;
           border-radius: 15px;
-          box-shadow: 1px 2px 1px 1px;
+          box-shadow: 1px 2px;
 
         }
         .icon{
