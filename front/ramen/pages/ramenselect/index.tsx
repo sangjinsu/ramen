@@ -238,7 +238,7 @@ function RamenPreference({ router: { query } }: signupType) {
   const [likedRamenCnt, setLikedRamenCnt] = useState(0);
 
   const onClickRamen = (event: React.MouseEvent<HTMLButtonElement>) => {
-    const ramenName = event.target.id;
+    const ramenName = (event.target as HTMLButtonElement).id;
     if (likedRamens[ramenName]) {
       setLikedRamenCnt((prev) => prev - 1);
     } else {
