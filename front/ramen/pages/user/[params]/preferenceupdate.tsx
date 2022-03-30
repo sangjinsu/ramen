@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getCookie } from "cookies-next";
 import { withRouter, useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
@@ -24,29 +25,29 @@ const UserPreference: React.FC<userPreferenceType> = ({
   const [selectSpicy, setSelectSpicy] = useState(userInfo.spicy);
 
   const [selectSoupNothing, setSelectSoupNothing] = useState(
-    userInfo.ingredientNone
+    userInfo.ingredientNone === "true" ? true : false
   );
   const [selectSoupGarlic, setSelectSoupGarlic] = useState(
-    userInfo.ingredientGarlic
+    userInfo.ingredientGarlic === "true" ? true : false
   );
   const [selectSoupPepper, setSelectSoupPepper] = useState(
-    userInfo.ingredientPepper
+    userInfo.ingredientPepper === "true" ? true : false
   );
   const [selectSoupGreenOnion, setSelectSoupGreenOnion] = useState(
-    userInfo.ingredientGreenOnion
+    userInfo.ingredientGreenOnion === "true" ? true : false
   );
 
   const [selectToppingNothing, setSelectToppingNothing] = useState(
-    userInfo.toppingNone
+    userInfo.toppingNone === "true" ? true : false
   );
   const [selectToppingCheese, setSelectToppingCheese] = useState(
-    userInfo.toppingCheese
+    userInfo.toppingCheese === "true" ? true : false
   );
   const [selectToppingRicecake, setSelectToppingRicecake] = useState(
-    userInfo.toppingTteok
+    userInfo.toppingTteok === "true" ? true : false
   );
   const [selectToppingDumpling, setSelectToppingDumpling] = useState(
-    userInfo.toppingDumpling
+    userInfo.toppingDumpling === "true" ? true : false
   );
 
   const [canGoNext, setCanGoNext] = useState(false);
@@ -55,7 +56,7 @@ const UserPreference: React.FC<userPreferenceType> = ({
     ["그냥", "2개로 분리", "4개로 분리", "잘게"],
     ["쫄깃하게", "부드럽게", "심지가 있게", "퍼지게"],
     ["안 넣음", "완숙", "반숙", "풀어서"],
-    ["안 맵게", "조금 맵게", "맴게", "아주 맴게"],
+    ["안 맵게", "조금 맵게", "맵게", "아주 맵게"],
     ["안 넣음", "마늘", "고추", "파"],
     ["안 넣음", "치즈", "떡", "만두"],
   ];
@@ -128,13 +129,32 @@ const UserPreference: React.FC<userPreferenceType> = ({
 
   const updatePreference = async () => {
     try {
-      const sendPreference = Object.assign({}, userInfo);
-      sendPreference.memberId = 1;
-      await axios.put("v1/member/fond", sendPreference);
+      const accessToken = getCookie("accessToken");
+      await axios.put(
+        `http://j6c104.p.ssafy.io:8080/v1/member/fond?egg=${
+          userInfo.egg
+        }&ingredientGarlic=${userInfo.ingredientGarlic}&ingredientGreenOnion=${
+          userInfo.ingredientGreenOnion
+        }&ingredientNone=${userInfo.ingredientNone}&ingredientPepper=${
+          userInfo.ingredientPepper
+        }&memberId=${9}&noodleLength=${userInfo.noodleLength}&noodleTexture=${
+          userInfo.noodleTexture
+        }&spicy=${userInfo.spicy}&toppingCheese=${
+          userInfo.toppingCheese
+        }&toppingDumpling=${userInfo.toppingDumpling}&toppingNone=${
+          userInfo.toppingNone
+        }&toppingTteok=${userInfo.toppingTteok}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
       router.push(`/user/${params}`);
-    } catch {
-      alert("다시 시도해주세요!!");
-      router.push(`/user/${params}`);
+    } catch (error) {
+      console.log(error);
+      // alert("다시 시도해주세요!!");
+      // router.push(`/user/${params}`);
     }
   };
 
