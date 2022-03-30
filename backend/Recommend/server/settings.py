@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     
     'rest_framework',
     'corsheaders',
+    'django_apscheduler',
 
     'recommend',
 ]
@@ -150,4 +151,8 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
 
+APSCHEDULER_RUN_NOW_TIMEOUT = 25  # Seconds
+
+SCHEDULER_DEFAULT = True

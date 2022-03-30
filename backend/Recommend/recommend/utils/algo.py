@@ -5,18 +5,22 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 from recommend.utils.table import member, member_like_ramen, ramen
 import tensorflow as tf
-from tensorflow.keras import layers
+from tensorflow import keras
 from tensorflow.keras.models import Model
-from tensorflow.keras.layers import Input, Embedding, Dot, Add, Flatten
+from tensorflow.keras.layers import Input, Embedding, Flatten
 from tensorflow.keras.layers import Dense, Concatenate, Activation
 from tensorflow.keras.regularizers import l2
 from tensorflow.keras.optimizers import SGD
+from rest_framework import exceptions
 
 df_ramen = ramen()
 ramens = df_ramen.drop(['name', 'english_name'], axis=1)
 similarities = cosine_similarity(ramens)
 similarities = pd.DataFrame(similarities)
 similarities.index += 1
+
+df_rating = member_like_ramen()
+mu = df_rating.rating.mean()
 
 def user_based_cf(member_id):
     df_rating = member_like_ramen()
@@ -162,11 +166,11 @@ def ramen_similarity(ramen_id):
     top3 = similarities_others[ramen_id - 1].sort_values(ascending=False).head(3).index
     return df_ramen.loc[top3]['name'].to_dict()
 
-def train_ai(member_id):
-    df_member = member()
-    
-    def RMSE(y_true, y_pred):
+def RMSE(y_true, y_pred):
         return tf.sqrt(tf.reduce_mean(tf.square(y_true - y_pred)))
+
+def train_ai():
+    df_member = member()
     
     df_rating = member_like_ramen()
     # 잠재요인 수 2000으로 지정
@@ -196,10 +200,10 @@ def train_ai(member_id):
     R = Concatenate()([P_embedding, Q_embedding, user_bias, item_bias])
 
     R = Dense(1024)(R)
-    R = Activation('linear')(R)
+    R = Activation('relu')(R)
 
     R = Dense(32)(R)
-    R = Activation('linear')(R)
+    R = Activation('relu')(R)
 
     R = Dense(1)(R)
 
@@ -220,11 +224,20 @@ def train_ai(member_id):
         verbose=0,
     )
     
+    model.save('ramen_rc_model')
+    
+
+def deaplearning_based_rc(member_id):
+    model = keras.models.load_model('ramen_rc_model', custom_objects={"RMSE": RMSE })
+    # 전체 평균 계산
     member_ids = np.array([member_id] * len(df_ramen.index)) 
     ramen_ids = np.arange(1, len(df_ramen.index) + 1)
-    
-    predictions = model.predict([member_ids, ramen_ids]) + mu
-    predictions = pd.DataFrame(predictions, columns=['predict_rate'])
-    predictions.index += 1
-    predicton_ids = predictions.sort_values(by=['predict_rate'], ascending=False).head(5).index
-    return df_ramen.loc[predicton_ids]['name'].to_dict()
+    try :
+        predictions = model.predict([member_ids, ramen_ids]) + mu
+        predictions = pd.DataFrame(predictions, columns=['predict_rate'])
+        predictions.index += 1
+        predicton_ids = predictions.sort_values(by=['predict_rate'], ascending=False).head(5).index
+        return df_ramen.loc[predicton_ids]['name'].to_dict()
+    except Exception:
+        raise exceptions.NotFound(detail="추천 받을 수 없습니다")
+        
