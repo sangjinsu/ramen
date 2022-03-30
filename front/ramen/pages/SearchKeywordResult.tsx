@@ -54,8 +54,7 @@ const Search3: NextPage = () => {
           <div className='keyword'><img src={`keyword/${query.keyWord}.png`} width={100}></img> </div>
           <div className='keyword'>{queryResult[eng]}</div>
           <hr></hr>
-          {/* <p>{query}</p> */}
-          {/* <p>{query.keyWord}</p> */}
+
           {currentRamens.map(function (a, index) {
             let imgpath = `ramen/${a.name}.png`
             let ramenName = `${a.name}.png`
@@ -67,25 +66,7 @@ const Search3: NextPage = () => {
           <Stack spacing={2} >
             <Pagination count={pageNumber} shape="rounded" onChange={handleChange} />
           </Stack>
-          {/* {
-  array.length ===0
-  ?null
-  :(
-    array.map(function(a,index){
-      return (
-        <ResultBox key = {index} name={a.name} brand={a.brand}></ResultBox>
-      )
-    })
-  )
-} */}
 
-          {/* {
-        name.map(function(n,i){
-          return(
-            <ResultBox key = {i} name={n} image={image[i]}></ResultBox>
-          )
-        })
-      } */}
 
 
         </Col>

@@ -42,28 +42,65 @@ const Search: NextPage = () => {
   const pageNumber = Math.ceil(array.length / ramenPerPage);
 
   useEffect(() => {
-    axios({
-      method: 'post',
-      url: 'http://j6c104.p.ssafy.io:8080/v1/ramen/category',
-      data: {
-        noodleType: query.noodleType,
-        // 면타입
-        ramenStyle: query.ramenStyle,
-        // 국물,비빔,짜장..
-        ramenType: query.ramenType,
-        // 봉지,컵
+    if (query.noodleType === undefined) {
+      const dm = [{
+        ramenId: 999,
+        name: '없어용',
+        brand: "다시 검색 해보세용",
       },
-    })
-      .then((result) => {
-        console.log('요청성공')
-        console.log(result)
-        setArray(result.data)
+        // {
+        //   ramenId: 31,
+        //   name: 'h2',
+        //   brand: "2h",
+        // },
+      ]
+      console.log(dm)
+      setArray(dm)
+      // query.noodleType = 3
+      // query.ramenStyle = 3
+      // query.ramenType = 1
+    }
+    else {
+      axios({
+        method: 'post',
+        url: 'http://j6c104.p.ssafy.io:8080/v1/ramen/category',
+        data: {
+          noodleType: query.noodleType,
+          // 면타입
+          ramenStyle: query.ramenStyle,
+          // 국물,비빔,짜장..
+          ramenType: query.ramenType,
+          // 봉지,컵
+        },
+      })
+        .then((result) => {
+          console.log('요청성공')
+          console.log(query.noodleType)
+          console.log(query.ramenStyle)
+          console.log(query.ramenType)
 
-      })
-      .catch((error) => {
-        console.log('요청실패')
-        console.log(error)
-      })
+          console.log(result)
+          console.log(result.data)
+          setArray(result.data)
+          // const dm = [{
+          //   ramenId: 33,
+          //   name: 'h',
+          //   brand: "h",
+          // }, {
+          //   ramenId: 31,
+          //   name: 'h2',
+          //   brand: "2h",
+          // },]
+          // console.log(dm)
+          // setArray(dm)
+        })
+        .catch((error) => {
+          console.log('요청실패')
+          console.log(error)
+
+        })
+    }
+
   }, [])
 
   return <>
@@ -72,49 +109,24 @@ const Search: NextPage = () => {
         <Col xs={2} md={2}></Col>
         <Col xs={8} md={8}>
           {/* <h1>카테고리결과 </h1> */}
-          <div className="title">
-            <img src={`icon/rename/${ramenType[queryResult[0]]}.png`} width={45}></img>
-            <img src={`icon/rename/${noodleType[queryResult[1]]}.png`} width={45}></img>
-            <img src={`icon/rename/${ramenStyle[queryResult[2]]}.png`} width={45}></img>
-            &nbsp;{ramenType[queryResult[0]]}&nbsp;/&nbsp;
-            {noodleType[queryResult[1]]}&nbsp;/&nbsp;
-            {ramenStyle[queryResult[2]]}&nbsp;검색결과
-          </div>
+          {currentRamens
+            ? (
+              <div className="title">
+                <img src={`icon/rename/${ramenType[queryResult[0]]}.png`} width={45}></img>
+                <img src={`icon/rename/${noodleType[queryResult[1]]}.png`} width={45}></img>
+                <img src={`icon/rename/${ramenStyle[queryResult[2]]}.png`} width={45}></img>
+                &nbsp;{ramenType[queryResult[0]]}&nbsp;/&nbsp;
+                {noodleType[queryResult[1]]}&nbsp;/&nbsp;
+                {ramenStyle[queryResult[2]]}&nbsp;검색결과
+              </div>
+            )
+            : null
+          }
 
           <hr></hr>
-          {/* [query.ramenType, query.noodleType, query.ramenStyle] */}
-          {/* {result[0]}{result[1]}{result[2]} */}
-          {/* {result[0]}
-        {result[1]}
-        {result[2]} */}
-
-          {/* {
-  page.length ===0
-  ?null
-  :(
-    page.map(function(a,index){
-      return (
-        <ResultBox key = {index} name={a[0].name} brand={a[0].brand}></ResultBox>
-        // <p>{index} {a.name}</p>
-        // 아니 배열+1개까지뜨다가지금은 왜 되냐..?
-      )
-    })
-  )
-} */}
-          {/* {
-  array.length ===0
-  ?null
-  :(
-    array.map(function(a,index){
-      return (
-        <ResultBox key = {index} name={a.name} brand={a.brand}></ResultBox>
-        // <p>{index} {a.name}</p>
-        // 아니 배열+1개까지뜨다가지금은 왜 되냐..?
-      )
-    })
-  )
-} */}
-
+          {/* {currentRamens.length === 0
+            ? <p>없어</p>
+            : <p>있어</p>} */}
 
           {currentRamens.map(function (a, index) {
             let imgpath = `ramen/${a.name}.png`
@@ -127,20 +139,6 @@ const Search: NextPage = () => {
           <Stack spacing={2} >
             <Pagination count={pageNumber} shape="rounded" onChange={handleChange} />
           </Stack>
-          {/* <Stack spacing={2}>
-
-      <Typography>Page: {page}</Typography>
-      <Pagination count={5} page={page} onChange={handleChange} />
-    </Stack> */}
-
-          {/* {
-        name.map(function(n,i){
-          return(
-            <ResultBox key = {i} name={n} image={image[i]}></ResultBox>
-          )
-        })
-      }   */}
-
 
         </Col>
         <Col xs={2} md={2}></Col>
@@ -162,3 +160,4 @@ const Search: NextPage = () => {
 }
 
 export default Search
+
