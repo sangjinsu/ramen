@@ -2,8 +2,7 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 from rest_framework.response import Response
 
-from .utils.algo import item_based_cf, train_ai, user_based_cf, ramen_similarity
-
+from .utils.algo import item_based_cf, user_based_cf, ramen_similarity, deaplearning_based_rc
 
 
 @api_view(['GET'])  
@@ -17,7 +16,7 @@ def ibcf(request, member_id):
 
 @api_view(['GET'])
 def dbrc(request, member_id):
-    return Response(train_ai(member_id), status=status.HTTP_200_OK)
+    return Response(deaplearning_based_rc(member_id), status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 def similarity(request, ramen_id):
