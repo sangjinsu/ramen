@@ -14,9 +14,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -66,9 +66,28 @@ public class MemberService {
             throw new MemberNotFoundException();
         }
         Member member = optionalMember.get();
-        List<Ramen> likedRamens = memberLikeRamenRepository.findLikedRamens(member);
-        return likedRamens.stream()
-                .map(ramen -> ResponseLikeRamenDto.builder().ramen(ramen).build())
-                .collect(Collectors.toList());
+        List<Object[]> likedRamens = memberLikeRamenRepository.findLikedRamens(member.getMemberId());
+
+        List<ResponseLikeRamenDto> responseLikeRamenDtos = new ArrayList<>();
+
+        for (Object o[] : likedRamens) {
+            Long ramenId = (Long) o[0];
+            String name = (String) o[1];
+            String englishName = (String) o[2];
+            String brand = (String) o[3];
+            String englishBrand = (String) o[4];
+
+            responseLikeRamenDtos.add(new ResponseLikeRamenDto(ramenId, name, englishName, brand, englishBrand));
+        }
+
+//        return likedRamens.stream()
+//                .map(ramen -> ResponseLikeRamenDto.builder().ramen(ramen).build())
+//                .collect(Collectors.toList());
+
+//        return likedRamens.stream()
+//                .map(ramen -> ResponseLikeRamenDto.builder().ramen(ramen).build())
+//                .collect(Collectors.toList());
+
+        return responseLikeRamenDtos;
     }
 }

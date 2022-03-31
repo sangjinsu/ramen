@@ -3,6 +3,7 @@ package com.ramen.ramen.repository.member;
 import com.ramen.ramen.domain.Member;
 import com.ramen.ramen.domain.MemberLikeRamen;
 import com.ramen.ramen.domain.Ramen;
+import com.ramen.ramen.dto.member.ResponseLikeRamenDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,8 +16,9 @@ public interface MemberLikeRamenRepository extends JpaRepository<MemberLikeRamen
     Optional<MemberLikeRamen> findByMemberAndRamen(Member member, Ramen ramen);
 
     // 좋아요한 라면 조회
-    @Query("select ramen from MemberLikeRamen memberLikeRamen join fetch Ramen ramen where memberLikeRamen.member = :member")
-    List<Ramen> findLikedRamens(Member member);
+    @Query("select ramen.ramenId, ramen.name,ramen.englishName,ramen.brand,ramen.englishBrand from MemberLikeRamen memberLikeRamen join fetch Ramen ramen on ramen.ramenId = memberLikeRamen.ramen.ramenId where memberLikeRamen.member.memberId = :memberId")
+//    @Query("select ramen from MemberLikeRamen memberLikeRamen join fetch Ramen ramen on ramen.ramenId = memberLikeRamen.ramen.ramenId where memberLikeRamen.member.memberId = :memberId")
+    List<Object[]> findLikedRamens(@Param("memberId") Long memberId);
 
     // 좋아요 여부 조회
     @Query("select memberLikeRamen from MemberLikeRamen memberLikeRamen where memberLikeRamen.member.memberId = :memberId and memberLikeRamen.ramen.ramenId =:ramenId ")
