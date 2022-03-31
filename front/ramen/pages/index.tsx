@@ -64,6 +64,7 @@ const Home: NextPage = () => {
           <p key={index}>{a.ramenId}</p>
         )
       })} */}
+<<<<<<< HEAD
         <Ibox></Ibox>
         <Row>
           <Col xs={1} md={2} lg={3}></Col>
@@ -91,6 +92,32 @@ const Home: NextPage = () => {
         .sug {
           margin: 10px;
         }
+=======
+      <Ibox></Ibox>
+      <Row>
+        <Col xs={1} md={2} lg={3}></Col>
+        <Col xs={10} md={8} lg={5}>
+          <Lank ramen={ramen}></Lank>
+        </Col>
+        <Col xs={1} md={2} lg={4}></Col>
+      </Row>
+      <Row>
+        <Col xs={0} md={2} lg={3}></Col>
+        <Col xs={12} md={4} lg={3}><div className='sug'><Sug></Sug></div></Col>
+        <Col xs={12} md={4} lg={3}><div className='sug'><Sug></Sug></div></Col>
+        <Col xs={0} md={2} lg={3}></Col>
+      </Row>
+      {/* <div className="test">이거 박스테스트</div> */}
+    </Container>
+    <style jsx>{`
+        .sug{
+          margin:10px;
+        }
+        .test{
+          border: 1px solid;
+          border-radius: 10px;
+        }        
+>>>>>>> f/feat/46-main
       `}</style>
     </>
   );

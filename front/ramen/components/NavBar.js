@@ -40,7 +40,7 @@ export default function NavBar() {
           <Navbar.Brand>
             <Link href="/">
               <a className="navmenu">
-                <img src="/logo.png" width={200} /> &nbsp;
+                <img src="/logo.png" width={150} /> &nbsp;
               </a>
             </Link>
             {/* <img src="/logo.png" width={200}/> */}
@@ -51,6 +51,16 @@ export default function NavBar() {
               {/* 최종 네브바, 반응형 위함 Link안에서 링크는 없애주고 안에넣기 */}
               <Link href="/">
                 <a className="navmenu">
+                  &nbsp;카테고리검색 &nbsp;
+                </a>
+              </Link>
+              <Link href="/index2">
+                <a className="navmenu">
+                  &nbsp;키워드검색 &nbsp;
+                </a>
+              </Link>
+              {/* <Link href="/">
+                <a className="navmenu">
                   <img src="/choice.png" width={35} />
                   &nbsp;카테고리검색 &nbsp;
                 </a>
@@ -60,7 +70,7 @@ export default function NavBar() {
                   <img src="/chat.png" width={35} />
                   &nbsp;키워드검색 &nbsp;
                 </a>
-              </Link>
+              </Link> */}
               
 
               {/* <Link href="/SearchTextResult">
@@ -173,7 +183,7 @@ export default function NavBar() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-
+{/* <hr></hr> */}
       <style jsx>{`
         .navmenu {
           color: grey;
@@ -187,6 +197,9 @@ export default function NavBar() {
         }
         .searchform {
           width: 250px;
+        }
+        hr{
+          margin:1px;
         }
       `}</style>
     </>

@@ -285,9 +285,14 @@ export default function Layout() {
           transform: translateY(4px);
         }
         .iconbox {
-          border: 1px solid;
+          border: 2px solid;
           height: 50px;
           border-radius: 15px;
+<<<<<<< HEAD
+=======
+          box-shadow: 1px 2px;
+
+>>>>>>> f/feat/46-main
         }
         .icon {
           float: right;

@@ -43,6 +43,7 @@ const Search: NextPage = () => {
   const pageNumber = Math.ceil(array.length / ramenPerPage);
 
   useEffect(() => {
+<<<<<<< HEAD
     axios({
       method: "post",
       url: "http://j6c104.p.ssafy.io:8080/v1/ramen/category",
@@ -165,6 +166,112 @@ const Search: NextPage = () => {
         </Row>
       </Container>
       <style jsx>{`
+=======
+    if (query.noodleType === undefined) {
+      const dm = [{
+        ramenId: 999,
+        name: '없어용',
+        brand: "다시 검색 해보세용",
+      },
+        // {
+        //   ramenId: 31,
+        //   name: 'h2',
+        //   brand: "2h",
+        // },
+      ]
+      console.log(dm)
+      setArray(dm)
+      // query.noodleType = 3
+      // query.ramenStyle = 3
+      // query.ramenType = 1
+    }
+    else {
+      axios({
+        method: 'post',
+        url: 'http://j6c104.p.ssafy.io:8080/v1/ramen/category',
+        data: {
+          noodleType: query.noodleType,
+          // 면타입
+          ramenStyle: query.ramenStyle,
+          // 국물,비빔,짜장..
+          ramenType: query.ramenType,
+          // 봉지,컵
+        },
+      })
+        .then((result) => {
+          console.log('요청성공')
+          console.log(query.noodleType)
+          console.log(query.ramenStyle)
+          console.log(query.ramenType)
+
+          console.log(result)
+          console.log(result.data)
+          setArray(result.data)
+          // const dm = [{
+          //   ramenId: 33,
+          //   name: 'h',
+          //   brand: "h",
+          // }, {
+          //   ramenId: 31,
+          //   name: 'h2',
+          //   brand: "2h",
+          // },]
+          // console.log(dm)
+          // setArray(dm)
+        })
+        .catch((error) => {
+          console.log('요청실패')
+          console.log(error)
+
+        })
+    }
+
+  }, [])
+
+  return <>
+    <Container>
+      <Row>
+        <Col xs={2} md={2}></Col>
+        <Col xs={8} md={8}>
+          {/* <h1>카테고리결과 </h1> */}
+          {currentRamens
+            ? (
+              <div className="title">
+                <img src={`icon/rename/${ramenType[queryResult[0]]}.png`} width={45}></img>
+                <img src={`icon/rename/${noodleType[queryResult[1]]}.png`} width={45}></img>
+                <img src={`icon/rename/${ramenStyle[queryResult[2]]}.png`} width={45}></img>
+                &nbsp;{ramenType[queryResult[0]]}&nbsp;/&nbsp;
+                {noodleType[queryResult[1]]}&nbsp;/&nbsp;
+                {ramenStyle[queryResult[2]]}&nbsp;검색결과
+              </div>
+            )
+            : null
+          }
+
+          <hr></hr>
+          {/* {currentRamens.length === 0
+            ? <p>없어</p>
+            : <p>있어</p>} */}
+
+          {currentRamens.map(function (a, index) {
+            let imgpath = `ramen/${a.name}.png`
+            let ramenName = `${a.name}.png`
+            return (
+              <ResultBox key={index} name={a.name} brand={a.brand} image={imgpath} id={a.ramenId} ramenName={ramenName}></ResultBox>
+            )
+          })}
+
+          <Stack spacing={2} >
+            <Pagination count={pageNumber} shape="rounded" onChange={handleChange} />
+          </Stack>
+
+        </Col>
+        <Col xs={2} md={2}></Col>
+
+      </Row>
+    </Container>
+    <style jsx>{`
+>>>>>>> f/feat/46-main
         .title {
           display: inline;
           font-weight: bold;
@@ -175,4 +282,9 @@ const Search: NextPage = () => {
   );
 };
 
+<<<<<<< HEAD
 export default Search;
+=======
+export default Search
+
+>>>>>>> f/feat/46-main

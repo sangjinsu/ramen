@@ -4,6 +4,7 @@ import * as React from "react";
 import { useRouter } from "next/router";
 
 const Home2: NextPage = () => {
+<<<<<<< HEAD
   const router = useRouter();
   const handleKeyword = (keyWord: any) => {
     router.push(
@@ -18,6 +19,21 @@ const Home2: NextPage = () => {
   };
   return (
     <>
+=======
+   const router = useRouter()
+   const handleKeyword = (keyWord: any) => {
+      router.push(
+         {
+            pathname: '/SearchKeywordResult',
+            query: {
+               "keyWord": keyWord,
+            },
+         },
+         `/SearchKeywordResult`
+      )
+   }
+   return <>
+>>>>>>> f/feat/46-main
       <Container>
         <Row>
           <Col xs={0} md={1}></Col>
