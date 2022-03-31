@@ -1,6 +1,7 @@
 import axios from "axios";
 import { getCookie } from "cookies-next";
 import type { NextPage } from "next";
+import { useRouter } from "next/router";
 // import Image from "next/image";
 // import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -9,39 +10,39 @@ import RamenTable from "../../components/RamenTable";
 import { DataProps, RamenDetailType } from "../../components/Types";
 import Youtube from "../../components/Youtube";
 
-const Detail: React.FC<RamenDetailType> = ({
-  params,
-  ramenInfos,
-  // userLikeBoolean,
-}) => {
+const Detail: React.FC<RamenDetailType> = ({ params, ramenInfos }) => {
   console.log(ramenInfos);
-  // const dynamicValue = router.query.detail;
-  // console.log(dynamicValue);
 
   const [likeCheck, setLike] = useState<boolean>(false);
   const accessToken = getCookie("accessToken");
   const member_id = getCookie("member_id");
+  const router = useRouter();
 
   const likeChange = async () => {
     // 주석 해제
-    const { status: userLikeStatus } = await axios.post(
-      `http://j6c104.p.ssafy.io:8080/v1/member/like`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
+    try {
+      const { status: userLikeStatus } = await axios.post(
+        `http://j6c104.p.ssafy.io:8080/v1/member/like`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
         },
-      },
-      {
-        params: {
-          memberId: member_id,
-          ramenIds: [params],
-        },
+        {
+          params: {
+            memberId: member_id,
+            ramenIds: [params],
+          },
+        }
+      );
+      if (200 <= userLikeStatus && userLikeStatus < 300) {
+        setLike(!likeCheck);
       }
-    );
-    if (200 <= userLikeStatus && userLikeStatus < 300) {
-      setLike(!likeCheck);
+    } catch {
+      if (!member_id) {
+        router.push("/login");
+      }
     }
-    // setLike(!likeCheck);
   };
 
   const barChartData: DataProps = {
@@ -61,11 +62,10 @@ const Detail: React.FC<RamenDetailType> = ({
 
   useEffect(() => {
     const TestTTT = async () => {
-      const accessToken = getCookie("accessToken");
-      const member_id = getCookie("member_id");
       try {
+        console.log("111");
         const { status: userLikeStatus } = await axios.get(
-          `http://j6c104.p.ssafy.io:8080/v1/ramen/islike/${params}/${7}`,
+          `http://j6c104.p.ssafy.io:8080/v1/ramen/islike/${params}/${member_id}`,
           {
             headers: {
               Authorization: `Bearer ${accessToken}`,
@@ -368,29 +368,13 @@ const Detail: React.FC<RamenDetailType> = ({
 };
 
 export async function getServerSideProps({ params: { params } }) {
-  const accessToken = getCookie("accessToken");
-  const member_id = getCookie("member_id");
   const { data: ramenInfos } = await axios.get(
     `http://j6c104.p.ssafy.io:8080/v1/ramen/detail/${params}`
   );
-  // // // login 구현되면 주석해제
-  // islike는 여부만 알려준다
-  // const { status: userLikeStatus1 } = await axios.get(
-  //   `http://j6c104.p.ssafy.io:8080/v1/ramen/islike/${params}/${7}`,
-  //   {
-  //     headers: {
-  //       Authorization: `Bearer ${accessToken}`,
-  //     },
-  //   }
-  // );
-  // const userLikeBoolean =
-  //   200 <= userLikeStatus1 && userLikeStatus1 < 300 ? true : false;
-  // const userLikeBoolean = true;
   return {
     props: {
       params,
       ramenInfos,
-      // userLikeBoolean,
     },
   };
 }
