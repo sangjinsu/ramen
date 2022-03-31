@@ -62,6 +62,7 @@ export default function NavBar() {
 
             <div className="searchform">
                 <TextField
+                  style={{ width: 150 }}
                   id="standard-search"
                   label="라면검색"
                   defaultValue={search}
@@ -85,6 +86,7 @@ export default function NavBar() {
                   }}
                 />
                 <IconButton
+                style={{ marginBottom: 25 }}
                   type="submit"
                   sx={{ p: "10px" }}
                   aria-label="search"
