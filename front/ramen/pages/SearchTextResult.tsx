@@ -79,7 +79,7 @@ const Search2: NextPage = () => {
           {/* {query.textResult} */}
           <Col xs={2} md={2}></Col>
           <Col xs={8} md={8}>
-            <div className="title">제품 검색결과</div>
+            <div className="title">->제품 검색결과</div>
             <hr></hr>
             {/* <h1>텍스트검색결과</h1> */}
             {/* {query.textResult} */}
@@ -114,7 +114,7 @@ const Search2: NextPage = () => {
         <Row>
           <Col xs={2} md={2}></Col>
           <Col xs={8} md={8}>
-            <div className="title">제조사 검색결과</div>
+            <div className="title">->제조사 검색결과</div>
             <hr></hr>
             {/* <h1>텍스트검색결과</h1> */}
             {/* {query.textResult} */}

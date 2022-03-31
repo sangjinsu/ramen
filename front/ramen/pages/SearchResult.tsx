@@ -15,6 +15,12 @@ const Search: NextPage = () => {
   let [array, setArray] = useState([]);
   const queryResult = [query.ramenType, query.noodleType, query.ramenStyle];
 
+  const default_img = "ramen/default.png";
+  const handleImage = (e) => {
+    e.target.src = default_img;
+    console.log(e.target.src);
+  };
+
   const ramenType = {
     1: "봉지라면",
     2: "컵라면",
@@ -29,6 +35,13 @@ const Search: NextPage = () => {
     2: "비빔,볶음면",
     3: "짜장라면",
   };
+
+  const categoryName = ["건면",
+    "국물", "봉지라면", "비빔,볶음면",
+    "생면,숙면", "유탕면", "짜장라면", "컵라면"
+  ]
+
+
 
   const [currentPage, setCurrentPage] = React.useState(1); // 현재 페이지
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
@@ -116,9 +129,13 @@ const Search: NextPage = () => {
                 <Container>
                   <Row>
                     <Col xs={12} md={12} lg={12}>
-                      <img src={`icon/rename/${ramenType[queryResult[0]]}.png`} width={45}></img>&nbsp;
-                      <img src={`icon/rename/${noodleType[queryResult[1]]}.png`} width={45}></img>&nbsp;
-                      <img src={`icon/rename/${ramenStyle[queryResult[2]]}.png`} width={45}></img>
+                      {/* {categoryName.includes(ramenType[queryResult[0]])
+                        ? <p>있어</p>
+                        : null
+                      } */}
+                      <img src={`icon/rename/${ramenType[queryResult[0]]}.png`} width={45} onError={handleImage}></img>&nbsp;
+                      <img src={`icon/rename/${noodleType[queryResult[1]]}.png`} width={45} onError={handleImage}></img>&nbsp;
+                      <img src={`icon/rename/${ramenStyle[queryResult[2]]}.png`} width={45} onError={handleImage}></img>
                     </Col>
                     <Col xs={12} md={12} lg={12}>
                       {ramenType[queryResult[0]]}&nbsp;/&nbsp;
