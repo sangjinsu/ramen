@@ -158,8 +158,13 @@ const Home2: NextPage = () => {
                      </div>
                      #순두부
                   </div>
+
+               </div>
+            </Col>
+            <Col xs={4} md={2}>
+               <div className="cloud">
                   <div
-                     className="side"
+                     className="side2"
                      onClick={() => {
                         handleKeyword("kimchi");
                      }}
@@ -169,10 +174,6 @@ const Home2: NextPage = () => {
                      </div>
                      #김치
                   </div>
-               </div>
-            </Col>
-            <Col xs={4} md={2}>
-               <div className="cloud">
                   <div
                      className="side"
                      onClick={() => {
@@ -228,6 +229,11 @@ const Home2: NextPage = () => {
                      </div>
                      #고춧가루
                   </div>
+
+               </div>
+            </Col>
+            <Col xs={6} md={2}>
+               <div className="cloud2">
                   <div
                      className="side2"
                      onClick={() => {
@@ -239,11 +245,6 @@ const Home2: NextPage = () => {
                      </div>
                      #숙주
                   </div>
-               </div>
-            </Col>
-
-            <Col xs={6} md={2}>
-               <div className="cloud2">
                   <div
                      className="side"
                      onClick={() => {
@@ -299,6 +300,12 @@ const Home2: NextPage = () => {
                      </div>
                      #소세지
                   </div>
+
+               </div>
+            </Col>
+
+            <Col xs={6} md={2}>
+               <div className="cloud2">
                   <div
                      className="side2"
                      onClick={() => {
@@ -321,13 +328,8 @@ const Home2: NextPage = () => {
                      </div>
                      #케찹
                   </div>
-               </div>
-            </Col>
-
-            <Col xs={6} md={2}>
-               <div className="cloud">
                   <div
-                     className="side"
+                     className="side2"
                      onClick={() => {
                         handleKeyword("vegan");
                      }}
@@ -338,7 +340,7 @@ const Home2: NextPage = () => {
                      #비건
                   </div>
                   <div
-                     className="side2"
+                     className="side"
                      onClick={() => {
                         handleKeyword("diet");
                      }}
@@ -349,7 +351,7 @@ const Home2: NextPage = () => {
                      #다이어트
                   </div>
                   <div
-                     className="side"
+                     className="side2"
                      onClick={() => {
                         handleKeyword("spicy");
                      }}
@@ -360,7 +362,7 @@ const Home2: NextPage = () => {
                      #매운맛
                   </div>
                   <div
-                     className="side2"
+                     className="side"
                      onClick={() => {
                         handleKeyword("lightness");
                      }}
@@ -371,7 +373,7 @@ const Home2: NextPage = () => {
                      #담백
                   </div>
                   <div
-                     className="side"
+                     className="side2"
                      onClick={() => {
                         handleKeyword("haejang");
                      }}
