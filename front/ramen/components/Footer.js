@@ -21,6 +21,7 @@ export default function NavBar() {
               </a>
             </div>
           </Col>
+          
           <Col xs={1} md={2} lg={2}></Col>
         </Row>
       </Container>

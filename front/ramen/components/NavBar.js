@@ -39,54 +39,39 @@ export default function NavBar() {
         <Container>
           <Navbar.Brand>
             <Link href="/">
-              <a className="navmenu">
-                <img src="/logo.png" width={150} /> &nbsp;
+              <a className="navmenu king">
+                라면
+                {/* <img src="/logo.png" width={150} />  */}
+                &nbsp;
               </a>
             </Link>
+            <Link href="/">
+                <a className="navmenu">
+                  &nbsp;카테고리 &nbsp;
+                </a>
+              </Link>
+              <Link href="/index2">
+                <a className="navmenu">
+                  &nbsp;키워드 &nbsp;
+                </a>
+              </Link>
             {/* <img src="/logo.png" width={200}/> */}
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="me-auto">
-              {/* 최종 네브바, 반응형 위함 Link안에서 링크는 없애주고 안에넣기 */}
-              <Link href="/">
-                <a className="navmenu">
-                  &nbsp;카테고리검색 &nbsp;
-                </a>
-              </Link>
-              <Link href="/index2">
-                <a className="navmenu">
-                  &nbsp;키워드검색 &nbsp;
-                </a>
-              </Link>
+          <Nav className="me-auto">
               {/* <Link href="/">
                 <a className="navmenu">
-                  <img src="/choice.png" width={35} />
                   &nbsp;카테고리검색 &nbsp;
                 </a>
               </Link>
               <Link href="/index2">
                 <a className="navmenu">
-                  <img src="/chat.png" width={35} />
                   &nbsp;키워드검색 &nbsp;
                 </a>
-              </Link> */}
-              
-
-              {/* <Link href="/SearchTextResult">
-          <a className='navmenu'>텍스트결과 &nbsp;</a>
-        </Link> */}
-              {/* <Link href="/test">
-          <a className='navmenu'>AxiosTest &nbsp;</a>
-        </Link>       */}
+              </Link>              */}
             </Nav>
             <Nav>
-              {/* <div className="search-container">
-    <form action="/SearchTextResult">
-      <input type="text" placeholder="라면 텍스트 검색" name="search"></input>
-      <button type="submit">검색</button>
-    </form>
-  </div> */}
               <div className="searchform">
                 <TextField
                   id="standard-search"
@@ -188,9 +173,16 @@ export default function NavBar() {
         .navmenu {
           color: grey;
           text-decoration-line: none;
-          font-size: 20px;
           display: inline-block;
-          font-weight: bold;
+          margin:0px;
+
+
+        }
+        .king{
+          font-size:50px;
+          color:orange;
+          margin:0px;
+          font-family: 'Black Han Sans', sans-serif;
         }
         .navmenu:hover {
           color: orange;
