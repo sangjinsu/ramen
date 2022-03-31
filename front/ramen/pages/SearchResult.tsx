@@ -113,12 +113,24 @@ const Search: NextPage = () => {
           {currentRamens
             ? (
               <div className="title">
-                <img src={`icon/rename/${ramenType[queryResult[0]]}.png`} width={45}></img>
-                <img src={`icon/rename/${noodleType[queryResult[1]]}.png`} width={45}></img>
-                <img src={`icon/rename/${ramenStyle[queryResult[2]]}.png`} width={45}></img>
-                &nbsp;{ramenType[queryResult[0]]}&nbsp;/&nbsp;
-                {noodleType[queryResult[1]]}&nbsp;/&nbsp;
-                {ramenStyle[queryResult[2]]}&nbsp;검색결과
+                <Container>
+                  <Row>
+                    <Col xs={12} md={12} lg={12}>
+                      <img src={`icon/rename/${ramenType[queryResult[0]]}.png`} width={45}></img>&nbsp;
+                      <img src={`icon/rename/${noodleType[queryResult[1]]}.png`} width={45}></img>&nbsp;
+                      <img src={`icon/rename/${ramenStyle[queryResult[2]]}.png`} width={45}></img>
+                    </Col>
+                    <Col xs={12} md={12} lg={12}>
+                      {ramenType[queryResult[0]]}&nbsp;/&nbsp;
+                      {noodleType[queryResult[1]]}&nbsp;/&nbsp;
+                      {ramenStyle[queryResult[2]]}&nbsp;
+                    </Col>
+                  </Row>
+                </Container>
+
+
+
+
               </div>
             )
             : null
@@ -150,7 +162,7 @@ const Search: NextPage = () => {
         .title {
           display: inline;
           font-weight: bold;
-          font-size: 20px;
+          font-size: 16ㅔㅌ;;
         }
       `}</style>
   </>
