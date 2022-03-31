@@ -34,22 +34,28 @@ const RamentList: React.FC<RamenListType> = ({
 
   return (
     <>
-      <div className="img_list">
-        <ImageList sx={{ width: "100%" }} cols={4} gap={10}>
-          {currentRamens.map((ramen) => (
-            <ImageListItem key={ramen.ramenId}>
-              <img
-                src={`/ramen/${ramen.name}.png?w=248&fit=crop&auto=format`}
-                srcSet={`/ramen/${ramen.name}.png?w=248&fit=crop&auto=format&dpr=2 2x`}
-                alt={ramen.name}
-                loading="lazy"
-              />
-              <Link href={`/ramen/${1}`}>
-                <ImageListItemBar title={ramen.name} position="below" />
-              </Link>
-            </ImageListItem>
-          ))}
-        </ImageList>
+      <div className="img_list_page">
+        <div className="img_list">
+          <ImageList sx={{ width: "100%" }} cols={4} gap={10}>
+            {currentRamens.map((ramen) => (
+              <ImageListItem key={ramen.ramenId}>
+                <div className="test">
+                  <Link href={`/ramen/${ramen.ramenId}`}>
+                    <a>
+                      <img
+                        src={`/ramen/${ramen.name}.png?w=248&fit=crop&auto=format`}
+                        srcSet={`/ramen/${ramen.name}.png?w=248&fit=crop&auto=format&dpr=2 2x`}
+                        alt={ramen.name}
+                        loading="lazy"
+                      />
+                      <ImageListItemBar title={ramen.name} position="below" />
+                    </a>
+                  </Link>
+                </div>
+              </ImageListItem>
+            ))}
+          </ImageList>
+        </div>
 
         <div className="page_list">
           <Stack spacing={2}>
@@ -63,12 +69,30 @@ const RamentList: React.FC<RamenListType> = ({
       </div>
       <style jsx>
         {`
-          .img_list {
+          .img_list_page {
             margin: 3rem auto;
             width: 80%;
+            display: flex;
+            flex-direction: column;
+          }
+          a {
+            text-decoration: none;
+            color: black;
+          }
+          .img_list {
+            display: flex;
+            justify-content: center;
+          }
+          img {
+            width: 70%;
+          }
+          .test {
+            width: 50%;
           }
           .page_list {
             margin-left: 0;
+            display: flex;
+            justify-content: center;
           }
         `}
       </style>

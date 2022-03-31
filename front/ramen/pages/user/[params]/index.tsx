@@ -20,11 +20,8 @@ import {
 import Link from "next/link";
 import { userPageType } from "../../../components/Types";
 import withAuth from "../../../components/hoc/withAuth";
+import { getCookie } from "cookies-next";
 import axios from "axios";
-import { getCookie, setCookies } from "cookies-next";
-import { useRouter } from "next/router";
-import { useState } from "react";
-import { access } from "fs";
 
 const Detail: React.FC<userPageType> = ({ params, fonds }) => {
   const [likeRamens, setLikeRamens] = React.useState([]);
@@ -564,20 +561,29 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
 };
 
 export async function getServerSideProps({ params: { params } }) {
-  const fonds = {
-    egg: "완숙",
-    ingredientGarlic: true,
-    ingredientGreenOnion: true,
-    ingredientNone: false,
-    ingredientPepper: true,
-    noodleLength: "4개로 분리",
-    noodleTexture: "쫄깃하게",
-    spicy: "안 맴게",
-    toppingCheese: true,
-    toppingDumpling: true,
-    toppingNone: false,
-    toppingTteok: true,
-  };
+  const accessToken = getCookie("accessToken");
+  const { data: fonds } = await axios.get(
+    `http://j6c104.p.ssafy.io:8080/v1/member/${params}/fond`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  // const fonds = {
+  //   egg: "완숙",
+  //   ingredientGarlic: true,
+  //   ingredientGreenOnion: true,
+  //   ingredientNone: false,
+  //   ingredientPepper: true,
+  //   noodleLength: "4개로 분리",
+  //   noodleTexture: "쫄깃하게",
+  //   spicy: "안 맴게",
+  //   toppingCheese: true,
+  //   toppingDumpling: true,
+  //   toppingNone: false,
+  //   toppingTteok: true,
+  // };
   return {
     props: {
       params,

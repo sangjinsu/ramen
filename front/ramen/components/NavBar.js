@@ -35,50 +35,34 @@ export default function NavBar() {
 
   return (
     <>
-      <Navbar collapseOnSelect expand="lg" bg="bg-white" variant="light">
-        <Container>
-          <Navbar.Brand>
-            <Link href="/">
-              <a className="navmenu">
-                <img src="/logo.png" width={200} /> &nbsp;
-              </a>
-            </Link>
-            {/* <img src="/logo.png" width={200}/> */}
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="me-auto">
-              {/* 최종 네브바, 반응형 위함 Link안에서 링크는 없애주고 안에넣기 */}
-              <Link href="/">
+    <div className="sidenav">
+    <Link href="/">
                 <a className="navmenu">
-                  <img src="/choice.png" width={35} />
-                  &nbsp;카테고리검색 &nbsp;
+                  카테고리
                 </a>
               </Link>
               <Link href="/index2">
                 <a className="navmenu">
-                  <img src="/chat.png" width={35} />
-                  &nbsp;키워드검색 &nbsp;
+                  키워드
                 </a>
-              </Link>
-              
+              </Link>  
+            {/* <a href="#about">카테고리</a>
+            <a href="#services">키워드</a> */}
+          </div>
+      <Navbar collapseOnSelect expand="lg" bg="bg-white" variant="light">
+        <Container>
+          <Navbar.Brand>
+            <Link href="/">
+              <a className="navmenu king">
+                라면
+                {/* <img src="/logo.png" width={150} />  */}
+                &nbsp;
+              </a>
+            </Link>
 
-              {/* <Link href="/SearchTextResult">
-          <a className='navmenu'>텍스트결과 &nbsp;</a>
-        </Link> */}
-              {/* <Link href="/test">
-          <a className='navmenu'>AxiosTest &nbsp;</a>
-        </Link>       */}
-            </Nav>
-            <Nav>
-              {/* <div className="search-container">
-    <form action="/SearchTextResult">
-      <input type="text" placeholder="라면 텍스트 검색" name="search"></input>
-      <button type="submit">검색</button>
-    </form>
-  </div> */}
-              <div className="searchform">
+            <div className="searchform">
                 <TextField
+                  style={{ width: 150 }}
                   id="standard-search"
                   label="라면검색"
                   defaultValue={search}
@@ -102,6 +86,7 @@ export default function NavBar() {
                   }}
                 />
                 <IconButton
+                style={{ marginBottom: 25 }}
                   type="submit"
                   sx={{ p: "10px" }}
                   aria-label="search"
@@ -120,6 +105,25 @@ export default function NavBar() {
                   <SearchIcon />
                 </IconButton>
               </div>
+            
+            {/* <img src="/logo.png" width={200}/> */}
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="me-auto">
+              <Link href="/">
+                <a className="navmenu">
+                  &nbsp;카테고리검색 &nbsp;
+                </a>
+              </Link>
+              <Link href="/index2">
+                <a className="navmenu">
+                  &nbsp;키워드검색 &nbsp;
+                </a>
+              </Link>             
+            </Nav>
+            <Nav>
+              
 
               <Dropdown>
                 <Dropdown.Toggle variant="" id="dropdown-basic">
@@ -173,21 +177,68 @@ export default function NavBar() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-
+{/* <hr></hr> */}
       <style jsx>{`
         .navmenu {
           color: grey;
           text-decoration-line: none;
-          font-size: 20px;
           display: inline-block;
-          font-weight: bold;
+          margin:0px;
+          font-size:24px;
+
+
+        }
+        .king{
+          font-size:50px;
+          color:orange;
+          margin:0px;
+          font-family: 'Black Han Sans', sans-serif;
         }
         .navmenu:hover {
           color: orange;
         }
         .searchform {
+          display:inline;
           width: 250px;
         }
+        hr{
+          margin:1px;
+        }
+
+        .sidenav {
+          width: 80px;
+          position: fixed;
+          z-index: 1;
+          top: 200px;
+          right: 10px;
+          background: #eee;
+          overflow-x: hidden;
+          padding: 8px 0;
+          border-radius:15px;
+        }
+        
+        .sidenav a {
+          padding: 6px 8px 6px 16px;
+          text-decoration: none;
+          font-size: 16px;
+          color: grey;
+          display: block;
+        }
+        
+        .sidenav a:hover {
+          color: orange;
+        }
+        
+        .main {
+          margin-left: 140px; /* Same width as the sidebar + left position in px */
+          font-size: 28px; /* Increased text to enable scrolling */
+          padding: 0px 10px;
+        }
+        
+        @media screen and (max-height: 450px) {
+          .sidenav {padding-top: 15px;}
+          .sidenav a {font-size: 18px;}
+        }   
       `}</style>
     </>
   );

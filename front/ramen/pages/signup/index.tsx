@@ -328,7 +328,6 @@ const Signup: React.FC<signupType> = ({ router: { query } }) => {
             </Col>
             <Col></Col>
           </Row>
-
           <Row>
             <Col>
               <div style={{ float: "right" }}>

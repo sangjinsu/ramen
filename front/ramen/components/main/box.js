@@ -99,9 +99,9 @@ export default function Layout() {
 
     </Row> */}
         <Row>
-          <Col xs={3} md={3}></Col>
+          <Col xs={1} md={3}></Col>
 
-          <Col xs={2} md={2}>
+          <Col xs={3} md={2}>
             {/* <div >
     <h5><Badge bg="light" text="dark">
     패키지
@@ -124,7 +124,7 @@ export default function Layout() {
                   alt="171x180"
                   src="icon/bongji.png"
                 />
-                <Figure.Caption>봉지라면</Figure.Caption>
+                <Figure.Caption>봉지</Figure.Caption>
               </Figure>
             </div>
             <div className="figure">
@@ -142,11 +142,11 @@ export default function Layout() {
                   alt="171x180"
                   src="icon/cup.png"
                 />
-                <Figure.Caption>컵라면</Figure.Caption>
+                <Figure.Caption>컵</Figure.Caption>
               </Figure>
             </div>
           </Col>
-          <Col xs={2} md={2}>
+          <Col xs={3} md={2}>
             {/* <div >
     <h5><Badge bg="light" text="dark">
     면종류
@@ -185,7 +185,7 @@ export default function Layout() {
                   alt="171x180"
                   src="icon/fried.png"
                 />
-                <Figure.Caption>유탕면</Figure.Caption>
+                <Figure.Caption>유탕</Figure.Caption>
               </Figure>
             </div>
             <div className="figure">
@@ -207,7 +207,7 @@ export default function Layout() {
               </Figure>
             </div>
           </Col>
-          <Col xs={2} md={2}>
+          <Col xs={3} md={2}>
             {/* <div >
     <h5><Badge bg="light" text="dark">
     요리종류
@@ -246,7 +246,7 @@ export default function Layout() {
                   alt="171x180"
                   src="icon/bok.png"
                 />
-                <Figure.Caption>비빔,볶음면</Figure.Caption>
+                <Figure.Caption>비빔,볶음</Figure.Caption>
               </Figure>
             </div>
             <div className="figure">
@@ -264,11 +264,12 @@ export default function Layout() {
                   alt="171x180"
                   src="icon/jjajang.png"
                 />
-                <Figure.Caption>짜장라면</Figure.Caption>
+                <Figure.Caption>짜장</Figure.Caption>
               </Figure>
             </div>
           </Col>
-          <Col></Col>
+          <Col xs={1} md={3}></Col>
+
         </Row>
       </div>
       <style jsx>{`
@@ -285,9 +286,11 @@ export default function Layout() {
           transform: translateY(4px);
         }
         .iconbox {
-          border: 1px solid;
+          border: 2px solid;
           height: 50px;
           border-radius: 15px;
+          box-shadow: 1px 2px;
+
         }
         .icon {
           float: right;

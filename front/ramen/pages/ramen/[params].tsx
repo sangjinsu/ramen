@@ -1,26 +1,49 @@
 import axios from "axios";
+import { getCookie } from "cookies-next";
 import type { NextPage } from "next";
+import { useRouter } from "next/router";
 // import Image from "next/image";
 // import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PieCustom from "../../components/PieCustom";
 import RamenTable from "../../components/RamenTable";
+import SimilarRamen from "../../components/SimilarRamen";
 import { DataProps, RamenDetailType } from "../../components/Types";
+import Youtube from "../../components/Youtube";
 
-const Detail: React.FC<RamenDetailType> = ({
-  params,
-  ramenInfos,
-  userLikeBoolean,
-}) => {
+const Detail: React.FC<RamenDetailType> = ({ params, ramenInfos }) => {
   console.log(ramenInfos);
-  // const dynamicValue = router.query.detail;
-  // console.log(dynamicValue);
 
-  const [likeCheck, setLike] = useState<boolean>(userLikeBoolean);
+  const [likeCheck, setLike] = useState<boolean>(false);
+  const accessToken = getCookie("accessToken");
+  const member_id = getCookie("member_id");
+  const router = useRouter();
 
-  const likeChange = () => {
-    // const
-    setLike(!likeCheck);
+  const likeChange = async () => {
+    // 주석 해제
+    try {
+      const { status: userLikeStatus } = await axios.post(
+        `http://j6c104.p.ssafy.io:8080/v1/member/like`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+        {
+          params: {
+            memberId: member_id,
+            ramenIds: [params],
+          },
+        }
+      );
+      if (200 <= userLikeStatus && userLikeStatus < 300) {
+        setLike(!likeCheck);
+      }
+    } catch {
+      if (!member_id) {
+        router.push("/login");
+      }
+    }
   };
 
   const barChartData: DataProps = {
@@ -38,6 +61,29 @@ const Detail: React.FC<RamenDetailType> = ({
     data: [ramenInfos.carbs, ramenInfos.protein, ramenInfos.lipid],
   };
 
+  useEffect(() => {
+    const TestTTT = async () => {
+      try {
+        console.log("111");
+        const { status: userLikeStatus } = await axios.get(
+          `http://j6c104.p.ssafy.io:8080/v1/ramen/islike/${params}/${member_id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        200 <= userLikeStatus && userLikeStatus < 300
+          ? setLike(true)
+          : setLike(false);
+        console.log(userLikeStatus);
+      } catch {
+        setLike(false);
+      }
+    };
+    TestTTT();
+  }, []);
+
   return (
     <>
       <div className="detail_page">
@@ -46,7 +92,10 @@ const Detail: React.FC<RamenDetailType> = ({
             <div className="left_ramenName">{ramenInfos.name}</div>
           </section>
           <section>
-            <img src="/logo.png" className="left_ramen_img" />
+            <img
+              src={`/ramen/${ramenInfos.name}.png?w=248&fit=crop&auto=format`}
+              className="left_ramen_img"
+            />
           </section>
           <section className="left_area_btn">
             <label className="like">
@@ -70,7 +119,10 @@ const Detail: React.FC<RamenDetailType> = ({
                 <div className="hearth" />
               </label>
             </div>
-            <img src="/logo.png" className="right_ramen_img" />
+            <img
+              src={`/ramen/${ramenInfos.name}.png?w=248&fit=crop&auto=format`}
+              className="right_ramen_img"
+            />
           </section>
 
           <section>
@@ -119,15 +171,13 @@ const Detail: React.FC<RamenDetailType> = ({
           )}
 
           <section>
-            <p>유사한 라면 보여줄 공간!</p>
-            <p>유사한 라면 보여줄 공간!</p>
-            <p>유사한 라면 보여줄 공간!</p>
+            <SimilarRamen
+              test={["신라면", "간짬뽕", "감자면큰사발면"]}
+            ></SimilarRamen>
           </section>
 
           <section>
-            <p>유튜브!!</p>
-            <p>유튜브!!</p>
-            <p>유튜브!!</p>
+            <Youtube searchTitle={ramenInfos.name}></Youtube>
           </section>
         </div>
       </div>
@@ -328,18 +378,10 @@ export async function getServerSideProps({ params: { params } }) {
   const { data: ramenInfos } = await axios.get(
     `http://j6c104.p.ssafy.io:8080/v1/ramen/detail/${params}`
   );
-  // login 구현되면 주석해제
-  // const { status: userLikeStatus } = await axios.get(
-  //   `http://j6c104.p.ssafy.io:8080/v1/ramen/islike/${params}/${1}`
-  // );
-  // const userLikeBoolean =
-  // 200 <= userLikeStatus && userLikeStatus < 300 ? true : false;
-  const userLikeBoolean = true;
   return {
     props: {
       params,
       ramenInfos,
-      userLikeBoolean,
     },
   };
 }

@@ -10,19 +10,23 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <SSRProvider>
         <Layout>
+
           <Component {...pageProps} />
         </Layout>
       </SSRProvider>
-      {/* <style jsx global>
+
+      <style jsx global>
         {
           `
-          @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&family=Nanum+Pen+Script&display=swap');
+          @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Jua&display=swap');
+
 body {
-      font-family: 'Nanum Pen Script', cursive;
+  font-family: 'Jua', sans-serif;
     }
+    
     `
         }
-      </style> */}
+      </style>
     </>
   );
 }
