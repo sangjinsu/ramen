@@ -35,6 +35,20 @@ export default function NavBar() {
 
   return (
     <>
+    <div className="sidenav">
+    <Link href="/">
+                <a className="navmenu">
+                  카테고리
+                </a>
+              </Link>
+              <Link href="/index2">
+                <a className="navmenu">
+                  키워드
+                </a>
+              </Link>  
+            {/* <a href="#about">카테고리</a>
+            <a href="#services">키워드</a> */}
+          </div>
       <Navbar collapseOnSelect expand="lg" bg="bg-white" variant="light">
         <Container>
           <Navbar.Brand>
@@ -45,34 +59,8 @@ export default function NavBar() {
                 &nbsp;
               </a>
             </Link>
-            <Link href="/">
-                <a className="navmenu">
-                  &nbsp;카테고리 &nbsp;
-                </a>
-              </Link>
-              <Link href="/index2">
-                <a className="navmenu">
-                  &nbsp;키워드 &nbsp;
-                </a>
-              </Link>
-            {/* <img src="/logo.png" width={200}/> */}
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
-              {/* <Link href="/">
-                <a className="navmenu">
-                  &nbsp;카테고리검색 &nbsp;
-                </a>
-              </Link>
-              <Link href="/index2">
-                <a className="navmenu">
-                  &nbsp;키워드검색 &nbsp;
-                </a>
-              </Link>              */}
-            </Nav>
-            <Nav>
-              <div className="searchform">
+
+            <div className="searchform">
                 <TextField
                   id="standard-search"
                   label="라면검색"
@@ -115,6 +103,25 @@ export default function NavBar() {
                   <SearchIcon />
                 </IconButton>
               </div>
+            
+            {/* <img src="/logo.png" width={200}/> */}
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="me-auto">
+              <Link href="/">
+                <a className="navmenu">
+                  &nbsp;카테고리검색 &nbsp;
+                </a>
+              </Link>
+              <Link href="/index2">
+                <a className="navmenu">
+                  &nbsp;키워드검색 &nbsp;
+                </a>
+              </Link>             
+            </Nav>
+            <Nav>
+              
 
               <Dropdown>
                 <Dropdown.Toggle variant="" id="dropdown-basic">
@@ -175,6 +182,7 @@ export default function NavBar() {
           text-decoration-line: none;
           display: inline-block;
           margin:0px;
+          font-size:24px;
 
 
         }
@@ -188,11 +196,47 @@ export default function NavBar() {
           color: orange;
         }
         .searchform {
+          display:inline;
           width: 250px;
         }
         hr{
           margin:1px;
         }
+
+        .sidenav {
+          width: 80px;
+          position: fixed;
+          z-index: 1;
+          top: 200px;
+          right: 10px;
+          background: #eee;
+          overflow-x: hidden;
+          padding: 8px 0;
+          border-radius:15px;
+        }
+        
+        .sidenav a {
+          padding: 6px 8px 6px 16px;
+          text-decoration: none;
+          font-size: 16px;
+          color: grey;
+          display: block;
+        }
+        
+        .sidenav a:hover {
+          color: orange;
+        }
+        
+        .main {
+          margin-left: 140px; /* Same width as the sidebar + left position in px */
+          font-size: 28px; /* Increased text to enable scrolling */
+          padding: 0px 10px;
+        }
+        
+        @media screen and (max-height: 450px) {
+          .sidenav {padding-top: 15px;}
+          .sidenav a {font-size: 18px;}
+        }   
       `}</style>
     </>
   );

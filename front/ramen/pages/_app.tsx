@@ -10,6 +10,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <SSRProvider>
         <Layout>
+
           <Component {...pageProps} />
         </Layout>
       </SSRProvider>
@@ -22,6 +23,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 body {
   font-family: 'Jua', sans-serif;
     }
+    
     `
         }
       </style>
