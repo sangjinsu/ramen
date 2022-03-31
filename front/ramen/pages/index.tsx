@@ -74,8 +74,8 @@ const Home: NextPage = () => {
         </Row>
         <Row>
           <Col xs={0} md={2} lg={3}></Col>
-          <Col xs={12} md={4} lg={3}><div className='sug'><Sug></Sug></div></Col>
-          <Col xs={12} md={4} lg={3}><div className='sug'><Sug></Sug></div></Col>
+          <Col xs={5} md={4} lg={3}><div className='sug'><Sug></Sug></div></Col>
+          <Col xs={5} md={4} lg={3}><div className='sug'><Sug></Sug></div></Col>
           <Col xs={0} md={2} lg={3}></Col>
         </Row>
         {/* <div className="test">이거 박스테스트</div> */}
