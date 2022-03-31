@@ -21,5 +21,6 @@ public class MemberLikeRamen {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ramen_id")
+    @Getter
     private Ramen ramen;
 }

@@ -16,9 +16,10 @@ public interface MemberLikeRamenRepository extends JpaRepository<MemberLikeRamen
     Optional<MemberLikeRamen> findByMemberAndRamen(Member member, Ramen ramen);
 
     // 좋아요한 라면 조회
-    @Query("select ramen.ramenId, ramen.name,ramen.englishName,ramen.brand,ramen.englishBrand from MemberLikeRamen memberLikeRamen join fetch Ramen ramen on ramen.ramenId = memberLikeRamen.ramen.ramenId where memberLikeRamen.member.memberId = :memberId")
-//    @Query("select ramen from MemberLikeRamen memberLikeRamen join fetch Ramen ramen on ramen.ramenId = memberLikeRamen.ramen.ramenId where memberLikeRamen.member.memberId = :memberId")
-    List<Object[]> findLikedRamens(@Param("memberId") Long memberId);
+    // @Query("select ramen.ramenId, ramen.name,ramen.englishName,ramen.brand,ramen.englishBrand from MemberLikeRamen memberLikeRamen join fetch Ramen ramen on ramen.ramenId = memberLikeRamen.ramen.ramenId where memberLikeRamen.member.memberId = :memberId")
+    @Query("select mlr from MemberLikeRamen mlr join fetch mlr.ramen where mlr.member = :member")
+    //List<Object[]> findLikedRamens(@Param("memberId") Long memberId);
+    List<MemberLikeRamen> findLikedRamens(@Param("member") Member member);
 
     // 좋아요 여부 조회
     @Query("select memberLikeRamen from MemberLikeRamen memberLikeRamen where memberLikeRamen.member.memberId = :memberId and memberLikeRamen.ramen.ramenId =:ramenId ")

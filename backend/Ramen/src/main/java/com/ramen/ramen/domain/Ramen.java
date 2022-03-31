@@ -28,6 +28,24 @@ public class Ramen {
 
     private int surveyYear;
 
+    @Override
+    public String toString() {
+        return "Ramen{" +
+                "ramenId=" + ramenId +
+                ", sampleId='" + sampleId + '\'' +
+                ", name='" + name + '\'' +
+                ", englishName='" + englishName + '\'' +
+                ", brand='" + brand + '\'' +
+                ", englishBrand='" + englishBrand + '\'' +
+                ", surveyYear=" + surveyYear +
+                ", noodle='" + noodle + '\'' +
+                ", code='" + code + '\'' +
+                ", composition=" + composition +
+                ", nutrient=" + nutrient +
+                ", analysis=" + analysis +
+                '}';
+    }
+
     private String noodle;
 
     private String code;
