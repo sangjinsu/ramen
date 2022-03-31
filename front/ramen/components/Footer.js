@@ -12,7 +12,9 @@ export default function NavBar() {
 
             <div className="footer">
               라면 추천 서비스 / &nbsp;
-              <a
+            </div>
+            <div className="icon">
+            <a
                 href="https://www.flaticon.com/kr/free-icons/"
                 title="라면 아이콘"
                 style={{ color: "black", textDecoration: "none" }}
@@ -28,6 +30,12 @@ export default function NavBar() {
       <style jsx>{`
         .footer {
           margin: 10px;
+          display:inline;
+        }
+        .icon{
+          font-size:8px;
+          display:inline;
+
         }
       `}</style>
     </>

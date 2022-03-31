@@ -120,8 +120,8 @@ const Search: NextPage = () => {
   return <>
     <Container>
       <Row>
-        <Col xs={2} md={2}></Col>
-        <Col xs={8} md={8}>
+        <Col xs={1} md={2}></Col>
+        <Col xs={10} md={8}>
           {/* <h1>카테고리결과 </h1> */}
           {currentRamens
             ? (
@@ -171,7 +171,7 @@ const Search: NextPage = () => {
           </Stack>
 
         </Col>
-        <Col xs={2} md={2}></Col>
+        <Col xs={1} md={2}></Col>
 
       </Row>
     </Container>
