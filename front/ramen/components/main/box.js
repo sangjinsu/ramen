@@ -288,11 +288,8 @@ export default function Layout() {
           border: 2px solid;
           height: 50px;
           border-radius: 15px;
-<<<<<<< HEAD
-=======
           box-shadow: 1px 2px;
 
->>>>>>> f/feat/46-main
         }
         .icon {
           float: right;
