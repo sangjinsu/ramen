@@ -88,6 +88,7 @@ const RamentList: React.FC<RamenListType> = ({
           }
           .test {
             width: 50%;
+          }
           .page_list {
             margin-left: 0;
             display: flex;
