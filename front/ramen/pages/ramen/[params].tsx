@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import PieCustom from "../../components/PieCustom";
 import RamenTable from "../../components/RamenTable";
 import { DataProps, RamenDetailType } from "../../components/Types";
+import Youtube from "../../components/Youtube";
 
 const Detail: React.FC<RamenDetailType> = ({
   params,
@@ -22,7 +23,7 @@ const Detail: React.FC<RamenDetailType> = ({
   const likeChange = async () => {
     // 주석 해제
     // const accessToken = getCookie("accessToken");
-    // const memberId = getCookie("memberId");
+    // const memberId = getCookie("member_id");
     // const { status: userLikeStatus } = await axios.get(
     //   `http://j6c104.p.ssafy.io:8080/v1/ramen/islike/${params}/${memberId}`,
     //   {
@@ -139,9 +140,7 @@ const Detail: React.FC<RamenDetailType> = ({
           </section>
 
           <section>
-            <p>유튜브!!</p>
-            <p>유튜브!!</p>
-            <p>유튜브!!</p>
+            <Youtube searchTitle={ramenInfos.name}></Youtube>
           </section>
         </div>
       </div>
@@ -340,7 +339,7 @@ const Detail: React.FC<RamenDetailType> = ({
 
 export async function getServerSideProps({ params: { params } }) {
   const accessToken = getCookie("accessToken");
-  const memberId = getCookie("memberId");
+  // const memberId = getCookie("memberId");
   const { data: ramenInfos } = await axios.get(
     `http://j6c104.p.ssafy.io:8080/v1/ramen/detail/${params}`
   );
