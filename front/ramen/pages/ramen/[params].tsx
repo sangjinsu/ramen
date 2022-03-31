@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import PieCustom from "../../components/PieCustom";
 import RamenTable from "../../components/RamenTable";
+import SimilarRamen from "../../components/SimilarRamen";
 import { DataProps, RamenDetailType } from "../../components/Types";
 import Youtube from "../../components/Youtube";
 
@@ -91,7 +92,10 @@ const Detail: React.FC<RamenDetailType> = ({ params, ramenInfos }) => {
             <div className="left_ramenName">{ramenInfos.name}</div>
           </section>
           <section>
-            <img src="/logo.png" className="left_ramen_img" />
+            <img
+              src={`/ramen/${ramenInfos.name}.png?w=248&fit=crop&auto=format`}
+              className="left_ramen_img"
+            />
           </section>
           <section className="left_area_btn">
             <label className="like">
@@ -115,7 +119,10 @@ const Detail: React.FC<RamenDetailType> = ({ params, ramenInfos }) => {
                 <div className="hearth" />
               </label>
             </div>
-            <img src="/logo.png" className="right_ramen_img" />
+            <img
+              src={`/ramen/${ramenInfos.name}.png?w=248&fit=crop&auto=format`}
+              className="right_ramen_img"
+            />
           </section>
 
           <section>
@@ -164,9 +171,9 @@ const Detail: React.FC<RamenDetailType> = ({ params, ramenInfos }) => {
           )}
 
           <section>
-            <p>유사한 라면 보여줄 공간!</p>
-            <p>유사한 라면 보여줄 공간!</p>
-            <p>유사한 라면 보여줄 공간!</p>
+            <SimilarRamen
+              test={["신라면", "간짬뽕", "감자면큰사발면"]}
+            ></SimilarRamen>
           </section>
 
           <section>
