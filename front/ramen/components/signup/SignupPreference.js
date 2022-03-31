@@ -7,7 +7,6 @@ import { Row, Col } from "react-bootstrap";
 import { Card } from "react-bootstrap";
 
 export default function SignupPreference({
-  userInfo,
   flagSoup,
   flagTopping,
   selectLength,

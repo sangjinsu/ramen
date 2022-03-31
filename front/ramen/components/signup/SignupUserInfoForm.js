@@ -12,6 +12,7 @@ export default function SignupUserInfoForm({
   value,
   type,
   icon,
+  icon2,
 }) {
   return (
     <>
@@ -25,6 +26,7 @@ export default function SignupUserInfoForm({
           startAdornment={
             <InputAdornment position="start">{icon}</InputAdornment>
           }
+          endAdornment={<InputAdornment position="end">{icon2}</InputAdornment>}
         />
       </FormControl>
     </>
