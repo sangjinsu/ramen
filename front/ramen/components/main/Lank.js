@@ -77,7 +77,11 @@ function R1(props) {
   return (
     <Link href={`/ramen/${props.id}`}>
       <div style={{ cursor: "pointer" }}>
-        {props.index}위 : {name} ({brand})
+      {/* <img src="icon/ranking.png" width={50}></img> 라면랭킹 */}
+      <img src={`icon/medal${props.index}.png`} width={35}></img>
+        {/* {props.index}위 : {name} ({brand}) */}
+        {name} ({brand})
+
       </div>
     </Link>
   );

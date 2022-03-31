@@ -23,9 +23,9 @@ export default function Suggestion() {
 
       <>
 <Row>
-  <Col xs={3} md={1} lg={1}></Col>
-  <Col xs={6} md={10} lg={10}>
-  <Card style={{ width: '12rem' }}>
+  <Col xs={1} md={1} lg={1}></Col>
+  <Col xs={10} md={10} lg={10}>
+  <Card style={{ width: '10rem' }}>
   <Card.Img variant="top" src="text.jpg" />
   <Card.Body>
     <Card.Title>추천라면</Card.Title>
@@ -35,7 +35,7 @@ export default function Suggestion() {
   </Card.Body>
 </Card>
   </Col>
-  <Col xs={3} md={1} lg={1}></Col>
+  <Col xs={1} md={1} lg={1}></Col>
 
 </Row>
 

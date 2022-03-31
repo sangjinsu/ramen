@@ -10,42 +10,23 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <SSRProvider>
         <Layout>
+
           <Component {...pageProps} />
         </Layout>
       </SSRProvider>
-      {/* <style jsx global>
+
+      <style jsx global>
         {
           `
-          body {
-            background: linear-gradient(-45deg, #ee7752, #23d5ab);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
-        }
-        
-        @keyframes gradient {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-    `
-        }
-      </style> */}
-      {/* <style jsx global>
-        {
-          `
-          @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&family=Nanum+Pen+Script&display=swap');
+          @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Jua&display=swap');
+
 body {
-      font-family: 'Nanum Pen Script', cursive;
+  font-family: 'Jua', sans-serif;
     }
+    
     `
         }
-      </style> */}
+      </style>
     </>
   );
 }
