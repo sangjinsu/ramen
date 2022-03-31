@@ -32,7 +32,6 @@ const withAuth = (WrappedComponent) => {
           .then(function (response) {
             setVerified(true);
             console.log("check-jwt 성공", response);
-            Router.replace("/");
           })
           // accessToken 유효 - X
           .catch(function (error) {

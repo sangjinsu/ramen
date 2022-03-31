@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-inferrable-types */
 import type { NextPage } from "next";
 import Image from "next/image";
 import * as React from "react";
@@ -18,6 +20,11 @@ import {
 import Link from "next/link";
 import { userPageType } from "../../../components/Types";
 import withAuth from "../../../components/hoc/withAuth";
+import axios from "axios";
+import { getCookie, setCookies } from "cookies-next";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { access } from "fs";
 
 const Detail: React.FC<userPageType> = ({ params, fonds }) => {
   const [likeRamens, setLikeRamens] = React.useState([]);
@@ -90,20 +97,74 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
   const currentRamens = likeRamens.slice(currentPageFirst, currentPageLast); // 0 ~ 8
   const pageNumber = Math.ceil(likeRamens.length / ramenPerPage);
 
+  const Router = useRouter();
+  const [accessToken, setAccessToken] = useState(getCookie("accessToken"));
+  const refreshToken = getCookie("refreshToken");
+
+  const checkTokenValid = () => {
+    if (!accessToken) {
+      Router.replace("/login");
+    } else {
+      axios
+        .get("http://j6c104.p.ssafy.io:8083/v1/member/check-jwt", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+        .catch(function (error) {
+          console.log("accessToken 만료");
+          if (error.response.status === 401) {
+            axios
+              .get("http://j6c104.p.ssafy.io:8083/v1/member/refresh", {
+                headers: {
+                  Authorization: `Bearer ${refreshToken}`,
+                },
+              })
+              .then(function (response) {
+                setCookies("accessToken", response.data.accessToken);
+                setAccessToken(response.data.accessToken);
+              })
+              .catch(function (error) {
+                Router.replace("/login");
+              });
+          }
+        });
+    }
+  };
+
   React.useEffect(() => {
-    const userLikeData = async () => {
-      // const { data: likeRamenList } = await axios.get(
-      //   `http://j6c104.p.ssafy.io:8080/v1/membmer/${params}/like`
-      // );
-      // const userLikeList = likeRamenList.map((ramen) => [
-      //   ramen.ramenId,
-      //   ramen.ramen.name,
-      // ]);
-      const test = likeRamen.map((test) => [test.img, test.name, test.ramenId]);
-      console.log(test);
-      setLikeRamens(test);
-    };
-    userLikeData();
+    axios
+      .get("http://j6c104.p.ssafy.io:8083/v1/member/refresh", {
+        headers: {
+          Authorization: `Bearer ${refreshToken}`,
+        },
+      })
+      .then(function (response) {
+        setCookies("accessToken", response.data.accessToken);
+        setAccessToken(response.data.accessToken);
+      })
+      .catch(function (error) {
+        Router.replace("/login");
+      });
+  }, [accessToken]);
+
+  React.useEffect(() => {
+    axiosWithToken();
+    // const flag = temp();
+    // console.log("flag2", flag);
+    // const userLikeData = async () => {
+    // const { data: likeRamenList } = await axios.get(
+    //   `http://j6c104.p.ssafy.io:8080/v1/membmer/${params}/like`
+    // );
+    // const userLikeList = likeRamenList.map((ramen) => [
+    //   ramen.ramenId,
+    //   ramen.ramen.name,
+    // ]);
+    // const test = likeRamen.map((test) => [test.img, test.name, test.ramenId]);
+    // console.log(test);
+    // setLikeRamens(test);
+    // };
+    // userLikeData();
   }, []);
 
   // React.useEffect(() => {
@@ -503,9 +564,6 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
 };
 
 export async function getServerSideProps({ params: { params } }) {
-  // const { data: fondList } = await axios.get(
-  //   `http://j6c104.p.ssafy.io:8080/v1/membmer/${params}/fond`
-  // );
   const fonds = {
     egg: "완숙",
     ingredientGarlic: true,
@@ -528,4 +586,4 @@ export async function getServerSideProps({ params: { params } }) {
   };
 }
 
-export default withAuth(Detail);
+export default Detail;
