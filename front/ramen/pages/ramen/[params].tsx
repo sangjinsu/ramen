@@ -3,7 +3,7 @@ import { getCookie } from "cookies-next";
 import type { NextPage } from "next";
 // import Image from "next/image";
 // import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PieCustom from "../../components/PieCustom";
 import RamenTable from "../../components/RamenTable";
 import { DataProps, RamenDetailType } from "../../components/Types";
@@ -12,30 +12,36 @@ import Youtube from "../../components/Youtube";
 const Detail: React.FC<RamenDetailType> = ({
   params,
   ramenInfos,
-  userLikeBoolean,
+  // userLikeBoolean,
 }) => {
   console.log(ramenInfos);
   // const dynamicValue = router.query.detail;
   // console.log(dynamicValue);
 
-  const [likeCheck, setLike] = useState<boolean>(userLikeBoolean);
+  const [likeCheck, setLike] = useState<boolean>(false);
+  const accessToken = getCookie("accessToken");
+  const member_id = getCookie("member_id");
 
   const likeChange = async () => {
     // 주석 해제
-    // const accessToken = getCookie("accessToken");
-    // const memberId = getCookie("member_id");
-    // const { status: userLikeStatus } = await axios.get(
-    //   `http://j6c104.p.ssafy.io:8080/v1/ramen/islike/${params}/${memberId}`,
-    //   {
-    //     headers: {
-    //       Authorization: `Bearer ${accessToken}`,
-    //     },
-    //   }
-    // );
-    // if (200 <= userLikeStatus && userLikeStatus < 300) {
-    //   setLike(!likeCheck);
-    // }
-    setLike(!likeCheck);
+    const { status: userLikeStatus } = await axios.post(
+      `http://j6c104.p.ssafy.io:8080/v1/member/like`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+      {
+        params: {
+          memberId: member_id,
+          ramenIds: [params],
+        },
+      }
+    );
+    if (200 <= userLikeStatus && userLikeStatus < 300) {
+      setLike(!likeCheck);
+    }
+    // setLike(!likeCheck);
   };
 
   const barChartData: DataProps = {
@@ -52,6 +58,30 @@ const Detail: React.FC<RamenDetailType> = ({
   const pieChartData: DataProps = {
     data: [ramenInfos.carbs, ramenInfos.protein, ramenInfos.lipid],
   };
+
+  useEffect(() => {
+    const TestTTT = async () => {
+      const accessToken = getCookie("accessToken");
+      const member_id = getCookie("member_id");
+      try {
+        const { status: userLikeStatus } = await axios.get(
+          `http://j6c104.p.ssafy.io:8080/v1/ramen/islike/${params}/${7}`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        200 <= userLikeStatus && userLikeStatus < 300
+          ? setLike(true)
+          : setLike(false);
+        console.log(userLikeStatus);
+      } catch {
+        setLike(false);
+      }
+    };
+    TestTTT();
+  }, []);
 
   return (
     <>
@@ -339,13 +369,14 @@ const Detail: React.FC<RamenDetailType> = ({
 
 export async function getServerSideProps({ params: { params } }) {
   const accessToken = getCookie("accessToken");
-  // const memberId = getCookie("memberId");
+  const member_id = getCookie("member_id");
   const { data: ramenInfos } = await axios.get(
     `http://j6c104.p.ssafy.io:8080/v1/ramen/detail/${params}`
   );
-  // login 구현되면 주석해제
-  // const { status: userLikeStatus } = await axios.get(
-  //   `http://j6c104.p.ssafy.io:8080/v1/ramen/islike/${params}/${memberId}`,
+  // // // login 구현되면 주석해제
+  // islike는 여부만 알려준다
+  // const { status: userLikeStatus1 } = await axios.get(
+  //   `http://j6c104.p.ssafy.io:8080/v1/ramen/islike/${params}/${7}`,
   //   {
   //     headers: {
   //       Authorization: `Bearer ${accessToken}`,
@@ -353,13 +384,13 @@ export async function getServerSideProps({ params: { params } }) {
   //   }
   // );
   // const userLikeBoolean =
-  //   200 <= userLikeStatus && userLikeStatus < 300 ? true : false;
-  const userLikeBoolean = true;
+  //   200 <= userLikeStatus1 && userLikeStatus1 < 300 ? true : false;
+  // const userLikeBoolean = true;
   return {
     props: {
       params,
       ramenInfos,
-      userLikeBoolean,
+      // userLikeBoolean,
     },
   };
 }
