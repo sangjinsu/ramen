@@ -328,11 +328,10 @@ const Signup: React.FC<signupType> = ({ router: { query } }) => {
             </Col>
             <Col></Col>
           </Row>
+
           <Row>
-            <Col></Col>
-            <Col></Col>
             <Col>
-              <div>
+              <div style={{ float: "right" }}>
                 {canGoNext ? (
                   <FrontArrow
                     pathname={"/ramenpreference"}
