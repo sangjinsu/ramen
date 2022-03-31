@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 
 const Home2: NextPage = () => {
    const router = useRouter()
-   const handleKeyword = (keyWord) => {
+   const handleKeyword = (keyWord: string) => {
       router.push(
          {
             pathname: '/SearchKeywordResult',
