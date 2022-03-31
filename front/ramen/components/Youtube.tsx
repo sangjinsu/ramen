@@ -5,7 +5,7 @@ const Youtube = ({ searchTitle }: { searchTitle: string }) => {
   const id = "ttttt";
   const [videoUrl, setVideoUrl] = useState("");
 
-  const [iframeDOM, setIframeDOM] = useState(null);
+  const [iframeDOM, setIframeDOM] = useState({});
   const [videoHeight, setVideoHeight] = useState(320);
 
   const params = {
@@ -20,19 +20,26 @@ const Youtube = ({ searchTitle }: { searchTitle: string }) => {
   const handleChangeVideoWidth = useCallback(() => {
     return setVideoHeight(
       // 사이즈가 변할 때마다 높이도 같이 바뀜
-      Math.floor(window.document.getElementById(id).offsetWidth * 0.5625)
+      Math.floor(
+        (window.document.getElementById(id) as HTMLInputElement).offsetWidth *
+          0.5625
+      )
     );
   }, [id]);
 
   useEffect(() => {
-    setIframeDOM(window.document.getElementById(id));
+    console.log(typeof window.document.getElementById(id));
+    setIframeDOM(window.document.getElementById(id) as object);
   }, [id, iframeDOM]);
 
   useEffect(() => {
     window.addEventListener("resize", handleChangeVideoWidth);
     setVideoHeight(
       // 로딩 후 높이 부분이 비율에 맞춰짐
-      Math.floor(window.document.getElementById(id).offsetWidth * 0.5625)
+      Math.floor(
+        (window.document.getElementById(id) as HTMLInputElement).offsetWidth *
+          0.5625
+      )
     );
     return function cleanup() {
       window.removeEventListener("resize", handleChangeVideoWidth);
