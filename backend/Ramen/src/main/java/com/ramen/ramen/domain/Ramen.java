@@ -16,28 +16,20 @@ public class Ramen {
     @Column(name = "ramen_id", nullable = false)
     private Long ramenId;
 
-    @NonNull
     private String sampleId;
 
-    @NonNull
     private String name;
 
-    @NonNull
     private String englishName;
 
-    @NonNull
     private String brand;
 
-    @NonNull
     private String englishBrand;
 
-    @NonNull
     private int surveyYear;
 
-    @NonNull
     private String noodle;
 
-    @NonNull
     private String code;
 
     @Setter
@@ -56,5 +48,5 @@ public class Ramen {
     private Analysis analysis;
 
     @OneToMany(mappedBy = "ramen", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MemberLikeRamen> likedMembers = new ArrayList<>();
+    private final List<MemberLikeRamen> likedMembers = new ArrayList<>();
 }

@@ -17,25 +17,18 @@ public class Composition {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long compositionId;
 
-    @NonNull
     private int liquid; // tinyint <-> int? boolean?
 
-    @NonNull
     private int powder;
 
-    @NonNull
     private int seasoning;
 
-    @NonNull
     private int soup;
 
-    @NonNull
     private int cup;
 
-    @NonNull
     private int cold;
 
-    @NonNull
     private int jjajang;
 
     //Getter

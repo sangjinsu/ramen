@@ -18,51 +18,39 @@ public class Fond {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long fondId;
 
-    @NonNull
     @Setter
     private String noodleLength;
 
-    @NonNull
     @Setter
     private String noodleTexture;
 
-    @NonNull
     @Setter
     private Boolean ingredientNone;
 
-    @NonNull
     @Setter
     private Boolean ingredientGarlic;
 
-    @NonNull
     @Setter
     private Boolean ingredientPepper;
 
-    @NonNull
     @Setter
     private Boolean ingredientGreenOnion;
 
-    @NonNull
     @Setter
     private String egg;
 
-    @NonNull
     @Setter
     private Boolean toppingNone;
 
-    @NonNull
     @Setter
     private Boolean toppingCheese;
 
-    @NonNull
     @Setter
     private Boolean toppingTteok;
 
-    @NonNull
     @Setter
     private Boolean toppingDumpling;
 
-    @NonNull
     @Setter
     private String spicy;
 

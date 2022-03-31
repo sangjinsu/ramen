@@ -12,6 +12,7 @@ import com.ramen.ramen.repository.member.MemberRepository;
 import com.ramen.ramen.repository.ramen.RamenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +26,7 @@ public class MemberService {
     private final RamenRepository ramenRepository;
     private final MemberLikeRamenRepository memberLikeRamenRepository;
 
+    @Transactional
     public void likeRamen(RequestLikeDto requestLikeDto) {
         Long memberId = requestLikeDto.getMemberId();
 

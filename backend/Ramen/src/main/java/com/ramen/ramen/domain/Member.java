@@ -23,20 +23,15 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
 
-    @NonNull
     private String email;
 
-    @NonNull
     private String name;
 
-    @NonNull
     private int age;
 
-    @NonNull
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @NonNull
     private String password;
 
     @CreatedDate
@@ -51,5 +46,5 @@ public class Member {
     private Fond fond;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MemberLikeRamen> likedRamens = new ArrayList<>();
+    private final List<MemberLikeRamen> likedRamens = new ArrayList<>();
 }
