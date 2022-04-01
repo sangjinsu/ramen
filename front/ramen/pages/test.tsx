@@ -5,9 +5,15 @@ import type { NextPage } from "next";
 import { Container, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 const Test: NextPage = () => {
-
+  let obtest =
+  {
+    "94": "안성탕면",
+    "201": "불닭볶음면",
+    "73": "올리브짜파게티"
+  }
 
   let [data, setData] = useState([]);
   let [like, setLike] = useState(false)
@@ -116,6 +122,23 @@ const Test: NextPage = () => {
 ) 
   .then((response) => { console.log(response.data); }) 
   .catch((response) => { console.log('Error!) }); */}
+
+      <Link href={`/ramen/${Object.keys(obtest)[1]}`}>{Object.values(obtest)[1]}</Link>
+
+      {Object.keys(obtest)}
+      {Object.keys(obtest)[0]}
+      {Object.keys(obtest)[1]}
+      {Object.keys(obtest)[2]}
+      {Object.values(obtest)}
+      ----------------------------------------
+      {Object.values(obtest)[0]}
+      {Object.values(obtest)[0]}
+      {Object.values(obtest)[0]}
+
+      {/* {obtest} */}
+      {/* {obtest["94"]}
+      {obtest["201"]}
+      {obtest["73"]} */}
     </>
   );
 };

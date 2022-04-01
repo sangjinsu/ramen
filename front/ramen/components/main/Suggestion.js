@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Row,Col,Card,ListGroup} from 'react-bootstrap';
 import axios from 'axios'
 import { useEffect, useState } from 'react';
-
+import Link from "next/link";
 
 
 export default function Suggestion(props) {
@@ -66,11 +66,15 @@ export default function Suggestion(props) {
       ?(
         <>
         <ListGroup.Item><img src="icon/number1.png" width={25}></img>
-        {ramen[0]}</ListGroup.Item>
+        <Link href={`/ramen/${Object.keys(ramen)[0]}`}><a>{Object.values(ramen)[0]}</a></Link>
+      
+        </ListGroup.Item>
         <ListGroup.Item><img src="icon/number2.png" width={25}></img>
-        {ramen[1]}</ListGroup.Item>
+        <Link href={`/ramen/${Object.keys(ramen)[1]}`}><a>{Object.values(ramen)[0]}</a></Link>
+        </ListGroup.Item>
         <ListGroup.Item><img src="icon/number3.png" width={25}></img>
-        {ramen[2]}</ListGroup.Item>
+        <Link href={`/ramen/${Object.keys(ramen)[2]}`}><a>{Object.values(ramen)[0]}</a></Link>
+        </ListGroup.Item>
         </>
       )
       :(
@@ -90,7 +94,10 @@ export default function Suggestion(props) {
 
 
 <style jsx>{`
-        
+        a{
+          color: black;
+          text-decoration-line: none;
+        }
         
 
         

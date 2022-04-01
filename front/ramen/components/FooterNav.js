@@ -52,7 +52,7 @@ export default function NavBar() {
       <div className="navin"><Link href="/index2">
                 <a className="navmenu">
                 <img src="icon/keyword.png" width={25}></img>
-                &nbsp;키워드
+                &nbsp;키워드추천
                 </a>
               </Link> </div>
               
