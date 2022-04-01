@@ -127,21 +127,21 @@ const Home: NextPage = () => {
           <Col xs={1} md={2} lg={3}></Col>
           <Col xs={10} md={8} lg={5}>
 
-            <Sug id={memberID} title="dbrc추천" sug="dbrc"></Sug>
+            <Sug id={memberID} title="DBRC추천" sug="dbrc"></Sug>
           </Col>
           <Col xs={1} md={2} lg={4}></Col>
         </Row>
         <Row>
           <Col xs={1} md={2} lg={3}></Col>
           <Col xs={10} md={8} lg={5}>
-            <Sug id={memberID} title="ibcf추천" sug="ibcf"></Sug>
+            <Sug id={memberID} title="IBCF추천" sug="ibcf"></Sug>
           </Col>
           <Col xs={1} md={2} lg={4}></Col>
         </Row>
         <Row>
           <Col xs={1} md={2} lg={3}></Col>
           <Col xs={10} md={8} lg={5}>
-            <Sug id={memberID} title="ubcf추천" sug="ubcf"></Sug>
+            <Sug id={memberID} title="UBCF추천" sug="ubcf"></Sug>
           </Col>
           <Col xs={1} md={2} lg={4}></Col>
         </Row>
