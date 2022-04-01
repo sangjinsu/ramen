@@ -19,8 +19,8 @@ export default function Layout({ children }) {
     }else if(size.width>768){
       setSizeon(false)
     }
-    console.log(size.width)
-    console.log(size.height)
+    // console.log(size.width)
+    // console.log(size.height)
   },[size])
 
   return (

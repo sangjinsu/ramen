@@ -27,8 +27,8 @@ const Home2: NextPage = () => {
          setReactive('40px')
          setReactive2('80px')
       }
-      console.log(size.width)
-      console.log(size.height)
+      // console.log(size.width)
+      // console.log(size.height)
    }, [size])
 
    const router = useRouter()
