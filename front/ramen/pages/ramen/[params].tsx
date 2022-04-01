@@ -32,7 +32,7 @@ const Detail: React.FC<RamenDetailType> = ({ params, ramenInfos }) => {
         {
           params: {
             memberId: member_id,
-            ramenIds: [params],
+            ramenIds: params,
           },
         }
       );

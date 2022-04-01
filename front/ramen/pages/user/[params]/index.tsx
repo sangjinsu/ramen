@@ -1,4 +1,3 @@
-import type { NextPage } from "next";
 import Image from "next/image";
 import * as React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,6 +19,11 @@ import { userPageType } from "../../../components/Types";
 import withAuth from "../../../components/hoc/withAuth";
 import { getCookie } from "cookies-next";
 import axios from "axios";
+
+const accessToken = getCookie("accessToken");
+const name = getCookie("name");
+const age = getCookie("age");
+const gender = getCookie("gender");
 
 const Detail: React.FC<userPageType> = ({ params, fonds }) => {
   const [likeRamens, setLikeRamens] = React.useState([]);
@@ -49,32 +53,26 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
 
   const likeRamen = [
     {
-      img: "간짬뽕",
       name: "간짬뽕",
       ramenId: "1",
     },
     {
-      img: "감자면큰사발면",
       name: "감자면큰사발면",
       ramenId: "2",
     },
     {
-      img: "7가지 채소가득 우리밀라면",
       name: "7가지 채소가득 우리밀라면",
       ramenId: "3",
     },
     {
-      img: "강릉 교동반점 직화짬뽕소컵",
       name: "강릉 교동반점 직화짬뽕소컵",
       ramenId: "4",
     },
     {
-      img: "까르보불닭볶음면",
       name: "까르보불닭볶음면",
       ramenId: "5",
     },
     {
-      img: "꽃게탕면",
       name: "꽃게탕면",
       ramenId: "6",
     },
@@ -94,43 +92,24 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
 
   React.useEffect(() => {
     const userLikeData = async () => {
-      // const { data: likeRamenList } = await axios.get(
-      //   `http://j6c104.p.ssafy.io:8080/v1/membmer/${params}/like`
-      // );
-      // const userLikeList = likeRamenList.map((ramen) => [
-      //   ramen.ramenId,
-      //   ramen.ramen.name,
-      // ]);
-      const test = likeRamen.map((test) => [test.img, test.name, test.ramenId]);
-      console.log(test);
-      setLikeRamens(test);
+      const accessToken = getCookie("accessToken");
+      const { data: likeRamenList } = await axios.get(
+        `http://j6c104.p.ssafy.io:8080/v1/member/${params}/like`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      console.log(likeRamenList);
+      const userLikeList = likeRamenList.map((ramen) => [
+        ramen.name,
+        ramen.ramenId,
+      ]);
+      setLikeRamens(userLikeList);
     };
     userLikeData();
   }, []);
-
-  // React.useEffect(() => {
-  //   const userfondData = async () => {
-  //     // const { data: fondList } = await axios.get(
-  //     //   `http://j6c104.p.ssafy.io:8080/v1/membmer/${1}/fond`
-  //     // );
-  //     const test = {
-  //       egg: "완숙",
-  //       ingredientGarlic: true,
-  //       ingredientGreenOnion: true,
-  //       ingredientNone: false,
-  //       ingredientPepper: true,
-  //       noodleLength: "4등분",
-  //       noodleTexture: "꼬들",
-  //       spicy: "조금 맵게",
-  //       toppingCheese: true,
-  //       toppingDumpling: true,
-  //       toppingNone: false,
-  //       toppingTteok: true,
-  //     };
-  //     setLikeRamens(fondList);
-  //   };
-  //   userfondData();
-  // }, []);
 
   return (
     <>
@@ -139,17 +118,17 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
           <section>
             <div className="left_user_name">
               <FontAwesomeIcon icon={faUser} />
-              <p className="font_right">김동일</p>
+              <p className="font_right">{name}</p>
             </div>
           </section>
           <section>
             <div className="user_info">
               <FontAwesomeIcon icon={faCakeCandles} />
-              <p className="font_right">25</p>
+              <p className="font_right">{age}</p>
             </div>
             <div className="user_info">
               <FontAwesomeIcon icon={faPerson} />
-              <p className="font_right">남자</p>
+              <p className="font_right">{gender}</p>
             </div>
           </section>
           <section>
@@ -272,19 +251,19 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
                 {currentRamens.map((ramen) => (
                   <div className="like_info" key={ramen[0]}>
                     <ImageListItem>
-                      <Link href={`/ramen/${ramen[2]}`}>
+                      <Link href={`/ramen/${ramen[1]}`}>
                         <a className="left_link_area">
                           <img
                             src={`/ramen/${ramen[0]}.png?w=248&fit=crop&auto=format`}
                             srcSet={`/ramen/${ramen[0]}.png?w=248&fit=crop&auto=format&dpr=2 2x`}
-                            alt={ramen[1]}
+                            alt={ramen[0]}
                             loading="lazy"
                           />
                         </a>
                       </Link>
                     </ImageListItem>
                     <div className="right_link_area">
-                      <ImageListItemBar title={ramen[1]} position="below" />
+                      <ImageListItemBar title={ramen[0]} position="below" />
                       <div>하트 놔둘 곳</div>
                     </div>
                   </div>
@@ -505,7 +484,6 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
 };
 
 export async function getServerSideProps({ params: { params } }) {
-  const accessToken = getCookie("accessToken");
   const { data: fonds } = await axios.get(
     `http://j6c104.p.ssafy.io:8080/v1/member/${params}/fond`,
     {
@@ -514,20 +492,6 @@ export async function getServerSideProps({ params: { params } }) {
       },
     }
   );
-  // const fonds = {
-  //   egg: "완숙",
-  //   ingredientGarlic: true,
-  //   ingredientGreenOnion: true,
-  //   ingredientNone: false,
-  //   ingredientPepper: true,
-  //   noodleLength: "4개로 분리",
-  //   noodleTexture: "쫄깃하게",
-  //   spicy: "안 맴게",
-  //   toppingCheese: true,
-  //   toppingDumpling: true,
-  //   toppingNone: false,
-  //   toppingTteok: true,
-  // };
   return {
     props: {
       params,
