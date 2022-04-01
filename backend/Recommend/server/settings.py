@@ -38,7 +38,7 @@ ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_WHITELIST = [
     'http://127.0.0.1:3000',
     'http://localhost:3000',
-    #'http://j6c104.p.ssafy.io:8888',
+    'http://j6c104.p.ssafy.io:3000',
 ]
 
 CORS_ALLOW_METHODS = [
@@ -157,3 +157,7 @@ APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
 APSCHEDULER_RUN_NOW_TIMEOUT = 25  # Seconds
 
 SCHEDULER_DEFAULT = True
+
+SWAGGER_SETTINGS = {
+   'USE_SESSION_AUTH': False
+}
