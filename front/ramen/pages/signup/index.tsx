@@ -27,7 +27,6 @@ import { orange } from "@mui/material/colors";
 import SendIcon from "@mui/icons-material/Send";
 
 const Signup: React.FC<signupType> = ({ router: { query } }) => {
-  console.log(query);
   const Router = useRouter();
 
   const [userInfo, setUserInfo] = useState({});
@@ -152,25 +151,6 @@ const Signup: React.FC<signupType> = ({ router: { query } }) => {
       setInputAge(prevUserInfo["inputAge"]);
       setInputName(prevUserInfo["inputName"]);
       setInputGender(prevUserInfo["inputGender"]);
-    }
-  }, []);
-
-  useEffect(() => {
-    const refreshToken = getCookie("refreshToken");
-    if (refreshToken) {
-      axios
-        .get("http://j6c104.p.ssafy.io:8083/v1/member/refresh", {
-          headers: {
-            Authorization: `Bearer ${refreshToken}`,
-          },
-        })
-        .then(function (response) {
-          console.log("refresh 성공", response);
-          setCookies("accessToken", response.data.accessToken);
-          Router.push({
-            pathname: "/",
-          });
-        });
     }
   }, []);
 

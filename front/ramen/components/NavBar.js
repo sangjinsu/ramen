@@ -35,20 +35,16 @@ export default function NavBar() {
 
   return (
     <>
-    <div className="sidenav">
-    <Link href="/">
-                <a className="navmenu">
-                  카테고리
-                </a>
-              </Link>
-              <Link href="/index2">
-                <a className="navmenu">
-                  키워드
-                </a>
-              </Link>  
-            {/* <a href="#about">카테고리</a>
+      <div className="sidenav">
+        <Link href="/">
+          <a className="navmenu">카테고리</a>
+        </Link>
+        <Link href="/index2">
+          <a className="navmenu">키워드</a>
+        </Link>
+        {/* <a href="#about">카테고리</a>
             <a href="#services">키워드</a> */}
-          </div>
+      </div>
       <Navbar collapseOnSelect expand="lg" bg="bg-white" variant="light">
         <Container>
           <Navbar.Brand>
@@ -61,36 +57,18 @@ export default function NavBar() {
             </Link>
 
             <div className="searchform">
-                <TextField
-                  style={{ width: 150 }}
-                  id="standard-search"
-                  label="라면검색"
-                  defaultValue={search}
-                  type="search"
-                  variant="standard"
-                  color="warning"
-                  onChange={handleChange}
-                  // onChange={(event)=>{setSearch(event.target.value)}}
-                  onKeyPress={(e) => {
-                    if (e.key === "Enter") {
-                      router.push(
-                        {
-                          pathname: "/SearchTextResult",
-                          query: {
-                            textResult: search,
-                          },
-                        },
-                        `/SearchTextResult`
-                      );
-                    }
-                  }}
-                />
-                <IconButton
-                style={{ marginBottom: 25 }}
-                  type="submit"
-                  sx={{ p: "10px" }}
-                  aria-label="search"
-                  onClick={() => {
+              <TextField
+                style={{ width: 150 }}
+                id="standard-search"
+                label="라면검색"
+                defaultValue={search}
+                type="search"
+                variant="standard"
+                color="warning"
+                onChange={handleChange}
+                // onChange={(event)=>{setSearch(event.target.value)}}
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") {
                     router.push(
                       {
                         pathname: "/SearchTextResult",
@@ -100,31 +78,43 @@ export default function NavBar() {
                       },
                       `/SearchTextResult`
                     );
-                  }}
-                >
-                  <SearchIcon />
-                </IconButton>
-              </div>
-            
+                  }
+                }}
+              />
+              <IconButton
+                style={{ marginBottom: 25 }}
+                type="submit"
+                sx={{ p: "10px" }}
+                aria-label="search"
+                onClick={() => {
+                  router.push(
+                    {
+                      pathname: "/SearchTextResult",
+                      query: {
+                        textResult: search,
+                      },
+                    },
+                    `/SearchTextResult`
+                  );
+                }}
+              >
+                <SearchIcon />
+              </IconButton>
+            </div>
+
             {/* <img src="/logo.png" width={200}/> */}
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
+            <Nav className="me-auto">
               <Link href="/">
-                <a className="navmenu">
-                  &nbsp;카테고리검색 &nbsp;
-                </a>
+                <a className="navmenu">&nbsp;카테고리검색 &nbsp;</a>
               </Link>
               <Link href="/index2">
-                <a className="navmenu">
-                  &nbsp;키워드검색 &nbsp;
-                </a>
-              </Link>             
+                <a className="navmenu">&nbsp;키워드검색 &nbsp;</a>
+              </Link>
             </Nav>
             <Nav>
-              
-
               <Dropdown>
                 <Dropdown.Toggle variant="" id="dropdown-basic">
                   <FontAwesomeIcon icon={faUser} /> 회원메뉴
@@ -141,6 +131,7 @@ export default function NavBar() {
                         removeCookies("age");
                         removeCookies("gender");
                         setRefreshToken(getCookie("refreshToken"));
+                        alert("로그아웃 하였습니다.");
                       }}
                     >
                       로그아웃
@@ -177,32 +168,30 @@ export default function NavBar() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-{/* <hr></hr> */}
+      {/* <hr></hr> */}
       <style jsx>{`
         .navmenu {
           color: grey;
           text-decoration-line: none;
           display: inline-block;
-          margin:0px;
-          font-size:24px;
-
-
+          margin: 0px;
+          font-size: 24px;
         }
-        .king{
-          font-size:50px;
-          color:orange;
-          margin:0px;
-          font-family: 'Black Han Sans', sans-serif;
+        .king {
+          font-size: 50px;
+          color: orange;
+          margin: 0px;
+          font-family: "Black Han Sans", sans-serif;
         }
         .navmenu:hover {
           color: orange;
         }
         .searchform {
-          display:inline;
+          display: inline;
           width: 250px;
         }
-        hr{
-          margin:1px;
+        hr {
+          margin: 1px;
         }
 
         .sidenav {
@@ -214,9 +203,9 @@ export default function NavBar() {
           background: #eee;
           overflow-x: hidden;
           padding: 8px 0;
-          border-radius:15px;
+          border-radius: 15px;
         }
-        
+
         .sidenav a {
           padding: 6px 8px 6px 16px;
           text-decoration: none;
@@ -224,21 +213,25 @@ export default function NavBar() {
           color: grey;
           display: block;
         }
-        
+
         .sidenav a:hover {
           color: orange;
         }
-        
+
         .main {
           margin-left: 140px; /* Same width as the sidebar + left position in px */
           font-size: 28px; /* Increased text to enable scrolling */
           padding: 0px 10px;
         }
-        
+
         @media screen and (max-height: 450px) {
-          .sidenav {padding-top: 15px;}
-          .sidenav a {font-size: 18px;}
-        }   
+          .sidenav {
+            padding-top: 15px;
+          }
+          .sidenav a {
+            font-size: 18px;
+          }
+        }
       `}</style>
     </>
   );
