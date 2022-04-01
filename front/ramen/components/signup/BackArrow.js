@@ -7,18 +7,16 @@ export default function BackArrow({ pathname, userInfo }) {
   console.log(pathname);
   return (
     <>
-      <button>
-        <Link
-          href={{
-            pathname: pathname,
-            query: { userInfo: JSON.stringify(userInfo) },
-          }}
-        >
-          <a>
-            <ArrowBackIosIcon />
-          </a>
-        </Link>
-      </button>
+      <Link
+        href={{
+          pathname: pathname,
+          query: { userInfo: JSON.stringify(userInfo) },
+        }}
+      >
+        <a>
+          <ArrowBackIosIcon />
+        </a>
+      </Link>
     </>
   );
 }

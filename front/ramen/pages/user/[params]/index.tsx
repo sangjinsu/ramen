@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-inferrable-types */
+import type { NextPage } from "next";
 import Image from "next/image";
 import * as React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -89,6 +92,41 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
   const currentPageFirst = currentPageLast - ramenPerPage; /// 현재 페이지의 끝
   const currentRamens = likeRamens.slice(currentPageFirst, currentPageLast); // 0 ~ 8
   const pageNumber = Math.ceil(likeRamens.length / ramenPerPage);
+
+  const Router = useRouter();
+  const [accessToken, setAccessToken] = useState(getCookie("accessToken"));
+  const refreshToken = getCookie("refreshToken");
+
+  const checkTokenValid = () => {
+    if (!accessToken) {
+      Router.replace("/login");
+    } else {
+      axios
+        .get("http://j6c104.p.ssafy.io:8083/v1/member/check-jwt", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+        .catch(function (error) {
+          console.log("accessToken 만료");
+          if (error.response.status === 401) {
+            axios
+              .get("http://j6c104.p.ssafy.io:8083/v1/member/refresh", {
+                headers: {
+                  Authorization: `Bearer ${refreshToken}`,
+                },
+              })
+              .then(function (response) {
+                setCookies("accessToken", response.data.accessToken);
+                setAccessToken(response.data.accessToken);
+              })
+              .catch(function (error) {
+                Router.replace("/login");
+              });
+          }
+        });
+    }
+  };
 
   React.useEffect(() => {
     const userLikeData = async () => {
@@ -500,4 +538,4 @@ export async function getServerSideProps({ params: { params } }) {
   };
 }
 
-export default withAuth(Detail);
+export default Detail;
