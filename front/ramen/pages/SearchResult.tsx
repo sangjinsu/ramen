@@ -14,6 +14,10 @@ const Search: NextPage = () => {
   const { query } = useRouter();
   let [array, setArray] = useState([]);
   const queryResult = [query.ramenType, query.noodleType, query.ramenStyle];
+  const prevNum1: any = query.ramenType
+  const prevNum2: any = query.noodleType
+  const prevNum3: any = query.ramenStyle
+
 
   const default_img = "ramen/default.png";
   const handleImage = (e) => {
@@ -133,15 +137,33 @@ const Search: NextPage = () => {
                         ? <p>있어</p>
                         : null
                       } */}
-                      <img src={`icon/rename/${ramenType[queryResult[0]]}.png`} width={45} onError={handleImage}></img>&nbsp;
-                      <img src={`icon/rename/${noodleType[queryResult[1]]}.png`} width={45} onError={handleImage}></img>&nbsp;
-                      <img src={`icon/rename/${ramenStyle[queryResult[2]]}.png`} width={45} onError={handleImage}></img>
+                      {/* {prevNum1}{prevNum2}{prevNum3} */}
+                      {
+                        prevNum1 === '0'
+                          ? null
+                          : <><img src={`icon/rename/${ramenType[prevNum1]}.png`} width={45} onError={handleImage}></img>&nbsp;
+                          </>
+                      }
+                      {
+                        prevNum2 === '0'
+                          ? null
+                          : <><img src={`icon/rename/${noodleType[prevNum2]}.png`} width={45} onError={handleImage}></img>&nbsp;
+                          </>
+                      }
+                      {
+                        prevNum3 === '0'
+                          ? null
+                          : <><img src={`icon/rename/${ramenStyle[prevNum3]}.png`} width={45} onError={handleImage}></img>
+                          </>
+                      }
+                      {/* <img src={`icon/rename/${noodleType[queryResult[1]]}.png`} width={45} onError={handleImage}></img>&nbsp;
+                      <img src={`icon/rename/${ramenStyle[queryResult[2]]}.png`} width={45} onError={handleImage}></img> */}
                     </Col>
-                    <Col xs={12} md={12} lg={12}>
+                    {/* <Col xs={12} md={12} lg={12}>
                       {ramenType[queryResult[0]]}&nbsp;/&nbsp;
                       {noodleType[queryResult[1]]}&nbsp;/&nbsp;
                       {ramenStyle[queryResult[2]]}&nbsp;
-                    </Col>
+                    </Col> */}
                   </Row>
                 </Container>
 
