@@ -81,6 +81,9 @@ const Search2: NextPage = () => {
           <Col xs={8} md={8}>
             <div className="title">->제품 검색결과</div>
             <hr></hr>
+            {currentRamens.length
+              ? null
+              : <p>검색결과가 없어용</p>}
             {/* <h1>텍스트검색결과</h1> */}
             {/* {query.textResult} */}
             {/* 여긴 백엔드 api받으면 해야할곳 */}
@@ -119,6 +122,9 @@ const Search2: NextPage = () => {
             {/* <h1>텍스트검색결과</h1> */}
             {/* {query.textResult} */}
             {/* 여긴 백엔드 api받으면 해야할곳 */}
+            {currentRamens2.length
+              ? null
+              : <p>검색결과가 없어용</p>}
             {currentRamens2.map(function (a, index) {
               let imgpath = `ramen/${a.name}.png`;
               return (

@@ -53,7 +53,9 @@ const Search3: NextPage = () => {
           <div className='keyword'><img src={`keyword/${query.keyWord}.png`} width={100}></img> </div>
           <div className='keyword'>{queryResult[eng]}</div>
           <hr></hr>
-
+          {currentRamens.length
+            ? null
+            : <p>검색결과가 없어용</p>}
           {currentRamens.map(function (a, index) {
             let imgpath = `ramen/${a.name}.png`
             let ramenName = `${a.name}.png`

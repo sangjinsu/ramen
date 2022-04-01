@@ -158,6 +158,10 @@ const Search: NextPage = () => {
             ? <p>없어</p>
             : <p>있어</p>} */}
 
+          {currentRamens.length
+            ? null
+            : <p>검색결과가 없어용</p>}
+
           {currentRamens.map(function (a, index) {
             let imgpath = `ramen/${a.name}.png`
             let ramenName = `${a.name}.png`
