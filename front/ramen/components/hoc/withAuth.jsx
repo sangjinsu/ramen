@@ -32,10 +32,6 @@ const withAuth = (WrappedComponent) => {
           .then(function (response) {
             setVerified(true);
             console.log("check-jwt 성공", response);
-<<<<<<< HEAD
-=======
-            // Router.replace("/");
->>>>>>> 17497857844b91d4e1f061ebe5d86f6700c33c9f
           })
           // accessToken 유효 - X
           .catch(function (error) {
@@ -52,7 +48,7 @@ const withAuth = (WrappedComponent) => {
                 .then(function (response) {
                   console.log("refresh 성공", response);
                   setCookies("accessToken", response.data.accessToken);
-                  setAccessToken(getCookie("accessToken"));
+                  setAccessToken(response.data.accessToken);
                 })
                 // refreshToken 유효 - X, 다시 로그인
                 .catch(function (error) {
