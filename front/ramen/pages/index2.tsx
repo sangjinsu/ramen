@@ -2,8 +2,31 @@ import type { NextPage } from "next";
 import { Container, Row, Col } from "react-bootstrap";
 import * as React from "react";
 import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
+
+interface Size {
+   width: number | undefined;
+   height: number | undefined;
+}
 
 const Home2: NextPage = () => {
+
+   const size: Size = useWindowSize();
+   // const [sizeon, setSizeon] = useState(false)
+   const [reactive, setReactive] = useState('30px')
+   useEffect(() => {
+      if (size.width <= 768) {
+         console.log('핸드폰화면index2.tsx')
+         // setSizeon(true)
+         setReactive('12px')
+      } else if (size.width > 768) {
+         // setSizeon(false)
+         setReactive('30px')
+      }
+      console.log(size.width)
+      console.log(size.height)
+   }, [size])
+
    const router = useRouter()
    const handleKeyword = (keyWord: any) => {
       router.push(
@@ -20,7 +43,7 @@ const Home2: NextPage = () => {
       <Container>
          <Row>
             <Col xs={0} md={1}></Col>
-            <Col xs={4} md={2}>
+            <Col xs={2} md={2}>
                <div className="cloud">
                   <div
                      className="side"
@@ -90,7 +113,7 @@ const Home2: NextPage = () => {
                   </div>
                </div>
             </Col>
-            <Col xs={4} md={2}>
+            <Col xs={2} md={2}>
                <div className="cloud2">
                   <div
                      className="side"
@@ -161,7 +184,7 @@ const Home2: NextPage = () => {
 
                </div>
             </Col>
-            <Col xs={4} md={2}>
+            <Col xs={2} md={2}>
                <div className="cloud">
                   <div
                      className="side2"
@@ -232,7 +255,7 @@ const Home2: NextPage = () => {
 
                </div>
             </Col>
-            <Col xs={6} md={2}>
+            <Col xs={2} md={2}>
                <div className="cloud2">
                   <div
                      className="side"
@@ -304,7 +327,7 @@ const Home2: NextPage = () => {
                </div>
             </Col>
 
-            <Col xs={6} md={2}>
+            <Col xs={2} md={2}>
                <div className="cloud2">
                   <div
                      className="side"
@@ -425,15 +448,15 @@ const Home2: NextPage = () => {
         .side {
            width:70px;
           position: relative;
-          left: 30px;
-          margin: 30px;
+          left: ${reactive};
+          margin: 20px;
           cursor: pointer;
         }
         .side2 {
          width:70px;
           position: relative;
-          right: 30px;
-          margin: 30px;
+          right: ${reactive};
+          margin: 20px;
           cursor: pointer;
         }
         .keyword {
@@ -444,3 +467,29 @@ const Home2: NextPage = () => {
 };
 
 export default Home2;
+
+function useWindowSize(): Size {
+   // Initialize state with undefined width/height so server and client renders match
+   // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+   const [windowSize, setWindowSize] = useState<Size>({
+      width: undefined,
+      height: undefined,
+   });
+   useEffect(() => {
+      // Handler to call on window resize
+      function handleResize() {
+         // Set window width/height to state
+         setWindowSize({
+            width: window.innerWidth,
+            height: window.innerHeight,
+         });
+      }
+      // Add event listener
+      window.addEventListener("resize", handleResize);
+      // Call handler right away so state gets updated with initial window size
+      handleResize();
+      // Remove event listener on cleanup
+      return () => window.removeEventListener("resize", handleResize);
+   }, []); // Empty array ensures that effect is only run on mount
+   return windowSize;
+}

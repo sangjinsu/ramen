@@ -5,6 +5,8 @@ import Footer from "./Footer";
 import FooterNav from "./FooterNav"
 import { useState, useEffect } from "react";
 
+
+
 export default function Layout({ children }) {
 
   const size = useWindowSize();
@@ -12,7 +14,7 @@ export default function Layout({ children }) {
   const [sizeon,setSizeon] = useState(false)
   useEffect(()=>{
     if(size.width<=768){
-      console.log('핸드폰화면')
+      console.log('핸드폰화면Layout')
       setSizeon(true)
     }else if(size.width>768){
       setSizeon(false)
