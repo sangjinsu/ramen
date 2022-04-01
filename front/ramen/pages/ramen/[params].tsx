@@ -10,6 +10,7 @@ import RamenTable from "../../components/RamenTable";
 import SimilarRamen from "../../components/SimilarRamen";
 import { DataProps, RamenDetailType } from "../../components/Types";
 import Youtube from "../../components/Youtube";
+import { Container, Row, Col } from "react-bootstrap";
 
 const Detail: React.FC<RamenDetailType> = ({ params, ramenInfos }) => {
   console.log(ramenInfos);
@@ -86,101 +87,117 @@ const Detail: React.FC<RamenDetailType> = ({ params, ramenInfos }) => {
 
   return (
     <>
-      <div className="detail_page">
-        <div className="left_area">
-          <section>
-            <div className="left_ramenName">{ramenInfos.name}</div>
-          </section>
-          <section>
-            <img
-              src={`/ramen/${ramenInfos.name}.png?w=248&fit=crop&auto=format`}
-              className="left_ramen_img"
-            />
-          </section>
-          <section className="left_area_btn">
-            <label className="like">
-              <input type="checkbox" checked={likeCheck} onClick={likeChange} />
-              <div className="hearth" />
-            </label>
-            <div>좋아요</div>
-          </section>
-        </div>
-
-        <div className="right_area">
-          <section className="main_section">
-            <div className="right_ramenName">
-              {ramenInfos.name}
-              <label className="like">
-                <input
-                  type="checkbox"
-                  checked={likeCheck}
-                  onClick={likeChange}
+      <Container>
+        <Row>
+          <div className="detail_page">
+            <div className="left_area">
+              <section>
+                <div className="left_ramenName">{ramenInfos.name}</div>
+              </section>
+              <section>
+                <img
+                  src={`/ramen/${ramenInfos.name}.png?w=248&fit=crop&auto=format`}
+                  className="left_ramen_img"
                 />
-                <div className="hearth" />
-              </label>
+              </section>
+              <section className="left_area_btn">
+                <label className="like">
+                  <input
+                    type="checkbox"
+                    checked={likeCheck}
+                    onClick={likeChange}
+                  />
+                  <div className="hearth" />
+                </label>
+                <div>좋아요</div>
+              </section>
             </div>
-            <img
-              src={`/ramen/${ramenInfos.name}.png?w=248&fit=crop&auto=format`}
-              className="right_ramen_img"
-            />
-          </section>
 
-          <section>
-            <div className="ramen_infos">
-              <div className="ramen_info">
-                <div className="ramen_info_title">면 종류</div>
-                <div className="ramen_info_detail">{ramenInfos.noodle}</div>
-              </div>
-              <div className="ramen_info">
-                <div className="ramen_info_title">라면 타입</div>
-                <div className="ramen_info_detail">
-                  {ramenInfos.soup ? "국물" : "비빔"}
-                </div>
-              </div>
-              <div className="ramen_info">
-                <div className="ramen_info_title">스프</div>
-                <div className="ramen_info_detail">
-                  {ramenInfos.powder ? "분말" : "액상"}
-                </div>
-              </div>
-              <div className="ramen_info">
-                <div className="ramen_info_title">조미유</div>
-                <div className="ramen_info_detail">
-                  {ramenInfos.seasoning ? "O" : "X"}
-                </div>
-              </div>
-              <div className="ramen_info">
-                <div className="ramen_info_title">Cold</div>
-                <div className="ramen_info_detail">
-                  {ramenInfos.cold ? "O" : "X"}
-                </div>
-              </div>
+            <div className="right_area">
+              <Col xs={0} md={0} lg={0}></Col>
+              <Col xs={12} md={12} lg={12}>
+                <section className="main_section">
+                  <div className="right_ramenName">
+                    {ramenInfos.name}
+                    <label className="like">
+                      <input
+                        type="checkbox"
+                        checked={likeCheck}
+                        onClick={likeChange}
+                      />
+                      <div className="hearth" />
+                    </label>
+                  </div>
+                  <div className="right_ramen_img_area">
+                    <img
+                      src={`/ramen/${ramenInfos.name}.png?w=248&fit=crop&auto=format`}
+                      className="right_ramen_img"
+                    />
+                  </div>
+                </section>
+
+                <section>
+                  <div className="ramen_infos">
+                    <div className="ramen_info">
+                      <div className="ramen_info_title">면 종류</div>
+                      <div className="ramen_info_detail">
+                        {ramenInfos.noodle}
+                      </div>
+                    </div>
+                    <div className="ramen_info">
+                      <div className="ramen_info_title">라면 타입</div>
+                      <div className="ramen_info_detail">
+                        {ramenInfos.soup ? "국물" : "비빔"}
+                      </div>
+                    </div>
+                    <div className="ramen_info">
+                      <div className="ramen_info_title">스프</div>
+                      <div className="ramen_info_detail">
+                        {ramenInfos.powder ? "분말" : "액상"}
+                      </div>
+                    </div>
+                    <div className="ramen_info">
+                      <div className="ramen_info_title">조미유</div>
+                      <div className="ramen_info_detail">
+                        {ramenInfos.seasoning ? "O" : "X"}
+                      </div>
+                    </div>
+                    <div className="ramen_info">
+                      <div className="ramen_info_title">Cold</div>
+                      <div className="ramen_info_detail">
+                        {ramenInfos.cold ? "O" : "X"}
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section>
+                  <div className="pie_area">
+                    <PieCustom pieChartData={pieChartData} />
+                  </div>
+                </section>
+
+                {barChartData.data[0] && (
+                  <section>
+                    <RamenTable barChartData={barChartData} />
+                  </section>
+                )}
+
+                <section>
+                  <SimilarRamen
+                    test={["신라면", "간짬뽕", "감자면큰사발면"]}
+                  ></SimilarRamen>
+                </section>
+
+                <section>
+                  <Youtube searchTitle={ramenInfos.name}></Youtube>
+                </section>
+              </Col>
+              <Col xs={0} md={12} lg={0}></Col>
             </div>
-          </section>
-
-          <section>
-            <div className="pie_area">
-              <PieCustom pieChartData={pieChartData} />
-            </div>
-          </section>
-
-          {barChartData.data[0] && (
-            <section>
-              <RamenTable barChartData={barChartData} />
-            </section>
-          )}
-
-          <section>
-            <SimilarRamen
-              test={["신라면", "간짬뽕", "감자면큰사발면"]}
-            ></SimilarRamen>
-          </section>
-
-          <section>
-            <Youtube searchTitle={ramenInfos.name}></Youtube>
-          </section>
-        </div>
-      </div>
+          </div>
+        </Row>
+      </Container>
 
       <style jsx>
         {`
@@ -225,7 +242,13 @@ const Detail: React.FC<RamenDetailType> = ({ params, ramenInfos }) => {
             align-items: center;
           }
 
+          .right_ramen_img_area {
+            display: flex;
+            justify-content: center;
+          }
+
           .right_ramen_img {
+            width: 70%;
             padding-top: 1rem;
             padding-bottom: 1.5rem;
           }
