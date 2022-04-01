@@ -1,5 +1,4 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { Container, Row, Col } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 
@@ -21,45 +20,33 @@ export default function NavBar() {
   },[size])
   return (
     <>
-      <Container>
-        <Row>
-          <Col xs={1} md={2} lg={2}></Col>
-          <Col xs={10} md={8} lg={8}>
-            <hr></hr>
+    {sizeon
+      ?(
+<div className="sidenav">
+      <div className="navin"> <Link href="/">
+                <a className="navmenu">
+                  카테고리
+                </a>
+              </Link></div>
+      <div className="navin"><Link href="/index2">
+                <a className="navmenu">
+                  키워드
+                </a>
+              </Link> </div>
 
-            <div className="footer">
-              라면 추천 서비스 / &nbsp;
-            </div>
-            <div className="icon">
-            <a
-                href="https://www.flaticon.com/kr/free-icons/"
-                title="라면 아이콘"
-                style={{ color: "black", textDecoration: "none" }}
-              >
-                아이콘 제작자: tulpahn - Flaticon
-              </a>
-            </div>
-            
-          </Col>
-          
-          <Col xs={1} md={2} lg={2}></Col>
-        </Row>
-      </Container>
-      <div className="watchFooter"></div>
-
+   
+               
+            {/* <a href="#about">카테고리</a>
+            <a href="#services">키워드</a> */}
+          </div>
+      )
+      :null
+    }
+      
       <style jsx>{`
-      .watchFooter{
-        height:100px;
+      .navin{
+        display:inline;
       }
-        .footer {
-          margin: 10px;
-          display:inline;
-        }
-        .icon{
-          font-size:8px;
-          display:inline;
-
-        }
         .sidenav {
           width: 100%;
           position: fixed;
@@ -67,7 +54,7 @@ export default function NavBar() {
           bottom:0px;
           // top: 200px;
           // right: 10px;
-          margin-top:300px;
+          margin-top:10px;
           background: #eee;
           overflow-x: hidden;
           padding: 8px 0;
@@ -92,7 +79,7 @@ export default function NavBar() {
           padding: 0px 10px;
         }
         
-        @media screen and (max-height: 450px) {
+        @media screen and (max-height: 200px) {
           .sidenav {padding-top: 15px;}
           .sidenav a {font-size: 18px;}
         }   

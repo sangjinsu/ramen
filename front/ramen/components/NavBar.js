@@ -21,6 +21,20 @@ export default function NavBar() {
   const [refreshToken, setRefreshToken] = useState(getCookie("refreshToken"));
   let cookie = getCookie("refreshToken");
 
+  const size = useWindowSize();
+  // const [size,setSize] = useState(size)
+  const [sizeon,setSizeon] = useState(false)
+  useEffect(()=>{
+    if(size.width<=576){
+      console.log('핸드폰화면')
+      setSizeon(true)
+    }else if(size.width>567){
+      setSizeon(false)
+    }
+    console.log(size.width)
+    console.log(size.height)
+  },[size])
+
   useEffect(() => {
     setRefreshToken(() => getCookie("refreshToken"));
   }, [cookie]);
@@ -35,7 +49,12 @@ export default function NavBar() {
 
   return (
     <>
-    <div className="sidenav">
+    {
+      sizeon
+      ?(<div className="sidenav">
+      <div>
+      {size.width}px / {size.height}px
+    </div>
     <Link href="/">
                 <a className="navmenu">
                   카테고리
@@ -48,7 +67,9 @@ export default function NavBar() {
               </Link>  
             {/* <a href="#about">카테고리</a>
             <a href="#services">키워드</a> */}
-          </div>
+          </div>)
+      :null
+    }
       <Navbar collapseOnSelect expand="lg" bg="bg-white" variant="light">
         <Container>
           <Navbar.Brand>
@@ -242,4 +263,30 @@ export default function NavBar() {
       `}</style>
     </>
   );
+}
+
+function useWindowSize() {
+  // Initialize state with undefined width/height so server and client renders match
+  // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+  const [windowSize, setWindowSize] = useState({
+    width: undefined,
+    height: undefined,
+  });
+  useEffect(() => {
+    // Handler to call on window resize
+    function handleResize() {
+      // Set window width/height to state
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+    // Call handler right away so state gets updated with initial window size
+    handleResize();
+    // Remove event listener on cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, []); // Empty array ensures that effect is only run on mount
+  return windowSize;
 }

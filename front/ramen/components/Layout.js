@@ -2,14 +2,24 @@
 /* eslint-disable react/prop-types */
 import NavBar from "./NavBar";
 import Footer from "./Footer";
+import FooterNav from "./FooterNav"
+import { useState, useEffect } from "react";
+
 export default function Layout({ children }) {
+
+
   return (
     <>
       <NavBar></NavBar>
       <div>{children}
       </div>
       <Footer></Footer>
+      <FooterNav></FooterNav>
+
+
+
       
     </>
   );
 }
+
