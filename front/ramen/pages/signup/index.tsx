@@ -184,7 +184,7 @@ const Signup: React.FC<signupType> = ({ router: { query } }) => {
                       icon={<MailOutlineIcon />}
                       icon2={
                         <Button
-                          // sx={{ color: orange[300] }}
+                          style={{ color: "orange" }}
                           onClick={onClickEmailCheck}
                           endIcon={<SendIcon />}
                         ></Button>

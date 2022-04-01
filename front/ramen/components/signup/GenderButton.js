@@ -11,11 +11,17 @@ export default function GenderButton({
   return (
     <>
       {inputGender === inputGenderFlag ? (
-        <Button variant="contained" onClick={handleFunction}>
+        <Button
+          variant="contained"
+          onClick={handleFunction}
+          style={{ color: "orange" }}
+        >
           {gender}
         </Button>
       ) : (
-        <Button onClick={handleFunction}>{gender}</Button>
+        <Button onClick={handleFunction} style={{ color: "orange" }}>
+          {gender}
+        </Button>
       )}
     </>
   );
