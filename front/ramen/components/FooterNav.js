@@ -1,9 +1,26 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { getCookie, removeCookies } from "cookies-next";
+
 
 
 export default function NavBar() {
+
+  const [validRefreshToken, setValidRefreshTokne] = useState(false);
+  const [refreshToken, setRefreshToken] = useState(getCookie("refreshToken"));
+  let cookie = getCookie("refreshToken");
+  useEffect(() => {
+    setRefreshToken(() => getCookie("refreshToken"));
+  }, [cookie]);
+
+  useEffect(() => {
+    if (refreshToken) {
+      setValidRefreshTokne(true);
+    } else {
+      setValidRefreshTokne(false);
+    }
+  }, [refreshToken]);
 
   const size = useWindowSize();
   // const [size,setSize] = useState(size)
@@ -28,7 +45,7 @@ export default function NavBar() {
       <div className="navin"> <Link href="/">
                 <a className="navmenu">
                   <img src="icon/home.png" width={25}></img>
-                  &nbsp;첫화면
+                  &nbsp;홈
                 </a>
               </Link></div>
               /
@@ -42,7 +59,26 @@ export default function NavBar() {
               <div className="navin"><Link href="#">
                 <a className="navmenu">
                 <img src="icon/mypage.png" width={25}></img>
-                &nbsp;마이페이지
+                &nbsp;마이
+                </a>
+              </Link> </div>
+              /
+              <div className="navin"><Link href="#">
+                <a className="navmenu">
+                <img src="icon/logout.png" width={25}></img>
+                &nbsp;아웃
+                </a>
+              </Link> </div>
+              <div className="navin"><Link href="#">
+                <a className="navmenu">
+                <img src="icon/login.png" width={25}></img>
+                &nbsp;로긴
+                </a>
+              </Link> </div>
+              <div className="navin"><Link href="#">
+                <a className="navmenu">
+                <img src="icon/signup.png" width={25}></img>
+                &nbsp;가입
                 </a>
               </Link> </div>
 
@@ -86,7 +122,7 @@ export default function NavBar() {
         .sidenav a {
           padding: 6px 8px 6px 16px;
           text-decoration: none;
-          font-size: 20px;
+          font-size: 14px;
           color: grey;
           display: inline;
         }
