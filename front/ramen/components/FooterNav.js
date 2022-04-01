@@ -63,19 +63,30 @@ export default function NavBar() {
                 </a>
               </Link> </div>
               /
-              <div className="navin"><Link href="#">
+              <div className="navin" onClick={() => {
+                        removeCookies("member_id");
+                        removeCookies("accessToken");
+                        removeCookies("refreshToken");
+                        removeCookies("name");
+                        removeCookies("age");
+                        removeCookies("gender");
+                        setRefreshToken(getCookie("refreshToken"));
+                        alert("로그아웃 하였습니다.");
+                        location.reload();
+
+                      }}><Link href="#">
                 <a className="navmenu">
                 <img src="icon/logout.png" width={25}></img>
                 &nbsp;아웃
                 </a>
               </Link> </div>
-              <div className="navin"><Link href="#">
+              <div className="navin"><Link href="/login">
                 <a className="navmenu">
                 <img src="icon/login.png" width={25}></img>
                 &nbsp;로긴
                 </a>
               </Link> </div>
-              <div className="navin"><Link href="#">
+              <div className="navin"><Link href="/signup">
                 <a className="navmenu">
                 <img src="icon/signup.png" width={25}></img>
                 &nbsp;가입

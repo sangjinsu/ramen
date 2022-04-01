@@ -144,6 +144,7 @@ export default function NavBar() {
                         removeCookies("gender");
                         setRefreshToken(getCookie("refreshToken"));
                         alert("로그아웃 하였습니다.");
+                        location.reload();
                       }}
                     >
                       로그아웃

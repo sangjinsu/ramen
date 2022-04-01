@@ -137,7 +137,7 @@ const Home: NextPage = () => {
           </Col>
           <Col xs={0} md={2} lg={3}></Col>
         </Row>
-        {isLogin ? <h1>추천라면 보여주면 될듯</h1> : null}
+        {isLogin ? <h1>추천라면 보여주면 될듯 {memberID}</h1> : null}
         {/* <div className="test">이거 박스테스트</div> */}
       </Container>
       <style jsx>{`

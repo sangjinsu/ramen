@@ -13,9 +13,9 @@ const Test: NextPage = () => {
   let [like, setLike] = useState(false)
   useEffect(() => {
     axios
-      .get("http://j6c104.p.ssafy.io:8080/v1/ramen/islike/7/1")
+      .get("http://j6c104.p.ssafy.io:8084/v1/recommend/ubcf/29")
       .then((result) => {
-        console.log("요청성공");
+        console.log("요청성공추천라면");
         console.log(result);
         setData(result.data);
       })
