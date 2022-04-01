@@ -14,14 +14,18 @@ const Home2: NextPage = () => {
    const size: Size = useWindowSize();
    // const [sizeon, setSizeon] = useState(false)
    const [reactive, setReactive] = useState('40px')
+   const [reactive2, setReactive2] = useState('80px')
    useEffect(() => {
       if (size.width <= 768) {
          console.log('핸드폰화면index2.tsx')
          // setSizeon(true)
          setReactive('12px')
+         setReactive2('36px')
+
       } else if (size.width > 768) {
          // setSizeon(false)
          setReactive('40px')
+         setReactive2('80px')
       }
       console.log(size.width)
       console.log(size.height)
@@ -330,7 +334,7 @@ const Home2: NextPage = () => {
             <Col xs={2} md={2}>
                <div className="cloud2">
                   <div
-                     className="side"
+                     className="side3"
                      onClick={() => {
                         handleKeyword("tuna");
                      }}
@@ -341,7 +345,7 @@ const Home2: NextPage = () => {
                      #참치
                   </div>
                   <div
-                     className="side2"
+                     className="side"
                      onClick={() => {
                         handleKeyword("ketchup");
                      }}
@@ -352,7 +356,7 @@ const Home2: NextPage = () => {
                      #케찹
                   </div>
                   <div
-                     className="side"
+                     className="side3"
                      onClick={() => {
                         handleKeyword("vegan");
                      }}
@@ -363,7 +367,7 @@ const Home2: NextPage = () => {
                      #비건
                   </div>
                   <div
-                     className="side2"
+                     className="side"
                      onClick={() => {
                         handleKeyword("diet");
                      }}
@@ -374,7 +378,7 @@ const Home2: NextPage = () => {
                      #다이어트
                   </div>
                   <div
-                     className="side"
+                     className="side3"
                      onClick={() => {
                         handleKeyword("spicy");
                      }}
@@ -385,7 +389,7 @@ const Home2: NextPage = () => {
                      #매운맛
                   </div>
                   <div
-                     className="side2"
+                     className="side"
                      onClick={() => {
                         handleKeyword("lightness");
                      }}
@@ -396,7 +400,7 @@ const Home2: NextPage = () => {
                      #담백
                   </div>
                   <div
-                     className="side"
+                     className="side2"
                      onClick={() => {
                         handleKeyword("haejang");
                      }}
@@ -456,6 +460,13 @@ const Home2: NextPage = () => {
          width:70px;
           position: relative;
           right: ${reactive};
+          margin: 20px;
+          cursor: pointer;
+        }
+        .side3 {
+         width:70px;
+          position: relative;
+          left: ${reactive2};
           margin: 20px;
           cursor: pointer;
         }
