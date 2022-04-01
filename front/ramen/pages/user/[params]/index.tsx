@@ -20,8 +20,9 @@ import {
 import Link from "next/link";
 import { userPageType } from "../../../components/Types";
 import withAuth from "../../../components/hoc/withAuth";
-import { getCookie } from "cookies-next";
+import { getCookie, setCookies } from "cookies-next";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 const accessToken = getCookie("accessToken");
 const name = getCookie("name");
@@ -94,7 +95,9 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
   const pageNumber = Math.ceil(likeRamens.length / ramenPerPage);
 
   const Router = useRouter();
-  const [accessToken, setAccessToken] = useState(getCookie("accessToken"));
+  const [accessToken, setAccessToken] = React.useState(
+    getCookie("accessToken")
+  );
   const refreshToken = getCookie("refreshToken");
 
   const checkTokenValid = () => {
