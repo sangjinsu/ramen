@@ -17,7 +17,8 @@ df_ramen = ramen()
 ramens = df_ramen.drop(['name', 'english_name'], axis=1)
 similarities = cosine_similarity(ramens)
 similarities = pd.DataFrame(similarities)
-similarities.index += 1
+similarities.index = df_ramen.index
+similarities.columns = df_ramen.index
 
 df_rating = member_like_ramen()
 mu = df_rating.rating.mean()
@@ -163,8 +164,8 @@ def item_based_cf(member_id):
 
 def ramen_similarity(ramen_id):
     similarities_others = similarities.drop([ramen_id])
-    top3 = similarities_others[ramen_id - 1].sort_values(ascending=False).head(3).index
-    return df_ramen.loc[top3]['name'].to_dict()
+    top10 = similarities_others[ramen_id - 1].sort_values(ascending=False).head(10).index
+    return df_ramen.loc[top10]['name'].to_dict()
 
 def RMSE(y_true, y_pred):
         return tf.sqrt(tf.reduce_mean(tf.square(y_true - y_pred)))
