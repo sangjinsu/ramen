@@ -9,10 +9,10 @@ export default function NavBar() {
   // const [size,setSize] = useState(size)
   const [sizeon,setSizeon] = useState(false)
   useEffect(()=>{
-    if(size.width<=576){
+    if(size.width<=768){
       console.log('핸드폰화면')
       setSizeon(true)
-    }else if(size.width>567){
+    }else if(size.width>768){
       setSizeon(false)
     }
     console.log(size.width)
@@ -22,15 +22,27 @@ export default function NavBar() {
     <>
     {sizeon
       ?(
-<div className="sidenav">
+        <>
+          {/* <hr style={{margin:"0px"}}></hr> */}
+        <div className="sidenav">
       <div className="navin"> <Link href="/">
                 <a className="navmenu">
-                  카테고리
+                  <img src="icon/home.png" width={25}></img>
+                  &nbsp;첫화면
                 </a>
               </Link></div>
+              /
       <div className="navin"><Link href="/index2">
                 <a className="navmenu">
-                  키워드
+                <img src="icon/keyword.png" width={25}></img>
+                &nbsp;키워드
+                </a>
+              </Link> </div>
+              /
+              <div className="navin"><Link href="#">
+                <a className="navmenu">
+                <img src="icon/mypage.png" width={25}></img>
+                &nbsp;마이페이지
                 </a>
               </Link> </div>
 
@@ -38,25 +50,35 @@ export default function NavBar() {
                
             {/* <a href="#about">카테고리</a>
             <a href="#services">키워드</a> */}
-          </div>
+          </div></>
+        
+
       )
       :null
     }
       
       <style jsx>{`
+      .navmenu{
+        margin:0px;
+      }
       .navin{
         display:inline;
       }
         .sidenav {
+          border-top: solid 1px #e6e6e6;
+          display:flex;
+          justify-content: space-evenly;
+          height:60px;
           width: 100%;
           position: fixed;
           z-index: 1;
           bottom:0px;
           // top: 200px;
           // right: 10px;
-          margin-top:10px;
-          background: #eee;
-          overflow-x: hidden;
+          // margin-top:10px;
+          // margin-botton:20px;
+          background: white;
+          // overflow-x: hidden;
           padding: 8px 0;
           // border-radius:15px;
         }
@@ -64,9 +86,9 @@ export default function NavBar() {
         .sidenav a {
           padding: 6px 8px 6px 16px;
           text-decoration: none;
-          font-size: 16px;
+          font-size: 20px;
           color: grey;
-          display: block;
+          display: inline;
         }
         
         .sidenav a:hover {
