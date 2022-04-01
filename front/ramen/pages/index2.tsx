@@ -235,7 +235,7 @@ const Home2: NextPage = () => {
             <Col xs={6} md={2}>
                <div className="cloud2">
                   <div
-                     className="side2"
+                     className="side"
                      onClick={() => {
                         handleKeyword("beanSprouts");
                      }}
@@ -246,7 +246,7 @@ const Home2: NextPage = () => {
                      #숙주
                   </div>
                   <div
-                     className="side"
+                     className="side2"
                      onClick={() => {
                         handleKeyword("redPepper");
                      }}
@@ -257,7 +257,7 @@ const Home2: NextPage = () => {
                      #고추
                   </div>
                   <div
-                     className="side2"
+                     className="side"
                      onClick={() => {
                         handleKeyword("soyaSprouts");
                      }}
@@ -268,7 +268,7 @@ const Home2: NextPage = () => {
                      #콩나물
                   </div>
                   <div
-                     className="side"
+                     className="side2"
                      onClick={() => {
                         handleKeyword("seafood");
                      }}
@@ -279,7 +279,7 @@ const Home2: NextPage = () => {
                      #해산물
                   </div>
                   <div
-                     className="side2"
+                     className="side"
                      onClick={() => {
                         handleKeyword("seaweed");
                      }}
@@ -290,7 +290,7 @@ const Home2: NextPage = () => {
                      #미역
                   </div>
                   <div
-                     className="side"
+                     className="side2"
                      onClick={() => {
                         handleKeyword("sausage");
                      }}
@@ -307,7 +307,7 @@ const Home2: NextPage = () => {
             <Col xs={6} md={2}>
                <div className="cloud2">
                   <div
-                     className="side2"
+                     className="side"
                      onClick={() => {
                         handleKeyword("tuna");
                      }}
@@ -318,7 +318,7 @@ const Home2: NextPage = () => {
                      #참치
                   </div>
                   <div
-                     className="side"
+                     className="side2"
                      onClick={() => {
                         handleKeyword("ketchup");
                      }}
@@ -329,7 +329,7 @@ const Home2: NextPage = () => {
                      #케찹
                   </div>
                   <div
-                     className="side2"
+                     className="side"
                      onClick={() => {
                         handleKeyword("vegan");
                      }}
@@ -340,7 +340,7 @@ const Home2: NextPage = () => {
                      #비건
                   </div>
                   <div
-                     className="side"
+                     className="side2"
                      onClick={() => {
                         handleKeyword("diet");
                      }}
@@ -351,7 +351,7 @@ const Home2: NextPage = () => {
                      #다이어트
                   </div>
                   <div
-                     className="side2"
+                     className="side"
                      onClick={() => {
                         handleKeyword("spicy");
                      }}
@@ -362,7 +362,7 @@ const Home2: NextPage = () => {
                      #매운맛
                   </div>
                   <div
-                     className="side"
+                     className="side2"
                      onClick={() => {
                         handleKeyword("lightness");
                      }}
@@ -373,7 +373,7 @@ const Home2: NextPage = () => {
                      #담백
                   </div>
                   <div
-                     className="side2"
+                     className="side"
                      onClick={() => {
                         handleKeyword("haejang");
                      }}
@@ -423,12 +423,14 @@ const Home2: NextPage = () => {
           }
         }
         .side {
+           width:70px;
           position: relative;
           left: 30px;
           margin: 30px;
           cursor: pointer;
         }
         .side2 {
+         width:70px;
           position: relative;
           right: 30px;
           margin: 30px;
