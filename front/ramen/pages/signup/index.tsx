@@ -18,14 +18,15 @@ import FrontArrow from "../../components/signup/FrontArrow";
 import SignupUserInfoForm from "../../components/signup/SignupUserInfoForm";
 import GenderButton from "../../components/signup/GenderButton";
 import Button from "@mui/material/Button";
-import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import axios from "axios";
 import { setCookies, getCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import { signupType } from "../../components/Types";
+import { orange } from "@mui/material/colors";
+
+import SendIcon from "@mui/icons-material/Send";
 
 const Signup: React.FC<signupType> = ({ router: { query } }) => {
-  console.log(query);
   const Router = useRouter();
 
   const [userInfo, setUserInfo] = useState({});
@@ -153,25 +154,6 @@ const Signup: React.FC<signupType> = ({ router: { query } }) => {
     }
   }, []);
 
-  useEffect(() => {
-    const refreshToken = getCookie("refreshToken");
-    if (refreshToken) {
-      axios
-        .get("http://j6c104.p.ssafy.io:8083/v1/member/refresh", {
-          headers: {
-            Authorization: `Bearer ${refreshToken}`,
-          },
-        })
-        .then(function (response) {
-          console.log("refresh 성공", response);
-          setCookies("accessToken", response.data.accessToken);
-          Router.push({
-            pathname: "/",
-          });
-        });
-    }
-  }, []);
-
   return (
     <>
       <div>
@@ -182,20 +164,32 @@ const Signup: React.FC<signupType> = ({ router: { query } }) => {
               <h2>회원 정보입력</h2>
               <Box sx={{ "& > :not(style)": { m: 1 } }}>
                 <div style={{ width: "100%" }}>
-                  <SignupUserInfoForm
-                    infoName={"Email"}
-                    infoId={"input_email"}
-                    handleFunction={handleInputEmail}
-                    value={inputEmail}
-                    type={"text"}
-                    icon={<MailOutlineIcon />}
-                  />
                   {isEmailOnly ? (
-                    <CheckBoxIcon color="success" />
+                    <SignupUserInfoForm
+                      infoName={"Email"}
+                      infoId={"input_email"}
+                      handleFunction={handleInputEmail}
+                      value={inputEmail}
+                      type={"text"}
+                      icon={<MailOutlineIcon />}
+                      icon2={null}
+                    />
                   ) : (
-                    <Button variant="outlined" onClick={onClickEmailCheck}>
-                      중복검사
-                    </Button>
+                    <SignupUserInfoForm
+                      infoName={"Email"}
+                      infoId={"input_email"}
+                      handleFunction={handleInputEmail}
+                      value={inputEmail}
+                      type={"text"}
+                      icon={<MailOutlineIcon />}
+                      icon2={
+                        <Button
+                          style={{ color: "orange" }}
+                          onClick={onClickEmailCheck}
+                          endIcon={<SendIcon />}
+                        ></Button>
+                      }
+                    />
                   )}
                   <br />
                 </div>
@@ -207,6 +201,7 @@ const Signup: React.FC<signupType> = ({ router: { query } }) => {
                     value={inputPw}
                     type={"password"}
                     icon={<LockIcon />}
+                    icon2={null}
                   />
                   <br />
                 </div>
@@ -262,6 +257,7 @@ const Signup: React.FC<signupType> = ({ router: { query } }) => {
                     value={inputName}
                     type={"text"}
                     icon={<PersonOutlineIcon />}
+                    icon2={null}
                   />
                   <br />
                 </div>
@@ -273,6 +269,7 @@ const Signup: React.FC<signupType> = ({ router: { query } }) => {
                     value={inputAge}
                     type={"number"}
                     icon={<CakeIcon />}
+                    icon2={null}
                   />
                   <br />
                 </div>
@@ -281,21 +278,30 @@ const Signup: React.FC<signupType> = ({ router: { query } }) => {
                   <label htmlFor="input_gender">Gender </label>
                   <br />
                   <ButtonGroup
+                    style={{ margin: "10px" }}
                     color="primary"
                     aria-label="medium secondary button group"
                   >
-                    <GenderButton
-                      inputGender={inputGender}
-                      inputGenderFlag={"M"}
-                      gender={"Male"}
-                      handleFunction={handleInputGenderMale}
-                    />
-                    <GenderButton
-                      inputGender={inputGender}
-                      inputGenderFlag={"F"}
-                      gender={"Female"}
-                      handleFunction={handleInputGenderFemale}
-                    />
+                    <Container>
+                      <Row>
+                        <Col>
+                          <GenderButton
+                            inputGender={inputGender}
+                            inputGenderFlag={"M"}
+                            gender={"Male"}
+                            handleFunction={handleInputGenderMale}
+                          />
+                        </Col>
+                        <Col>
+                          <GenderButton
+                            inputGender={inputGender}
+                            inputGenderFlag={"F"}
+                            gender={"Female"}
+                            handleFunction={handleInputGenderFemale}
+                          />
+                        </Col>
+                      </Row>
+                    </Container>
                   </ButtonGroup>
                 </div>
               </Box>
@@ -303,10 +309,8 @@ const Signup: React.FC<signupType> = ({ router: { query } }) => {
             <Col></Col>
           </Row>
           <Row>
-            <Col></Col>
-            <Col></Col>
             <Col>
-              <div>
+              <div style={{ float: "right" }}>
                 {canGoNext ? (
                   <FrontArrow
                     pathname={"/ramenpreference"}

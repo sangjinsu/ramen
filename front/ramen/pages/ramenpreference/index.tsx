@@ -242,16 +242,16 @@ function RamenPreference({ router: { query } }: signupType) {
             selectToppingDumpling={selectToppingDumpling}
             onClickChoice={onClickChoice}
           />
-
           <Row>
             <Col>
-              <BackArrow pathname={"/signup"} userInfo={userInfo} />
-            </Col>
-            <Col></Col>
-            <Col>
-              {canGoNext ? (
-                <FrontArrow pathname={"/ramenselect"} userInfo={userInfo} />
-              ) : null}
+              <div style={{ float: "left" }}>
+                <BackArrow pathname={"/signup"} userInfo={userInfo} />
+              </div>
+              <div style={{ float: "right" }}>
+                {canGoNext ? (
+                  <FrontArrow pathname={"/ramenselect"} userInfo={userInfo} />
+                ) : null}
+              </div>
             </Col>
           </Row>
         </Container>

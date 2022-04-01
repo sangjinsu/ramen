@@ -131,19 +131,7 @@ const UserPreference: React.FC<userPreferenceType> = ({
     try {
       const accessToken = getCookie("accessToken");
       await axios.put(
-        `http://j6c104.p.ssafy.io:8080/v1/member/fond?egg=${
-          userInfo.egg
-        }&ingredientGarlic=${userInfo.ingredientGarlic}&ingredientGreenOnion=${
-          userInfo.ingredientGreenOnion
-        }&ingredientNone=${userInfo.ingredientNone}&ingredientPepper=${
-          userInfo.ingredientPepper
-        }&memberId=${9}&noodleLength=${userInfo.noodleLength}&noodleTexture=${
-          userInfo.noodleTexture
-        }&spicy=${userInfo.spicy}&toppingCheese=${
-          userInfo.toppingCheese
-        }&toppingDumpling=${userInfo.toppingDumpling}&toppingNone=${
-          userInfo.toppingNone
-        }&toppingTteok=${userInfo.toppingTteok}`,
+        `http://j6c104.p.ssafy.io:8080/v1/member/fond?egg=${userInfo.egg}&ingredientGarlic=${userInfo.ingredientGarlic}&ingredientGreenOnion=${userInfo.ingredientGreenOnion}&ingredientNone=${userInfo.ingredientNone}&ingredientPepper=${userInfo.ingredientPepper}&memberId=${params}&noodleLength=${userInfo.noodleLength}&noodleTexture=${userInfo.noodleTexture}&spicy=${userInfo.spicy}&toppingCheese=${userInfo.toppingCheese}&toppingDumpling=${userInfo.toppingDumpling}&toppingNone=${userInfo.toppingNone}&toppingTteok=${userInfo.toppingTteok}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,

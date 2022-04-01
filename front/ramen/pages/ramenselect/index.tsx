@@ -293,7 +293,7 @@ function RamenPreference({ router: { query } }: signupType) {
     axios
       .post("http://j6c104.p.ssafy.io:8083/v1/member/signup", userInfo)
       .then(function (response) {
-        console.log(userInfo.inputEmail, userInfo.inputPW);
+        console.log("성공");
         setCookiesInLogin(response);
         Router.push({
           pathname: "/",
