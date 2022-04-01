@@ -123,7 +123,7 @@ export default function NavBar() {
                 </a>
               </Link>
               <Link href="/index2">
-                <a className="navmenu">&nbsp;키워드검색 &nbsp;</a>
+                <a className="navmenu">&nbsp;키워드추천 &nbsp;</a>
               </Link>
             </Nav>
             <Nav>
