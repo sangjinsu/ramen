@@ -19,22 +19,46 @@ export default function Lank(props) {
               <R1 id={props.ramen[0].ramenId} index="1"></R1>
               {/* {props.ramen[0].ramenId}/ */}
             </ListGroup.Item>
-          ) : null}
+          ) : (
+            <ListGroup.Item>
+            <img src={`icon/medal1.png`} width={35}></img>
+              데이터가 없습니다.
+              {/* {props.ramen[0].ramenId}/ */}
+            </ListGroup.Item>
+          )}
           {props.ramen[1] ? (
             <ListGroup.Item>
               <R1 id={props.ramen[1].ramenId} index="2"></R1>
             </ListGroup.Item>
-          ) : null}
+          ) : (
+            <ListGroup.Item>
+            <img src={`icon/medal2.png`} width={35}></img>
+              데이터가 없습니다.
+              {/* {props.ramen[0].ramenId}/ */}
+            </ListGroup.Item>
+          )}
           {props.ramen[2] ? (
             <ListGroup.Item>
               <R1 id={props.ramen[2].ramenId} index="3"></R1>
             </ListGroup.Item>
-          ) : null}
+          ) : (
+            <ListGroup.Item>
+            <img src={`icon/medal3.png`} width={35}></img>
+              데이터가 없습니다.
+              {/* {props.ramen[0].ramenId}/ */}
+            </ListGroup.Item>
+          )}
           {props.ramen[3] ? (
             <ListGroup.Item>
               <R1 id={props.ramen[3].ramenId} index="4"></R1>
             </ListGroup.Item>
-          ) : null}
+          ) : (
+            <ListGroup.Item>
+            <img src={`icon/medal4.png`} width={35}></img>
+              데이터가 없습니다.
+              {/* {props.ramen[0].ramenId}/ */}
+            </ListGroup.Item>
+          )}
           {/* <ListGroup.Item>1위 신라면 (농심)</ListGroup.Item>
     <ListGroup.Item>2위 진라면 매운맛(오뚜기)</ListGroup.Item>
     <ListGroup.Item>3위 열라면 (오뚜기)</ListGroup.Item>
