@@ -73,6 +73,7 @@ export default function NavBar() {
                         setRefreshToken(getCookie("refreshToken"));
                         alert("로그아웃 하였습니다.");
                         location.reload();
+                        // 테스트
 
                       }}><Link href="#">
                 <a className="navmenu">
