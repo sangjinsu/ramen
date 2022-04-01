@@ -31,7 +31,11 @@ export default function Layout({ children }) {
       </div>)
       :<NavBar></NavBar>
     }
-    <div className="dm"></div>
+    {
+      sizeon
+      ?<div className="dm"></div>
+      :null
+    }
       
       <div>{children}
       </div>

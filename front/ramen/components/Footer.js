@@ -45,11 +45,15 @@ export default function NavBar() {
           <Col xs={1} md={2} lg={2}></Col>
         </Row>
       </Container>
-      <div className="watchFooter"></div>
+      {
+        sizeon
+        ?<div className="watchFooter"></div>
+        :null
+      }
 
       <style jsx>{`
       .watchFooter{
-        height:100px;
+        height:80px;
       }
         .footer {
           margin: 10px;
