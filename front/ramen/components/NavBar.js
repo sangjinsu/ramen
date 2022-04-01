@@ -54,7 +54,7 @@ export default function NavBar() {
         <Container>
           <Navbar.Brand>
             <Link href="/">
-              <a className="navmenu king">
+              <a className="navmenu king" >
                 라면
                 {/* <img src="/logo.png" width={150} />  */}
                 &nbsp;

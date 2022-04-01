@@ -15,13 +15,13 @@ const Test: NextPage = () => {
     axios
       .get("http://j6c104.p.ssafy.io:8084/v1/recommend/ubcf/29")
       .then((result) => {
-        console.log("요청성공추천라면");
+        console.log("ubcf추천성공");
         console.log(result);
-        setData(result.data);
+        // setData(result.data);
       })
       .catch((error) => {
-        console.log("요청실패으하하");
-        setLike(true)
+        console.log("ubcf추천실패");
+        // setLike(true)
         console.log(error);
       });
   }, []);

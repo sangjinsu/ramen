@@ -1,23 +1,59 @@
 import * as React from 'react';
-import { Row,Col,Card} from 'react-bootstrap';
+import { Row,Col,Card,ListGroup} from 'react-bootstrap';
 import axios from 'axios'
 import { useEffect, useState } from 'react';
 
 
 
-export default function Suggestion() {
+export default function Suggestion(props) {
+  let [ramen, setRamen] = useState([]);
   useEffect(()=>{
-    axios.get('http://j6c104.p.ssafy.io:8084/v1/recommend/ubcf/29')
-    .then((result)=>{console.log('요청성공추천데이터~!')
+    if(props.sug==='ubcf'){
+      axios.get(`http://j6c104.p.ssafy.io:8084/v1/recommend/ubcf/${props.id}`)
+    .then((result)=>{console.log('ubcf요청성공')
   console.log(result)
   console.log(result.data)
   console.log(result.data[0])
+  setRamen(result.data)
   
   })
-    .catch((error)=>{console.log('요청실패')
+    .catch((error)=>{console.log('ubcf요청실패')
     console.log(error)
   
   })
+    }
+  },[])
+  useEffect(()=>{
+    if(props.sug==='dbrc'){
+      axios.get(`http://j6c104.p.ssafy.io:8084/v1/recommend/dbrc/${props.id}`)
+    .then((result)=>{console.log('ubcf요청성공')
+  console.log(result)
+  console.log(result.data)
+  console.log(result.data[0])
+  setRamen(result.data)
+  
+  })
+    .catch((error)=>{console.log('ubcf요청실패')
+    console.log(error)
+  
+  })
+    }
+  },[])
+  useEffect(()=>{
+    if(props.sug==='ibcf'){
+      axios.get(`http://j6c104.p.ssafy.io:8084/v1/recommend/ibcf/${props.id}`)
+    .then((result)=>{console.log('ubcf요청성공')
+  console.log(result)
+  console.log(result.data)
+  console.log(result.data[0])
+  setRamen(result.data)
+  
+  })
+    .catch((error)=>{console.log('ubcf요청실패')
+    console.log(error)
+  
+  })
+    }
   },[])
   return (
 
@@ -25,16 +61,33 @@ export default function Suggestion() {
 <Row>
   <Col xs={1} md={1} lg={1}></Col>
   <Col xs={10} md={10} lg={10}>
-    <h4>기반 추천</h4>
-  {/* <Card style={{ width: '10rem' }}>
-  <Card.Img variant="top" src="text.jpg" />
-  <Card.Body>
-    <Card.Title>추천라면</Card.Title>
-    <Card.Text>
-      알고리즘 기반으로 추천드리는 라면입니다.
-    </Card.Text>
-  </Card.Body>
-</Card> */}
+    {props.title}
+  <ListGroup>
+    {
+      ramen.length
+      ?(
+        <>
+        <ListGroup.Item><img src="icon/number1.png" width={25}></img>
+        {ramen[0]}</ListGroup.Item>
+        <ListGroup.Item><img src="icon/number2.png" width={25}></img>
+        {ramen[1]}</ListGroup.Item>
+        <ListGroup.Item><img src="icon/number3.png" width={25}></img>
+        {ramen[2]}</ListGroup.Item>
+        </>
+      )
+      :(
+        <>
+        <ListGroup.Item><img src="icon/number1.png" width={25}></img>
+        데이터가 없습니다.</ListGroup.Item>
+        <ListGroup.Item><img src="icon/number2.png" width={25}></img>
+        데이터가 없습니다.</ListGroup.Item>
+        <ListGroup.Item><img src="icon/number3.png" width={25}></img>
+        데이터가 없습니다.</ListGroup.Item>
+        </>
+      )
+    }
+
+</ListGroup>
   </Col>
   <Col xs={1} md={1} lg={1}></Col>
 

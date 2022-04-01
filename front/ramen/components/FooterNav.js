@@ -48,51 +48,70 @@ export default function NavBar() {
                   &nbsp;홈
                 </a>
               </Link></div>
-              /
+              
       <div className="navin"><Link href="/index2">
                 <a className="navmenu">
                 <img src="icon/keyword.png" width={25}></img>
                 &nbsp;키워드
                 </a>
               </Link> </div>
-              /
-              <div className="navin"><Link href="#">
-                <a className="navmenu">
-                <img src="icon/mypage.png" width={25}></img>
-                &nbsp;마이
-                </a>
-              </Link> </div>
-              /
-              <div className="navin" onClick={() => {
-                        removeCookies("member_id");
-                        removeCookies("accessToken");
-                        removeCookies("refreshToken");
-                        removeCookies("name");
-                        removeCookies("age");
-                        removeCookies("gender");
-                        setRefreshToken(getCookie("refreshToken"));
-                        alert("로그아웃 하였습니다.");
-                        location.reload();
-                        // 테스트
+              
+              {
+                validRefreshToken
+                ?(
+                  <>
+                  <div className="navin" onClick={() => {
+                    removeCookies("member_id");
+                    removeCookies("accessToken");
+                    removeCookies("refreshToken");
+                    removeCookies("name");
+                    removeCookies("age");
+                    removeCookies("gender");
+                    setRefreshToken(getCookie("refreshToken"));
+                    alert("로그아웃 하였습니다.");
+                    location.reload();
+                    // 테스트
 
-                      }}><Link href="#">
-                <a className="navmenu">
-                <img src="icon/logout.png" width={25}></img>
-                &nbsp;아웃
-                </a>
-              </Link> </div>
-              <div className="navin"><Link href="/login">
+                  }}><Link href="#">
+            <a className="navmenu">
+            <img src="icon/logout.png" width={25}></img>
+            &nbsp;로그아웃
+            </a>
+          </Link> </div>
+          </>
+                )
+                :
+                (
+                  <div className="navin"><Link href="/login">
                 <a className="navmenu">
                 <img src="icon/login.png" width={25}></img>
-                &nbsp;로긴
+                &nbsp;로그인
                 </a>
               </Link> </div>
-              <div className="navin"><Link href="/signup">
+                )
+              }
+              {
+                validRefreshToken
+                ?(              <>
+                <div className="navin"><Link href="#">
+                <a className="navmenu">
+                <img src="icon/mypage.png" width={25}></img>
+                &nbsp;마이페이지
+                </a>
+              </Link> </div></>)
+                :(              <div className="navin"><Link href="/signup">
                 <a className="navmenu">
                 <img src="icon/signup.png" width={25}></img>
                 &nbsp;가입
                 </a>
-              </Link> </div>
+              </Link> </div>)
+              }
+
+              
+              
+
+              
+
 
    
                

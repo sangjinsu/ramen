@@ -124,19 +124,41 @@ const Home: NextPage = () => {
           <Col xs={1} md={2} lg={4}></Col>
         </Row>
         <Row>
-          <Col xs={0} md={2} lg={3}></Col>
-          <Col xs={5} md={4} lg={3}>
-            <div className="sug">
-              <Sug></Sug>
-            </div>
+          <Col xs={1} md={2} lg={3}></Col>
+          <Col xs={10} md={8} lg={5}>
+
+            <Sug id={memberID} title="dbrc추천" sug="dbrc"></Sug>
           </Col>
-          <Col xs={5} md={4} lg={3}>
-            <div className="sug">
-              <Sug></Sug>
-            </div>
-          </Col>
-          <Col xs={0} md={2} lg={3}></Col>
+          <Col xs={1} md={2} lg={4}></Col>
         </Row>
+        <Row>
+          <Col xs={1} md={2} lg={3}></Col>
+          <Col xs={10} md={8} lg={5}>
+            <Sug id={memberID} title="ibcf추천" sug="ibcf"></Sug>
+          </Col>
+          <Col xs={1} md={2} lg={4}></Col>
+        </Row>
+        <Row>
+          <Col xs={1} md={2} lg={3}></Col>
+          <Col xs={10} md={8} lg={5}>
+            <Sug id={memberID} title="ubcf추천" sug="ubcf"></Sug>
+          </Col>
+          <Col xs={1} md={2} lg={4}></Col>
+        </Row>
+        {/* <Row>
+          <Col xs={0} md={2} lg={3}></Col>
+          <Col xs={5} md={4} lg={3}>
+            <div className="sug">
+              <Sug id={memberID}></Sug>
+            </div>
+          </Col>
+          <Col xs={5} md={4} lg={3}>
+            <div className="sug">
+              <Sug id={memberID}></Sug>
+            </div>
+          </Col>
+          <Col xs={0} md={2} lg={3}></Col>
+        </Row> */}
         {isLogin ? <h1>추천라면 보여주면 될듯 {memberID}</h1> : null}
         {/* <div className="test">이거 박스테스트</div> */}
       </Container>
