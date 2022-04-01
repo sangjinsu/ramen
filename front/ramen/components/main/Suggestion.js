@@ -58,9 +58,7 @@ export default function Suggestion(props) {
   return (
 
       <>
-<Row>
-  <Col xs={1} md={1} lg={1}></Col>
-  <Col xs={10} md={10} lg={10}>
+
     {props.title}
   <ListGroup>
     {
@@ -88,10 +86,7 @@ export default function Suggestion(props) {
     }
 
 </ListGroup>
-  </Col>
-  <Col xs={1} md={1} lg={1}></Col>
 
-</Row>
 
 
 <style jsx>{`
