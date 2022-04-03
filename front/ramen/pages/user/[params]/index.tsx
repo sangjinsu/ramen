@@ -28,6 +28,7 @@ const accessToken = getCookie("accessToken");
 const name = getCookie("name");
 const age = getCookie("age");
 const gender = getCookie("gender");
+const member_id = getCookie("member_id");
 
 const Detail: React.FC<userPageType> = ({ params, fonds }) => {
   const [likeRamens, setLikeRamens] = React.useState([]);
@@ -94,7 +95,7 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
   const currentRamens = likeRamens.slice(currentPageFirst, currentPageLast); // 0 ~ 8
   const pageNumber = Math.ceil(likeRamens.length / ramenPerPage);
 
-  const Router = useRouter();
+  const router = useRouter();
   const [accessToken, setAccessToken] = React.useState(
     getCookie("accessToken")
   );
@@ -132,22 +133,33 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
   };
 
   React.useEffect(() => {
+    if (member_id !== params) {
+      alert("잘못된 접근입니다");
+      router.push("/");
+    }
+  }, []);
+
+  React.useEffect(() => {
     const userLikeData = async () => {
-      const accessToken = getCookie("accessToken");
-      const { data: likeRamenList } = await axios.get(
-        `http://j6c104.p.ssafy.io:8080/v1/member/${params}/like`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-      console.log(likeRamenList);
-      const userLikeList = likeRamenList.map((ramen) => [
-        ramen.name,
-        ramen.ramenId,
-      ]);
-      setLikeRamens(userLikeList);
+      try {
+        const accessToken = getCookie("accessToken");
+        const { data: likeRamenList } = await axios.get(
+          `http://j6c104.p.ssafy.io:8080/v1/member/${params}/like`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        console.log(likeRamenList);
+        const userLikeList = likeRamenList.map((ramen) => [
+          ramen.name,
+          ramen.ramenId,
+        ]);
+        setLikeRamens(userLikeList);
+      } catch {
+        null;
+      }
     };
     userLikeData();
   }, []);
@@ -525,20 +537,43 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
 };
 
 export async function getServerSideProps({ params: { params } }) {
-  const { data: fonds } = await axios.get(
-    `http://j6c104.p.ssafy.io:8080/v1/member/${params}/fond`,
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
+  try {
+    const { data: fonds } = await axios.get(
+      `http://j6c104.p.ssafy.io:8080/v1/member/${params}/fond`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    return {
+      props: {
+        params,
+        fonds,
       },
-    }
-  );
-  return {
-    props: {
-      params,
-      fonds,
-    },
-  };
+    };
+  } catch {
+    const fonds = {
+      egg: false,
+      ingredientGarlic: false,
+      ingredientGreenOnion: false,
+      ingredientNone: false,
+      ingredientPepper: false,
+      noodleLength: "no data",
+      noodleTexture: "no data",
+      spicy: "no data",
+      toppingCheese: false,
+      toppingDumpling: false,
+      toppingNone: false,
+      toppingTteok: false,
+    };
+    return {
+      props: {
+        params,
+        fonds,
+      },
+    };
+  }
 }
 
-export default Detail;
+export default withAuth(Detail);
