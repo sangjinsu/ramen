@@ -20,6 +20,8 @@ similarities = pd.DataFrame(similarities)
 similarities.index = df_ramen.index
 similarities.columns = df_ramen.index
 
+print(similarities)
+
 df_rating = member_like_ramen()
 mu = df_rating.rating.mean()
 
@@ -115,18 +117,7 @@ def item_based_cf(member_id):
     ratings_matrix = df_rating.pivot(index='member_id', columns='ramen_id', values='rating')
     
     rating_matrix_t = np.transpose(ratings_matrix)
-    
-    # 코사인 유사도를 구하기 위해 rating 값을 복사하고 계산 시 NaN 값 에러 대비를 위해 결측치 0으로 대체
-    matrix_dummy = ratings_matrix.copy().fillna(0)
-    # 모든 사용자간 코사인 유사도 구함
-    item_similarity = cosine_similarity(matrix_dummy, matrix_dummy)
-    # 필요한 값 조회를 위해 인덱스 및 컬럼명 지정 
-    item_similarity = pd.DataFrame(item_similarity,
-                               index=ratings_matrix.index,
-                               columns=ratings_matrix.index)
-
     matrix_dummy = rating_matrix_t.copy().fillna(0)
-
     item_similarity = cosine_similarity(matrix_dummy, matrix_dummy)
     item_similarity = pd.DataFrame(item_similarity,
                                index=rating_matrix_t.index,
@@ -164,7 +155,7 @@ def item_based_cf(member_id):
 
 def ramen_similarity(ramen_id):
     similarities_others = similarities.drop([ramen_id])
-    top10 = similarities_others[ramen_id - 1].sort_values(ascending=False).head(10).index
+    top10 = similarities_others[ramen_id].sort_values(ascending=False).head(10).index
     return df_ramen.loc[top10]['name'].to_dict()
 
 def RMSE(y_true, y_pred):
