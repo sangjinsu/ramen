@@ -11,41 +11,10 @@ import SimilarRamen from "../../components/SimilarRamen";
 import { DataProps, RamenDetailType } from "../../components/Types";
 import Youtube from "../../components/Youtube";
 import { Container, Row, Col } from "react-bootstrap";
+import Heart from "../../components/Heart";
 
 const Detail: React.FC<RamenDetailType> = ({ params, ramenInfos }) => {
   console.log(ramenInfos);
-
-  const [likeCheck, setLike] = useState<boolean>(false);
-  const accessToken = getCookie("accessToken");
-  const member_id = getCookie("member_id");
-  const router = useRouter();
-
-  const likeChange = async () => {
-    // 주석 해제
-    try {
-      const { status: userLikeStatus } = await axios.post(
-        `http://j6c104.p.ssafy.io:8080/v1/member/like`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        },
-        {
-          params: {
-            memberId: member_id,
-            ramenIds: params,
-          },
-        }
-      );
-      if (200 <= userLikeStatus && userLikeStatus < 300) {
-        setLike(!likeCheck);
-      }
-    } catch {
-      if (!member_id) {
-        router.push("/login");
-      }
-    }
-  };
 
   const barChartData: DataProps = {
     data: [
@@ -61,29 +30,6 @@ const Detail: React.FC<RamenDetailType> = ({ params, ramenInfos }) => {
   const pieChartData: DataProps = {
     data: [ramenInfos.carbs, ramenInfos.protein, ramenInfos.lipid],
   };
-
-  useEffect(() => {
-    const TestTTT = async () => {
-      try {
-        console.log("111");
-        const { status: userLikeStatus } = await axios.get(
-          `http://j6c104.p.ssafy.io:8080/v1/ramen/islike/${params}/${member_id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }
-        );
-        200 <= userLikeStatus && userLikeStatus < 300
-          ? setLike(true)
-          : setLike(false);
-        console.log(userLikeStatus);
-      } catch {
-        setLike(false);
-      }
-    };
-    TestTTT();
-  }, []);
 
   return (
     <>
@@ -101,14 +47,7 @@ const Detail: React.FC<RamenDetailType> = ({ params, ramenInfos }) => {
                 />
               </section>
               <section className="left_area_btn">
-                <label className="like">
-                  <input
-                    type="checkbox"
-                    checked={likeCheck}
-                    onClick={likeChange}
-                  />
-                  <div className="hearth" />
-                </label>
+                <Heart params={params} />
                 <div>좋아요</div>
               </section>
             </div>
@@ -119,14 +58,7 @@ const Detail: React.FC<RamenDetailType> = ({ params, ramenInfos }) => {
                 <section className="main_section">
                   <div className="right_ramenName">
                     {ramenInfos.name}
-                    <label className="like">
-                      <input
-                        type="checkbox"
-                        checked={likeCheck}
-                        onClick={likeChange}
-                      />
-                      <div className="hearth" />
-                    </label>
+                    <Heart params={params} />
                   </div>
                   <div className="right_ramen_img_area">
                     <img
