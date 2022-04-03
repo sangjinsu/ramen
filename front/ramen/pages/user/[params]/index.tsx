@@ -23,6 +23,7 @@ import withAuth from "../../../components/hoc/withAuth";
 import { getCookie, setCookies } from "cookies-next";
 import axios from "axios";
 import { useRouter } from "next/router";
+import Heart from "../../../components/Heart";
 
 const accessToken = getCookie("accessToken");
 const name = getCookie("name");
@@ -317,7 +318,7 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
                     </ImageListItem>
                     <div className="right_link_area">
                       <ImageListItemBar title={ramen[0]} position="below" />
-                      <div>하트 놔둘 곳</div>
+                      <Heart params={ramen[1]} />
                     </div>
                   </div>
                 ))}
