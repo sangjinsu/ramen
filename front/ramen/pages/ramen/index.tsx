@@ -56,11 +56,24 @@ const RamentList: React.FC<RamenListType> = ({
   console.log(bongiList);
   console.log(cupList);
 
-  const [testTTT, setTTT] = React.useState(AllList);
+  const [currentRamenType, setRamenType] = React.useState(AllList);
 
   const [value, setValue] = React.useState(0);
 
   const tabHandleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setCurrentPage(1);
+    const firstPage = document.getElementsByClassName(
+      "MuiPaginationItem-root"
+    )[1];
+    (firstPage as HTMLButtonElement).click();
+    const id = (event.target as HTMLButtonElement).id;
+    if (id === "simple-tab-0") {
+      setRamenType(AllList);
+    } else if (id === "simple-tab-1") {
+      setRamenType(bongiList);
+    } else if (id === "simple-tab-2") {
+      setRamenType(cupList);
+    }
     setValue(newValue);
   };
 
@@ -70,27 +83,15 @@ const RamentList: React.FC<RamenListType> = ({
     console.log(value);
   };
 
-  const test = AllList;
   const ramenPerPage = 8; // 페이지당 라면 개수
   const currentPageLast = currentPage * ramenPerPage; // 현재 페이지의 처음
   const currentPageFirst = currentPageLast - ramenPerPage; /// 현재 페이지의 끝
-  const currentRamens = testTTT.slice(currentPageFirst, currentPageLast); // 0 ~ 8
-  const pageNumber = Math.ceil(testTTT.length / ramenPerPage);
+  const currentRamens = currentRamenType.slice(
+    currentPageFirst,
+    currentPageLast
+  ); // 0 ~ 8
+  const pageNumber = Math.ceil(currentRamenType.length / ramenPerPage);
   // const imageListheight = currentRamens.length <= 4 ? 350 : 550; // 현재 페이지 갯수에 따른 높이 조정
-
-  const ramenTypeHandleChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const id = (event.target as HTMLButtonElement).id;
-    setCurrentPage(1);
-    if (id === "simple-tab-0") {
-      setTTT(AllList);
-    } else if (id === "simple-tab-1") {
-      setTTT(bongiList);
-    } else if (id === "simple-tab-2") {
-      setTTT(cupList);
-    }
-  };
   return (
     <>
       <div className="img_list_page">
@@ -102,21 +103,9 @@ const RamentList: React.FC<RamenListType> = ({
                 onChange={tabHandleChange}
                 aria-label="basic tabs example"
               >
-                <Tab
-                  label={"All"}
-                  {...a11yProps(0)}
-                  onClick={ramenTypeHandleChange}
-                />
-                <Tab
-                  label={"Bongi"}
-                  {...a11yProps(1)}
-                  onClick={ramenTypeHandleChange}
-                />
-                <Tab
-                  label={"Cup"}
-                  {...a11yProps(2)}
-                  onClick={ramenTypeHandleChange}
-                />
+                <Tab label={"All"} {...a11yProps(0)} />
+                <Tab label={"Bongi"} {...a11yProps(1)} />
+                <Tab label={"Cup"} {...a11yProps(2)} />
               </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
@@ -135,6 +124,7 @@ const RamentList: React.FC<RamenListType> = ({
                           <ImageListItemBar
                             title={ramen.name}
                             position="below"
+                            className="test1"
                           />
                         </a>
                       </Link>
@@ -176,7 +166,17 @@ const RamentList: React.FC<RamenListType> = ({
             width: 70%;
           }
           .test {
-            width: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+          }
+          .test1 {
+            display: inline;
+            justify-content: center;
+          }
+          .test1 div {
+            display: inline;
+            color: blue;
           }
           .page_list {
             margin-left: 0;
