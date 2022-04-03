@@ -91,15 +91,14 @@ DATABASES = {
     'default': { # mysql
         'ENGINE': 'django.db.backends.mysql',
         'NAME': os.path.join('dbmaster'),
-        'USER': 'dbmaster',
-        'PASSWORD': 's06p22c104',
+        'USER': 'djangouser',
+        'PASSWORD': 's06p22c104!',
         'HOST': 'j6c104.p.ssafy.io',
         'PORT': '3306',
         'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-             'OPTIONS': {'charset': 'utf8mb4'},            
-             }
+            'charset': 'utf8mb4',            
         }
+    }
 }
 
 # Password validation

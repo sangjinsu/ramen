@@ -45,93 +45,93 @@ public interface RamenRepository extends JpaRepository<Ramen, Long> {
     @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.kkoDeul from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > -0.175 ")
     List<Object[]> findRamensByAnalysisKkoDeul();
 
-    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.taengGeul from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > 0.5 ")
+    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.taengGeul from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > -0.175 ")
     List<Object[]> findRamensByAnalysisTaengGeul();
 
-    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.jjolGit from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > 0.5 ")
+    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.jjolGit from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > -0.175 ")
     List<Object[]> findRamensByAnalysisJjolGit();
 
-    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.greenOnion from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > 0.5 ")
+    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.greenOnion from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > -0.175 ")
     List<Object[]> findRamensByAnalysisGreenOnion();
 
-    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.egg from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > 0.5 ")
+    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.egg from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > -0.175 ")
     List<Object[]> findRamensByAnalysisEgg();
 
-    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.beef from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > 0.5 ")
+    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.beef from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > -0.175 ")
     List<Object[]> findRamensByAnalysisBeef();
 
-    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.pork from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > 0.5 ")
+    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.pork from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > -0.175 ")
     List<Object[]> findRamensByAnalysisPork();
 
-    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.chickenBreast from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > 0.5 ")
+    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.chickenBreast from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > -0.175 ")
     List<Object[]> findRamensByAnalysisChickenBreast();
 
-    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.milk from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > 0.5 ")
+    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.milk from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > -0.175 ")
     List<Object[]> findRamensByAnalysisMilk();
 
-    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.riceCake from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > 0.5 ")
+    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.riceCake from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > -0.175 ")
     List<Object[]> findRamensByAnalysisRiceCake();
 
-    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.dumpling from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > 0.5 ")
+    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.dumpling from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > -0.175 ")
     List<Object[]> findRamensByAnalysisDumpling();
 
-    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.softTofu from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > 0.5 ")
+    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.softTofu from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > -0.175 ")
     List<Object[]> findRamensByAnalysisSoftTofu();
 
-    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.kimchi from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > 0.5 ")
+    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.kimchi from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > -0.175 ")
     List<Object[]> findRamensByAnalysisKimchi();
 
-    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.mayonnaise from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > 0.5 ")
+    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.mayonnaise from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > -0.175 ")
     List<Object[]> findRamensByAnalysisMayonnaise();
 
-    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.cheese from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > 0.5 ")
+    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.cheese from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > -0.175 ")
     List<Object[]> findRamensByAnalysisCheese();
 
-    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.garlic from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > 0.5 ")
+    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.garlic from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > -0.175 ")
     List<Object[]> findRamensByAnalysisGarlic();
 
-    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.pepper from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > 0.5 ")
+    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.pepper from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > -0.175 ")
     List<Object[]> findRamensByAnalysisPepper();
 
-    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.chiliPowder from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > 0.5 ")
+    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.chiliPowder from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > -0.175 ")
     List<Object[]> findRamensByAnalysisChiliPowder();
 
-    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.beanSprouts from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > 0.5 ")
+    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.beanSprouts from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > -0.175 ")
     List<Object[]> findRamensByAnalysisBeanSprouts();
 
-    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.redPepper from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > 0.5 ")
+    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.redPepper from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > -0.175 ")
     List<Object[]> findRamensByAnalysisRedPepper();
 
-    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.soyaSprouts from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > 0.5 ")
+    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.soyaSprouts from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > -0.175 ")
     List<Object[]> findRamensByAnalysisSoyaSprouts();
 
-    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.seafood from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > 0.5 ")
+    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.seafood from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > -0.175 ")
     List<Object[]> findRamensByAnalysisSeafood();
 
-    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.seaweed from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > 0.5 ")
+    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.seaweed from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > -0.175 ")
     List<Object[]> findRamensByAnalysisSeaweed();
 
-    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.sausage from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > 0.5 ")
+    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.sausage from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > -0.175 ")
     List<Object[]> findRamensByAnalysisSausage();
 
-    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.tuna from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > 0.5 ")
+    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.tuna from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > -0.175 ")
     List<Object[]> findRamensByAnalysisTuna();
 
-    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.ketchup from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > 0.5 ")
+    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.ketchup from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > -0.175 ")
     List<Object[]> findRamensByAnalysisKetchup();
 
-    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.vegan from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > 0.5 ")
+    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.vegan from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > -0.175 ")
     List<Object[]> findRamensByAnalysisVegan();
 
-    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.diet from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > 0.5 ")
+    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.diet from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > -0.175 ")
     List<Object[]> findRamensByAnalysisDiet();
 
-    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.spicy from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > 0.5 ")
+    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.spicy from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > -0.175 ")
     List<Object[]> findRamensByAnalysisSpicy();
 
-    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.lightness from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > 0.5 ")
+    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.lightness from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > -0.175 ")
     List<Object[]> findRamensByAnalysisLightness();
 
-    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.haejang from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > 0.5 ")
+    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.haejang from Ramen r join fetch Analysis a on r.ramenId = a.analysisId where a.crawlingCnt > -0.175 ")
     List<Object[]> findRamensByAnalysisHaejang();
 }

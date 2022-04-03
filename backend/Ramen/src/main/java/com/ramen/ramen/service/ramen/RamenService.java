@@ -123,11 +123,11 @@ public class RamenService {
         int result_cnt = 0;
 
         // category 1
-        if (category.getRamenType() == 1) {
+        if (category.getRamenType() == 2) {
             ramens1 = ramenRepository.findRamensByCompositionCup();
             result[0] = true;
             result_cnt++;
-        } else if (category.getRamenType() == 2) {
+        } else if (category.getRamenType() == 1) {
             ramens1 = ramenRepository.findRamensByCompositionBongji();
             result[0] = true;
             result_cnt++;
