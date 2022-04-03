@@ -14,12 +14,15 @@ export default function GenderButton({
         <Button
           variant="contained"
           onClick={handleFunction}
-          style={{ color: "orange" }}
+          style={{ background: "orange", width: "80px" }}
         >
           {gender}
         </Button>
       ) : (
-        <Button onClick={handleFunction} style={{ color: "orange" }}>
+        <Button
+          onClick={handleFunction}
+          style={{ color: "orange", width: "80px" }}
+        >
           {gender}
         </Button>
       )}
