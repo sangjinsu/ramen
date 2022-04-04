@@ -17,7 +17,10 @@ df_ramen = ramen()
 ramens = df_ramen.drop(['name', 'english_name'], axis=1)
 similarities = cosine_similarity(ramens)
 similarities = pd.DataFrame(similarities)
-similarities.index += 1
+similarities.index = df_ramen.index
+similarities.columns = df_ramen.index
+
+print(similarities)
 
 df_rating = member_like_ramen()
 mu = df_rating.rating.mean()
@@ -103,7 +106,7 @@ def user_based_cf(member_id):
         recommendations = recom_ramens['name']
         return recommendations
 
-    recommendations = recom_ramen(member_id, n_items=5, neighbor_size=30)
+    recommendations = recom_ramen(member_id, n_items=3, neighbor_size=30)
     
     return recommendations.to_dict()
      
@@ -114,18 +117,7 @@ def item_based_cf(member_id):
     ratings_matrix = df_rating.pivot(index='member_id', columns='ramen_id', values='rating')
     
     rating_matrix_t = np.transpose(ratings_matrix)
-    
-    # 코사인 유사도를 구하기 위해 rating 값을 복사하고 계산 시 NaN 값 에러 대비를 위해 결측치 0으로 대체
-    matrix_dummy = ratings_matrix.copy().fillna(0)
-    # 모든 사용자간 코사인 유사도 구함
-    item_similarity = cosine_similarity(matrix_dummy, matrix_dummy)
-    # 필요한 값 조회를 위해 인덱스 및 컬럼명 지정 
-    item_similarity = pd.DataFrame(item_similarity,
-                               index=ratings_matrix.index,
-                               columns=ratings_matrix.index)
-
     matrix_dummy = rating_matrix_t.copy().fillna(0)
-
     item_similarity = cosine_similarity(matrix_dummy, matrix_dummy)
     item_similarity = pd.DataFrame(item_similarity,
                                index=rating_matrix_t.index,
@@ -157,14 +149,14 @@ def item_based_cf(member_id):
         recommendations = recom_ramens['name']
         return recommendations
 
-    recommendations = recom_ramen(member_id, n_items=5)
+    recommendations = recom_ramen(member_id, n_items=3)
     
     return recommendations.to_dict()
 
 def ramen_similarity(ramen_id):
     similarities_others = similarities.drop([ramen_id])
-    top3 = similarities_others[ramen_id - 1].sort_values(ascending=False).head(3).index
-    return df_ramen.loc[top3]['name'].to_dict()
+    top3 = similarities_others[ramen_id].sort_values(ascending=False).head(3).index
+    return df_ramen.loc[top3][['name', 'salty', 'sweetness']].T.to_dict()
 
 def RMSE(y_true, y_pred):
         return tf.sqrt(tf.reduce_mean(tf.square(y_true - y_pred)))
@@ -236,7 +228,7 @@ def deaplearning_based_rc(member_id):
         predictions = model.predict([member_ids, ramen_ids]) + mu
         predictions = pd.DataFrame(predictions, columns=['predict_rate'])
         predictions.index += 1
-        predicton_ids = predictions.sort_values(by=['predict_rate'], ascending=False).head(5).index
+        predicton_ids = predictions.sort_values(by=['predict_rate'], ascending=False).head(3).index
         return df_ramen.loc[predicton_ids]['name'].to_dict()
     except Exception:
         raise exceptions.NotFound(detail="추천 받을 수 없습니다")
