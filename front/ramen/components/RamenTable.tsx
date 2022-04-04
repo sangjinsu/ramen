@@ -65,9 +65,9 @@ function Row(props: { row: ReturnType<typeof createData> }) {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div">
+              {/* <Typography variant="h6" gutterBottom component="div">
                 막대 Chart로 비교
-              </Typography>
+              </Typography> */}
               {barChartData.data[0] !== 0 && (
                 <BarCustom barChartData={barChartData} />
               )}
@@ -100,9 +100,9 @@ export default function RamenTable({
           <TableRow>
             <TableCell />
             <TableCell>성분</TableCell>
-            <TableCell align="right">One</TableCell>
-            <TableCell align="right">Average</TableCell>
-            <TableCell align="right">Recommend</TableCell>
+            <TableCell align="right">현재</TableCell>
+            <TableCell align="right">평균</TableCell>
+            <TableCell align="right">1일 권장량</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

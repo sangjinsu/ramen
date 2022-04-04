@@ -21,51 +21,30 @@ const BarSimilar = ({ barChartData }: { barChartData: DataProps }) => {
       chartRef.current = new Chart(ctx, {
         type: "bar",
         data: {
-          labels: ["Origin / 유사라면", "Origin / 유사라면"],
+          labels: ["현재 / 유사라면(짠맛)", "현재 / 유사라면(단맛)"],
           datasets: [
             {
-              label: "짠맛",
-              data: [barChartData.data[0], barChartData.data[2]],
-              backgroundColor: [
-                "rgba(46, 204, 113, 0.2)",
-                "rgba(46, 204, 54, 0.2)",
-              ],
-              borderColor: "black",
-              borderWidth: 1,
-            },
-            {
-              label: "단맛",
+              label: "현재",
               data: [barChartData.data[1], barChartData.data[3]],
               backgroundColor: [
-                "rgba(46, 204, 113, 0.2)",
-                "rgba(46, 204, 54, 0.2)",
+                "rgba(54, 162, 235, 0.2)",
+                "rgba(54, 162, 235, 0.2)",
               ],
               borderColor: "black",
-              borderWidth: 1,
+              borderWidth: 0,
+              barThickness: 20,
             },
-            // datasets: [
-            //   {
-            //     label: "탄수화물",
-            //     data: [testData.testData[0]],
-            //     backgroundColor: "rgba(46, 204, 113, 0.2)",
-            //     borderColor: "black",
-            //     borderWidth: 1
-            //   },
-            //   {
-            //     label: "단백질",
-            //     data: [testData.testData[1]],
-            //     backgroundColor: "rgba(41, 128, 185, 0.2)",
-            //     borderColor: "black",
-            //     borderWidth: 1
-            //   },
-            //   {
-            //     label: "지방",
-            //     data: [testData.testData[2]],
-            //     backgroundColor: "rgba(192, 57, 43, 0.2)", // 남자일 때 : rgba(41, 128, 185, 0.2), 여자일 때 : rgba(192, 57, 43, 0.2)
-            //     borderColor: "black",
-            //     borderWidth: 1
-            //   }
-            // ]
+            {
+              label: "유사라면",
+              data: [barChartData.data[0], barChartData.data[2]],
+              backgroundColor: [
+                "rgba(255, 205, 86, 0.2)",
+                "rgba(255, 205, 86, 0.2)",
+              ],
+              borderColor: "black",
+              borderWidth: 0,
+              barThickness: 20,
+            },
           ],
         },
 
