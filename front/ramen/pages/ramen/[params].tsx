@@ -8,15 +8,23 @@ import React, { useEffect, useState } from "react";
 import PieCustom from "../../components/PieCustom";
 import RamenTable from "../../components/RamenTable";
 import SimilarRamen from "../../components/SimilarRamen";
-import { DataProps, RamenDetailType } from "../../components/Types";
+import {
+  DataProps,
+  RamenDetailType,
+  SimilarRamenType,
+} from "../../components/Types";
 import Youtube from "../../components/Youtube";
 import { Container, Row, Col } from "react-bootstrap";
 import Heart from "../../components/Heart";
 
 const memberId = getCookie("member_id");
 
-const Detail: React.FC<RamenDetailType> = ({ params, ramenInfos }) => {
-  const [similarityRamen, setsimilarityRamen] = useState();
+const Detail: React.FC<RamenDetailType> = ({
+  params,
+  ramenInfos,
+  similarityRamen,
+}) => {
+  // const [similarityRamen, setsimilarityRamen] = useState<SimilarRamenType>();
   console.log(ramenInfos);
 
   const barChartData: DataProps = {
@@ -33,17 +41,6 @@ const Detail: React.FC<RamenDetailType> = ({ params, ramenInfos }) => {
   const pieChartData: DataProps = {
     data: [ramenInfos.carbs, ramenInfos.protein, ramenInfos.lipid],
   };
-
-  useEffect(() => {
-    const similarityFetch = async () => {
-      const { data: similarityRamen } = await axios.get(
-        `http://j6c104.p.ssafy.io.:8084/v1/recommend/similarity/${params}`
-      );
-      setsimilarityRamen(similarityRamen);
-      console.log(similarityRamen);
-    };
-    similarityFetch();
-  }, []);
 
   useEffect(() => {
     const logSend = async () => {
@@ -322,44 +319,6 @@ const Detail: React.FC<RamenDetailType> = ({ params, ramenInfos }) => {
             vertical-align: baseline;
             -webkit-tap-highlight-color: transparent;
           }
-
-          // 하트효과
-          input {
-            display: none;
-          }
-
-          .like {
-            display: block;
-            cursor: pointer;
-            border-radius: 999px;
-            overflow: visible;
-            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-            -webkit-tap-highlight-color: transparent;
-          }
-
-          .hearth {
-            background-image: url("/heartEffect.svg");
-            background-size: calc(50px * 62) 50px;
-            background-repeat: no-repeat;
-            background-position-x: calc(50px * (62 * -1 + 2));
-            background-position-y: calc(50px * 0.02);
-            width: 50px;
-            height: 50px;
-          }
-
-          input:checked + .hearth {
-            animation: like 1s steps(calc(62 - 3));
-            animation-fill-mode: forwards;
-          }
-
-          @keyframes like {
-            0% {
-              background-position-x: 0;
-            }
-            100% {
-              background-position-x: calc(50px * (62 * -1 + 3));
-            }
-          }
         `}
       </style>
     </>
@@ -370,10 +329,40 @@ export async function getServerSideProps({ params: { params } }) {
   const { data: ramenInfos } = await axios.get(
     `http://j6c104.p.ssafy.io:8080/v1/ramen/detail/${params}`
   );
+
+  const { data: fetchSimilarity } = await axios.get(
+    `http://j6c104.p.ssafy.io.:8084/v1/recommend/similarity/${params}`
+  );
+  const ramenKeys: string[] = Object.keys(fetchSimilarity);
+  const similarityRamen: SimilarRamenType = {
+    first: {
+      id: ramenKeys[0],
+      name: fetchSimilarity[ramenKeys[0]].name,
+      salty: fetchSimilarity[ramenKeys[0]].salty,
+      sweetness: fetchSimilarity[ramenKeys[0]].sweetness,
+    },
+    second: {
+      id: ramenKeys[1],
+      name: fetchSimilarity[ramenKeys[1]].name,
+      salty: fetchSimilarity[ramenKeys[1]].salty,
+      sweetness: fetchSimilarity[ramenKeys[1]].sweetness,
+    },
+    third: {
+      id: ramenKeys[2],
+      name: fetchSimilarity[ramenKeys[2]].name,
+      salty: fetchSimilarity[ramenKeys[2]].salty,
+      sweetness: fetchSimilarity[ramenKeys[2]].sweetness,
+    },
+    origin: {
+      salty: ramenInfos.salty,
+      sweetness: ramenInfos.sweetness,
+    },
+  };
   return {
     props: {
       params,
       ramenInfos,
+      similarityRamen,
     },
   };
 }
