@@ -26,14 +26,14 @@ export default function Suggestion(props) {
   useEffect(()=>{
     if(props.sug==='dbrc'){
       axios.get(`http://j6c104.p.ssafy.io:8084/v1/recommend/dbrc/${props.id}`)
-    .then((result)=>{console.log('ubcf요청성공')
+    .then((result)=>{console.log('dbrc요청성공')
   console.log(result)
   console.log(result.data)
   console.log(result.data[0])
   setRamen(result.data)
   
   })
-    .catch((error)=>{console.log('ubcf요청실패')
+    .catch((error)=>{console.log('dbrc요청실패')
     console.log(error)
   
   })
@@ -42,14 +42,14 @@ export default function Suggestion(props) {
   useEffect(()=>{
     if(props.sug==='ibcf'){
       axios.get(`http://j6c104.p.ssafy.io:8084/v1/recommend/ibcf/${props.id}`)
-    .then((result)=>{console.log('ubcf요청성공')
+    .then((result)=>{console.log('ibcf요청성공')
   console.log(result)
   console.log(result.data)
   console.log(result.data[0])
   setRamen(result.data)
   
   })
-    .catch((error)=>{console.log('ubcf요청실패')
+    .catch((error)=>{console.log('ibcf요청실패')
     console.log(error)
   
   })
@@ -61,8 +61,12 @@ export default function Suggestion(props) {
 
     {props.title}
   <ListGroup>
+    {/* {ramen.length !==0
+    ? <p>{ramen.length}</p>
+    : <p>0이 아닙니다.{ramen.length}</p>
+    } */}
     {
-      ramen.length
+      ramen.length !==0
       ?(
         <>
         <ListGroup.Item><img src="icon/number1.png" width={25}></img>
@@ -70,10 +74,10 @@ export default function Suggestion(props) {
       
         </ListGroup.Item>
         <ListGroup.Item><img src="icon/number2.png" width={25}></img>
-        <Link href={`/ramen/${Object.keys(ramen)[1]}`}><a>{Object.values(ramen)[0]}</a></Link>
+        <Link href={`/ramen/${Object.keys(ramen)[1]}`}><a>{Object.values(ramen)[1]}</a></Link>
         </ListGroup.Item>
         <ListGroup.Item><img src="icon/number3.png" width={25}></img>
-        <Link href={`/ramen/${Object.keys(ramen)[2]}`}><a>{Object.values(ramen)[0]}</a></Link>
+        <Link href={`/ramen/${Object.keys(ramen)[2]}`}><a>{Object.values(ramen)[2]}</a></Link>
         </ListGroup.Item>
         </>
       )
