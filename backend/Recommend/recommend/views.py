@@ -2,8 +2,9 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 from rest_framework.response import Response
 
-from .utils.algo import item_based_cf, user_based_cf, ramen_similarity, deaplearning_based_rc
+from .utils.algo import item_based_cf, user_based_cf, ramen_similarity, deaplearning_based_rc, train_ai
 
+train_ai()
 
 @api_view(['GET'])  
 def ubcf(request, member_id):
