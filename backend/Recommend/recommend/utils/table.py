@@ -1,6 +1,7 @@
 from turtle import right
 import pandas as pd
 from ..models import Analysis, Composition, Fond, Member, MemberLikeRamen, Nutrient, Ramen
+from .elastic import create_df_log_value
 
 def member():
     def byte_to_int(x):
@@ -46,7 +47,7 @@ def ramen():
 def member_like_ramen():
     memberLikeRamens = MemberLikeRamen.objects.values('member_id', 'ramen_id').all()
     memberLikeRamens = pd.DataFrame.from_records(memberLikeRamens)
-    memberLikeRamens['rating'] = 5
+    memberLikeRamens['rating'] = 5.0
 
     return memberLikeRamens
 

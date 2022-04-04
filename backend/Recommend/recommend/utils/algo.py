@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd 
 ### 코사인 유사도를 계산하는 사이킷런 라이브러리
 from sklearn.metrics.pairwise import cosine_similarity
+from recommend.utils.elastic import create_df_log_value
 
 from recommend.utils.table import member, member_like_ramen, ramen
 import tensorflow as tf
@@ -27,6 +28,20 @@ mu = df_rating.rating.mean()
 
 def user_based_cf(member_id):
     df_rating = member_like_ramen()
+    # df_log_value = create_df_log_value(member_id)
+    # print(df_rating)
+    # print(df_log_value)
+    # for memberId, ramen_id, rating in zip(df_log_value['member_id'], df_log_value['ramen_id'], df_log_value['rating']):
+    #     # existed = len(df_rating[(df_rating['member_id'] == memberId) & (df_rating['ramen_id'] == ramen_id)].index)
+    #     # print(existed)
+    #     # if existed :
+    #     #     df_rating[(df_rating['member_id'] == memberId) & (df_rating['ramen_id'] == ramen_id)] = df_rating[df_rating['member_id'] == memberId and df_rating['ramen_id'] == ramen_id]['rating']  + rating / 2
+    #     # else:
+    #     df_rating = df_rating.append({'member_id': memberId, 'ramen_id': ramen_id, 'rating': rating}, ignore_index=True)
+    # df_rating = df_rating.astype({'member_id': 'int', 'ramen_id': 'int'})
+    # print(df_rating)
+    
+    
     df_member = member()
     rated_ramen = df_rating.loc[df_rating['member_id']==member_id]['ramen_id'].tolist()
 
@@ -147,8 +162,7 @@ def user_based_cf(member_id):
     pred_sort = predictions.sort_values(ascending=False, by='rating')[:3]
     recom_ramens = df_ramen.loc[pred_sort.index]['name']
     return recom_ramens.to_dict()
-      
-     
+          
 def item_based_cf(member_id):
     df_rating = member_like_ramen()
     df_member = member()
@@ -291,7 +305,6 @@ def train_ai():
     
     model.save('ramen_rc_model')
     
-
 def deaplearning_based_rc(member_id):
     rated_ramen = df_rating.loc[df_rating['member_id']==member_id]['ramen_id'].tolist()
     model = keras.models.load_model('ramen_rc_model', custom_objects={"RMSE": RMSE })
