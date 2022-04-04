@@ -54,40 +54,9 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
         fonds.ingredientPepper ? "고추" : false,
       ].filter((fond) => fond !== false);
 
-  console.log(ingredientFonds);
-  console.log(toppingFonds);
-
-  const likeRamen = [
-    {
-      name: "간짬뽕",
-      ramenId: "1",
-    },
-    {
-      name: "감자면큰사발면",
-      ramenId: "2",
-    },
-    {
-      name: "7가지 채소가득 우리밀라면",
-      ramenId: "3",
-    },
-    {
-      name: "강릉 교동반점 직화짬뽕소컵",
-      ramenId: "4",
-    },
-    {
-      name: "까르보불닭볶음면",
-      ramenId: "5",
-    },
-    {
-      name: "꽃게탕면",
-      ramenId: "6",
-    },
-  ];
-
   const [currentPage, setCurrentPage] = React.useState(1); // 현재 페이지
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
-    console.log(value);
   };
 
   const ramenPerPage = 3; // 페이지당 라면 개수
@@ -104,7 +73,7 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
 
   const checkTokenValid = () => {
     if (!accessToken) {
-      Router.replace("/login");
+      router.replace("/login");
     } else {
       axios
         .get("http://j6c104.p.ssafy.io:8083/v1/member/check-jwt", {
@@ -126,7 +95,7 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
                 setAccessToken(response.data.accessToken);
               })
               .catch(function (error) {
-                Router.replace("/login");
+                router.replace("/login");
               });
           }
         });
@@ -152,7 +121,6 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
             },
           }
         );
-        console.log(likeRamenList);
         const userLikeList = likeRamenList.map((ramen) => [
           ramen.name,
           ramen.ramenId,
