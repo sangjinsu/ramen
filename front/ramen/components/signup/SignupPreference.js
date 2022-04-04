@@ -113,8 +113,8 @@ export default function SignupPreference({
                         (idxPreference === 5 &&
                           idxChoice === 3 &&
                           (flagSoup || selectSoupGreenOnion))
-                          ? { width: "11rem" }
-                          : { width: "10rem", opacity: "0.5" }
+                          ? { width: "100%" }
+                          : { width: "80%", opacity: "0.5" }
                       }
                     >
                       <Avatar

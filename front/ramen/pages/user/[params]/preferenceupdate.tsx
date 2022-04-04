@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import SignupPreference from "../../../components/signup/SignupPreference";
 import { userPreferenceType } from "../../../components/Types";
+import Button from "@mui/material/Button";
 
 const member_id = getCookie("member_id");
 
@@ -262,11 +263,32 @@ const UserPreference: React.FC<userPreferenceType> = ({
             selectToppingDumpling={selectToppingDumpling}
             onClickChoice={onClickChoice}
           />
-
           <Row>
-            <Col>
-              {canGoNext ? <div onClick={updatePreference}>submit</div> : null}
+            <Col></Col>
+            <Col></Col>
+
+            <Col variant="contained">
+              {canGoNext ? (
+                <Button
+                  sx={{ fontSize: 18 }}
+                  style={{
+                    color: "orange",
+                    width: "100px",
+                    border: "1px solid orange",
+                  }}
+                  variant="outlined"
+                  onClick={updatePreference}
+                >
+                  Submit
+                </Button>
+              ) : (
+                <Button variant="outlined" disabled style={{ width: "100px" }}>
+                  Disabled
+                </Button>
+              )}
             </Col>
+            <Col></Col>
+            <Col></Col>
           </Row>
         </Container>
       </div>
