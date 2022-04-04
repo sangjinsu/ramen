@@ -36,7 +36,30 @@ export type RamenDetailType = {
     transFat: number;
     volume: number;
   };
-  userLikeBoolean: boolean;
+  similarityRamen: {
+    first: {
+      id: string;
+      name: string;
+      salty: number;
+      sweetness: number;
+    };
+    second: {
+      id: string;
+      name: string;
+      salty: number;
+      sweetness: number;
+    };
+    third: {
+      id: string;
+      name: string;
+      salty: number;
+      sweetness: number;
+    };
+    origin: {
+      salty: number;
+      sweetness: number;
+    };
+  };
 };
 
 export type RamenListType = {
@@ -84,34 +107,33 @@ export type userPageType = {
 export type userPreferenceType = {
   params: string;
   router: NextRouter;
-  // {
-  //   query: {
-  //     fonds: string;
-  //   };
-  // };
 };
-// export type userPreferenceType = {
-//   params: string;
-//   router: {
-//     query: {
-//       fonds: {
-//         egg: boolean;
-//         ingredientGarlic: boolean;
-//         ingredientGreenOnion: boolean;
-//         ingredientNone: boolean;
-//         ingredientPepper: boolean;
-//         noodleLength: string;
-//         noodleTexture: string;
-//         spicy: string;
-//         toppingCheese: boolean;
-//         toppingDumpling: boolean;
-//         toppingNone: boolean;
-//         toppingTteok: boolean;
-//       };
-//     };
-//   };
-// };
 
 export type signupType = {
   router: NextRouter;
+};
+
+export type SimilarRamenType = {
+  first: {
+    id: string;
+    name: string;
+    salty: number;
+    sweetness: number;
+  };
+  second: {
+    id: string;
+    name: string;
+    salty: number;
+    sweetness: number;
+  };
+  third: {
+    id: string;
+    name: string;
+    salty: number;
+    sweetness: number;
+  };
+  origin: {
+    salty: number;
+    sweetness: number;
+  };
 };

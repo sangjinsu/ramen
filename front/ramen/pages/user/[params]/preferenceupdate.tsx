@@ -6,6 +6,8 @@ import { Container, Row, Col } from "react-bootstrap";
 import SignupPreference from "../../../components/signup/SignupPreference";
 import { userPreferenceType } from "../../../components/Types";
 
+const member_id = getCookie("member_id");
+
 const UserPreference: React.FC<userPreferenceType> = ({
   params,
   router: { query },
@@ -145,6 +147,13 @@ const UserPreference: React.FC<userPreferenceType> = ({
       // router.push(`/user/${params}`);
     }
   };
+
+  React.useEffect(() => {
+    if (member_id !== params) {
+      alert("잘못된 접근입니다");
+      router.push("/");
+    }
+  }, []);
 
   useEffect(() => {
     setUserInfo(() => {

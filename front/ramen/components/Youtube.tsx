@@ -9,12 +9,13 @@ const Youtube = ({ searchTitle }: { searchTitle: string }) => {
   const [videoHeight, setVideoHeight] = useState(320);
 
   const params = {
-    key: "AIzaSyCypTMIn7WNPNVvhCvi2bmaqZwNkjCohQw",
+    key: "AIzaSyB97dKZAEN7qKgwQmOHitTOnsmcpCvtcTI",
     part: "snippet",
     q: searchTitle,
-    maxResults: 1,
+    maxResults: 5,
     type: "video",
-    videoDuration: "long",
+    videoDuration: "any",
+    videoEmbeddable: "true",
   };
 
   const handleChangeVideoWidth = useCallback(() => {
@@ -48,21 +49,31 @@ const Youtube = ({ searchTitle }: { searchTitle: string }) => {
 
   useEffect(() => {
     const Test = async () => {
-      // const url = `https://www.googleapis.com/youtube/v3/search?key=${params.key}&part=${params.part}&q=${params.q}&maxResults=${params.maxResults}&type=${params.type}&videoDuration=${params.videoDuration}`;
-      // const response = await axios.get(url);
-      const url = `https://www.googleapis.com/youtube/v3/search`;
-      const { data: youtubeResponse } = await axios.get(url, { params });
-      console.log(youtubeResponse.items[0].id.videoId);
-      setVideoUrl(
-        `https://www.youtube.com/embed/${youtubeResponse.items[0].id.videoId}`
-      );
-      const videoUrl = `https://www.youtube.com/embed/${youtubeResponse.items[0].id.videoId}`;
+      try {
+        const url = `https://www.googleapis.com/youtube/v3/search`;
+        const { data: youtubeResponse } = await axios.get(url, { params });
+        const resultDataLength = youtubeResponse.items.length;
+        const randomNum = Math.floor(Math.random() * resultDataLength);
+        setVideoUrl(
+          `https://www.youtube.com/embed/${youtubeResponse.items[randomNum].id.videoId}`
+        );
+      } catch {
+        const copyParams = Object.assign({}, params);
+        copyParams.q = "라면 먹방";
+        const url = `https://www.googleapis.com/youtube/v3/search`;
+        const { data: youtubeResponse } = await axios.get(url, { params });
+        const resultDataLength = youtubeResponse.items.length;
+        const randomNum = Math.floor(Math.random() * resultDataLength);
+        setVideoUrl(
+          `https://www.youtube.com/embed/${youtubeResponse.items[randomNum].id.videoId}`
+        );
+      }
     };
     Test();
   }, []);
   return (
     <div>
-      <div className="asdasd">
+      <div className="youtube_video">
         <iframe
           id={id}
           width="100%"
@@ -75,8 +86,9 @@ const Youtube = ({ searchTitle }: { searchTitle: string }) => {
       </div>
       <style jsx>
         {`
-          .asdasd {
+          .youtube_video {
             width: 100%;
+            margin-top: 0.5rem;
           }
         `}
       </style>
