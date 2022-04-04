@@ -191,6 +191,7 @@ const Detail: React.FC<RamenDetailType> = ({
                 )}
 
                 <section>
+                  <div className="section_title">유사한 라면</div>
                   <SimilarRamen
                     similarityRamen={similarityRamen}
                   ></SimilarRamen>
@@ -368,6 +369,16 @@ const Detail: React.FC<RamenDetailType> = ({
             font-size: 1rem;
             font-weight: 700;
             margin-bottom: 0.25rem;
+          }
+
+          .section_title {
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            margin-top: 0.5rem;
+            padding-bottom: 2rem;
+            font-size: 20px;
+            box-shadow: rgba(0, 0, 0, 0.05) 0px 10px 15px -3px;
           }
 
           * {
