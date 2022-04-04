@@ -26,6 +26,7 @@ const Detail: React.FC<RamenDetailType> = ({
 }) => {
   // const [similarityRamen, setsimilarityRamen] = useState<SimilarRamenType>();
   console.log(ramenInfos);
+  const router = useRouter();
 
   const barChartData: DataProps = {
     data: [
@@ -41,6 +42,13 @@ const Detail: React.FC<RamenDetailType> = ({
   const pieChartData: DataProps = {
     data: [ramenInfos.carbs, ramenInfos.protein, ramenInfos.lipid],
   };
+
+  useEffect(() => {
+    const numParams = Number(params);
+    if (numParams < 0 || 487 < numParams) {
+      router.push("/");
+    }
+  }, []);
 
   useEffect(() => {
     const logSend = async () => {
@@ -63,7 +71,7 @@ const Detail: React.FC<RamenDetailType> = ({
       }
     };
     logSend();
-  }, []);
+  // }, []);
 
   return (
     <>
@@ -326,45 +334,109 @@ const Detail: React.FC<RamenDetailType> = ({
 };
 
 export async function getServerSideProps({ params: { params } }) {
-  const { data: ramenInfos } = await axios.get(
-    `http://j6c104.p.ssafy.io:8080/v1/ramen/detail/${params}`
-  );
+  try {
+    const { data: ramenInfos } = await axios.get(
+      `http://j6c104.p.ssafy.io:8080/v1/ramen/detail/${params}`
+    );
 
-  const { data: fetchSimilarity } = await axios.get(
-    `http://j6c104.p.ssafy.io.:8084/v1/recommend/similarity/${params}`
-  );
-  const ramenKeys: string[] = Object.keys(fetchSimilarity);
-  const similarityRamen: SimilarRamenType = {
-    first: {
-      id: ramenKeys[0],
-      name: fetchSimilarity[ramenKeys[0]].name,
-      salty: fetchSimilarity[ramenKeys[0]].salty,
-      sweetness: fetchSimilarity[ramenKeys[0]].sweetness,
-    },
-    second: {
-      id: ramenKeys[1],
-      name: fetchSimilarity[ramenKeys[1]].name,
-      salty: fetchSimilarity[ramenKeys[1]].salty,
-      sweetness: fetchSimilarity[ramenKeys[1]].sweetness,
-    },
-    third: {
-      id: ramenKeys[2],
-      name: fetchSimilarity[ramenKeys[2]].name,
-      salty: fetchSimilarity[ramenKeys[2]].salty,
-      sweetness: fetchSimilarity[ramenKeys[2]].sweetness,
-    },
-    origin: {
-      salty: ramenInfos.salty,
-      sweetness: ramenInfos.sweetness,
-    },
-  };
-  return {
-    props: {
-      params,
-      ramenInfos,
-      similarityRamen,
-    },
-  };
+    const { data: fetchSimilarity } = await axios.get(
+      `http://j6c104.p.ssafy.io.:8084/v1/recommend/similarity/${params}`
+    );
+    const ramenKeys: string[] = Object.keys(fetchSimilarity);
+    const similarityRamen: SimilarRamenType = {
+      first: {
+        id: ramenKeys[0],
+        name: fetchSimilarity[ramenKeys[0]].name,
+        salty: fetchSimilarity[ramenKeys[0]].salty,
+        sweetness: fetchSimilarity[ramenKeys[0]].sweetness,
+      },
+      second: {
+        id: ramenKeys[1],
+        name: fetchSimilarity[ramenKeys[1]].name,
+        salty: fetchSimilarity[ramenKeys[1]].salty,
+        sweetness: fetchSimilarity[ramenKeys[1]].sweetness,
+      },
+      third: {
+        id: ramenKeys[2],
+        name: fetchSimilarity[ramenKeys[2]].name,
+        salty: fetchSimilarity[ramenKeys[2]].salty,
+        sweetness: fetchSimilarity[ramenKeys[2]].sweetness,
+      },
+      origin: {
+        salty: ramenInfos.salty,
+        sweetness: ramenInfos.sweetness,
+      },
+    };
+    return {
+      props: {
+        params,
+        ramenInfos,
+        similarityRamen,
+      },
+    };
+  } catch {
+    const ramenInfos = {
+      brand: "no data",
+      carbs: 0,
+      cholesterol: 0,
+      code: "no data",
+      cold: 0,
+      cup: 0,
+      englishBrand: "no data",
+      englishName: "no data",
+      jjajang: 0,
+      kcal: 0,
+      lipid: 0,
+      liquid: 0,
+      name: "no data",
+      noodle: "no data",
+      powder: 0,
+      protein: 0,
+      ramenId: 0,
+      salty: 0,
+      sampleId: "no data",
+      saturated_fat: 0,
+      seasoning: 0,
+      sodium: 0,
+      soup: 0,
+      sugar: 0,
+      surveyYear: 0,
+      sweetness: 0,
+      transFat: 0,
+      volume: 0,
+    };
+    const similarityRamen: SimilarRamenType = {
+      first: {
+        id: "no data",
+        name: "no data",
+        salty: 0,
+        sweetness: 0,
+      },
+      second: {
+        id: "no data",
+        name: "no data",
+        salty: 0,
+        sweetness: 0,
+      },
+      third: {
+        id: "no data",
+        name: "no data",
+        salty: 0,
+        sweetness: 0,
+      },
+      origin: {
+        salty: 0,
+        sweetness: 0,
+      },
+    };
+    return {
+      props: {
+        params,
+        ramenInfos,
+        similarityRamen,
+      },
+    };
+  }
 }
 
 export default Detail;
