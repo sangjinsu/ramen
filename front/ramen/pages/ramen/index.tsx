@@ -105,19 +105,21 @@ const RamentList: React.FC<RamenListType> = ({
       <div className="img_list_page">
         <div className="img_list">
           <Box sx={{ width: "100%" }}>
-            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-              <Tabs
-                value={value}
-                onChange={tabHandleChange}
-                aria-label="basic tabs example"
-              >
-                <Tab label={"All"} {...a11yProps(0)} />
-                <Tab label={"Bongi"} {...a11yProps(1)} />
-                <Tab label={"Cup"} {...a11yProps(2)} />
-              </Tabs>
-            </Box>
             <TabPanel value={value} index={0}>
               <Container>
+                <Row>
+                  <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                    <Tabs
+                      value={value}
+                      onChange={tabHandleChange}
+                      aria-label="basic tabs example"
+                    >
+                      <Tab label={"All"} {...a11yProps(0)} />
+                      <Tab label={"Bongi"} {...a11yProps(1)} />
+                      <Tab label={"Cup"} {...a11yProps(2)} />
+                    </Tabs>
+                  </Box>
+                </Row>
                 {currentRamens.map((tempRamenList, idxList) => {
                   return (
                     <Row key={idxList}>
@@ -138,7 +140,11 @@ const RamentList: React.FC<RamenListType> = ({
                                 )}
                               </a>
                             </Link>
-                            <h4>{ramen.name}</h4>
+                            <h4
+                              style={{ "font-family": ["Jua", "sans-serif"] }}
+                            >
+                              {ramen.name}
+                            </h4>
                           </Col>
                         );
                       })}

@@ -16,6 +16,7 @@ import {
 import Youtube from "../../components/Youtube";
 import { Container, Row, Col } from "react-bootstrap";
 import Heart from "../../components/Heart";
+import ramenPngDoc from "../../components/main/data";
 
 const memberId = getCookie("member_id");
 
@@ -27,6 +28,7 @@ const Detail: React.FC<RamenDetailType> = ({
   // const [similarityRamen, setsimilarityRamen] = useState<SimilarRamenType>();
   console.log(ramenInfos);
   const router = useRouter();
+  const ramenPngs = ramenPngDoc;
 
   const searchTitle = ramenInfos.brand + " " + ramenInfos.name;
 
@@ -83,10 +85,14 @@ const Detail: React.FC<RamenDetailType> = ({
                 <div className="left_ramenName">{ramenInfos.name}</div>
               </section>
               <section>
-                <img
-                  src={`/ramen/${ramenInfos.name}.png?w=248&fit=crop&auto=format`}
-                  className="left_ramen_img"
-                />
+                {ramenPngDoc.includes(`${ramenInfos.name}.png`) ? (
+                  <img
+                    src={`/ramen/${ramenInfos.name}.png?w=248&fit=crop&auto=format`}
+                    className="left_ramen_img"
+                  />
+                ) : (
+                  <img src={"/ramen/default.png"} />
+                )}
               </section>
               <section className="left_area_btn">
                 <Heart params={params} />
