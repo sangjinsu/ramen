@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
   faCakeCandles,
-  faPerson,
   faUtensils,
 } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -27,6 +26,7 @@ import Heart from "../../../components/Heart";
 import serverURLDoc from "../../../components/main/ServerURL";
 import { Container, Row, Col } from "react-bootstrap";
 import ramenPngDoc from "../../../components/main/data";
+import WcIcon from "@mui/icons-material/Wc";
 
 const AUTH_URL = serverURLDoc.AUTH_URL;
 const accessToken = getCookie("accessToken");
@@ -146,17 +146,17 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
           <section>
             <div className="left_user_name">
               <FontAwesomeIcon icon={faUser} />
-              <p className="font_right">{name}</p>
+              <p className="font_left">{name}</p>
             </div>
           </section>
           <section>
             <div className="user_info">
               <FontAwesomeIcon icon={faCakeCandles} />
-              <p className="font_right">{age}</p>
+              <p className="font_left">{age}</p>
             </div>
             <div className="user_info">
-              <FontAwesomeIcon icon={faPerson} />
-              <p className="font_right">{gender}</p>
+              <WcIcon />
+              <p className="font_left">{gender}</p>
             </div>
           </section>
           <section>
@@ -170,7 +170,7 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
               >
                 <a className="fond_update">
                   <FontAwesomeIcon icon={faUtensils} />
-                  <p className="font_right">취향 수정</p>
+                  <p className="font_left">취향 수정</p>
                 </a>
               </Link>
             </div>
@@ -179,46 +179,35 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
 
         <div className="right_area">
           <section className="main_section">
-            <Container>
-              <Row>
-                <Col>
-                  <div className="user_info">
-                    <FontAwesomeIcon icon={faUser} />
-                    <p className="font_right">{name}</p>
-                  </div>
-                </Col>
-                <Col>
-                  <div className="user_info">
-                    <Link
-                      href={{
-                        pathname: `/user/${params}/preferenceupdate`,
-                        query: fonds,
-                      }}
-                      as={`/user/${params}/preferenceupdate`}
-                    >
-                      <a className="fond_update">
-                        <FontAwesomeIcon icon={faUtensils} />
-                        <p className="font_right">취향 수정</p>
-                      </a>
-                    </Link>
-                  </div>
-                </Col>
-              </Row>
-              <Row>
-                <Col>
-                  <div className="user_info">
-                    <FontAwesomeIcon icon={faCakeCandles} />
-                    <p className="font_right">{age}</p>
-                  </div>
-                </Col>
-                <Col>
-                  <div className="user_info">
-                    <FontAwesomeIcon icon={faPerson} />
-                    <p className="font_right">{gender}</p>
-                  </div>
-                </Col>
-              </Row>
-            </Container>
+            <div className="right_user_info">
+              <FontAwesomeIcon icon={faUser} />
+              <p>{name}</p>
+            </div>
+
+            <div className="right_user_info">
+              <FontAwesomeIcon icon={faCakeCandles} />
+              <p>{age}</p>
+            </div>
+
+            <div className="right_user_info">
+              <WcIcon />
+              <p>{gender}</p>
+            </div>
+
+            <div>
+              <Link
+                href={{
+                  pathname: `/user/${params}/preferenceupdate`,
+                  query: fonds,
+                }}
+                as={`/user/${params}/preferenceupdate`}
+              >
+                <a className="fond_update right_user_info">
+                  <FontAwesomeIcon icon={faUtensils} />
+                  <p className="font_left">취향 수정</p>
+                </a>
+              </Link>
+            </div>
           </section>
 
           <section>
@@ -394,8 +383,9 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
             }
           }
 
-          .font_right {
+          .font_left {
             margin-left: 0.5rem;
+            margin-top: 0.2rem;
           }
 
           .user_info {
@@ -428,12 +418,21 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
 
           .main_section {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+            padding: 0.75rem 0.625rem;
           }
           @media (min-width: 60rem) {
             .main_section {
               display: none;
             }
+          }
+          .right_user_info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 0.5rem;
           }
 
           section {
@@ -480,7 +479,7 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
             justify-content: center;
             align-items: center;
             padding-bottom: 1rem;
-            margin-top: 1rem;
+            margin-top: 1.3rem;
             margin-bottom: 1rem;
 
             font-size: 20px;
@@ -499,6 +498,7 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
             display: flex;
             flex-direction: row;
             align-items: center;
+            justify-content: center;
           }
           .left_link_area {
             margin: 0.75rem 0.625rem;
@@ -601,4 +601,4 @@ export async function getServerSideProps({ params: { params } }) {
   }
 }
 
-export default withAuth(Detail);
+export default Detail;
