@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class ClearComponent {
 
     @Autowired
-    ClearService clearService;
+    private final ClearService clearService;
 
     @Scheduled(cron = "0 0 7 * * *", zone = "Asia/Seoul")
     public void clear() {
