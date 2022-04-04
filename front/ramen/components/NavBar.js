@@ -119,6 +119,9 @@ export default function NavBar() {
                   <Link href="/index2">
                     <a className="navmenu">&nbsp;키워드추천 &nbsp;</a>
                   </Link>
+                  <Link href="/ramen">
+                    <a className="navmenu">&nbsp;전체 라면 &nbsp;</a>
+                  </Link>
                 </Nav>
                 <Nav>
                   <Dropdown>

@@ -1,9 +1,4 @@
-import type { NextPage } from "next";
-import Image from "next/image";
 import * as React from "react";
-import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
-import ImageListItemBar from "@mui/material/ImageListItemBar";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import Link from "next/link";
@@ -13,6 +8,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import { Container, Row, Col } from "react-bootstrap";
+import ramenPngDoc from "../../components/main/data";
 
 // 컴포넌트화
 interface TabPanelProps {
@@ -56,6 +53,7 @@ const RamentList: React.FC<RamenListType> = ({
   console.log(bongiList);
   console.log(cupList);
 
+  const ramenPngs = ramenPngDoc;
   const [currentRamenType, setRamenType] = React.useState(AllList);
 
   const [value, setValue] = React.useState(0);
@@ -83,13 +81,23 @@ const RamentList: React.FC<RamenListType> = ({
     console.log(value);
   };
 
-  const ramenPerPage = 8; // 페이지당 라면 개수
-  const currentPageLast = currentPage * ramenPerPage; // 현재 페이지의 처음
-  const currentPageFirst = currentPageLast - ramenPerPage; /// 현재 페이지의 끝
-  const currentRamens = currentRamenType.slice(
-    currentPageFirst,
-    currentPageLast
-  ); // 0 ~ 8
+  const ramenPerPage = 12; // 페이지당 라면 개수
+  const ramenRowCount = 4;
+  // const currentPageLast = currentPage * ramenPerPage; // 현재 페이지의 처음
+  const currentPageFirst = currentPage * ramenPerPage - ramenPerPage; /// 현재 페이지의 끝
+  const currentRamens = [
+    currentRamenType.slice(currentPageFirst, currentPageFirst + ramenRowCount),
+    currentRamenType.slice(
+      currentPageFirst + ramenRowCount,
+      currentPageFirst + ramenRowCount * 2
+    ),
+    currentRamenType.slice(
+      currentPageFirst + ramenRowCount * 2,
+      currentPageFirst + ramenRowCount * 3
+    ),
+  ]; // 0 ~ 8
+
+  console.log("test", currentRamens);
   const pageNumber = Math.ceil(currentRamenType.length / ramenPerPage);
   // const imageListheight = currentRamens.length <= 4 ? 350 : 550; // 현재 페이지 갯수에 따른 높이 조정
   return (
@@ -109,29 +117,35 @@ const RamentList: React.FC<RamenListType> = ({
               </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
-              <ImageList sx={{ width: "100%" }} cols={4} gap={10}>
-                {currentRamens.map((ramen) => (
-                  <ImageListItem key={ramen.ramenId}>
-                    <div className="test">
-                      <Link href={`/ramen/${ramen.ramenId}`}>
-                        <a>
-                          <img
-                            src={`/ramen/${ramen.name}.png?w=248&fit=crop&auto=format`}
-                            srcSet={`/ramen/${ramen.name}.png?w=248&fit=crop&auto=format&dpr=2 2x`}
-                            alt={ramen.name}
-                            loading="lazy"
-                          />
-                          <ImageListItemBar
-                            title={ramen.name}
-                            position="below"
-                            className="test1"
-                          />
-                        </a>
-                      </Link>
-                    </div>
-                  </ImageListItem>
-                ))}
-              </ImageList>
+              <Container>
+                {currentRamens.map((tempRamenList, idxList) => {
+                  return (
+                    <Row key={idxList}>
+                      {currentRamens[idxList].map((ramen, idxRamen) => {
+                        return (
+                          <Col sm={3} key={idxRamen}>
+                            <Link href={`/ramen/${ramen.ramenId}`}>
+                              <a>
+                                {ramenPngs.includes(`${ramen.name}.png`) ? (
+                                  <img
+                                    src={`/ramen/${ramen.name}.png`}
+                                    srcSet={`/ramen/${ramen.name}.png`}
+                                    alt={ramen.name}
+                                    loading="lazy"
+                                  />
+                                ) : (
+                                  <img src={"/ramen/default.png"} />
+                                )}
+                              </a>
+                            </Link>
+                            <h4>{ramen.name}</h4>
+                          </Col>
+                        );
+                      })}
+                    </Row>
+                  );
+                })}
+              </Container>
             </TabPanel>
           </Box>
         </div>
