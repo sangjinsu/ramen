@@ -37,28 +37,25 @@ const Home: NextPage = () => {
         })
         // accessToken 유효 X
         .catch(function (error) {
-          if (error.response.status === 401) {
-            axios
-              .get(`${AUTH_URL}/refresh`, {
-                headers: {
-                  Authorization: `Bearer ${refreshToken}`,
-                },
-              })
-              // 추천 라면 가져오기
-              .then(function (response) {
-                setCookies("accessToken", response.data.accessToken);
-                setAccessToken(response.data.accessToken);
-                axios.get(
-                  `http://j6c104.p.ssafy.io.:8084/v1/recommend/ibcf/${memberID}`
-                );
-              })
-              .catch(function (error) {
-                alert("로그인 세션 시간이 만료되었습니다.");
-                if (error.response.statue === 401) {
-                  Router.replace("/login");
-                }
-              });
-          }
+          axios
+            .get(`${AUTH_URL}/refresh`, {
+              headers: {
+                Authorization: `Bearer ${refreshToken}`,
+              },
+            })
+            // 추천 라면 가져오기
+            .then(function (response) {
+              setCookies("accessToken", response.data.accessToken);
+              setAccessToken(response.data.accessToken);
+              axios.get(
+                `http://j6c104.p.ssafy.io.:8084/v1/recommend/ibcf/${memberID}`
+              );
+            })
+            .catch(function (error) {
+              alert("로그인 세션 시간이 만료되었습니다.");
+
+              Router.replace("/login");
+            });
         });
     } else {
       console.log("로그인 안함");
