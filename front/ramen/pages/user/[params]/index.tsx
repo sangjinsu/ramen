@@ -25,6 +25,8 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import Heart from "../../../components/Heart";
 import serverURLDoc from "../../../components/main/ServerURL";
+import { Container, Row, Col } from "react-bootstrap";
+import ramenPngDoc from "../../../components/main/data";
 
 const AUTH_URL = serverURLDoc.AUTH_URL;
 const accessToken = getCookie("accessToken");
@@ -34,7 +36,9 @@ const gender = getCookie("gender");
 const member_id = getCookie("member_id");
 
 const Detail: React.FC<userPageType> = ({ params, fonds }) => {
+  const ramenPngs = ramenPngDoc;
   const [likeRamens, setLikeRamens] = React.useState([]);
+  const fondTitle = ["면의 길이", "면의 식감", "계란", "맵기"];
   const eatFond = [
     fonds.noodleLength,
     fonds.noodleTexture,
@@ -175,96 +179,140 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
 
         <div className="right_area">
           <section className="main_section">
-            <div className="right_user_name">김동일</div>
+            <Container>
+              <Row>
+                <Col>
+                  <div className="user_info">
+                    <FontAwesomeIcon icon={faUser} />
+                    <p className="font_right">{name}</p>
+                  </div>
+                </Col>
+                <Col>
+                  <div className="user_info">
+                    <Link
+                      href={{
+                        pathname: `/user/${params}/preferenceupdate`,
+                        query: fonds,
+                      }}
+                      as={`/user/${params}/preferenceupdate`}
+                    >
+                      <a className="fond_update">
+                        <FontAwesomeIcon icon={faUtensils} />
+                        <p className="font_right">취향 수정</p>
+                      </a>
+                    </Link>
+                  </div>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <div className="user_info">
+                    <FontAwesomeIcon icon={faCakeCandles} />
+                    <p className="font_right">{age}</p>
+                  </div>
+                </Col>
+                <Col>
+                  <div className="user_info">
+                    <FontAwesomeIcon icon={faPerson} />
+                    <p className="font_right">{gender}</p>
+                  </div>
+                </Col>
+              </Row>
+            </Container>
           </section>
 
           <section>
             <div className="section_title">라면 취향</div>
-
             <div className="taste_infos">
-              <div className="taste_info">
-                <div className="taste_info_title">면 크기</div>
-                <div className="taste_info_detail">{eatFond[0]}</div>
-              </div>
-              <div className="taste_info">
-                <div className="taste_info_title">면의 식감</div>
-                <div className="taste_info_detail">{eatFond[1]}</div>
-              </div>
-              <div className="taste_info">
-                <div className="taste_info_title">계란</div>
-                <div className="taste_info_detail">{eatFond[2]}</div>
-              </div>
-              <div className="taste_info">
-                <div className="taste_info_title">맵기</div>
-                <div className="taste_info_detail">{eatFond[3]}</div>
-              </div>
-            </div>
-
-            <div className="like_infos">
-              <ImageList sx={{ width: "100%" }} cols={2} gap={10}>
-                {eatFond.map((eat) => (
-                  <div className="like_info" key={eat}>
-                    <ImageListItem>
-                      <img
-                        src={`/topping/${eat}.jpg?w=248&fit=crop&auto=format`}
-                        srcSet={`/topping/${eat}.jpg?w=248&fit=crop&auto=format&dpr=2 2x`}
-                        alt={eat}
-                        loading="lazy"
-                      />
-                    </ImageListItem>
-                  </div>
-                ))}
-              </ImageList>
-            </div>
-
-            <div className="taste_infos">
-              <div className="taste_info">
-                <div className="taste_info_title">토핑</div>
-                <div className="taste_info_detail topping_info">
-                  {toppingFonds.map(function (topping, i) {
-                    return <p key={i}>{topping}</p>;
+              <Container>
+                <Row>
+                  {fondTitle.map((title, idxTitle) => {
+                    return (
+                      <Col sm={3} key={idxTitle}>
+                        <div className="taste_info">
+                          <div className="taste_info_title">
+                            {fondTitle[idxTitle]}
+                          </div>
+                          <div className="taste_info_detail">
+                            {eatFond[idxTitle]}
+                          </div>
+                        </div>
+                        <img
+                          style={{ width: "100%" }}
+                          src={`/topping/${eatFond[idxTitle]}.jpg`}
+                          srcSet={`/topping/${eatFond[idxTitle]}.jpg`}
+                          loading="lazy"
+                        />
+                      </Col>
+                    );
                   })}
-                </div>
-              </div>
-              <div className="taste_info">
-                <div className="taste_info_title">국물 재료</div>
-                <div className="taste_info_detail topping_info">
-                  {ingredientFonds.map(function (ingredientFond, i) {
-                    return <p key={i}>{ingredientFond}</p>;
-                  })}
-                </div>
-              </div>
-            </div>
+                </Row>
 
-            <div className="like_infos">
-              <ImageList sx={{ width: "100%" }} cols={3} gap={10}>
-                {toppingFonds.map((topping) => (
-                  <div className="like_info" key={topping}>
-                    <ImageListItem>
+                <Row>
+                  <Col>
+                    <div className="taste_info">
+                      <div className="taste_info_title">토핑</div>
+                    </div>
+                  </Col>
+                </Row>
+                {toppingFonds[0] === "없음" ? (
+                  <Row className="justify-content-md-center">
+                    <Col sm={3}>
+                      <p style={{ textAlign: "center" }}>안 넣음</p>
                       <img
-                        src={`/topping/${topping}.jpg?w=248&fit=crop&auto=format`}
-                        srcSet={`/topping/${topping}.jpg?w=248&fit=crop&auto=format&dpr=2 2x`}
-                        alt={topping}
-                        loading="lazy"
+                        src={`/topping/안 넣음.jpg`}
+                        style={{ width: "100%", height: "70%" }}
                       />
-                    </ImageListItem>
-                  </div>
-                ))}
-              </ImageList>
-              <ImageList sx={{ width: "100%" }} cols={3} gap={10}>
-                {ingredientFonds.map((ingredient) => (
-                  <div className="like_info" key={ingredient}>
-                    <ImageListItem>
+                    </Col>
+                  </Row>
+                ) : (
+                  <Row className="justify-content-md-center">
+                    {toppingFonds.map(function (topping, idxTopping) {
+                      return (
+                        <Col key={idxTopping} sm={3}>
+                          <p style={{ textAlign: "center" }}>{topping}</p>
+                          <img
+                            src={`/topping/${topping}.jpg`}
+                            style={{ width: "100%" }}
+                          />
+                        </Col>
+                      );
+                    })}
+                  </Row>
+                )}
+                <Row>
+                  <Col>
+                    <div className="taste_info">
+                      <div className="taste_info_title">국물 재료</div>
+                    </div>
+                  </Col>
+                </Row>
+                {ingredientFonds[0] === "없음" ? (
+                  <Row className="justify-content-md-center">
+                    <Col sm={3}>
+                      <p style={{ textAlign: "center" }}>안 넣음</p>
                       <img
-                        src={`/topping/${ingredient}.jpg?w=248&fit=crop&auto=format`}
-                        srcSet={`/topping/${ingredient}.jpg?w=248&fit=crop&auto=format&dpr=2 2x`}
-                        alt={ingredient}
-                        loading="lazy"
+                        src={`/topping/안 넣음.jpg`}
+                        style={{ width: "100%" }}
                       />
-                    </ImageListItem>
-                  </div>
-                ))}
-              </ImageList>
+                    </Col>
+                  </Row>
+                ) : (
+                  <Row className="justify-content-md-center">
+                    {ingredientFonds.map(function (ingredient, idxIngredient) {
+                      return (
+                        <Col key={idxIngredient} sm={3}>
+                          <p style={{ textAlign: "center" }}>{ingredient}</p>
+                          <img
+                            src={`/topping/${ingredient}.jpg`}
+                            style={{ width: "100%", height: "70%" }}
+                          />
+                        </Col>
+                      );
+                    })}
+                  </Row>
+                )}
+              </Container>
             </div>
           </section>
 
@@ -277,12 +325,18 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
                     <ImageListItem>
                       <Link href={`/ramen/${ramen[1]}`}>
                         <a className="left_link_area">
-                          <img
-                            src={`/ramen/${ramen[0]}.png?w=248&fit=crop&auto=format`}
-                            srcSet={`/ramen/${ramen[0]}.png?w=248&fit=crop&auto=format&dpr=2 2x`}
-                            alt={ramen[0]}
-                            loading="lazy"
-                          />
+                          {ramenPngs.includes(`${ramen[0]}.png`) ? (
+                            <img
+                              width={150}
+                              height={150}
+                              src={`/ramen/${ramen[0]}.png`}
+                              srcSet={`/ramen/${ramen[0]}.png`}
+                              alt={ramen[0]}
+                              loading="lazy"
+                            />
+                          ) : (
+                            <img width={150} src={`/ramen/default.png`}></img>
+                          )}
                         </a>
                       </Link>
                     </ImageListItem>
