@@ -54,45 +54,45 @@ const Detail: React.FC<RamenDetailType> = ({
     }
   }, []);
 
-  useEffect(() => {
-    const logSend = async () => {
-      if (memberId) {
-        await axios
-          .post(`http://j6c104.p.ssafy.io.:8080/v1/log`, {
-            logDto: {
-              memberId: memberId,
-              ramenId: params,
-            },
-          })
-          .then(function (response) {
-            console.log("1", response);
-          })
-          .catch(function (error) {
-            console.log("1", verror);
-          });
-        await axios
-          .get(
-            `http://j6c104.p.ssafy.io:8888/v1/ranking/view/${params}/${memberId}`
-          )
-          .then(function (response) {
-            console.log("2", response);
-          })
-          .catch(function (error) {
-            console.log("2", error);
-          });
-      } else {
-        await axios
-          .get(`http://j6c104.p.ssafy.io:8888/v1/ranking/view/${params}`)
-          .then(function (response) {
-            console.log("3", response);
-          })
-          .catch(function (error) {
-            console.log("3", error);
-          });
-      }
-    };
-    logSend();
-  }, []);
+  // useEffect(() => {
+  //   const logSend = async () => {
+  //     if (memberId) {
+  //       await axios
+  //         .post(`http://j6c104.p.ssafy.io.:8080/v1/log`, {
+  //           logDto: {
+  //             memberId: memberId,
+  //             ramenId: params,
+  //           },
+  //         })
+  //         .then(function (response) {
+  //           console.log("1", response);
+  //         })
+  //         .catch(function (error) {
+  //           console.log("1", verror);
+  //         });
+  //       await axios
+  //         .get(
+  //           `http://j6c104.p.ssafy.io:8888/v1/ranking/view/${params}/${memberId}`
+  //         )
+  //         .then(function (response) {
+  //           console.log("2", response);
+  //         })
+  //         .catch(function (error) {
+  //           console.log("2", error);
+  //         });
+  //     } else {
+  //       await axios
+  //         .get(`http://j6c104.p.ssafy.io:8888/v1/ranking/view/${params}`)
+  //         .then(function (response) {
+  //           console.log("3", response);
+  //         })
+  //         .catch(function (error) {
+  //           console.log("3", error);
+  //         });
+  //     }
+  //   };
+  //   logSend();
+  // }, []);
 
   return (
     <>
@@ -104,18 +104,20 @@ const Detail: React.FC<RamenDetailType> = ({
                 <div className="left_ramenName">{ramenInfos.name}</div>
               </section>
               <section>
-                {ramenPngs.includes(`${ramenInfos.name}.png`) ? (
-                  <img
-                    src={`/ramen/${ramenInfos.name}.png?w=248&fit=crop&auto=format`}
-                    className="left_ramen_img"
-                  />
-                ) : (
-                  <img src={"/ramen/default.png"} />
-                )}
+                <div className="left_img_area">
+                  {ramenPngs.includes(`${ramenInfos.name}.png`) ? (
+                    <img
+                      src={`/ramen/${ramenInfos.name}.png?w=248&fit=crop&auto=format`}
+                      className="left_ramen_img"
+                    />
+                  ) : (
+                    <img src={"/ramen/default.png"} />
+                  )}
+                </div>
               </section>
               <section className="left_area_btn">
                 <Heart params={params} />
-                <div>좋아요</div>
+                <div className="left_like_writing">좋아요</div>
               </section>
             </div>
 
@@ -124,14 +126,20 @@ const Detail: React.FC<RamenDetailType> = ({
               <Col xs={12} md={12} lg={12}>
                 <section className="main_section">
                   <div className="right_ramenName">
-                    {ramenInfos.name}
-                    <Heart params={params} />
+                    <div className="right_ramen_area">{ramenInfos.name}</div>
+                    <div className="right_heart">
+                      <Heart params={params} />
+                    </div>
                   </div>
                   <div className="right_ramen_img_area">
-                    <img
-                      src={`/ramen/${ramenInfos.name}.png?w=248&fit=crop&auto=format`}
-                      className="right_ramen_img"
-                    />
+                    {ramenPngs.includes(`${ramenInfos.name}.png`) ? (
+                      <img
+                        src={`/ramen/${ramenInfos.name}.png?w=248&fit=crop&auto=format`}
+                        className="right_ramen_img"
+                      />
+                    ) : (
+                      <img src={"/ramen/default.png"} />
+                    )}
                   </div>
                 </section>
 
@@ -231,6 +239,12 @@ const Detail: React.FC<RamenDetailType> = ({
             }
           }
 
+          .left_img_area {
+            margin: 10px;
+            display: flex;
+            justify-content: center;
+          }
+
           .left_ramen_img {
             width: 100%;
           }
@@ -239,6 +253,10 @@ const Detail: React.FC<RamenDetailType> = ({
             display: flex;
             flex-direction: row;
             align-items: center;
+          }
+
+          .left_like_writing {
+            margin-top: 0.12rem;
           }
 
           .right_ramen_img_area {
@@ -271,6 +289,10 @@ const Detail: React.FC<RamenDetailType> = ({
             .main_section {
               display: none;
             }
+          }
+
+          .right_heart {
+            margin-bottom: 0.8rem;
           }
 
           section {
@@ -309,6 +331,9 @@ const Detail: React.FC<RamenDetailType> = ({
             font-size: 20px;
             transform: translate(-0.0625rem, -0.0625rem);
             box-shadow: rgba(0, 0, 0, 0.05) 0px 10px 15px -3px;
+          }
+          .right_ramen_area {
+            margin-bottom: 0.5rem;
           }
 
           .ramen_infos {

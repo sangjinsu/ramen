@@ -20,7 +20,7 @@ const BarCustom = ({ barChartData }: { barChartData: DataProps }) => {
       chartRef.current = new Chart(ctx, {
         type: "bar",
         data: {
-          labels: ["One", "Recommend", "Average"],
+          labels: ["현재", "평균", "1일 권장량"],
           datasets: [
             {
               label: "라면 성분",
@@ -30,36 +30,14 @@ const BarCustom = ({ barChartData }: { barChartData: DataProps }) => {
                 barChartData.data[2],
               ],
               backgroundColor: [
-                "rgba(46, 204, 113, 0.2)",
-                "rgba(46, 204, 54, 0.2)",
+                "rgba(54, 162, 235, 0.2)",
+                "rgba(255, 99, 132, 0.2)",
                 "rgba(46, 204, 70, 0.2)",
               ],
               borderColor: "black",
-              borderWidth: 1,
+              borderWidth: 0,
+              barThickness: 30,
             },
-            // datasets: [
-            //   {
-            //     label: "탄수화물",
-            //     data: [testData.testData[0]],
-            //     backgroundColor: "rgba(46, 204, 113, 0.2)",
-            //     borderColor: "black",
-            //     borderWidth: 1
-            //   },
-            //   {
-            //     label: "단백질",
-            //     data: [testData.testData[1]],
-            //     backgroundColor: "rgba(41, 128, 185, 0.2)",
-            //     borderColor: "black",
-            //     borderWidth: 1
-            //   },
-            //   {
-            //     label: "지방",
-            //     data: [testData.testData[2]],
-            //     backgroundColor: "rgba(192, 57, 43, 0.2)", // 남자일 때 : rgba(41, 128, 185, 0.2), 여자일 때 : rgba(192, 57, 43, 0.2)
-            //     borderColor: "black",
-            //     borderWidth: 1
-            //   }
-            // ]
           ],
         },
 
