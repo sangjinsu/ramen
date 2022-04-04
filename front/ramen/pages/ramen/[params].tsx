@@ -104,18 +104,20 @@ const Detail: React.FC<RamenDetailType> = ({
                 <div className="left_ramenName">{ramenInfos.name}</div>
               </section>
               <section>
-                {ramenPngs.includes(`${ramenInfos.name}.png`) ? (
-                  <img
-                    src={`/ramen/${ramenInfos.name}.png?w=248&fit=crop&auto=format`}
-                    className="left_ramen_img"
-                  />
-                ) : (
-                  <img src={"/ramen/default.png"} />
-                )}
+                <div className="left_img_area">
+                  {ramenPngs.includes(`${ramenInfos.name}.png`) ? (
+                    <img
+                      src={`/ramen/${ramenInfos.name}.png?w=248&fit=crop&auto=format`}
+                      className="left_ramen_img"
+                    />
+                  ) : (
+                    <img src={"/ramen/default.png"} />
+                  )}
+                </div>
               </section>
               <section className="left_area_btn">
                 <Heart params={params} />
-                <div>좋아요</div>
+                <div className="left_like_writing">좋아요</div>
               </section>
             </div>
 
@@ -125,7 +127,9 @@ const Detail: React.FC<RamenDetailType> = ({
                 <section className="main_section">
                   <div className="right_ramenName">
                     {ramenInfos.name}
-                    <Heart params={params} />
+                    <div className="right_heart">
+                      <Heart params={params} />
+                    </div>
                   </div>
                   <div className="right_ramen_img_area">
                     {ramenPngs.includes(`${ramenInfos.name}.png`) ? (
@@ -235,6 +239,12 @@ const Detail: React.FC<RamenDetailType> = ({
             }
           }
 
+          .left_img_area {
+            margin: 10px;
+            display: flex;
+            justify-content: center;
+          }
+
           .left_ramen_img {
             width: 100%;
           }
@@ -243,6 +253,10 @@ const Detail: React.FC<RamenDetailType> = ({
             display: flex;
             flex-direction: row;
             align-items: center;
+          }
+
+          .left_like_writing {
+            margin-top: 0.12rem;
           }
 
           .right_ramen_img_area {
@@ -275,6 +289,10 @@ const Detail: React.FC<RamenDetailType> = ({
             .main_section {
               display: none;
             }
+          }
+
+          .right_heart {
+            margin-bottom: 0.3rem;
           }
 
           section {
