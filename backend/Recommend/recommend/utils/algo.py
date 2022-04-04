@@ -138,15 +138,11 @@ def user_based_cf(member_id):
     fond_ratings['rating'] = fond_ratings['rating'].apply(lambda x : cf_fond(member_id, x))
     
     fond_recommendations = fond_ratings.sort_values(by='rating', ascending=False)
-    print(fond_recommendations.shape, recommendations.shape)
-    recommendations = recommendations.to_frame()
-    recommendations = recommendations.rename(columns = {33:'rating'})
-    print(fond_recommendations, recommendations)
+    recommendations = recommendations.to_frame(name='rating')
     
     weight = [0.8, 0.2]
     predictions: pd.DataFrame = recommendations * weight[0] + fond_recommendations * weight[1]
     predictions = predictions.drop(rated_ramen, axis=0)
-    print(predictions)
     
     pred_sort = predictions.sort_values(ascending=False, by='rating')[:3]
     recom_ramens = df_ramen.loc[pred_sort.index]['name']
@@ -155,6 +151,8 @@ def user_based_cf(member_id):
      
 def item_based_cf(member_id):
     df_rating = member_like_ramen()
+    df_member = member()
+    rated_ramen = df_rating.loc[df_rating['member_id']==member_id]['ramen_id'].tolist()
 
     ratings_matrix = df_rating.pivot(index='member_id', columns='ramen_id', values='rating')
     
@@ -178,7 +176,7 @@ def item_based_cf(member_id):
             mean_rating = 3.0
         return mean_rating
     
-    def recom_ramen(member_id, n_items):
+    def recom_ramen(member_id):
         member_ramen = ratings_matrix.loc[member_id].copy()
         for ramen in ratings_matrix.columns:
             if pd.notnull(member_ramen.loc[ramen]):
@@ -186,14 +184,47 @@ def item_based_cf(member_id):
             else:
                 member_ramen.loc[ramen] = CF_IBCF(member_id, ramen)
   
-        ramen_sort = member_ramen.sort_values(ascending=False)[:n_items]
-        recom_ramens = df_ramen.loc[ramen_sort.index]
-        recommendations = recom_ramens['name']
-        return recommendations
+        return member_ramen
 
-    recommendations = recom_ramen(member_id, n_items=3)
+    recommendations = recom_ramen(member_id)
     
-    return recommendations.to_dict()
+    merged_ratings  = pd.merge(df_rating, member(), on='member_id')
+    merged_ratings = merged_ratings.set_index('member_id').drop(['fond_id'], axis=1)
+    
+    groupby_key = merged_ratings.columns.tolist()
+    groupby_key.remove('rating')
+
+    fond_mean = pd.DataFrame(merged_ratings[merged_ratings.columns].groupby(groupby_key)['rating'].mean())
+    
+    rating_matrix = df_rating.pivot(index='member_id', columns='ramen_id', values='rating')
+    rating_matrix = rating_matrix.fillna(0)
+    
+    groupby_key.remove('ramen_id')
+    def cf_fond(member_id, ramen_id):
+        if ramen_id in rating_matrix.columns:
+            fond = df_member.loc[[member_id], groupby_key]
+            fond = tuple(fond.values.tolist()[0])
+            if fond in fond_mean.loc[ramen_id].index.to_list():
+                fond_rating = fond_mean.loc[(ramen_id, ) + fond]['rating']
+            else:
+                fond_rating = 3.0
+        else:
+            fond_rating = 3.0
+        return fond_rating
+    fond_ratings = pd.DataFrame(index=df_rating['ramen_id'].drop_duplicates(), columns=['rating'])
+    fond_ratings['rating'] = df_rating['ramen_id']
+    fond_ratings['rating'] = fond_ratings['rating'].apply(lambda x : cf_fond(member_id, x))
+    
+    fond_recommendations = fond_ratings.sort_values(by='rating', ascending=False)
+    recommendations = recommendations.to_frame(name='rating')
+    
+    weight = [0.8, 0.2]
+    predictions: pd.DataFrame = recommendations * weight[0] + fond_recommendations * weight[1]
+    predictions = predictions.drop(rated_ramen, axis=0)
+    
+    pred_sort = predictions.sort_values(ascending=False, by='rating')[:3]
+    recom_ramens = df_ramen.loc[pred_sort.index]['name']
+    return recom_ramens.to_dict()
 
 def ramen_similarity(ramen_id):
     similarities_others = similarities.drop([ramen_id])
@@ -262,15 +293,15 @@ def train_ai():
     
 
 def deaplearning_based_rc(member_id):
+    rated_ramen = df_rating.loc[df_rating['member_id']==member_id]['ramen_id'].tolist()
     model = keras.models.load_model('ramen_rc_model', custom_objects={"RMSE": RMSE })
     # 전체 평균 계산
     member_ids = np.array([member_id] * len(df_ramen.index)) 
-    ramen_ids = np.arange(1, len(df_ramen.index) + 1)
+    ramen_ids = np.array(df_ramen.index)
     try :
         predictions = model.predict([member_ids, ramen_ids]) + mu
         predictions = pd.DataFrame(predictions, columns=['predict_rate'])
-        predictions.index += 1
-        predicton_ids = predictions.sort_values(by=['predict_rate'], ascending=False).head(3).index
+        predicton_ids = predictions.drop(rated_ramen).sort_values(by=['predict_rate'], ascending=False).head(5).index
         return df_ramen.loc[predicton_ids]['name'].to_dict()
     except Exception:
         raise exceptions.NotFound(detail="추천 받을 수 없습니다")
