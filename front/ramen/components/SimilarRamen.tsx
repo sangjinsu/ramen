@@ -89,36 +89,52 @@ export default function SimilarRamen({
   });
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
-        >
-          <Tab label={similarityRamen.first.name} {...a11yProps(0)} />
-          <Tab label={similarityRamen.second.name} {...a11yProps(1)} />
-          <Tab label={similarityRamen.third.name} {...a11yProps(2)} />
-        </Tabs>
+    <>
+      <Box sx={{ width: "100%" }}>
+        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="basic tabs example"
+          >
+            <Tab label={similarityRamen.first.name} {...a11yProps(0)} />
+            <Tab label={similarityRamen.second.name} {...a11yProps(1)} />
+            <Tab label={similarityRamen.third.name} {...a11yProps(2)} />
+          </Tabs>
+        </Box>
+        <TabPanel value={value} index={0}>
+          <div className="similar_ramen">
+            <img
+              src={`/ramen/${similarityRamen.first.name}.png?w=248&fit=crop&auto=format`}
+            ></img>
+          </div>
+          <BarSimilar barChartData={barChartData} />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <div className="similar_ramen">
+            <img
+              src={`/ramen/${similarityRamen.second.name}.png?w=248&fit=crop&auto=format`}
+            ></img>
+          </div>
+          <BarSimilar barChartData={barChartData} />
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          <div className="similar_ramen">
+            <img
+              src={`/ramen/${similarityRamen.third.name}.png?w=248&fit=crop&auto=format`}
+            ></img>
+          </div>
+          <BarSimilar barChartData={barChartData} />
+        </TabPanel>
       </Box>
-      <TabPanel value={value} index={0}>
-        <img
-          src={`/ramen/${similarityRamen.first.name}.png?w=248&fit=crop&auto=format`}
-        ></img>
-        <BarSimilar barChartData={barChartData} />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <img
-          src={`/ramen/${similarityRamen.second.name}.png?w=248&fit=crop&auto=format`}
-        ></img>
-        <BarSimilar barChartData={barChartData} />
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        <img
-          src={`/ramen/${similarityRamen.third.name}.png?w=248&fit=crop&auto=format`}
-        ></img>
-        <BarSimilar barChartData={barChartData} />
-      </TabPanel>
-    </Box>
+      <style jsx>
+        {`
+          .similar_ramen {
+            display: flex;
+            justify-content: center;
+          }
+        `}
+      </style>
+    </>
   );
 }

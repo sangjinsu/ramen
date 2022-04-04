@@ -73,7 +73,7 @@ const Youtube = ({ searchTitle }: { searchTitle: string }) => {
   }, []);
   return (
     <div>
-      <div className="asdasd">
+      <div className="youtube_video">
         <iframe
           id={id}
           width="100%"
@@ -86,8 +86,9 @@ const Youtube = ({ searchTitle }: { searchTitle: string }) => {
       </div>
       <style jsx>
         {`
-          .asdasd {
+          .youtube_video {
             width: 100%;
+            margin-top: 0.5rem;
           }
         `}
       </style>

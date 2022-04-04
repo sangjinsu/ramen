@@ -28,6 +28,8 @@ const Detail: React.FC<RamenDetailType> = ({
   console.log(ramenInfos);
   const router = useRouter();
 
+  const searchTitle = ramenInfos.brand + " " + ramenInfos.name;
+
   const barChartData: DataProps = {
     data: [
       ramenInfos.kcal,
@@ -60,11 +62,11 @@ const Detail: React.FC<RamenDetailType> = ({
           },
         });
         await axios.get(
-          `http://j6c104.p.ssafy.io:8081/v1/ranking/view/${params}/${memberId}`
+          `http://j6c104.p.ssafy.io:8888/v1/ranking/view/${params}/${memberId}`
         );
       } else {
         await axios.get(
-          `http://j6c104.p.ssafy.io:8081/v1/ranking/view/${params}`
+          `http://j6c104.p.ssafy.io:8888/v1/ranking/view/${params}`
         );
       }
     };
@@ -162,7 +164,7 @@ const Detail: React.FC<RamenDetailType> = ({
                 </section>
 
                 <section>
-                  <Youtube searchTitle={ramenInfos.name}></Youtube>
+                  <Youtube searchTitle={searchTitle}></Youtube>
                 </section>
               </Col>
               <Col xs={0} md={12} lg={0}></Col>
