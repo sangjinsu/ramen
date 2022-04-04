@@ -166,7 +166,15 @@ export default function NavBar() {
                         </Dropdown.Item>
                       )}
                       {validRefreshToken ? (
-                        <Dropdown.Item href="#/action-3">
+                        <Dropdown.Item
+                          onClick={() => {
+                            router.push({
+                              pathname: `user/${Number(
+                                getCookie("member_id")
+                              )}`,
+                            });
+                          }}
+                        >
                           마이페이지
                         </Dropdown.Item>
                       ) : null}
