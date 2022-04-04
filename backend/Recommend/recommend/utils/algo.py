@@ -106,7 +106,7 @@ def user_based_cf(member_id):
         recommendations = recom_ramens['name']
         return recommendations
 
-    recommendations = recom_ramen(member_id, n_items=5, neighbor_size=30)
+    recommendations = recom_ramen(member_id, n_items=3, neighbor_size=30)
     
     return recommendations.to_dict()
      
@@ -149,14 +149,14 @@ def item_based_cf(member_id):
         recommendations = recom_ramens['name']
         return recommendations
 
-    recommendations = recom_ramen(member_id, n_items=5)
+    recommendations = recom_ramen(member_id, n_items=3)
     
     return recommendations.to_dict()
 
 def ramen_similarity(ramen_id):
     similarities_others = similarities.drop([ramen_id])
-    top10 = similarities_others[ramen_id].sort_values(ascending=False).head(10).index
-    return df_ramen.loc[top10]['name'].to_dict()
+    top3 = similarities_others[ramen_id].sort_values(ascending=False).head(3).index
+    return df_ramen.loc[top3][['name', 'salty', 'sweetness']].T.to_dict()
 
 def RMSE(y_true, y_pred):
         return tf.sqrt(tf.reduce_mean(tf.square(y_true - y_pred)))
@@ -228,7 +228,7 @@ def deaplearning_based_rc(member_id):
         predictions = model.predict([member_ids, ramen_ids]) + mu
         predictions = pd.DataFrame(predictions, columns=['predict_rate'])
         predictions.index += 1
-        predicton_ids = predictions.sort_values(by=['predict_rate'], ascending=False).head(5).index
+        predicton_ids = predictions.sort_values(by=['predict_rate'], ascending=False).head(3).index
         return df_ramen.loc[predicton_ids]['name'].to_dict()
     except Exception:
         raise exceptions.NotFound(detail="추천 받을 수 없습니다")
