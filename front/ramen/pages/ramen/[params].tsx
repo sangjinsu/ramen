@@ -13,7 +13,10 @@ import Youtube from "../../components/Youtube";
 import { Container, Row, Col } from "react-bootstrap";
 import Heart from "../../components/Heart";
 
+const memberId = getCookie("member_id");
+
 const Detail: React.FC<RamenDetailType> = ({ params, ramenInfos }) => {
+  const [similarityRamen, setsimilarityRamen] = useState();
   console.log(ramenInfos);
 
   const barChartData: DataProps = {
@@ -30,6 +33,40 @@ const Detail: React.FC<RamenDetailType> = ({ params, ramenInfos }) => {
   const pieChartData: DataProps = {
     data: [ramenInfos.carbs, ramenInfos.protein, ramenInfos.lipid],
   };
+
+  useEffect(() => {
+    const similarityFetch = async () => {
+      const { data: similarityRamen } = await axios.get(
+        `http://j6c104.p.ssafy.io.:8084/v1/recommend/similarity/${params}`
+      );
+      setsimilarityRamen(similarityRamen);
+      console.log(similarityRamen);
+    };
+    similarityFetch();
+  }, []);
+
+  useEffect(() => {
+    const logSend = async () => {
+      if (memberId) {
+        await axios.post(`http://j6c104.p.ssafy.io.:8080/v1/log`, {
+          logDto: {
+            memberId: memberId,
+            ramenId: params,
+          },
+        });
+        await axios.get(
+          `http://j6c104.p.ssafy.io.:8081/v1/ranking/view/${params}/${memberId}`,
+          {}
+        );
+      } else {
+        await axios.get(
+          `http://j6c104.p.ssafy.io.:8081/v1/ranking/view/${params}`,
+          {}
+        );
+      }
+    };
+    logSend();
+  }, []);
 
   return (
     <>
@@ -117,7 +154,7 @@ const Detail: React.FC<RamenDetailType> = ({ params, ramenInfos }) => {
 
                 <section>
                   <SimilarRamen
-                    test={["신라면", "간짬뽕", "감자면큰사발면"]}
+                    similarityRamen={similarityRamen}
                   ></SimilarRamen>
                 </section>
 
