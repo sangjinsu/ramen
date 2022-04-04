@@ -39,51 +39,58 @@ const Search3: NextPage = () => {
         setArray(result.data);
       })
       .catch((error) => {
-        console.log('요청실패')
-        console.log(error)
-      })
+        console.log("요청실패");
+        console.log(error);
+      });
+  }, []);
 
-  }, [])
+  return (
+    <>
+      <Container>
+        <Row>
+          <Col xs={2} md={2}></Col>
+          <Col xs={8} md={8}>
+            <div className="keyword">
+              <img src={`keyword/${query.keyWord}.png`} width={100}></img>{" "}
+            </div>
+            <div className="keyword">{queryResult[eng]}</div>
+            <hr></hr>
+            {currentRamens.length ? null : <p>검색결과가 없어용</p>}
+            {currentRamens.map(function (a, index) {
+              let imgpath = `ramen/${a.name}.png`;
+              let ramenName = `${a.name}.png`;
+              return (
+                <ResultBox
+                  key={index}
+                  name={a.name}
+                  brand={a.brand}
+                  image={imgpath}
+                  id={a.ramenId}
+                  ramenName={ramenName}
+                ></ResultBox>
+              );
+            })}
 
-  return <>
-    <Container>
-      <Row>
-        <Col xs={2} md={2}></Col>
-        <Col xs={8} md={8}>
-          <div className='keyword'><img src={`keyword/${query.keyWord}.png`} width={100}></img> </div>
-          <div className='keyword'>{queryResult[eng]}</div>
-          <hr></hr>
-          {currentRamens.length
-            ? null
-            : <p>검색결과가 없어용</p>}
-          {currentRamens.map(function (a, index) {
-            let imgpath = `ramen/${a.name}.png`
-            let ramenName = `${a.name}.png`
-            return (
-              <ResultBox key={index} name={a.name} brand={a.brand} image={imgpath} id={a.ramenId} ramenName={ramenName}></ResultBox>
-            )
-          })}
-
-          <Stack spacing={2} >
-            <Pagination count={pageNumber} shape="rounded" onChange={handleChange} />
-          </Stack>
-
-
-
-        </Col>
-        <Col xs={2} md={2}></Col>
-
-      </Row>
-    </Container>
-    <style jsx>{`
+            <Stack spacing={2}>
+              <Pagination
+                count={pageNumber}
+                shape="rounded"
+                onChange={handleChange}
+              />
+            </Stack>
+          </Col>
+          <Col xs={2} md={2}></Col>
+        </Row>
+      </Container>
+      <style jsx>{`
         .keyword {
           display: inline;
           font-weight: bold;
           font-size: 30px;
         }
       `}</style>
-  </>
-
+    </>
+  );
 };
 
 export default Search3;

@@ -10,22 +10,18 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <SSRProvider>
         <Layout>
-
           <Component {...pageProps} />
         </Layout>
       </SSRProvider>
 
       <style jsx global>
-        {
-          `
-          @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Jua&display=swap');
+        {`
+          @import url("https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Jua&display=swap");
 
-body {
-  font-family: 'Jua', sans-serif;
-    }
-    
-    `
-        }
+          body {
+            font-family: "Jua", sans-serif;
+          }
+        `}
       </style>
     </>
   );

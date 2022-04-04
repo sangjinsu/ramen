@@ -8,6 +8,9 @@ import axios from "axios";
 import { setCookies, getCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import { signupType } from "../../components/Types";
+import serverURLDoc from "../../components/main/ServerURL";
+
+const AUTH_URL = serverURLDoc.AUTH_URL;
 
 function RamenPreference({ router: { query } }: signupType) {
   const Router = useRouter();
@@ -119,7 +122,7 @@ function RamenPreference({ router: { query } }: signupType) {
     const refreshToken = getCookie("refreshToken");
     if (refreshToken) {
       axios
-        .get("http://j6c104.p.ssafy.io:8083/v1/member/refresh", {
+        .get(`${AUTH_URL}/refresh`, {
           headers: {
             Authorization: `Bearer ${refreshToken}`,
           },

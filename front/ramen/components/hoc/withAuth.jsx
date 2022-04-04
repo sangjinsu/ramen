@@ -5,6 +5,9 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { getCookie, setCookies } from "cookies-next";
 import axios from "axios";
+import serverURLDoc from "../../components/main/ServerURL";
+
+const AUTH_URL = serverURLDoc.AUTH_URL;
 
 const withAuth = (WrappedComponent) => {
   return (props) => {
@@ -23,7 +26,7 @@ const withAuth = (WrappedComponent) => {
       // accessToken 유효 검사
       else {
         await axios
-          .get("http://j6c104.p.ssafy.io:8083/v1/member/check-jwt", {
+          .get(`${AUTH_URL}/check-jwt`, {
             headers: {
               Authorization: `Bearer ${accessToken}`,
             },
@@ -39,7 +42,7 @@ const withAuth = (WrappedComponent) => {
             if (error.response.status === 401) {
               // refreshToken 유효 검사
               axios
-                .get("http://j6c104.p.ssafy.io:8083/v1/member/refresh", {
+                .get(`${AUTH_URL}/refresh`, {
                   headers: {
                     Authorization: `Bearer ${refreshToken}`,
                   },

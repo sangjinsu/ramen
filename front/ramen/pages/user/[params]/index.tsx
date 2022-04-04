@@ -24,7 +24,9 @@ import { getCookie, setCookies } from "cookies-next";
 import axios from "axios";
 import { useRouter } from "next/router";
 import Heart from "../../../components/Heart";
+import serverURLDoc from "../../../components/main/ServerURL";
 
+const AUTH_URL = serverURLDoc.AUTH_URL;
 const accessToken = getCookie("accessToken");
 const name = getCookie("name");
 const age = getCookie("age");
@@ -107,7 +109,7 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
       Router.replace("/login");
     } else {
       axios
-        .get("http://j6c104.p.ssafy.io:8083/v1/member/check-jwt", {
+        .get(`${AUTH_URL}/check-jwt`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
@@ -116,7 +118,7 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
           console.log("accessToken 만료");
           if (error.response.status === 401) {
             axios
-              .get("http://j6c104.p.ssafy.io:8083/v1/member/refresh", {
+              .get(`${AUTH_URL}/refresh`, {
                 headers: {
                   Authorization: `Bearer ${refreshToken}`,
                 },
