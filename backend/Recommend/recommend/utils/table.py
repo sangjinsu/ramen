@@ -47,7 +47,7 @@ def ramen():
 def member_like_ramen():
     memberLikeRamens = MemberLikeRamen.objects.values('member_id', 'ramen_id').all()
     memberLikeRamens = pd.DataFrame.from_records(memberLikeRamens)
-    memberLikeRamens['rating'] = 5.0
+    memberLikeRamens['rating'] = 3.0
 
     return memberLikeRamens
 

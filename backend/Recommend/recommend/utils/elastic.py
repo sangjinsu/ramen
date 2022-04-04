@@ -33,7 +33,7 @@ def create_df_log_value(member_id):
     df_user_logs.columns = ['member_id', 'ramen_id']
     # df_user_logs = df_user_logs.set_index(keys=['member_id'], inplace=False, drop=True)
     if USER_LOG_LENGTH > 0:
-        weight = np.arange(USER_LOG_LENGTH, 0, -1) ** 2 / USER_LOG_LENGTH ** 2 * 5
+        weight = np.arange(USER_LOG_LENGTH, 0, -1) / USER_LOG_LENGTH * 5
     else:
         weight = 0.0
         
