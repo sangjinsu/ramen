@@ -224,7 +224,7 @@ function RamenPreference({ router: { query } }: signupType) {
   return (
     <>
       <div>
-        <Container>
+        <Container style={{ width: "70%" }}>
           <SignupPreference
             flagSoup={flagSoup}
             flagTopping={flagTopping}
@@ -242,6 +242,8 @@ function RamenPreference({ router: { query } }: signupType) {
             selectToppingDumpling={selectToppingDumpling}
             onClickChoice={onClickChoice}
           />
+        </Container>
+        <Container>
           <Row>
             <Col>
               <div style={{ float: "left" }}>

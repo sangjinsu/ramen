@@ -25,6 +25,7 @@ import { signupType } from "../../components/Types";
 import { orange } from "@mui/material/colors";
 
 import SendIcon from "@mui/icons-material/Send";
+import { width } from "@mui/system";
 
 const Signup: React.FC<signupType> = ({ router: { query } }) => {
   const Router = useRouter();

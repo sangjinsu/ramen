@@ -63,6 +63,7 @@ export default function SignupPreference({
               {ramenPreferences[idxPreference].map((choice, idxChoice) => {
                 return (
                   <Col
+                    className="mx-5"
                     id={`choice-${idxPreference}-${idxChoice}`}
                     key={idxChoice}
                   >
@@ -112,8 +113,8 @@ export default function SignupPreference({
                         (idxPreference === 5 &&
                           idxChoice === 3 &&
                           (flagSoup || selectSoupGreenOnion))
-                          ? { width: "9rem" }
-                          : { width: "9rem", opacity: "0.5" }
+                          ? { width: "11rem" }
+                          : { width: "10rem", opacity: "0.5" }
                       }
                     >
                       <Avatar
