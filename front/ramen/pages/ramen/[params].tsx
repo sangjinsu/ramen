@@ -71,7 +71,7 @@ const Detail: React.FC<RamenDetailType> = ({
       }
     };
     logSend();
-  // }, []);
+  }, []);
 
   return (
     <>
