@@ -129,7 +129,7 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
         ]);
         setLikeRamens(userLikeList);
       } catch {
-        null;
+        router.push("/");
       }
     };
     userLikeData();
