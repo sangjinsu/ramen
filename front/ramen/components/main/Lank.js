@@ -21,7 +21,7 @@ export default function Lank(props) {
             </ListGroup.Item>
           ) : (
             <ListGroup.Item>
-            <img src={`icon/medal1.png`} width={35}></img>
+              <img src={`icon/medal1.png`} width={35}></img>
               데이터가 없습니다.
               {/* {props.ramen[0].ramenId}/ */}
             </ListGroup.Item>
@@ -32,7 +32,7 @@ export default function Lank(props) {
             </ListGroup.Item>
           ) : (
             <ListGroup.Item>
-            <img src={`icon/medal2.png`} width={35}></img>
+              <img src={`icon/medal2.png`} width={35}></img>
               데이터가 없습니다.
               {/* {props.ramen[0].ramenId}/ */}
             </ListGroup.Item>
@@ -43,7 +43,7 @@ export default function Lank(props) {
             </ListGroup.Item>
           ) : (
             <ListGroup.Item>
-            <img src={`icon/medal3.png`} width={35}></img>
+              <img src={`icon/medal3.png`} width={35}></img>
               데이터가 없습니다.
               {/* {props.ramen[0].ramenId}/ */}
             </ListGroup.Item>
@@ -54,7 +54,7 @@ export default function Lank(props) {
             </ListGroup.Item>
           ) : (
             <ListGroup.Item>
-            <img src={`icon/medal4.png`} width={35}></img>
+              <img src={`icon/medal4.png`} width={35}></img>
               데이터가 없습니다.
               {/* {props.ramen[0].ramenId}/ */}
             </ListGroup.Item>
@@ -101,11 +101,10 @@ function R1(props) {
   return (
     <Link href={`/ramen/${props.id}`}>
       <div style={{ cursor: "pointer" }}>
-      {/* <img src="icon/ranking.png" width={50}></img> 라면랭킹 */}
-      <img src={`icon/medal${props.index}.png`} width={35}></img>
+        {/* <img src="icon/ranking.png" width={50}></img> 라면랭킹 */}
+        <img src={`icon/medal${props.index}.png`} width={35}></img>
         {/* {props.index}위 : {name} ({brand}) */}
         {name} ({brand})
-
       </div>
     </Link>
   );

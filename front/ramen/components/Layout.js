@@ -2,54 +2,44 @@
 /* eslint-disable react/prop-types */
 import NavBar from "./NavBar";
 import Footer from "./Footer";
-import FooterNav from "./FooterNav"
+import FooterNav from "./FooterNav";
 import { useState, useEffect } from "react";
 
-
-
 export default function Layout({ children }) {
-
   const size = useWindowSize();
   // const [size,setSize] = useState(size)
-  const [sizeon,setSizeon] = useState(false)
-  useEffect(()=>{
-    if(size.width<=768){
-      console.log('핸드폰화면Layout')
-      setSizeon(true)
-    }else if(size.width>768){
-      setSizeon(false)
+  const [sizeon, setSizeon] = useState(false);
+  useEffect(() => {
+    if (size.width <= 768) {
+      console.log("핸드폰화면Layout");
+      setSizeon(true);
+    } else if (size.width > 768) {
+      setSizeon(false);
     }
     // console.log(size.width)
     // console.log(size.height)
-  },[size])
+  }, [size]);
 
   return (
     <>
-    {
-      sizeon
-      ?(<div className="navnav">
-      <NavBar></NavBar>
-      <hr style={{margin:"0px"}}></hr>
-      </div>)
-      :<NavBar></NavBar>
-    }
-    {
-      sizeon
-      ?<div className="dm"></div>
-      :null
-    }
-      
-      <div>{children}
-      </div>
+      {sizeon ? (
+        <div className="navnav">
+          <NavBar></NavBar>
+          <hr style={{ margin: "0px" }}></hr>
+        </div>
+      ) : (
+        <NavBar></NavBar>
+      )}
+      {sizeon ? <div className="dm"></div> : null}
+
+      <div>{children}</div>
       <Footer></Footer>
       <FooterNav></FooterNav>
 
-
-
       <style jsx>{`
-      .dm{
-        height:120px;
-      }
+        .dm {
+          height: 120px;
+        }
         .navnav {
           width: 100%;
           position: fixed;
@@ -58,7 +48,7 @@ export default function Layout({ children }) {
           // top: 200px;
           // right: 10px;
           // margin-top:10px;
-          margin:0px;
+          margin: 0px;
           background: white;
           overflow-x: hidden;
           padding: 0px;

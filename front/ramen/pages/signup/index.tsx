@@ -22,11 +22,10 @@ import axios from "axios";
 import { setCookies, getCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import { signupType } from "../../components/Types";
-import { orange } from "@mui/material/colors";
-
 import SendIcon from "@mui/icons-material/Send";
-import { width } from "@mui/system";
+import serverURLDoc from "../../components/main/ServerURL";
 
+const AUTH_URL = serverURLDoc.AUTH_URL;
 const Signup: React.FC<signupType> = ({ router: { query } }) => {
   const Router = useRouter();
 
@@ -145,6 +144,22 @@ const Signup: React.FC<signupType> = ({ router: { query } }) => {
   ]);
 
   useEffect(() => {
+    const refreshToken = getCookie("refreshToken");
+    if (refreshToken) {
+      axios
+        .get(`${AUTH_URL}/refresh`, {
+          headers: {
+            Authorization: `Bearer ${refreshToken}`,
+          },
+        })
+        .then(function (response) {
+          console.log("refresh 성공", response);
+          setCookies("accessToken", response.data.accessToken);
+          Router.push({
+            pathname: "/",
+          });
+        });
+    }
     if (query.userInfo) {
       const prevUserInfo = JSON.parse(query.userInfo);
       setInputEmail(prevUserInfo["inputEmail"]);

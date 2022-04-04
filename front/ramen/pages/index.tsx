@@ -9,6 +9,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { getCookie, setCookies } from "cookies-next";
 import { useRouter } from "next/router";
+import serverURLDoc from "../components/main/ServerURL";
+
+const AUTH_URL = serverURLDoc.AUTH_URL;
 
 const Home: NextPage = () => {
   let [ramen, setRamen] = useState([]);
@@ -22,7 +25,7 @@ const Home: NextPage = () => {
     if (accessToken) {
       setIsLogin(true);
       axios
-        .get("http://j6c104.p.ssafy.io:8083/v1/member/check-jwt", {
+        .get(`${AUTH_URL}/check-jwt`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
@@ -36,7 +39,7 @@ const Home: NextPage = () => {
         .catch(function (error) {
           if (error.response.status === 401) {
             axios
-              .get("http://j6c104.p.ssafy.io:8083/v1/member/refresh", {
+              .get(`${AUTH_URL}/refresh`, {
                 headers: {
                   Authorization: `Bearer ${refreshToken}`,
                 },
@@ -126,7 +129,6 @@ const Home: NextPage = () => {
         <Row>
           <Col xs={1} md={2} lg={3}></Col>
           <Col xs={10} md={8} lg={5}>
-
             <Sug id={memberID} title="DBRC추천" sug="dbrc"></Sug>
           </Col>
           <Col xs={1} md={2} lg={4}></Col>

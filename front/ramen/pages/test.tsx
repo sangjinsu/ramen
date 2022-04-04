@@ -8,15 +8,14 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 const Test: NextPage = () => {
-  let obtest =
-  {
+  let obtest = {
     "94": "안성탕면",
     "201": "불닭볶음면",
-    "73": "올리브짜파게티"
-  }
+    "73": "올리브짜파게티",
+  };
 
   let [data, setData] = useState([]);
-  let [like, setLike] = useState(false)
+  let [like, setLike] = useState(false);
   useEffect(() => {
     axios
       .get("http://j6c104.p.ssafy.io:8084/v1/recommend/ubcf/29")
@@ -36,7 +35,6 @@ const Test: NextPage = () => {
   return (
     <>
       <h1>axios테스트</h1>
-
       {/* {data} */}
       <button
         onClick={() => {
@@ -76,7 +74,6 @@ const Test: NextPage = () => {
       >
         클릭2
       </button>
-
       <button
         onClick={() => {
           axios({
@@ -100,13 +97,8 @@ const Test: NextPage = () => {
       >
         클릭3
       </button>
-      {
-        like
-          ? <p>좋아요버튼안보이지롱~!~!</p>
-          : <p>좋아요버튼보이지롱!!!</p>
-      }
+      {like ? <p>좋아요버튼안보이지롱~!~!</p> : <p>좋아요버튼보이지롱!!!</p>}
       {/* <p>{data[0].title}</p> */}
-
       {/* 예제코드 */}
       {/* axios.post( 'url', 
   { 
@@ -122,9 +114,9 @@ const Test: NextPage = () => {
 ) 
   .then((response) => { console.log(response.data); }) 
   .catch((response) => { console.log('Error!) }); */}
-
-      <Link href={`/ramen/${Object.keys(obtest)[1]}`}>{Object.values(obtest)[1]}</Link>
-
+      <Link href={`/ramen/${Object.keys(obtest)[1]}`}>
+        {Object.values(obtest)[1]}
+      </Link>
       {Object.keys(obtest)}
       {Object.keys(obtest)[0]}
       {Object.keys(obtest)[1]}
@@ -134,7 +126,6 @@ const Test: NextPage = () => {
       {Object.values(obtest)[0]}
       {Object.values(obtest)[0]}
       {Object.values(obtest)[0]}
-
       {/* {obtest} */}
       {/* {obtest["94"]}
       {obtest["201"]}
