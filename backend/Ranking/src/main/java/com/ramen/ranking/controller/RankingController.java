@@ -1,7 +1,5 @@
 package com.ramen.ranking.controller;
 import com.ramen.ranking.domain.RamenVo;
-import com.ramen.ranking.repository.RamenLikeRedisRepository;
-import com.ramen.ranking.repository.RamenViewRedisRepository;
 import com.ramen.ranking.service.ClearService;
 import com.ramen.ranking.service.RamenService;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +17,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @RequestMapping("v1/ranking/")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class RamenController {
+//@CrossOrigin(origins = "http://j6c104.p.ssafy.io:8888/", allowedHeaders = "*")
+public class RankingController {
 
     @Autowired
     private final RamenService ramenService;
