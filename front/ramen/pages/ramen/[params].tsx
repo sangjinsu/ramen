@@ -126,7 +126,7 @@ const Detail: React.FC<RamenDetailType> = ({
               <Col xs={12} md={12} lg={12}>
                 <section className="main_section">
                   <div className="right_ramenName">
-                    {ramenInfos.name}
+                    <div className="right_ramen_area">{ramenInfos.name}</div>
                     <div className="right_heart">
                       <Heart params={params} />
                     </div>
@@ -292,7 +292,7 @@ const Detail: React.FC<RamenDetailType> = ({
           }
 
           .right_heart {
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.8rem;
           }
 
           section {
@@ -331,6 +331,9 @@ const Detail: React.FC<RamenDetailType> = ({
             font-size: 20px;
             transform: translate(-0.0625rem, -0.0625rem);
             box-shadow: rgba(0, 0, 0, 0.05) 0px 10px 15px -3px;
+          }
+          .right_ramen_area {
+            margin-bottom: 0.5rem;
           }
 
           .ramen_infos {
