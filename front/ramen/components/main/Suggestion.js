@@ -1,11 +1,25 @@
 import * as React from "react";
-import { Row, Col, Card, ListGroup } from "react-bootstrap";
+import { Container,Row, Col, Card, ListGroup } from "react-bootstrap";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useRef } from "react";
 import Link from "next/link";
+
+
+
+
 
 export default function Suggestion(props) {
   let [ramen, setRamen] = useState([]);
+  let titleString = {
+    "IBCF추천": "아이템 기반",
+"UBCF추천": "사용자 기반",
+"DBRC추천": "딥러닝 기반"
+  }
+  const default_img = "ramen/default.png";
+  const handleImage = (e) => {
+    e.target.src = default_img;
+    console.log(e.target.src);
+  };
   useEffect(() => {
     if (props.sug === "ubcf") {
       axios
@@ -59,7 +73,12 @@ export default function Suggestion(props) {
   }, []);
   return (
     <>
-      {props.title}
+
+    
+
+      {/* {props.title} */}
+      <hr></hr>
+      <h3>{titleString[props.title]}추천</h3>
       <ListGroup>
         {/* {ramen.length !==0
     ? <p>{ramen.length}</p>
@@ -68,21 +87,60 @@ export default function Suggestion(props) {
         {ramen.length !== 0 ? (
           <>
             <ListGroup.Item>
-              <img src="icon/number1.png" width={25}></img>
+              {/* <img src="icon/number1.png" width={25}></img>
+               */}1위
               <Link href={`/ramen/${Object.keys(ramen)[0]}`}>
-                <a>{Object.values(ramen)[0]}</a>
+              
+                <a><img
+                            src={`ramen/${Object.values(ramen)[0]}.png`}
+                            width={45}    
+                            onError={handleImage}                      
+                          ></img>
+                  {Object.values(ramen)[0]}</a>
               </Link>
             </ListGroup.Item>
             <ListGroup.Item>
-              <img src="icon/number2.png" width={25}></img>
+              2위
               <Link href={`/ramen/${Object.keys(ramen)[1]}`}>
-                <a>{Object.values(ramen)[1]}</a>
+                <a><img
+                            src={`ramen/${Object.values(ramen)[1]}.png`}
+                            width={45}   
+                            onError={handleImage}                       
+                          ></img>
+                  {Object.values(ramen)[1]}</a>
               </Link>
             </ListGroup.Item>
             <ListGroup.Item>
-              <img src="icon/number3.png" width={25}></img>
+              3위
               <Link href={`/ramen/${Object.keys(ramen)[2]}`}>
-                <a>{Object.values(ramen)[2]}</a>
+                <a><img
+                            src={`ramen/${Object.values(ramen)[2]}.png`}
+                            width={45}  
+                            onError={handleImage}                        
+                          ></img>
+                  {Object.values(ramen)[2]}</a>
+              </Link>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              4위
+              <Link href={`/ramen/${Object.keys(ramen)[3]}`}>
+                <a><img
+                            src={`ramen/${Object.values(ramen)[3]}.png`}
+                            width={45}  
+                            onError={handleImage}                        
+                          ></img>
+                  {Object.values(ramen)[3]}</a>
+              </Link>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              5위
+              <Link href={`/ramen/${Object.keys(ramen)[4]}`}>
+                <a><img
+                            src={`ramen/${Object.values(ramen)[4]}.png`}
+                            width={45}  
+                            onError={handleImage}                        
+                          ></img>
+                  {Object.values(ramen)[4]}</a>
               </Link>
             </ListGroup.Item>
           </>
@@ -109,6 +167,11 @@ export default function Suggestion(props) {
           color: black;
           text-decoration-line: none;
         }
+        img{
+          margin-left:10px;
+        }
+        
+
       `}</style>
     </>
   );
