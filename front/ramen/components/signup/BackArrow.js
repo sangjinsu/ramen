@@ -14,8 +14,7 @@ export default function BackArrow({ pathname, userInfo }) {
         }}
       >
         <Button
-          sx={{ mx: 5 }}
-          style={{ color: "orange", border: "1px solid orange" }}
+          style={{ color: "orange", border: "1px solid orange", float: "left" }}
           variant="outlined"
           fontSize="large"
           startIcon={<ArrowBackIosIcon />}

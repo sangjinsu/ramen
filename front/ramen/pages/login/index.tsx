@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { Button, Form } from "semantic-ui-react";
@@ -90,6 +91,7 @@ function Login() {
                       name="input_email"
                       value={inputEmail}
                       onChange={handleInputEmail}
+                      style={{ margin: "3px" }}
                     />
                   </Form.Field>
                   <Form.Field inline>
@@ -101,15 +103,30 @@ function Login() {
                       onChange={handleInputPw}
                     />
                   </Form.Field>
-                  <Button color="blue" onClick={onClickLogin}>
+                  <Button
+                    variant="contained"
+                    onClick={onClickLogin}
+                    style={{
+                      background: "orange",
+                      width: "80px",
+                      border: "1px solid orange",
+                      margin: "5px",
+                    }}
+                  >
                     Login
                   </Button>
+
                   <Button
-                    color="blue"
                     onClick={() => {
                       Router.push({
                         pathname: "signup",
                       });
+                    }}
+                    style={{
+                      background: "orange",
+                      width: "80px",
+                      border: "1px solid orange",
+                      margin: "5px",
                     }}
                   >
                     Signup
