@@ -134,11 +134,6 @@ const Search: NextPage = () => {
                 <Container>
                   <Row>
                     <Col xs={12} md={12} lg={12}>
-                      {/* {categoryName.includes(ramenType[queryResult[0]])
-                        ? <p>있어</p>
-                        : null
-                      } */}
-                      {/* {prevNum1}{prevNum2}{prevNum3} */}
                       {prevNum1 === "0" ? null : (
                         <>
                           <img

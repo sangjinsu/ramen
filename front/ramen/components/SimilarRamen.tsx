@@ -5,7 +5,9 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { DataProps, SimilarRamenType } from "./Types";
 import BarSimilar from "./BarSimilar";
-import ramenPngDoc from "./main/data";
+import DocDataDictionary from "./main/dataDictionary";
+
+const docDictionary = DocDataDictionary;
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -46,7 +48,6 @@ export default function SimilarRamen({
   similarityRamen: SimilarRamenType;
 }) {
   console.log(similarityRamen);
-  const ramenPngs = ramenPngDoc;
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -106,7 +107,7 @@ export default function SimilarRamen({
         </Box>
         <TabPanel value={value} index={0}>
           <div className="similar_ramen">
-            {ramenPngs.includes(`${similarityRamen.first.name}.png`) ? (
+            {docDictionary[`${similarityRamen.first.name}.png`] ? (
               <img
                 src={`/ramen/${similarityRamen.first.name}.png?w=248&fit=crop&auto=format`}
               ></img>
@@ -118,7 +119,7 @@ export default function SimilarRamen({
         </TabPanel>
         <TabPanel value={value} index={1}>
           <div className="similar_ramen">
-            {ramenPngs.includes(`${similarityRamen.second.name}.png`) ? (
+            {docDictionary[`${similarityRamen.second.name}.png`] ? (
               <img
                 src={`/ramen/${similarityRamen.second.name}.png?w=248&fit=crop&auto=format`}
               ></img>
@@ -130,7 +131,7 @@ export default function SimilarRamen({
         </TabPanel>
         <TabPanel value={value} index={2}>
           <div className="similar_ramen">
-            {ramenPngs.includes(`${similarityRamen.third.name}.png`) ? (
+            {docDictionary[`${similarityRamen.third.name}.png`] ? (
               <img
                 src={`/ramen/${similarityRamen.third.name}.png?w=248&fit=crop&auto=format`}
               ></img>

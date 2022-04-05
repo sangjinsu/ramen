@@ -27,6 +27,7 @@ import serverURLDoc from "../../../components/main/ServerURL";
 import { Container, Row, Col } from "react-bootstrap";
 import ramenPngDoc from "../../../components/main/data";
 import WcIcon from "@mui/icons-material/Wc";
+import DocDataDictionary from "../../../components/main/dataDictionary";
 
 const AUTH_URL = serverURLDoc.AUTH_URL;
 const accessToken = getCookie("accessToken");
@@ -322,7 +323,7 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
                     <ImageListItem>
                       <Link href={`/ramen/${ramen[1]}`}>
                         <a className="left_link_area">
-                          {ramenPngs.includes(`${ramen[0]}.png`) ? (
+                          {DocDataDictionary[`${ramen[0]}.png`] ? (
                             <img
                               width={150}
                               height={150}

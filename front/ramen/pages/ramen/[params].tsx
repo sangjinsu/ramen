@@ -16,9 +16,7 @@ import {
 import Youtube from "../../components/Youtube";
 import { Container, Row, Col } from "react-bootstrap";
 import Heart from "../../components/Heart";
-import ramenPngDoc from "../../components/main/data";
-
-const memberId = getCookie("member_id");
+import DocDataDictionary from "../../components/main/dataDictionary";
 
 const Detail: React.FC<RamenDetailType> = ({
   params,
@@ -26,7 +24,6 @@ const Detail: React.FC<RamenDetailType> = ({
   similarityRamen,
 }) => {
   const router = useRouter();
-  const ramenPngs = ramenPngDoc;
 
   const searchTitle = ramenInfos.brand + " " + ramenInfos.name;
 
@@ -103,7 +100,7 @@ const Detail: React.FC<RamenDetailType> = ({
               </section>
               <section>
                 <div className="left_img_area">
-                  {ramenPngs.includes(`${ramenInfos.name}.png`) ? (
+                  {DocDataDictionary[`${ramenInfos.name}.png`] ? (
                     <img
                       src={`/ramen/${ramenInfos.name}.png?w=248&fit=crop&auto=format`}
                       className="left_ramen_img"
@@ -130,7 +127,7 @@ const Detail: React.FC<RamenDetailType> = ({
                     </div>
                   </div>
                   <div className="right_ramen_img_area">
-                    {ramenPngs.includes(`${ramenInfos.name}.png`) ? (
+                    {DocDataDictionary[`${ramenInfos.name}.png`] ? (
                       <img
                         src={`/ramen/${ramenInfos.name}.png?w=248&fit=crop&auto=format`}
                         className="right_ramen_img"

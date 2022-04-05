@@ -11,8 +11,8 @@ import { useRouter } from "next/router";
 import { signupType } from "../../components/Types";
 import ramenSelectDoc from "../../components/main/RamenSelect";
 import ramenCodeDoc from "../../components/main/RamenCodes";
-import ramenPngDoc from "../../components/main/data";
 import serverURLDoc from "../../components/main/ServerURL";
+import DocDataDictionary from "../../components/main/dataDictionary";
 
 const AUTH_URL = serverURLDoc.AUTH_URL;
 
@@ -21,7 +21,6 @@ interface ObjectInterface {
 }
 
 function RamenPreference({ router: { query } }: signupType) {
-  const ramenPngs = ramenPngDoc;
   const categorizationName = ["국물 라면", "비빔 라면", "컵라면", "마니아"];
   const ramenLists = ramenSelectDoc;
   const ramenCodes = ramenCodeDoc;
@@ -157,9 +156,9 @@ function RamenPreference({ router: { query } }: signupType) {
                         id={ramenLists[idxList][idxRamen]}
                       >
                         {/* 라면 이미지가 없으면 대체 이미지 사용 */}
-                        {ramenPngs.includes(
+                        {DocDataDictionary[
                           `${ramenLists[idxList][idxRamen]}.png`
-                        ) ? (
+                        ] ? (
                           <img
                             width={150}
                             height={150}
