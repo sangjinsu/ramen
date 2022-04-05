@@ -23,50 +23,38 @@ spring:
               - OPTIONS
               - DELETE
       routes:
-#        - id: member-validate-service
-#          uri: http://j6c104.p.ssafy.io:8080 # 목적지
-#          predicates: # 조건부
-#            - Path=/v1/member/validatenickname/**
-#
-#        - id: member-sign-service
-#          uri: http://i6c107.p.ssafy.io:8080
-#          predicates:
-#            - Path=/v1/member/signup
 
-#        - id: auth-service
-
-        - id: auth-service #
-          uri:http://j6c104.p.ssafy.io:8083
+        - id: auth-service
+          uri: http://j6c104.p.ssafy.io:8083
           predicates:
             - Path= /v1/member/signup, /v1/member/login, /v1/member/check-email, /v1/member/refresh, /v1/member/check-jwt # /v1/member/withdraw  #/v1/oauth/login/response
 
         - id: member-service
-          uri:http://j6c104.p.ssafy.io:8080
+          uri: http://j6c104.p.ssafy.io:8080
           predicates:
-            - Path=/v1/member/{memberId}/fond, /v1/member/{memberId}/like, /v1/member/fond, /v1/member/like # /v1/member/profile/{memberId},
+            - Path=/v1/member/{memberId}/fond, /v1/member/{memberId}/like, /v1/member/fond, /v1/member/like
 
-        - id: ramen-service # 유사도?
-          uri:http://j6c104.p.ssafy.io:8080
+        - id: ramen-service
+          uri: http://j6c104.p.ssafy.io:8080
           predicates:
             - Path=/v1/ramen/**
-            -
-        - id: recommend-service # ???
-          uri:http://j6c104.p.ssafy.io:8084
+        - id: recommend-service
+          uri: http://j6c104.p.ssafy.io:8084
           predicates:
-            - Path=/v1/recommend/{memberId}/**
+            - Path=/v1/recommend/**
 
-        - id: log-service #
-          uri:http://j6c104.p.ssafy.io:8080
+        - id: log-service
+          uri: http://j6c104.p.ssafy.io:8080
           predicates:
             - Path=/v1/log/**
 
-        - id: search-service #
-          uri:http://j6c104.p.ssafy.io:8082
+        - id: search-service
+          uri: http://j6c104.p.ssafy.io:8082
           predicates:
             - Path=/v1/search/**
 
-        - id: ranking-service #
-          uri:http://j6c104.p.ssafy.io:8081
+        - id: ranking-service
+          uri: http://j6c104.p.ssafy.io:8081
           predicates:
             - Path=/v1/ranking/**
 
