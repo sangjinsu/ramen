@@ -15,8 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/member")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*", allowedHeaders = "*")
-//@CrossOrigin(origins = "http://j6c104.p.ssafy.io:8888/", allowedHeaders = "*")
+//@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class MemberController {
 
     private final FondService fondService;
