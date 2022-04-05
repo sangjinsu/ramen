@@ -96,24 +96,14 @@ const Search: NextPage = () => {
       })
         .then((result) => {
           console.log("요청성공");
-          console.log(query.noodleType);
-          console.log(query.ramenStyle);
-          console.log(query.ramenType);
+          // console.log(query.noodleType);
+          // console.log(query.ramenStyle);
+          // console.log(query.ramenType);
 
-          console.log(result);
-          console.log(result.data);
+          // console.log(result);
+          // console.log(result.data);
           setArray(result.data);
-          // const dm = [{
-          //   ramenId: 33,
-          //   name: 'h',
-          //   brand: "h",
-          // }, {
-          //   ramenId: 31,
-          //   name: 'h2',
-          //   brand: "2h",
-          // },]
-          // console.log(dm)
-          // setArray(dm)
+
         })
         .catch((error) => {
           console.log("요청실패");
@@ -134,11 +124,7 @@ const Search: NextPage = () => {
                 <Container>
                   <Row>
                     <Col xs={12} md={12} lg={12}>
-                      {/* {categoryName.includes(ramenType[queryResult[0]])
-                        ? <p>있어</p>
-                        : null
-                      } */}
-                      {/* {prevNum1}{prevNum2}{prevNum3} */}
+
                       {prevNum1 === "0" ? null : (
                         <>
                           <img
@@ -168,14 +154,9 @@ const Search: NextPage = () => {
                           ></img>
                         </>
                       )}
-                      {/* <img src={`icon/rename/${noodleType[queryResult[1]]}.png`} width={45} onError={handleImage}></img>&nbsp;
-                      <img src={`icon/rename/${ramenStyle[queryResult[2]]}.png`} width={45} onError={handleImage}></img> */}
+
                     </Col>
-                    {/* <Col xs={12} md={12} lg={12}>
-                      {ramenType[queryResult[0]]}&nbsp;/&nbsp;
-                      {noodleType[queryResult[1]]}&nbsp;/&nbsp;
-                      {ramenStyle[queryResult[2]]}&nbsp;
-                    </Col> */}
+
                   </Row>
                 </Container>
               </div>

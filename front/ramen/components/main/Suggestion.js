@@ -18,7 +18,7 @@ export default function Suggestion(props) {
   const default_img = "ramen/default.png";
   const handleImage = (e) => {
     e.target.src = default_img;
-    console.log(e.target.src);
+    // console.log(e.target.src);
   };
   useEffect(() => {
     if (props.sug === "ubcf") {
@@ -27,8 +27,8 @@ export default function Suggestion(props) {
         .then((result) => {
           console.log("ubcf요청성공");
           console.log(result);
-          console.log(result.data);
-          console.log(result.data[0]);
+          // console.log(result.data);
+          // console.log(result.data[0]);
           setRamen(result.data);
         })
         .catch((error) => {
@@ -44,8 +44,8 @@ export default function Suggestion(props) {
         .then((result) => {
           console.log("dbrc요청성공");
           console.log(result);
-          console.log(result.data);
-          console.log(result.data[0]);
+          // console.log(result.data);
+          // console.log(result.data[0]);
           setRamen(result.data);
         })
         .catch((error) => {
@@ -61,8 +61,8 @@ export default function Suggestion(props) {
         .then((result) => {
           console.log("ibcf요청성공");
           console.log(result);
-          console.log(result.data);
-          console.log(result.data[0]);
+          // console.log(result.data);
+          // console.log(result.data[0]);
           setRamen(result.data);
         })
         .catch((error) => {

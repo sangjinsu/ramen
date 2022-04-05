@@ -86,9 +86,9 @@ function R1(props) {
     })
       .then((result) => {
         console.log("랭킹요청성공 R1프롭스");
-        console.log(result.data);
-        console.log(result.data.name);
-        console.log(result.data.brand);
+        console.log(result);
+        // console.log(result.data.name);
+        // console.log(result.data.brand);
         setName(result.data.name);
         setBrand(result.data.brand);
         // console.log(ramen)

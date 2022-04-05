@@ -9,7 +9,7 @@ export default function NavBar() {
   const [sizeon, setSizeon] = useState(false);
   useEffect(() => {
     if (size.width <= 576) {
-      console.log("핸드폰화면Footer");
+      // console.log("핸드폰화면Footer");
       setSizeon(true);
     } else if (size.width > 567) {
       setSizeon(false);

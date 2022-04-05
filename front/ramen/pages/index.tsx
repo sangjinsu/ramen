@@ -33,7 +33,7 @@ const Home: NextPage = () => {
         // accessToken 유효
         .then(function (response) {
           // 추천 라면 가져오기
-          console.log("추천 라면 가져오기");
+          // console.log("추천 라면 가져오기");
         })
         // accessToken 유효 X
         .catch(function (error) {
@@ -58,7 +58,7 @@ const Home: NextPage = () => {
             });
         });
     } else {
-      console.log("로그인 안함");
+      // console.log("로그인 안함");
     }
   }, []);
 
@@ -70,11 +70,7 @@ const Home: NextPage = () => {
       .then((result) => {
         console.log("랭킹요청성공");
         console.log(result.data);
-        console.log(result.data[0]);
-        console.log(result.data[0].ramenId);
-        console.log(result.data.length);
         setRamen(result.data);
-        // console.log(ramen)
       })
       .catch((error) => {
         console.log("요청실패");
@@ -82,39 +78,12 @@ const Home: NextPage = () => {
       });
   }, []);
 
-  // 시간차 랭킹리스트
-  // useEffect(() => {
-  //   setTimeout(function () {
-  //     axios
-  //       .all([axios.get(`http://j6c104.p.ssafy.io:8080/v1/ramen/detail/${idNum[0]}`),
-  //       axios.get(`http://j6c104.p.ssafy.io:8080/v1/ramen/detail/${idNum[1]}`),
-  //       axios.get(`http://j6c104.p.ssafy.io:8080/v1/ramen/detail/${idNum[2]}`),
-  //       axios.get(`http://j6c104.p.ssafy.io:8080/v1/ramen/detail/${idNum[3]}`)])
-  //       .then(
-  //         axios.spread((res1, res2, res3, res4) => {
-  //           console.log(res1, res2, res3, res4)
-  //           // console.log(idNum[0])
-  //           console.log('시간차리스트요청성공')
-  //         }))
-  //       .catch((error) => {
-  //         console.log('리스트요청실패')
-  //         console.log(error)
-  //       })
-  //   }, 200);
-  // }, [])
+
 
   return (
     <>
       <Container>
-        {/* <h1>테스트출력</h1>
-      {ramen[0]
-        ? <p>{ramen[0].ramenId}</p>
-        : null}
-      {ramen.map(function (a, index) {
-        return (
-          <p key={index}>{a.ramenId}</p>
-        )
-      })} */}
+
         <Ibox></Ibox>
         <Row>
           <Col xs={1} md={2} lg={3}></Col>
@@ -144,22 +113,7 @@ const Home: NextPage = () => {
           </Col>
           <Col xs={1} md={2} lg={4}></Col>
         </Row>
-        {/* <Row>
-          <Col xs={0} md={2} lg={3}></Col>
-          <Col xs={5} md={4} lg={3}>
-            <div className="sug">
-              <Sug id={memberID}></Sug>
-            </div>
-          </Col>
-          <Col xs={5} md={4} lg={3}>
-            <div className="sug">
-              <Sug id={memberID}></Sug>
-            </div>
-          </Col>
-          <Col xs={0} md={2} lg={3}></Col>
-        </Row> */}
-        {/* {isLogin ? <h1>추천라면 보여주면 될듯 {memberID}</h1> : null} */}
-        {/* <div className="test">이거 박스테스트</div> */}
+
       </Container>
       <style jsx>{`
         .sug {
