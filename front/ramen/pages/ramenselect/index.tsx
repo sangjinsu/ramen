@@ -219,7 +219,13 @@ function RamenPreference({ router: { query } }: signupType) {
                 회원가입
               </Button>
             ) : (
-              <Button variant="outlined" disabled>
+              <Button
+                variant="outlined"
+                style={{ color: "#b0bec5", width: "13rem" }}
+                onClick={function () {
+                  alert("최소 1개 이상의 라면을 선택해주세요.");
+                }}
+              >
                 Disabled
               </Button>
             )}

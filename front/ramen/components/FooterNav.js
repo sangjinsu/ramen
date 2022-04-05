@@ -2,8 +2,10 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { getCookie, removeCookies } from "cookies-next";
+import { useRouter } from "next/router";
 
 export default function NavBar() {
+  const router = useRouter();
   const [validRefreshToken, setValidRefreshTokne] = useState(false);
   const [refreshToken, setRefreshToken] = useState(getCookie("refreshToken"));
   let cookie = getCookie("refreshToken");
@@ -20,23 +22,18 @@ export default function NavBar() {
   }, [refreshToken]);
 
   const size = useWindowSize();
-  // const [size,setSize] = useState(size)
   const [sizeon, setSizeon] = useState(false);
   useEffect(() => {
     if (size.width <= 768) {
-      console.log("핸드폰화면FooterNav");
       setSizeon(true);
     } else if (size.width > 768) {
       setSizeon(false);
     }
-    // console.log(size.width)
-    // console.log(size.height)
   }, [size]);
   return (
     <>
       {sizeon ? (
         <>
-          {/* <hr style={{margin:"0px"}}></hr> */}
           <div className="sidenav">
             <div className="navin">
               {" "}
@@ -69,9 +66,7 @@ export default function NavBar() {
                     removeCookies("age");
                     removeCookies("gender");
                     setRefreshToken(getCookie("refreshToken"));
-                    alert("로그아웃 하였습니다.");
-                    location.reload();
-                    // 테스트
+                    router.push({ pathname: "/" });
                   }}
                 >
                   <Link href="#">

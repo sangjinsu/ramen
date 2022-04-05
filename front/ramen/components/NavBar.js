@@ -22,17 +22,13 @@ export default function NavBar() {
   let cookie = getCookie("refreshToken");
 
   const size = useWindowSize();
-  // const [size,setSize] = useState(size)
   const [sizeon, setSizeon] = useState(false);
   useEffect(() => {
     if (size.width <= 768) {
-      console.log("핸드폰화면 NavBar");
       setSizeon(true);
     } else if (size.width > 768) {
       setSizeon(false);
     }
-    // console.log(size.width)
-    // console.log(size.height)
   }, [size]);
 
   useEffect(() => {
@@ -141,7 +137,7 @@ export default function NavBar() {
                             removeCookies("gender");
                             setRefreshToken(getCookie("refreshToken"));
                             alert("로그아웃 하였습니다.");
-                            location.reload();
+                            router.push({ pathname: "/" });
                           }}
                         >
                           로그아웃
@@ -172,7 +168,7 @@ export default function NavBar() {
                         <Dropdown.Item
                           onClick={() => {
                             router.push({
-                              pathname: `user/${Number(
+                              pathname: `/user/${Number(
                                 getCookie("member_id")
                               )}`,
                             });
