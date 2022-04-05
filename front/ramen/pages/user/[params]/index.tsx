@@ -133,7 +133,8 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
         ]);
         setLikeRamens(userLikeList);
       } catch {
-        router.push("/");
+        null;
+        // router.push("/");
       }
     };
     userLikeData();
@@ -217,7 +218,7 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
                 <Row>
                   {fondTitle.map((title, idxTitle) => {
                     return (
-                      <Col sm={3} key={idxTitle}>
+                      <Col xs={3} md={3} key={idxTitle}>
                         <div className="taste_info">
                           <div className="taste_info_title">
                             {fondTitle[idxTitle]}
@@ -246,7 +247,7 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
                 </Row>
                 {toppingFonds[0] === "없음" ? (
                   <Row className="justify-content-md-center">
-                    <Col sm={3}>
+                    <Col xs={3} md={3}>
                       <p style={{ textAlign: "center" }}>안 넣음</p>
                       <img
                         src={`/topping/안 넣음.jpg`}
@@ -258,7 +259,7 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
                   <Row className="justify-content-md-center">
                     {toppingFonds.map(function (topping, idxTopping) {
                       return (
-                        <Col key={idxTopping} sm={3}>
+                        <Col key={idxTopping} xs={3} md={3}>
                           <p style={{ textAlign: "center" }}>{topping}</p>
                           <img
                             src={`/topping/${topping}.jpg`}
@@ -278,7 +279,7 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
                 </Row>
                 {ingredientFonds[0] === "없음" ? (
                   <Row className="justify-content-md-center">
-                    <Col sm={3}>
+                    <Col xs={3} md={3}>
                       <p style={{ textAlign: "center" }}>안 넣음</p>
                       <img
                         src={`/topping/안 넣음.jpg`}
@@ -288,17 +289,22 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
                   </Row>
                 ) : (
                   <Row className="justify-content-md-center">
-                    {ingredientFonds.map(function (ingredient, idxIngredient) {
-                      return (
-                        <Col key={idxIngredient} sm={3}>
-                          <p style={{ textAlign: "center" }}>{ingredient}</p>
-                          <img
-                            src={`/topping/${ingredient}.jpg`}
-                            style={{ width: "100%", height: "70%" }}
-                          />
-                        </Col>
-                      );
-                    })}
+                    <div className="taste_infos">
+                      {ingredientFonds.map(function (
+                        ingredient,
+                        idxIngredient
+                      ) {
+                        return (
+                          <Col key={idxIngredient} xs={3} md={3}>
+                            <p style={{ textAlign: "center" }}>{ingredient}</p>
+                            <img
+                              src={`/topping/${ingredient}.jpg`}
+                              style={{ width: "100%", height: "70%" }}
+                            />
+                          </Col>
+                        );
+                      })}
+                    </div>
                   </Row>
                 )}
               </Container>
@@ -534,7 +540,7 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
             opacity: 0.9;
           }
           .taste_info_detail {
-            font-size: 0.9375rem;
+            font-size: 0.4rem;
             font-weight: 700;
             margin-bottom: 0.1875rem;
           }
