@@ -4,8 +4,6 @@ import { Card } from "react-bootstrap";
 import Link from "next/link";
 import DocDataDictionary from "../main/dataDictionary";
 
-const docDictionary = DocDataDictionary;
-
 export default function ResultBox(props) {
   const default_img = "ramen/default.png";
   const handleImage = (e) => {
@@ -16,7 +14,7 @@ export default function ResultBox(props) {
   return (
     <>
       <div>
-        {docDictionary[`${props.ramenName}`] ? (
+        {DocDataDictionary[`${props.ramenName}`] ? (
           <Link href={`/ramen/${props.id}`}>
             <div className="explain">
               <img
