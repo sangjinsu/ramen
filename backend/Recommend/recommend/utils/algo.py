@@ -1,4 +1,3 @@
-from operator import index
 import numpy as np
 import pandas as pd 
 ### 코사인 유사도를 계산하는 사이킷런 라이브러리
@@ -14,7 +13,7 @@ from tensorflow.keras.layers import Input, Embedding, Flatten
 from tensorflow.keras.layers import Dense, Concatenate, Activation
 from tensorflow.keras.regularizers import l2
 from tensorflow.keras.optimizers import SGD
-from rest_framework import exceptions
+from rest_framework.exceptions import ParseError
 
 df_ramen = ramen()
 ramens = df_ramen.drop(['name', 'english_name'], axis=1)
@@ -30,6 +29,9 @@ mu = df_rating.rating.mean()
 def user_based_cf(member_id):
     df_rating = member_like_ramen()
     df_log_value = create_df_log_value(member_id)
+    
+    if len(df_rating) == 0 and len(df_log_value) == 0:
+        raise ParseError(detail='추천 받을 수 없습니다')
     
     if len(df_log_value.index):
         for memberId, ramen_id, rating in zip(df_log_value['member_id'], df_log_value['ramen_id'], df_log_value['rating']):
@@ -119,7 +121,7 @@ def user_based_cf(member_id):
     try:
         recommendations = recom_ramen(member_id, neighbor_size=30)
     except Exception:
-        raise exceptions.NotFound(detail="추천 받을 수 없습니다")
+        raise ParseError(detail="추천 받을 수 없습니다")
     
     merged_ratings  = pd.merge(df_rating, member(), on='member_id')
     merged_ratings = merged_ratings.set_index('member_id').drop(['fond_id'], axis=1)
@@ -161,8 +163,10 @@ def user_based_cf(member_id):
           
 def item_based_cf(member_id):
     df_rating = member_like_ramen()
-    
     df_log_value = create_df_log_value(member_id)
+    
+    if len(df_rating) == 0 and len(df_log_value) == 0:
+        raise ParseError(detail='추천 받을 수 없습니다')
      
     if len(df_log_value.index):
         for memberId, ramen_id, rating in zip(df_log_value['member_id'], df_log_value['ramen_id'], df_log_value['rating']):
@@ -208,7 +212,10 @@ def item_based_cf(member_id):
   
         return member_ramen
 
-    recommendations = recom_ramen(member_id)
+    try:
+        recommendations = recom_ramen(member_id)
+    except Exception:
+        raise ParseError(detail="추천 받을 수 없습니다")
     
     merged_ratings  = pd.merge(df_rating, member(), on='member_id')
     merged_ratings = merged_ratings.set_index('member_id').drop(['fond_id'], axis=1)
@@ -233,6 +240,7 @@ def item_based_cf(member_id):
         else:
             fond_rating = 3.0
         return fond_rating
+    
     fond_ratings = pd.DataFrame(index=df_rating['ramen_id'].drop_duplicates(), columns=['rating'])
     fond_ratings['rating'] = df_rating['ramen_id']
     fond_ratings['rating'] = fond_ratings['rating'].apply(lambda x : cf_fond(member_id, x))
@@ -258,7 +266,6 @@ def RMSE(y_true, y_pred):
 
 def train_ai():
     df_member = member()
-    
     df_rating = member_like_ramen()
     # 잠재요인 수 2000으로 지정
     K = 1000
