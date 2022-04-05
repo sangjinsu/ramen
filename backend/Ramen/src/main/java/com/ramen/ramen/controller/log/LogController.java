@@ -11,7 +11,7 @@ import java.io.IOException;
 @RestController
 @RequestMapping("v1/log")
 @RequiredArgsConstructor
-//@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @Slf4j
 public class LogController {
 
