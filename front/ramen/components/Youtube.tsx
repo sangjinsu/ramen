@@ -124,4 +124,4 @@ const Youtube = ({ searchTitle }: { searchTitle: string }) => {
   );
 };
 
-export default Youtube;
+export default memo(Youtube);

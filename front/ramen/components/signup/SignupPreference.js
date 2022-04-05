@@ -3,8 +3,26 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import Avatar from "@mui/material/Avatar";
 import { orange } from "@mui/material/colors";
+import { textAlign } from "@mui/system";
 import { Row, Col } from "react-bootstrap";
 import { Card } from "react-bootstrap";
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 600,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 export default function SignupPreference({
   flagSoup,
@@ -23,6 +41,8 @@ export default function SignupPreference({
   selectToppingDumpling,
   onClickChoice,
 }) {
+  const [open, setOpen] = React.useState(true);
+  const handleClose = () => setOpen(false);
   const labelList = ["A", "B", "C", "D"];
   const ramenPreferenceName = [
     "1. 면의 길이",
@@ -43,12 +63,26 @@ export default function SignupPreference({
 
   return (
     <>
-      <Row>
-        <Col></Col>
-        <Col>
+      <Row className="justify-content-md-center">
+        <Col style={{ textAlign: "center" }}>
           <h1>라면 취향 선택</h1>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                이용방법
+              </Typography>
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                라면 먹는 취향을 선택해주시면 비슷한 취향의 사용자들이 선호하는
+                라면을 추천해줍니다.
+              </Typography>
+            </Box>
+          </Modal>
         </Col>
-        <Col></Col>
       </Row>
       <br />
       {ramenPreferences.map((ramenPreference, idxPreference) => {
@@ -130,7 +164,10 @@ export default function SignupPreference({
                         width="50"
                         src={`/ramenpreference/image_${idxPreference}_${idxChoice}.jpg`}
                       />
-                      <Card.Header id={`choice-${idxPreference}-${idxChoice}`}>
+                      <Card.Header
+                        id={`choice-${idxPreference}-${idxChoice}`}
+                        style={{ fontSize: "1rem", textAlign: "center" }}
+                      >
                         {ramenPreferences[idxPreference][idxChoice]}
                       </Card.Header>
                     </Card>

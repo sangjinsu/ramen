@@ -71,13 +71,15 @@ const Search3: NextPage = () => {
               );
             })}
 
-            <Stack spacing={2}>
-              <Pagination
-                count={pageNumber}
-                shape="rounded"
-                onChange={handleChange}
-              />
-            </Stack>
+            <div className="pagination_area">
+              <Stack spacing={2}>
+                <Pagination
+                  count={pageNumber}
+                  shape="rounded"
+                  onChange={handleChange}
+                />
+              </Stack>
+            </div>
           </Col>
           <Col xs={2} md={2}></Col>
         </Row>
@@ -87,6 +89,12 @@ const Search3: NextPage = () => {
           display: inline;
           font-weight: bold;
           font-size: 30px;
+        }
+
+        .pagination_area {
+          margin-left: 0;
+          display: flex;
+          justify-content: center;
         }
       `}</style>
     </>

@@ -21,15 +21,12 @@ const BarSimilar = ({ barChartData }: { barChartData: DataProps }) => {
       chartRef.current = new Chart(ctx, {
         type: "bar",
         data: {
-          labels: ["현재 / 유사라면(짠맛)", "현재 / 유사라면(단맛)"],
+          labels: ["짠맛", "단맛"],
           datasets: [
             {
-              label: "현재",
+              label: "현재라면",
               data: [barChartData.data[1], barChartData.data[3]],
-              backgroundColor: [
-                "rgba(54, 162, 235, 0.2)",
-                "rgba(54, 162, 235, 0.2)",
-              ],
+              backgroundColor: ["rgb(54, 162, 235)", "rgb(54, 162, 235)"],
               borderColor: "black",
               borderWidth: 0,
               barThickness: 20,
@@ -37,10 +34,7 @@ const BarSimilar = ({ barChartData }: { barChartData: DataProps }) => {
             {
               label: "유사라면",
               data: [barChartData.data[0], barChartData.data[2]],
-              backgroundColor: [
-                "rgba(255, 205, 86, 0.2)",
-                "rgba(255, 205, 86, 0.2)",
-              ],
+              backgroundColor: ["rgb(255, 205, 86)", "rgb(255, 205, 86)"],
               borderColor: "black",
               borderWidth: 0,
               barThickness: 20,
@@ -52,7 +46,7 @@ const BarSimilar = ({ barChartData }: { barChartData: DataProps }) => {
           responsive: true,
           plugins: {
             legend: {
-              display: false,
+              display: true,
             },
           },
         },

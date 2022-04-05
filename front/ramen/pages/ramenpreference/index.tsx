@@ -247,14 +247,12 @@ function RamenPreference({ router: { query } }: signupType) {
         <Container>
           <Row>
             <Col>
-              <div style={{ float: "left" }}>
-                <BackArrow pathname={"/signup"} userInfo={userInfo} />
-              </div>
-              <div style={{ float: "right" }}>
-                {canGoNext ? (
-                  <FrontArrow pathname={"/ramenselect"} userInfo={userInfo} />
-                ) : null}
-              </div>
+              <BackArrow pathname={"/signup"} userInfo={userInfo} />
+            </Col>
+            <Col>
+              {canGoNext ? (
+                <FrontArrow pathname={"/ramenselect"} userInfo={userInfo} />
+              ) : null}
             </Col>
           </Row>
         </Container>

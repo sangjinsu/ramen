@@ -6,43 +6,10 @@ import axios from "axios";
 import { RamenListType } from "../../components/Types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { Container, Row, Col } from "react-bootstrap";
 import DocDataDictionary from "../../components/main/dataDictionary";
-
-// 컴포넌트화
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
-
-function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      <Box sx={{ p: 3 }}>
-        <Typography>{children}</Typography>
-      </Box>
-    </div>
-  );
-}
-
-function a11yProps(index: number) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
-
-// 여기까지
+import { TabPanel, a11yProps } from "../../components/TabComponent";
 
 const RamentList: React.FC<RamenListType> = ({
   AllList,
