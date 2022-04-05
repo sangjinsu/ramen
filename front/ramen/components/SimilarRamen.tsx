@@ -7,8 +7,6 @@ import { DataProps, SimilarRamenType } from "./Types";
 import BarSimilar from "./BarSimilar";
 import DocDataDictionary from "./main/dataDictionary";
 
-const docDictionary = DocDataDictionary;
-
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
@@ -107,7 +105,7 @@ export default function SimilarRamen({
         </Box>
         <TabPanel value={value} index={0}>
           <div className="similar_ramen">
-            {docDictionary[`${similarityRamen.first.name}.png`] ? (
+            {DocDataDictionary[`${similarityRamen.first.name}.png`] ? (
               <img
                 src={`/ramen/${similarityRamen.first.name}.png?w=248&fit=crop&auto=format`}
               ></img>
@@ -119,7 +117,7 @@ export default function SimilarRamen({
         </TabPanel>
         <TabPanel value={value} index={1}>
           <div className="similar_ramen">
-            {docDictionary[`${similarityRamen.second.name}.png`] ? (
+            {DocDataDictionary[`${similarityRamen.second.name}.png`] ? (
               <img
                 src={`/ramen/${similarityRamen.second.name}.png?w=248&fit=crop&auto=format`}
               ></img>
@@ -131,7 +129,7 @@ export default function SimilarRamen({
         </TabPanel>
         <TabPanel value={value} index={2}>
           <div className="similar_ramen">
-            {docDictionary[`${similarityRamen.third.name}.png`] ? (
+            {DocDataDictionary[`${similarityRamen.third.name}.png`] ? (
               <img
                 src={`/ramen/${similarityRamen.third.name}.png?w=248&fit=crop&auto=format`}
               ></img>
