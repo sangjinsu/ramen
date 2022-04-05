@@ -69,7 +69,7 @@ export default function Lank(props) {
 
       <style jsx>{`
         .list {
-          margin: 20px;
+          margin: 0px;
         }
       `}</style>
     </>
