@@ -124,7 +124,6 @@ const Search: NextPage = () => {
                 <Container>
                   <Row>
                     <Col xs={12} md={12} lg={12}>
-
                       {prevNum1 === "0" ? null : (
                         <>
                           <img

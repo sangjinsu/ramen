@@ -16,9 +16,7 @@ import {
 import Youtube from "../../components/Youtube";
 import { Container, Row, Col } from "react-bootstrap";
 import Heart from "../../components/Heart";
-import ramenPngDoc from "../../components/main/data";
-
-const memberId = getCookie("member_id");
+import DocDataDictionary from "../../components/main/dataDictionary";
 
 const Detail: React.FC<RamenDetailType> = ({
   params,
@@ -26,7 +24,6 @@ const Detail: React.FC<RamenDetailType> = ({
   similarityRamen,
 }) => {
   const router = useRouter();
-  const ramenPngs = ramenPngDoc;
 
   const searchTitle = ramenInfos.brand + " " + ramenInfos.name;
 
@@ -52,45 +49,46 @@ const Detail: React.FC<RamenDetailType> = ({
     }
   }, []);
 
-  // useEffect(() => {
-  //   const logSend = async () => {
-  //     if (memberId) {
-  //       await axios
-  //         .post(`http://j6c104.p.ssafy.io.:8080/v1/log`, {
-  //           logDto: {
-  //             memberId: memberId,
-  //             ramenId: params,
-  //           },
-  //         })
-  //         .then(function (response) {
-  //           console.log("1", response);
-  //         })
-  //         .catch(function (error) {
-  //           console.log("1", verror);
-  //         });
-  //       await axios
-  //         .get(
-  //           `http://j6c104.p.ssafy.io:8888/v1/ranking/view/${params}/${memberId}`
-  //         )
-  //         .then(function (response) {
-  //           console.log("2", response);
-  //         })
-  //         .catch(function (error) {
-  //           console.log("2", error);
-  //         });
-  //     } else {
-  //       await axios
-  //         .get(`http://j6c104.p.ssafy.io:8888/v1/ranking/view/${params}`)
-  //         .then(function (response) {
-  //           console.log("3", response);
-  //         })
-  //         .catch(function (error) {
-  //           console.log("3", error);
-  //         });
-  //     }
-  //   };
-  //   logSend();
-  // }, []);
+  useEffect(() => {
+    const logSend = async () => {
+      const memberId = getCookie("member_id");
+      if (memberId) {
+        await axios
+          .post(`http://j6c104.p.ssafy.io:8080/v1/log`, {
+            logDto: {
+              memberId: memberId,
+              ramenId: params,
+            },
+          })
+          .then(function (response) {
+            console.log("1", response);
+          })
+          .catch(function (error) {
+            console.log("1", error);
+          });
+        await axios
+          .get(
+            `http://j6c104.p.ssafy.io:8081/v1/ranking/view/${params}/${memberId}`
+          )
+          .then(function (response) {
+            console.log("2", response);
+          })
+          .catch(function (error) {
+            console.log("2", error);
+          });
+      } else {
+        await axios
+          .get(`http://j6c104.p.ssafy.io:8081/v1/ranking/view/${params}`)
+          .then(function (response) {
+            console.log("3", response);
+          })
+          .catch(function (error) {
+            console.log("3", error);
+          });
+      }
+    };
+    logSend();
+  }, []);
 
   return (
     <>
@@ -103,7 +101,7 @@ const Detail: React.FC<RamenDetailType> = ({
               </section>
               <section>
                 <div className="left_img_area">
-                  {ramenPngs.includes(`${ramenInfos.name}.png`) ? (
+                  {DocDataDictionary[`${ramenInfos.name}.png`] ? (
                     <img
                       src={`/ramen/${ramenInfos.name}.png?w=248&fit=crop&auto=format`}
                       className="left_ramen_img"
@@ -130,7 +128,7 @@ const Detail: React.FC<RamenDetailType> = ({
                     </div>
                   </div>
                   <div className="right_ramen_img_area">
-                    {ramenPngs.includes(`${ramenInfos.name}.png`) ? (
+                    {DocDataDictionary[`${ramenInfos.name}.png`] ? (
                       <img
                         src={`/ramen/${ramenInfos.name}.png?w=248&fit=crop&auto=format`}
                         className="right_ramen_img"
