@@ -5,11 +5,15 @@ import (
 	"context"
 	"encoding/json"
 	"github.com/elastic/go-elasticsearch"
+	"github.com/elastic/go-elasticsearch/esapi"
+	"github.com/google/uuid"
 	"log"
+	"strings"
 )
 
 type Search interface {
 	Query(buf bytes.Buffer, index string) map[string]interface{}
+	Send(query string, index string)
 }
 
 type search struct {
@@ -18,7 +22,6 @@ type search struct {
 }
 
 func (st *search) Query(buf bytes.Buffer, index string) map[string]interface{} {
-
 	var r map[string]interface{}
 
 	res, err := st.es.Search(
@@ -52,6 +55,37 @@ func (st *search) Query(buf bytes.Buffer, index string) map[string]interface{} {
 	}
 
 	return r
+}
+
+func (st *search) Send(query string, index string) {
+	u, _ := uuid.NewRandom()
+	documentId := u.String()
+	go func(query string, index string) {
+		// Build the request body.
+		var b strings.Builder
+		b.WriteString(`{"query" : "`)
+		b.WriteString(query)
+		b.WriteString(`"}`)
+
+		// Set up the request object.
+		req := esapi.IndexRequest{
+			Index:      index,
+			DocumentID: documentId,
+			Body:       strings.NewReader(b.String()),
+			Refresh:    "true",
+		}
+
+		// Perform the request with the client.
+		res, err := req.Do(context.Background(), st.es)
+		if err != nil {
+			log.Fatalf("Error getting response: %s", err)
+		}
+		defer res.Body.Close()
+
+		if res.IsError() {
+			log.Printf("[%s] Error indexing document ID=%s", res.Status(), documentId)
+		}
+	}(query, index)
 }
 
 type SearchBuilder interface {
