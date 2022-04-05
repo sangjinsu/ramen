@@ -257,17 +257,19 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
                   </Row>
                 ) : (
                   <Row className="justify-content-md-center">
-                    {toppingFonds.map(function (topping, idxTopping) {
-                      return (
-                        <Col key={idxTopping} xs={3} md={3}>
-                          <p style={{ textAlign: "center" }}>{topping}</p>
-                          <img
-                            src={`/topping/${topping}.jpg`}
-                            style={{ width: "100%" }}
-                          />
-                        </Col>
-                      );
-                    })}
+                    <div className="taste_infos">
+                      {toppingFonds.map(function (topping, idxTopping) {
+                        return (
+                          <Col key={idxTopping} xs={3} md={3}>
+                            <p style={{ textAlign: "center" }}>{topping}</p>
+                            <img
+                              src={`/topping/${topping}.jpg`}
+                              style={{ width: "100%" }}
+                            />
+                          </Col>
+                        );
+                      })}
+                    </div>
                   </Row>
                 )}
                 <Row>
