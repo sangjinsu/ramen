@@ -152,8 +152,8 @@ function RamenPreference({ router: { query } }: signupType) {
                   ) {
                     return (
                       <Col
-                        sm={2}
-                        style={{ margin: "15px" }}
+                        sm={3}
+                        xs={6}
                         key={idxRamen}
                         onClick={onClickRamen}
                         id={ramenLists[idxList][idxRamen]}
