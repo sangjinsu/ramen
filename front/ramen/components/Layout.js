@@ -11,13 +11,10 @@ export default function Layout({ children }) {
   const [sizeon, setSizeon] = useState(false);
   useEffect(() => {
     if (size.width <= 768) {
-      console.log("핸드폰화면Layout");
       setSizeon(true);
     } else if (size.width > 768) {
       setSizeon(false);
     }
-    // console.log(size.width)
-    // console.log(size.height)
   }, [size]);
 
   return (
