@@ -146,7 +146,7 @@ export default function NavBar() {
                         <Dropdown.Item
                           onClick={() => {
                             router.push({
-                              pathname: "login",
+                              pathname: "/login",
                             });
                           }}
                         >
@@ -157,7 +157,7 @@ export default function NavBar() {
                         <Dropdown.Item
                           onClick={() => {
                             router.push({
-                              pathname: "signup",
+                              pathname: "/signup",
                             });
                           }}
                         >
