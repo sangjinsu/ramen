@@ -13,6 +13,21 @@ import ramenSelectDoc from "../../components/main/RamenSelect";
 import ramenCodeDoc from "../../components/main/RamenCodes";
 import serverURLDoc from "../../components/main/ServerURL";
 import DocDataDictionary from "../../components/main/dataDictionary";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 600,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 const AUTH_URL = serverURLDoc.AUTH_URL;
 
@@ -29,6 +44,8 @@ function RamenPreference({ router: { query } }: signupType) {
   const Router = useRouter();
   const [canGoNext, setCanGoNext] = useState(false);
   const [likedRamenCnt, setLikedRamenCnt] = useState(0);
+  const [open, setOpen] = React.useState(true);
+  const handleClose = () => setOpen(false);
 
   const onClickRamen = (event: React.MouseEvent<HTMLButtonElement>) => {
     const ramenName = (event.target as HTMLButtonElement).id;
@@ -135,6 +152,27 @@ function RamenPreference({ router: { query } }: signupType) {
   return (
     <>
       <Container>
+        <Row className="justify-content-md-center">
+          <Col style={{ textAlign: "center" }}>
+            <h1>선호 라면 선택</h1>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={style}>
+                <Typography id="modal-modal-title" variant="h6" component="h2">
+                  이용방법
+                </Typography>
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                  평소 즐겨 먹거나 좋아하는 라면을 선택해주세요.
+                </Typography>
+              </Box>
+            </Modal>
+          </Col>
+        </Row>
+        <br />
         {ramenLists.map((ramenList, idxList) => {
           return (
             <div key={idxList}>
