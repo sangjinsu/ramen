@@ -4,6 +4,7 @@ import pandas as pd
 ### 코사인 유사도를 계산하는 사이킷런 라이브러리
 from sklearn.metrics.pairwise import cosine_similarity
 from recommend.utils.elastic import create_df_log_value
+from sklearn.utils import shuffle
 
 from recommend.utils.table import member, member_like_ramen, ramen
 import tensorflow as tf
@@ -30,13 +31,14 @@ def user_based_cf(member_id):
     df_rating = member_like_ramen()
     df_log_value = create_df_log_value(member_id)
     
-    for memberId, ramen_id, rating in zip(df_log_value['member_id'], df_log_value['ramen_id'], df_log_value['rating']):
-        existed = (df_rating['member_id'] == memberId) & (df_rating['ramen_id'] == ramen_id)
-        if existed.any():
-            df_rating[(df_rating['member_id'] == memberId) & (df_rating['ramen_id'] == ramen_id)]['rating'] = (df_rating[(df_rating['member_id'] == memberId) & (df_rating['ramen_id'] == ramen_id)]['rating']  + rating) / 2
-        else:
-            df_rating = df_rating.append({'member_id': memberId, 'ramen_id': ramen_id, 'rating': rating}, ignore_index=True)
-    df_rating = df_rating.astype({'member_id': 'int', 'ramen_id': 'int'})
+    if len(df_log_value.index):
+        for memberId, ramen_id, rating in zip(df_log_value['member_id'], df_log_value['ramen_id'], df_log_value['rating']):
+            existed = (df_rating['member_id'] == memberId) & (df_rating['ramen_id'] == ramen_id)
+            if existed.any():
+                df_rating[(df_rating['member_id'] == memberId) & (df_rating['ramen_id'] == ramen_id)]['rating'] = (df_rating[(df_rating['member_id'] == memberId) & (df_rating['ramen_id'] == ramen_id)]['rating']  + rating) / 2
+            else:
+                df_rating = df_rating.append({'member_id': memberId, 'ramen_id': ramen_id, 'rating': rating}, ignore_index=True)
+        df_rating = df_rating.astype({'member_id': 'int', 'ramen_id': 'int'})
     
     df_member = member()
     rated_ramen = df_rating.loc[df_rating['member_id']==member_id]['ramen_id'].tolist()
@@ -101,8 +103,6 @@ def user_based_cf(member_id):
          
         if prediction <= 0:
             prediction = 0
-        elif prediction >= 5:
-            prediction = 5
          
         return prediction 
     
@@ -156,21 +156,22 @@ def user_based_cf(member_id):
     predictions = predictions.drop(rated_ramen, axis=0)
     
     pred_sort = predictions.sort_values(ascending=False, by='rating')[:10]
-    recom_ramens = df_ramen.loc[pred_sort.index]['name']
+    recom_ramens = shuffle(df_ramen.loc[pred_sort.index]['name'], random_state=0)
     return recom_ramens.to_dict()
           
 def item_based_cf(member_id):
     df_rating = member_like_ramen()
     
     df_log_value = create_df_log_value(member_id)
-    
-    for memberId, ramen_id, rating in zip(df_log_value['member_id'], df_log_value['ramen_id'], df_log_value['rating']):
-        existed = (df_rating['member_id'] == memberId) & (df_rating['ramen_id'] == ramen_id)
-        if existed.any():
-            df_rating[(df_rating['member_id'] == memberId) & (df_rating['ramen_id'] == ramen_id)]['rating'] = (df_rating[(df_rating['member_id'] == memberId) & (df_rating['ramen_id'] == ramen_id)]['rating']  + rating) / 2
-        else:
-            df_rating = df_rating.append({'member_id': memberId, 'ramen_id': ramen_id, 'rating': rating}, ignore_index=True)
-    df_rating = df_rating.astype({'member_id': 'int', 'ramen_id': 'int'})
+     
+    if len(df_log_value.index):
+        for memberId, ramen_id, rating in zip(df_log_value['member_id'], df_log_value['ramen_id'], df_log_value['rating']):
+            existed = (df_rating['member_id'] == memberId) & (df_rating['ramen_id'] == ramen_id)
+            if existed.any():
+                df_rating[(df_rating['member_id'] == memberId) & (df_rating['ramen_id'] == ramen_id)]['rating'] = (df_rating[(df_rating['member_id'] == memberId) & (df_rating['ramen_id'] == ramen_id)]['rating']  + rating) / 2
+            else:
+                df_rating = df_rating.append({'member_id': memberId, 'ramen_id': ramen_id, 'rating': rating}, ignore_index=True)
+        df_rating = df_rating.astype({'member_id': 'int', 'ramen_id': 'int'})
     
     df_member = member()
     rated_ramen = df_rating.loc[df_rating['member_id']==member_id]['ramen_id'].tolist()
@@ -244,7 +245,7 @@ def item_based_cf(member_id):
     predictions = predictions.drop(rated_ramen, axis=0)
     
     pred_sort = predictions.sort_values(ascending=False, by='rating')[:10]
-    recom_ramens = df_ramen.loc[pred_sort.index]['name']
+    recom_ramens = shuffle(df_ramen.loc[pred_sort.index]['name'], random_state=0)
     return recom_ramens.to_dict()
 
 def ramen_similarity(ramen_id):
@@ -318,11 +319,12 @@ def deaplearning_based_rc(member_id):
     # 전체 평균 계산
     member_ids = np.array([member_id] * len(df_ramen.index)) 
     ramen_ids = np.array(df_ramen.index)
-    try :
-        predictions = model.predict([member_ids, ramen_ids]) + mu
-        predictions = pd.DataFrame(predictions, columns=['predict_rate'])
-        predicton_ids = predictions.drop(rated_ramen).sort_values(by=['predict_rate'], ascending=False).head(10).index
-        return df_ramen.loc[predicton_ids]['name'].to_dict()
-    except Exception:
-        raise exceptions.NotFound(detail="추천 받을 수 없습니다")
+
+    predictions = model.predict([member_ids, ramen_ids]) + mu
+    predictions = pd.DataFrame(predictions, columns=['predict_rate'])
+    predicton_ids = predictions.drop(rated_ramen).sort_values(by=['predict_rate'], ascending=False).head(10).index
+    recom_ramens = shuffle(df_ramen.loc[predicton_ids]['name'], random_state=0).to_dict()
+    return recom_ramens
+    
+    #raise exceptions.NotFound(detail="추천 받을 수 없습니다")
         
