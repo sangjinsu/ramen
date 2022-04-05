@@ -53,7 +53,7 @@ spring:
         - id: recommend-service # ???
           uri:http://j6c104.p.ssafy.io:8084
           predicates:
-            - Path=/v1/recommend/{memberId}/**
+            - Path=/v1/recommend/**
 
         - id: log-service #
           uri:http://j6c104.p.ssafy.io:8080
