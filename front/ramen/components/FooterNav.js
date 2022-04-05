@@ -2,6 +2,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { getCookie, removeCookies } from "cookies-next";
+import { Container, Row, Col } from "react-bootstrap";
+
 
 export default function NavBar() {
   const [validRefreshToken, setValidRefreshTokne] = useState(false);
@@ -36,7 +38,15 @@ export default function NavBar() {
     <>
       {sizeon ? (
         <>
-          {/* <hr style={{margin:"0px"}}></hr> */}
+        <Container>
+          <Row>
+            <Col></Col>
+            <Col></Col>
+            <Col></Col>
+            <Col></Col>
+
+            </Row>
+        </Container>
           <div className="sidenav">
             <div className="navin">
               {" "}
@@ -69,7 +79,7 @@ export default function NavBar() {
                     removeCookies("age");
                     removeCookies("gender");
                     setRefreshToken(getCookie("refreshToken"));
-                    alert("로그아웃 하였습니다.");
+                    // alert("로그아웃 하였습니다.");
                     location.reload();
                     // 테스트
                   }}
@@ -95,7 +105,7 @@ export default function NavBar() {
             {validRefreshToken ? (
               <>
                 <div className="navin">
-                  <Link href={`user/${Number(getCookie("member_id"))}`}>
+                  <Link href={`/user/${Number(getCookie("member_id"))}`}>
                     <a className="navmenu">
                       <img src="icon/mypage.png" width={25}></img>
                       &nbsp;마이페이지

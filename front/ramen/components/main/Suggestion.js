@@ -11,9 +11,9 @@ import Link from "next/link";
 export default function Suggestion(props) {
   let [ramen, setRamen] = useState([]);
   let titleString = {
-    "IBCF추천": "아이템 기반",
-"UBCF추천": "사용자 기반",
-"DBRC추천": "딥러닝 기반"
+    "IBCF추천": "내가 좋아하는 라면과 비슷한",
+"UBCF추천": "같은 취향의 사용자가 좋아하는",
+"DBRC추천": "AI가 추천해주는"
   }
   const default_img = "ramen/default.png";
   const handleImage = (e) => {
@@ -78,7 +78,7 @@ export default function Suggestion(props) {
 
       {/* {props.title} */}
       <hr></hr>
-      <h3>{titleString[props.title]}추천</h3>
+      <h3>{titleString[props.title]}</h3>
       <ListGroup>
         {/* {ramen.length !==0
     ? <p>{ramen.length}</p>
