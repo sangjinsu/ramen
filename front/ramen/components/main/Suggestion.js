@@ -147,17 +147,9 @@ export default function Suggestion(props) {
         ) : (
           <>
             <ListGroup.Item>
-              <img src="icon/number1.png" width={25}></img>
-              데이터가 없습니다.
+              로그인 후 이용해 주세요
             </ListGroup.Item>
-            <ListGroup.Item>
-              <img src="icon/number2.png" width={25}></img>
-              데이터가 없습니다.
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <img src="icon/number3.png" width={25}></img>
-              데이터가 없습니다.
-            </ListGroup.Item>
+
           </>
         )}
       </ListGroup>
