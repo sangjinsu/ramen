@@ -11,8 +11,7 @@ import java.io.IOException;
 @RestController
 @RequestMapping("v1/log")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*", allowedHeaders = "*")
-//@CrossOrigin(origins = "http://j6c104.p.ssafy.io:8888/", allowedHeaders = "*")
+//@CrossOrigin(origins = "*", allowedHeaders = "*")
 @Slf4j
 public class LogController {
 
