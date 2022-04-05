@@ -228,7 +228,7 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
                 <Row>
                   {fondTitle.map((title, idxTitle) => {
                     return (
-                      <Col sm={3} key={idxTitle}>
+                      <Col key={idxTitle}>
                         <div className="taste_info">
                           <div className="taste_info_title">
                             {fondTitle[idxTitle]}
@@ -257,7 +257,7 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
                 </Row>
                 {toppingFonds[0] === "없음" ? (
                   <Row className="justify-content-md-center">
-                    <Col sm={3}>
+                    <Col>
                       <p style={{ textAlign: "center" }}>안 넣음</p>
                       <img
                         src={`/topping/안 넣음.jpg`}
@@ -269,7 +269,7 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
                   <Row className="justify-content-md-center">
                     {toppingFonds.map(function (topping, idxTopping) {
                       return (
-                        <Col key={idxTopping} sm={3}>
+                        <Col key={idxTopping}>
                           <p style={{ textAlign: "center" }}>{topping}</p>
                           <img
                             src={`/topping/${topping}.jpg`}
@@ -289,7 +289,7 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
                 </Row>
                 {ingredientFonds[0] === "없음" ? (
                   <Row className="justify-content-md-center">
-                    <Col sm={3}>
+                    <Col>
                       <p style={{ textAlign: "center" }}>안 넣음</p>
                       <img
                         src={`/topping/안 넣음.jpg`}
@@ -301,7 +301,7 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
                   <Row className="justify-content-md-center">
                     {ingredientFonds.map(function (ingredient, idxIngredient) {
                       return (
-                        <Col key={idxIngredient} sm={3}>
+                        <Col key={idxIngredient}>
                           <p style={{ textAlign: "center" }}>{ingredient}</p>
                           <img
                             src={`/topping/${ingredient}.jpg`}

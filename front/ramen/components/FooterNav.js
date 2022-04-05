@@ -95,7 +95,7 @@ export default function NavBar() {
             {validRefreshToken ? (
               <>
                 <div className="navin">
-                  <Link href="#">
+                  <Link href={`user/${Number(getCookie("member_id"))}`}>
                     <a className="navmenu">
                       <img src="icon/mypage.png" width={25}></img>
                       &nbsp;마이페이지

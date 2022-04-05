@@ -14,7 +14,7 @@ export default function BackArrow({ pathname, userInfo }) {
         }}
       >
         <Button
-          sx={{ mx: 25 }}
+          sx={{ mx: 5 }}
           style={{ color: "orange", border: "1px solid orange" }}
           variant="outlined"
           fontSize="large"
