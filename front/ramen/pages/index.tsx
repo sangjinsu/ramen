@@ -9,6 +9,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { getCookie, setCookies } from "cookies-next";
 import { useRouter } from "next/router";
+import serverURLDoc from "../components/main/ServerURL";
+
+const AUTH_URL = serverURLDoc.AUTH_URL;
 
 const Home: NextPage = () => {
   let [ramen, setRamen] = useState([]);
@@ -22,7 +25,7 @@ const Home: NextPage = () => {
     if (accessToken) {
       setIsLogin(true);
       axios
-        .get("http://j6c104.p.ssafy.io:8083/v1/member/check-jwt", {
+        .get(`${AUTH_URL}/check-jwt`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
@@ -34,28 +37,25 @@ const Home: NextPage = () => {
         })
         // accessToken 유효 X
         .catch(function (error) {
-          if (error.response.status === 401) {
-            axios
-              .get("http://j6c104.p.ssafy.io:8083/v1/member/refresh", {
-                headers: {
-                  Authorization: `Bearer ${refreshToken}`,
-                },
-              })
-              // 추천 라면 가져오기
-              .then(function (response) {
-                setCookies("accessToken", response.data.accessToken);
-                setAccessToken(response.data.accessToken);
-                axios.get(
-                  `http://j6c104.p.ssafy.io.:8084/v1/recommend/ibcf/${memberID}`
-                );
-              })
-              .catch(function (error) {
-                alert("로그인 세션 시간이 만료되었습니다.");
-                if (error.response.statue === 401) {
-                  Router.replace("/login");
-                }
-              });
-          }
+          axios
+            .get(`${AUTH_URL}/refresh`, {
+              headers: {
+                Authorization: `Bearer ${refreshToken}`,
+              },
+            })
+            // 추천 라면 가져오기
+            .then(function (response) {
+              setCookies("accessToken", response.data.accessToken);
+              setAccessToken(response.data.accessToken);
+              axios.get(
+                `http://j6c104.p.ssafy.io.:8084/v1/recommend/ibcf/${memberID}`
+              );
+            })
+            .catch(function (error) {
+              alert("로그인 세션 시간이 만료되었습니다.");
+
+              Router.replace("/login");
+            });
         });
     } else {
       console.log("로그인 안함");
@@ -126,7 +126,6 @@ const Home: NextPage = () => {
         <Row>
           <Col xs={1} md={2} lg={3}></Col>
           <Col xs={10} md={8} lg={5}>
-
             <Sug id={memberID} title="DBRC추천" sug="dbrc"></Sug>
           </Col>
           <Col xs={1} md={2} lg={4}></Col>
@@ -159,7 +158,7 @@ const Home: NextPage = () => {
           </Col>
           <Col xs={0} md={2} lg={3}></Col>
         </Row> */}
-        {isLogin ? <h1>추천라면 보여주면 될듯 {memberID}</h1> : null}
+        {/* {isLogin ? <h1>추천라면 보여주면 될듯 {memberID}</h1> : null} */}
         {/* <div className="test">이거 박스테스트</div> */}
       </Container>
       <style jsx>{`

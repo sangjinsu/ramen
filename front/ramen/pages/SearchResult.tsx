@@ -14,10 +14,9 @@ const Search: NextPage = () => {
   const { query } = useRouter();
   let [array, setArray] = useState([]);
   const queryResult = [query.ramenType, query.noodleType, query.ramenStyle];
-  const prevNum1: any = query.ramenType
-  const prevNum2: any = query.noodleType
-  const prevNum3: any = query.ramenStyle
-
+  const prevNum1: any = query.ramenType;
+  const prevNum2: any = query.noodleType;
+  const prevNum3: any = query.ramenStyle;
 
   const default_img = "ramen/default.png";
   const handleImage = (e) => {
@@ -40,12 +39,16 @@ const Search: NextPage = () => {
     3: "짜장라면",
   };
 
-  const categoryName = ["건면",
-    "국물", "봉지라면", "비빔,볶음면",
-    "생면,숙면", "유탕면", "짜장라면", "컵라면"
-  ]
-
-
+  const categoryName = [
+    "건면",
+    "국물",
+    "봉지라면",
+    "비빔,볶음면",
+    "생면,숙면",
+    "유탕면",
+    "짜장라면",
+    "컵라면",
+  ];
 
   const [currentPage, setCurrentPage] = React.useState(1); // 현재 페이지
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
@@ -61,27 +64,27 @@ const Search: NextPage = () => {
 
   useEffect(() => {
     if (query.noodleType === undefined) {
-      const dm = [{
-        ramenId: 999,
-        name: '없어용',
-        brand: "다시 검색 해보세용",
-      },
+      const dm = [
+        {
+          ramenId: 999,
+          name: "없어용",
+          brand: "다시 검색 해보세용",
+        },
         // {
         //   ramenId: 31,
         //   name: 'h2',
         //   brand: "2h",
         // },
-      ]
-      console.log(dm)
-      setArray(dm)
+      ];
+      console.log(dm);
+      setArray(dm);
       // query.noodleType = 3
       // query.ramenStyle = 3
       // query.ramenType = 1
-    }
-    else {
+    } else {
       axios({
-        method: 'post',
-        url: 'http://j6c104.p.ssafy.io:8080/v1/ramen/category',
+        method: "post",
+        url: "http://j6c104.p.ssafy.io:8080/v1/ramen/category",
         data: {
           noodleType: query.noodleType,
           // 면타입
@@ -92,14 +95,14 @@ const Search: NextPage = () => {
         },
       })
         .then((result) => {
-          console.log('요청성공')
-          console.log(query.noodleType)
-          console.log(query.ramenStyle)
-          console.log(query.ramenType)
+          console.log("요청성공");
+          console.log(query.noodleType);
+          console.log(query.ramenStyle);
+          console.log(query.ramenType);
 
-          console.log(result)
-          console.log(result.data)
-          setArray(result.data)
+          console.log(result);
+          console.log(result.data);
+          setArray(result.data);
           // const dm = [{
           //   ramenId: 33,
           //   name: 'h',
@@ -113,49 +116,53 @@ const Search: NextPage = () => {
           // setArray(dm)
         })
         .catch((error) => {
-          console.log('요청실패')
-          console.log(error)
-
-        })
+          console.log("요청실패");
+          console.log(error);
+        });
     }
+  }, []);
 
-  }, [])
-
-  return <>
-    <Container>
-      <Row>
-        <Col xs={1} md={2}></Col>
-        <Col xs={10} md={8}>
-          {/* <h1>카테고리결과 </h1> */}
-          {currentRamens
-            ? (
+  return (
+    <>
+      <Container>
+        <Row>
+          <Col xs={1} md={2}></Col>
+          <Col xs={10} md={8}>
+            {/* <h1>카테고리결과 </h1> */}
+            {currentRamens ? (
               <div className="title">
                 <Container>
                   <Row>
                     <Col xs={12} md={12} lg={12}>
-                      {/* {categoryName.includes(ramenType[queryResult[0]])
-                        ? <p>있어</p>
-                        : null
-                      } */}
-                      {/* {prevNum1}{prevNum2}{prevNum3} */}
-                      {
-                        prevNum1 === '0'
-                          ? null
-                          : <><img src={`icon/rename/${ramenType[prevNum1]}.png`} width={45} onError={handleImage}></img>&nbsp;
-                          </>
-                      }
-                      {
-                        prevNum2 === '0'
-                          ? null
-                          : <><img src={`icon/rename/${noodleType[prevNum2]}.png`} width={45} onError={handleImage}></img>&nbsp;
-                          </>
-                      }
-                      {
-                        prevNum3 === '0'
-                          ? null
-                          : <><img src={`icon/rename/${ramenStyle[prevNum3]}.png`} width={45} onError={handleImage}></img>
-                          </>
-                      }
+                      {prevNum1 === "0" ? null : (
+                        <>
+                          <img
+                            src={`icon/rename/${ramenType[prevNum1]}.png`}
+                            width={45}
+                            onError={handleImage}
+                          ></img>
+                          &nbsp;
+                        </>
+                      )}
+                      {prevNum2 === "0" ? null : (
+                        <>
+                          <img
+                            src={`icon/rename/${noodleType[prevNum2]}.png`}
+                            width={45}
+                            onError={handleImage}
+                          ></img>
+                          &nbsp;
+                        </>
+                      )}
+                      {prevNum3 === "0" ? null : (
+                        <>
+                          <img
+                            src={`icon/rename/${ramenStyle[prevNum3]}.png`}
+                            width={45}
+                            onError={handleImage}
+                          ></img>
+                        </>
+                      )}
                       {/* <img src={`icon/rename/${noodleType[queryResult[1]]}.png`} width={45} onError={handleImage}></img>&nbsp;
                       <img src={`icon/rename/${ramenStyle[queryResult[2]]}.png`} width={45} onError={handleImage}></img> */}
                     </Col>
@@ -166,51 +173,51 @@ const Search: NextPage = () => {
                     </Col> */}
                   </Row>
                 </Container>
-
-
-
-
               </div>
-            )
-            : null
-          }
+            ) : null}
 
-          <hr></hr>
-          {/* {currentRamens.length === 0
+            <hr></hr>
+            {/* {currentRamens.length === 0
             ? <p>없어</p>
             : <p>있어</p>} */}
 
-          {currentRamens.length
-            ? null
-            : <p>검색결과가 없어용</p>}
+            {currentRamens.length ? null : <p>검색결과가 없어용</p>}
 
-          {currentRamens.map(function (a, index) {
-            let imgpath = `ramen/${a.name}.png`
-            let ramenName = `${a.name}.png`
-            return (
-              <ResultBox key={index} name={a.name} brand={a.brand} image={imgpath} id={a.ramenId} ramenName={ramenName}></ResultBox>
-            )
-          })}
+            {currentRamens.map(function (a, index) {
+              let imgpath = `ramen/${a.name}.png`;
+              let ramenName = `${a.name}.png`;
+              return (
+                <ResultBox
+                  key={index}
+                  name={a.name}
+                  brand={a.brand}
+                  image={imgpath}
+                  id={a.ramenId}
+                  ramenName={ramenName}
+                ></ResultBox>
+              );
+            })}
 
-          <Stack spacing={2} >
-            <Pagination count={pageNumber} shape="rounded" onChange={handleChange} />
-          </Stack>
-
-        </Col>
-        <Col xs={1} md={2}></Col>
-
-      </Row>
-    </Container>
-    <style jsx>{`
+            <Stack spacing={2}>
+              <Pagination
+                count={pageNumber}
+                shape="rounded"
+                onChange={handleChange}
+              />
+            </Stack>
+          </Col>
+          <Col xs={1} md={2}></Col>
+        </Row>
+      </Container>
+      <style jsx>{`
         .title {
           display: inline;
           font-weight: bold;
-          font-size: 16ㅔㅌ;;
+          font-size: 16px;
         }
       `}</style>
-  </>
-
+    </>
+  );
 };
 
-export default Search
-
+export default Search;

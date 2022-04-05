@@ -8,6 +8,9 @@ import axios from "axios";
 import { setCookies, getCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import { signupType } from "../../components/Types";
+import serverURLDoc from "../../components/main/ServerURL";
+
+const AUTH_URL = serverURLDoc.AUTH_URL;
 
 function RamenPreference({ router: { query } }: signupType) {
   const Router = useRouter();
@@ -43,14 +46,12 @@ function RamenPreference({ router: { query } }: signupType) {
   ];
 
   const onClickChoice = (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log(event.target);
     const idArray = (event.target as HTMLButtonElement).id.split("-");
     const categoryId = Number(idArray[1]);
     const choiceId = Number(idArray[2]);
     const choice = ramenPreferences[categoryId][choiceId];
     if (categoryId === 0) {
       if (selectLength === choice) {
-        console.log("prevLength", selectLength);
         setSelectLength((prevLength) => "");
       } else {
         setSelectLength((prevLength) => choice);
@@ -119,7 +120,7 @@ function RamenPreference({ router: { query } }: signupType) {
     const refreshToken = getCookie("refreshToken");
     if (refreshToken) {
       axios
-        .get("http://j6c104.p.ssafy.io:8083/v1/member/refresh", {
+        .get(`${AUTH_URL}/refresh`, {
           headers: {
             Authorization: `Bearer ${refreshToken}`,
           },
@@ -224,7 +225,7 @@ function RamenPreference({ router: { query } }: signupType) {
   return (
     <>
       <div>
-        <Container>
+        <Container style={{ width: "70%" }}>
           <SignupPreference
             flagSoup={flagSoup}
             flagTopping={flagTopping}
@@ -242,6 +243,8 @@ function RamenPreference({ router: { query } }: signupType) {
             selectToppingDumpling={selectToppingDumpling}
             onClickChoice={onClickChoice}
           />
+        </Container>
+        <Container>
           <Row>
             <Col>
               <div style={{ float: "left" }}>

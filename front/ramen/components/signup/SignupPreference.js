@@ -59,10 +59,12 @@ export default function SignupPreference({
                 <h4>{ramenPreferenceName[idxPreference]}</h4>
               </Col>
             </Row>
-            <Row>
+            <Row className="justify-content-md-center">
               {ramenPreferences[idxPreference].map((choice, idxChoice) => {
                 return (
                   <Col
+                    sm={3}
+                    xs={6}
                     id={`choice-${idxPreference}-${idxChoice}`}
                     key={idxChoice}
                   >
@@ -112,8 +114,8 @@ export default function SignupPreference({
                         (idxPreference === 5 &&
                           idxChoice === 3 &&
                           (flagSoup || selectSoupGreenOnion))
-                          ? { width: "9rem" }
-                          : { width: "9rem", opacity: "0.5" }
+                          ? { width: "100%" }
+                          : { width: "90%", opacity: "0.5" }
                       }
                     >
                       <Avatar

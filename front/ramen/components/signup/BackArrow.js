@@ -2,9 +2,9 @@
 /* eslint-disable react/react-in-jsx-scope */
 import Link from "next/link";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import Button from "@mui/material/Button";
 
 export default function BackArrow({ pathname, userInfo }) {
-  console.log(pathname);
   return (
     <>
       <Link
@@ -13,9 +13,15 @@ export default function BackArrow({ pathname, userInfo }) {
           query: { userInfo: JSON.stringify(userInfo) },
         }}
       >
-        <a>
-          <ArrowBackIosIcon />
-        </a>
+        <Button
+          sx={{ mx: 5 }}
+          style={{ color: "orange", border: "1px solid orange" }}
+          variant="outlined"
+          fontSize="large"
+          startIcon={<ArrowBackIosIcon />}
+        >
+          PREV
+        </Button>
       </Link>
     </>
   );

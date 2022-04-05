@@ -2,6 +2,8 @@
 /* eslint-disable react/react-in-jsx-scope */
 import Link from "next/link";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import * as React from "react";
+import Button from "@mui/material/Button";
 
 export default function BackArrow({ pathname, userInfo }) {
   return (
@@ -12,9 +14,15 @@ export default function BackArrow({ pathname, userInfo }) {
           query: { userInfo: JSON.stringify(userInfo) },
         }}
       >
-        <a>
-          <ArrowForwardIosIcon />
-        </a>
+        <Button
+          sx={{ mx: 5 }}
+          style={{ color: "orange", border: "1px solid orange" }}
+          variant="outlined"
+          fontSize="large"
+          endIcon={<ArrowForwardIosIcon />}
+        >
+          NEXT
+        </Button>
       </Link>
     </>
   );

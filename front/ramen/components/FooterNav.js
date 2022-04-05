@@ -2,11 +2,12 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { getCookie, removeCookies } from "cookies-next";
-
+import { Container, Row, Col } from "react-bootstrap";
+import { useRouter } from "next/router";
 
 
 export default function NavBar() {
-
+  const router = useRouter();
   const [validRefreshToken, setValidRefreshTokne] = useState(false);
   const [refreshToken, setRefreshToken] = useState(getCookie("refreshToken"));
   let cookie = getCookie("refreshToken");
@@ -23,44 +24,43 @@ export default function NavBar() {
   }, [refreshToken]);
 
   const size = useWindowSize();
-  // const [size,setSize] = useState(size)
-  const [sizeon,setSizeon] = useState(false)
-  useEffect(()=>{
-    if(size.width<=768){
-      console.log('핸드폰화면FooterNav')
-      setSizeon(true)
-    }else if(size.width>768){
-      setSizeon(false)
+  const [sizeon, setSizeon] = useState(false);
+  useEffect(() => {
+    if (size.width <= 768) {
+      setSizeon(true);
+    } else if (size.width > 768) {
+      setSizeon(false);
     }
-    // console.log(size.width)
-    // console.log(size.height)
-  },[size])
+  }, [size]);
   return (
     <>
-    {sizeon
-      ?(
+      {sizeon ? (
         <>
-          {/* <hr style={{margin:"0px"}}></hr> */}
-        <div className="sidenav">
-      <div className="navin"> <Link href="/">
+          <div className="sidenav">
+            <div className="navin">
+              {" "}
+              <Link href="/">
                 <a className="navmenu">
-                  <img src="icon/home.png" width={25}></img>
+                  {/* <img src="icon/home.png" width={25}></img> */}
                   &nbsp;홈
                 </a>
-              </Link></div>
-              
-      <div className="navin"><Link href="/index2">
+              </Link>
+            </div>
+
+            <div className="navin">
+              <Link href="/index2">
                 <a className="navmenu">
-                <img src="icon/keyword.png" width={25}></img>
-                &nbsp;키워드추천
+                  {/* <img src="icon/keyword.png" width={25}></img> */}
+                  &nbsp;키워드추천
                 </a>
-              </Link> </div>
-              
-              {
-                validRefreshToken
-                ?(
-                  <>
-                  <div className="navin" onClick={() => {
+              </Link>{" "}
+            </div>
+
+            {validRefreshToken ? (
+              <>
+                <div
+                  className="navin"
+                  onClick={() => {
                     removeCookies("member_id");
                     removeCookies("accessToken");
                     removeCookies("refreshToken");
@@ -68,78 +68,72 @@ export default function NavBar() {
                     removeCookies("age");
                     removeCookies("gender");
                     setRefreshToken(getCookie("refreshToken"));
-                    alert("로그아웃 하였습니다.");
-                    location.reload();
-                    // 테스트
+                    router.push({ pathname: "/" });
+                  }}
+                >
+                  <Link href="#">
+                    <a className="navmenu">
+                      {/* <img src="icon/logout.png" width={25}></img> */}
+                      &nbsp;로그아웃
+                    </a>
+                  </Link>{" "}
+                </div>
+              </>
+            ) : (
+              <div className="navin">
+                <Link href="/login">
+                  <a className="navmenu">
+                    {/* <img src="icon/login.png" width={25}></img> */}
+                    &nbsp;로그인
+                  </a>
+                </Link>{" "}
+              </div>
+            )}
+            {validRefreshToken ? (
+              <>
+                <div className="navin">
+                  <Link href={`/user/${Number(getCookie("member_id"))}`}>
+                    <a className="navmenu">
+                      {/* <img src="icon/mypage.png" width={25}></img> */}
+                      &nbsp;마이페이지
+                    </a>
+                  </Link>{" "}
+                </div>
+              </>
+            ) : (
+              <div className="navin">
+                <Link href="/signup">
+                  <a className="navmenu">
+                    {/* <img src="icon/signup.png" width={25}></img> */}
+                    &nbsp;가입
+                  </a>
+                </Link>{" "}
+              </div>
+            )}
 
-                  }}><Link href="#">
-            <a className="navmenu">
-            <img src="icon/logout.png" width={25}></img>
-            &nbsp;로그아웃
-            </a>
-          </Link> </div>
-          </>
-                )
-                :
-                (
-                  <div className="navin"><Link href="/login">
-                <a className="navmenu">
-                <img src="icon/login.png" width={25}></img>
-                &nbsp;로그인
-                </a>
-              </Link> </div>
-                )
-              }
-              {
-                validRefreshToken
-                ?(              <>
-                <div className="navin"><Link href="#">
-                <a className="navmenu">
-                <img src="icon/mypage.png" width={25}></img>
-                &nbsp;마이페이지
-                </a>
-              </Link> </div></>)
-                :(              <div className="navin"><Link href="/signup">
-                <a className="navmenu">
-                <img src="icon/signup.png" width={25}></img>
-                &nbsp;가입
-                </a>
-              </Link> </div>)
-              }
-
-              
-              
-
-              
-
-
-   
-               
             {/* <a href="#about">카테고리</a>
             <a href="#services">키워드</a> */}
-          </div></>
-        
+          </div>
+        </>
+      ) : null}
 
-      )
-      :null
-    }
-      
       <style jsx>{`
-      .navmenu{
-        margin:0px;
-      }
-      .navin{
-        display:inline;
-      }
+        .navmenu {
+          margin: 0px;
+        }
+        .navin {
+          display: inline;
+          // font-size: 20px;
+        }
         .sidenav {
           border-top: solid 1px #e6e6e6;
-          display:flex;
+          display: flex;
           justify-content: space-evenly;
-          height:60px;
+          height: 60px;
           width: 100%;
           position: fixed;
           z-index: 1;
-          bottom:0px;
+          bottom: 0px;
           // top: 200px;
           // right: 10px;
           // margin-top:10px;
@@ -149,29 +143,33 @@ export default function NavBar() {
           padding: 8px 0;
           // border-radius:15px;
         }
-        
+
         .sidenav a {
           padding: 6px 8px 6px 16px;
           text-decoration: none;
-          font-size: 14px;
+          font-size: 16px;
           color: grey;
           display: inline;
         }
-        
+
         .sidenav a:hover {
           color: orange;
         }
-        
+
         .main {
           margin-left: 140px; /* Same width as the sidebar + left position in px */
           font-size: 28px; /* Increased text to enable scrolling */
           padding: 0px 10px;
         }
-        
+
         @media screen and (max-height: 200px) {
-          .sidenav {padding-top: 15px;}
-          .sidenav a {font-size: 18px;}
-        }   
+          .sidenav {
+            padding-top: 15px;
+          }
+          .sidenav a {
+            font-size: 18px;
+          }
+        }
       `}</style>
     </>
   );

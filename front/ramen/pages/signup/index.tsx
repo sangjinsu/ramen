@@ -22,10 +22,10 @@ import axios from "axios";
 import { setCookies, getCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import { signupType } from "../../components/Types";
-import { orange } from "@mui/material/colors";
-
 import SendIcon from "@mui/icons-material/Send";
+import serverURLDoc from "../../components/main/ServerURL";
 
+const AUTH_URL = serverURLDoc.AUTH_URL;
 const Signup: React.FC<signupType> = ({ router: { query } }) => {
   const Router = useRouter();
 
@@ -54,7 +54,6 @@ const Signup: React.FC<signupType> = ({ router: { query } }) => {
       /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
     // 이메일 형식, 중복 확인
     if (regEmail.test(email) === true) {
-      console.log("이메일 형식이 맞음", inputEmail, typeof inputEmail);
       axios
         .post("http://j6c104.p.ssafy.io:8083/v1/member/check-email", {
           inputEmail: inputEmail,
@@ -64,7 +63,6 @@ const Signup: React.FC<signupType> = ({ router: { query } }) => {
           if (response.status === 200) {
             setIsEmailOnly((prevState) => true);
           }
-          console.log("응답", response);
         })
         // 중복되는 경우, 다시 중복검사 + 알림(이미 사용중인 이메일)
         .catch(function (error) {
@@ -144,6 +142,22 @@ const Signup: React.FC<signupType> = ({ router: { query } }) => {
   ]);
 
   useEffect(() => {
+    const refreshToken = getCookie("refreshToken");
+    if (refreshToken) {
+      axios
+        .get(`${AUTH_URL}/refresh`, {
+          headers: {
+            Authorization: `Bearer ${refreshToken}`,
+          },
+        })
+        .then(function (response) {
+          console.log("refresh 성공", response);
+          setCookies("accessToken", response.data.accessToken);
+          Router.push({
+            pathname: "/",
+          });
+        });
+    }
     if (query.userInfo) {
       const prevUserInfo = JSON.parse(query.userInfo);
       setInputEmail(prevUserInfo["inputEmail"]);

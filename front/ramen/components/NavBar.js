@@ -22,18 +22,14 @@ export default function NavBar() {
   let cookie = getCookie("refreshToken");
 
   const size = useWindowSize();
-  // const [size,setSize] = useState(size)
-  const [sizeon,setSizeon] = useState(false)
-  useEffect(()=>{
-    if(size.width<=768){
-      console.log('핸드폰화면 NavBar')
-      setSizeon(true)
-    }else if(size.width>768){
-      setSizeon(false)
+  const [sizeon, setSizeon] = useState(false);
+  useEffect(() => {
+    if (size.width <= 768) {
+      setSizeon(true);
+    } else if (size.width > 768) {
+      setSizeon(false);
     }
-    // console.log(size.width)
-    // console.log(size.height)
-  },[size])
+  }, [size]);
 
   useEffect(() => {
     setRefreshToken(() => getCookie("refreshToken"));
@@ -49,12 +45,11 @@ export default function NavBar() {
 
   return (
     <>
-    
       <Navbar collapseOnSelect expand="lg" bg="bg-white" variant="light">
         <Container>
           <Navbar.Brand>
             <Link href="/">
-              <a className="navmenu king" >
+              <a className="navmenu king">
                 라면
                 {/* <img src="/logo.png" width={150} />  */}
                 &nbsp;
@@ -109,79 +104,85 @@ export default function NavBar() {
 
             {/* <img src="/logo.png" width={200}/> */}
           </Navbar.Brand>
-          {
-            sizeon
-            ?null
-            :(
-              <>
+          {sizeon ? null : (
+            <>
               <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="me-auto">
-              <Link href="/">
-                <a className="navmenu">
-                  &nbsp;첫화면 &nbsp;
-                </a>
-              </Link>
-              <Link href="/index2">
-                <a className="navmenu">&nbsp;키워드추천 &nbsp;</a>
-              </Link>
-            </Nav>
-            <Nav>
-              <Dropdown>
-                <Dropdown.Toggle variant="" id="dropdown-basic">
-                  <FontAwesomeIcon icon={faUser} /> 회원메뉴
-                </Dropdown.Toggle>
+              <Navbar.Collapse id="responsive-navbar-nav">
+                <Nav className="me-auto">
+                  <Link href="/">
+                    <a className="navmenu">&nbsp;첫화면 &nbsp;</a>
+                  </Link>
+                  <Link href="/index2">
+                    <a className="navmenu">&nbsp;키워드추천 &nbsp;</a>
+                  </Link>
+                  <Link href="/ramen">
+                    <a className="navmenu">&nbsp;전체 라면 &nbsp;</a>
+                  </Link>
+                </Nav>
+                <Nav>
+                  <Dropdown>
+                    <Dropdown.Toggle variant="" id="dropdown-basic">
+                      <FontAwesomeIcon icon={faUser} /> 회원메뉴
+                    </Dropdown.Toggle>
 
-                <Dropdown.Menu>
-                  {validRefreshToken ? (
-                    <Dropdown.Item
-                      onClick={() => {
-                        removeCookies("member_id");
-                        removeCookies("accessToken");
-                        removeCookies("refreshToken");
-                        removeCookies("name");
-                        removeCookies("age");
-                        removeCookies("gender");
-                        setRefreshToken(getCookie("refreshToken"));
-                        alert("로그아웃 하였습니다.");
-                        location.reload();
-                      }}
-                    >
-                      로그아웃
-                    </Dropdown.Item>
-                  ) : (
-                    <Dropdown.Item
-                      onClick={() => {
-                        router.push({
-                          pathname: "login",
-                        });
-                      }}
-                    >
-                      로그인
-                    </Dropdown.Item>
-                  )}
-                  {validRefreshToken ? null : (
-                    <Dropdown.Item
-                      onClick={() => {
-                        router.push({
-                          pathname: "signup",
-                        });
-                      }}
-                    >
-                      회원가입
-                    </Dropdown.Item>
-                  )}
-                  {validRefreshToken ? (
-                    <Dropdown.Item href="#/action-3">마이페이지</Dropdown.Item>
-                  ) : null}
-                </Dropdown.Menu>
-              </Dropdown>
-            </Nav>
-          </Navbar.Collapse>
-              </>
-            )
-          }
-          
+                    <Dropdown.Menu>
+                      {validRefreshToken ? (
+                        <Dropdown.Item
+                          onClick={() => {
+                            removeCookies("member_id");
+                            removeCookies("accessToken");
+                            removeCookies("refreshToken");
+                            removeCookies("name");
+                            removeCookies("age");
+                            removeCookies("gender");
+                            setRefreshToken(getCookie("refreshToken"));
+                            alert("로그아웃 하였습니다.");
+                            router.push({ pathname: "/" });
+                          }}
+                        >
+                          로그아웃
+                        </Dropdown.Item>
+                      ) : (
+                        <Dropdown.Item
+                          onClick={() => {
+                            router.push({
+                              pathname: "/login",
+                            });
+                          }}
+                        >
+                          로그인
+                        </Dropdown.Item>
+                      )}
+                      {validRefreshToken ? null : (
+                        <Dropdown.Item
+                          onClick={() => {
+                            router.push({
+                              pathname: "/signup",
+                            });
+                          }}
+                        >
+                          회원가입
+                        </Dropdown.Item>
+                      )}
+                      {validRefreshToken ? (
+                        <Dropdown.Item
+                          onClick={() => {
+                            router.push({
+                              pathname: `/user/${Number(
+                                getCookie("member_id")
+                              )}`,
+                            });
+                          }}
+                        >
+                          마이페이지
+                        </Dropdown.Item>
+                      ) : null}
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </Nav>
+              </Navbar.Collapse>
+            </>
+          )}
         </Container>
       </Navbar>
       {/* <hr></hr> */}

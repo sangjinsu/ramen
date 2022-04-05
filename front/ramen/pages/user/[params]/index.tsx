@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
   faCakeCandles,
-  faPerson,
   faUtensils,
 } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -24,7 +23,13 @@ import { getCookie, setCookies } from "cookies-next";
 import axios from "axios";
 import { useRouter } from "next/router";
 import Heart from "../../../components/Heart";
+import serverURLDoc from "../../../components/main/ServerURL";
+import { Container, Row, Col } from "react-bootstrap";
+import ramenPngDoc from "../../../components/main/data";
+import WcIcon from "@mui/icons-material/Wc";
+import DocDataDictionary from "../../../components/main/dataDictionary";
 
+const AUTH_URL = serverURLDoc.AUTH_URL;
 const accessToken = getCookie("accessToken");
 const name = getCookie("name");
 const age = getCookie("age");
@@ -32,7 +37,9 @@ const gender = getCookie("gender");
 const member_id = getCookie("member_id");
 
 const Detail: React.FC<userPageType> = ({ params, fonds }) => {
+  const ramenPngs = ramenPngDoc;
   const [likeRamens, setLikeRamens] = React.useState([]);
+  const fondTitle = ["면의 길이", "면의 식감", "계란", "맵기"];
   const eatFond = [
     fonds.noodleLength,
     fonds.noodleTexture,
@@ -54,40 +61,9 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
         fonds.ingredientPepper ? "고추" : false,
       ].filter((fond) => fond !== false);
 
-  console.log(ingredientFonds);
-  console.log(toppingFonds);
-
-  const likeRamen = [
-    {
-      name: "간짬뽕",
-      ramenId: "1",
-    },
-    {
-      name: "감자면큰사발면",
-      ramenId: "2",
-    },
-    {
-      name: "7가지 채소가득 우리밀라면",
-      ramenId: "3",
-    },
-    {
-      name: "강릉 교동반점 직화짬뽕소컵",
-      ramenId: "4",
-    },
-    {
-      name: "까르보불닭볶음면",
-      ramenId: "5",
-    },
-    {
-      name: "꽃게탕면",
-      ramenId: "6",
-    },
-  ];
-
   const [currentPage, setCurrentPage] = React.useState(1); // 현재 페이지
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
-    console.log(value);
   };
 
   const ramenPerPage = 3; // 페이지당 라면 개수
@@ -104,10 +80,10 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
 
   const checkTokenValid = () => {
     if (!accessToken) {
-      Router.replace("/login");
+      router.replace("/login");
     } else {
       axios
-        .get("http://j6c104.p.ssafy.io:8083/v1/member/check-jwt", {
+        .get(`${AUTH_URL}/check-jwt`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
@@ -116,7 +92,7 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
           console.log("accessToken 만료");
           if (error.response.status === 401) {
             axios
-              .get("http://j6c104.p.ssafy.io:8083/v1/member/refresh", {
+              .get(`${AUTH_URL}/refresh`, {
                 headers: {
                   Authorization: `Bearer ${refreshToken}`,
                 },
@@ -126,7 +102,7 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
                 setAccessToken(response.data.accessToken);
               })
               .catch(function (error) {
-                Router.replace("/login");
+                router.replace("/login");
               });
           }
         });
@@ -152,7 +128,6 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
             },
           }
         );
-        console.log(likeRamenList);
         const userLikeList = likeRamenList.map((ramen) => [
           ramen.name,
           ramen.ramenId,
@@ -160,6 +135,7 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
         setLikeRamens(userLikeList);
       } catch {
         null;
+        // router.push("/");
       }
     };
     userLikeData();
@@ -172,17 +148,17 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
           <section>
             <div className="left_user_name">
               <FontAwesomeIcon icon={faUser} />
-              <p className="font_right">{name}</p>
+              <p className="font_left">{name}</p>
             </div>
           </section>
           <section>
             <div className="user_info">
               <FontAwesomeIcon icon={faCakeCandles} />
-              <p className="font_right">{age}</p>
+              <p className="font_left">{age}</p>
             </div>
             <div className="user_info">
-              <FontAwesomeIcon icon={faPerson} />
-              <p className="font_right">{gender}</p>
+              <WcIcon />
+              <p className="font_left">{gender}</p>
             </div>
           </section>
           <section>
@@ -196,7 +172,7 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
               >
                 <a className="fond_update">
                   <FontAwesomeIcon icon={faUtensils} />
-                  <p className="font_right">취향 수정</p>
+                  <p className="font_left">취향 수정</p>
                 </a>
               </Link>
             </div>
@@ -205,96 +181,136 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
 
         <div className="right_area">
           <section className="main_section">
-            <div className="right_user_name">김동일</div>
+            <div className="right_user_info">
+              <FontAwesomeIcon icon={faUser} />
+              <p>{name}</p>
+            </div>
+
+            <div className="right_user_info">
+              <FontAwesomeIcon icon={faCakeCandles} />
+              <p>{age}</p>
+            </div>
+
+            <div className="right_user_info">
+              <WcIcon />
+              <p>{gender}</p>
+            </div>
+
+            <div>
+              <Link
+                href={{
+                  pathname: `/user/${params}/preferenceupdate`,
+                  query: fonds,
+                }}
+                as={`/user/${params}/preferenceupdate`}
+              >
+                <a className="fond_update right_user_info">
+                  <FontAwesomeIcon icon={faUtensils} />
+                  <p className="font_left">취향 수정</p>
+                </a>
+              </Link>
+            </div>
           </section>
 
           <section>
             <div className="section_title">라면 취향</div>
-
             <div className="taste_infos">
-              <div className="taste_info">
-                <div className="taste_info_title">면 크기</div>
-                <div className="taste_info_detail">{eatFond[0]}</div>
-              </div>
-              <div className="taste_info">
-                <div className="taste_info_title">면의 식감</div>
-                <div className="taste_info_detail">{eatFond[1]}</div>
-              </div>
-              <div className="taste_info">
-                <div className="taste_info_title">계란</div>
-                <div className="taste_info_detail">{eatFond[2]}</div>
-              </div>
-              <div className="taste_info">
-                <div className="taste_info_title">맵기</div>
-                <div className="taste_info_detail">{eatFond[3]}</div>
-              </div>
-            </div>
-
-            <div className="like_infos">
-              <ImageList sx={{ width: "100%" }} cols={2} gap={10}>
-                {eatFond.map((eat) => (
-                  <div className="like_info" key={eat}>
-                    <ImageListItem>
-                      <img
-                        src={`/topping/${eat}.jpg?w=248&fit=crop&auto=format`}
-                        srcSet={`/topping/${eat}.jpg?w=248&fit=crop&auto=format&dpr=2 2x`}
-                        alt={eat}
-                        loading="lazy"
-                      />
-                    </ImageListItem>
-                  </div>
-                ))}
-              </ImageList>
-            </div>
-
-            <div className="taste_infos">
-              <div className="taste_info">
-                <div className="taste_info_title">토핑</div>
-                <div className="taste_info_detail topping_info">
-                  {toppingFonds.map(function (topping, i) {
-                    return <p key={i}>{topping}</p>;
+              <Container>
+                <Row>
+                  {fondTitle.map((title, idxTitle) => {
+                    return (
+                      <Col xs={3} md={3} key={idxTitle}>
+                        <div className="taste_info">
+                          <div className="taste_info_title">
+                            {fondTitle[idxTitle]}
+                          </div>
+                          <div className="taste_info_detail">
+                            {eatFond[idxTitle]}
+                          </div>
+                        </div>
+                        <img
+                          style={{ width: "100%" }}
+                          src={`/topping/${eatFond[idxTitle]}.jpg`}
+                          srcSet={`/topping/${eatFond[idxTitle]}.jpg`}
+                          loading="lazy"
+                        />
+                      </Col>
+                    );
                   })}
-                </div>
-              </div>
-              <div className="taste_info">
-                <div className="taste_info_title">국물 재료</div>
-                <div className="taste_info_detail topping_info">
-                  {ingredientFonds.map(function (ingredientFond, i) {
-                    return <p key={i}>{ingredientFond}</p>;
-                  })}
-                </div>
-              </div>
-            </div>
+                </Row>
 
-            <div className="like_infos">
-              <ImageList sx={{ width: "100%" }} cols={3} gap={10}>
-                {toppingFonds.map((topping) => (
-                  <div className="like_info" key={topping}>
-                    <ImageListItem>
+                <Row>
+                  <Col>
+                    <div className="taste_info">
+                      <div className="taste_info_title">토핑</div>
+                    </div>
+                  </Col>
+                </Row>
+                {toppingFonds[0] === "없음" ? (
+                  <Row className="justify-content-md-center">
+                    <Col xs={3} md={3}>
+                      <p style={{ textAlign: "center" }}>안 넣음</p>
                       <img
-                        src={`/topping/${topping}.jpg?w=248&fit=crop&auto=format`}
-                        srcSet={`/topping/${topping}.jpg?w=248&fit=crop&auto=format&dpr=2 2x`}
-                        alt={topping}
-                        loading="lazy"
+                        src={`/topping/안 넣음.jpg`}
+                        style={{ width: "100%", height: "70%" }}
                       />
-                    </ImageListItem>
-                  </div>
-                ))}
-              </ImageList>
-              <ImageList sx={{ width: "100%" }} cols={3} gap={10}>
-                {ingredientFonds.map((ingredient) => (
-                  <div className="like_info" key={ingredient}>
-                    <ImageListItem>
+                    </Col>
+                  </Row>
+                ) : (
+                  <Row className="justify-content-md-center">
+                    <div className="taste_infos">
+                      {toppingFonds.map(function (topping, idxTopping) {
+                        return (
+                          <Col key={idxTopping} xs={3} md={3}>
+                            <p style={{ textAlign: "center" }}>{topping}</p>
+                            <img
+                              src={`/topping/${topping}.jpg`}
+                              style={{ width: "100%" }}
+                            />
+                          </Col>
+                        );
+                      })}
+                    </div>
+                  </Row>
+                )}
+                <Row>
+                  <Col>
+                    <div className="taste_info">
+                      <div className="taste_info_title">국물 재료</div>
+                    </div>
+                  </Col>
+                </Row>
+                {ingredientFonds[0] === "없음" ? (
+                  <Row className="justify-content-md-center">
+                    <Col xs={3} md={3}>
+                      <p style={{ textAlign: "center" }}>안 넣음</p>
                       <img
-                        src={`/topping/${ingredient}.jpg?w=248&fit=crop&auto=format`}
-                        srcSet={`/topping/${ingredient}.jpg?w=248&fit=crop&auto=format&dpr=2 2x`}
-                        alt={ingredient}
-                        loading="lazy"
+                        src={`/topping/안 넣음.jpg`}
+                        style={{ width: "100%" }}
                       />
-                    </ImageListItem>
-                  </div>
-                ))}
-              </ImageList>
+                    </Col>
+                  </Row>
+                ) : (
+                  <Row className="justify-content-md-center">
+                    <div className="taste_infos">
+                      {ingredientFonds.map(function (
+                        ingredient,
+                        idxIngredient
+                      ) {
+                        return (
+                          <Col key={idxIngredient} xs={3} md={3}>
+                            <p style={{ textAlign: "center" }}>{ingredient}</p>
+                            <img
+                              src={`/topping/${ingredient}.jpg`}
+                              style={{ width: "100%", height: "70%" }}
+                            />
+                          </Col>
+                        );
+                      })}
+                    </div>
+                  </Row>
+                )}
+              </Container>
             </div>
           </section>
 
@@ -307,12 +323,18 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
                     <ImageListItem>
                       <Link href={`/ramen/${ramen[1]}`}>
                         <a className="left_link_area">
-                          <img
-                            src={`/ramen/${ramen[0]}.png?w=248&fit=crop&auto=format`}
-                            srcSet={`/ramen/${ramen[0]}.png?w=248&fit=crop&auto=format&dpr=2 2x`}
-                            alt={ramen[0]}
-                            loading="lazy"
-                          />
+                          {DocDataDictionary[`${ramen[0]}.png`] ? (
+                            <img
+                              width={150}
+                              height={150}
+                              src={`/ramen/${ramen[0]}.png`}
+                              srcSet={`/ramen/${ramen[0]}.png`}
+                              alt={ramen[0]}
+                              loading="lazy"
+                            />
+                          ) : (
+                            <img width={150} src={`/ramen/default.png`}></img>
+                          )}
                         </a>
                       </Link>
                     </ImageListItem>
@@ -370,8 +392,9 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
             }
           }
 
-          .font_right {
+          .font_left {
             margin-left: 0.5rem;
+            margin-top: 0.2rem;
           }
 
           .user_info {
@@ -404,12 +427,21 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
 
           .main_section {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+            padding: 0.75rem 0.625rem;
           }
           @media (min-width: 60rem) {
             .main_section {
               display: none;
             }
+          }
+          .right_user_info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 0.5rem;
           }
 
           section {
@@ -456,7 +488,7 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
             justify-content: center;
             align-items: center;
             padding-bottom: 1rem;
-            margin-top: 1rem;
+            margin-top: 1.3rem;
             margin-bottom: 1rem;
 
             font-size: 20px;
@@ -475,6 +507,7 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
             display: flex;
             flex-direction: row;
             align-items: center;
+            justify-content: center;
           }
           .left_link_area {
             margin: 0.75rem 0.625rem;
@@ -510,7 +543,7 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
             opacity: 0.9;
           }
           .taste_info_detail {
-            font-size: 0.9375rem;
+            font-size: 0.4rem;
             font-weight: 700;
             margin-bottom: 0.1875rem;
           }
@@ -577,4 +610,4 @@ export async function getServerSideProps({ params: { params } }) {
   }
 }
 
-export default withAuth(Detail);
+export default Detail;

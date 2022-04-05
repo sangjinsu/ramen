@@ -1,17 +1,22 @@
 import axios from "axios";
-import { getCookie } from "cookies-next";
+import { getCookie, setCookies } from "cookies-next";
 import { withRouter, useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import SignupPreference from "../../../components/signup/SignupPreference";
 import { userPreferenceType } from "../../../components/Types";
+import Button from "@mui/material/Button";
+import serverURLDoc from "../../../components/main/ServerURL";
+
+const AUTH_URL = serverURLDoc.AUTH_URL;
+const member_id = getCookie("member_id");
 
 const UserPreference: React.FC<userPreferenceType> = ({
   params,
   router: { query },
 }) => {
   console.log(params);
-  console.log(query);
+  console.log(query.egg);
 
   const router = useRouter();
   const [userInfo, setUserInfo] = useState(query);
@@ -128,23 +133,72 @@ const UserPreference: React.FC<userPreferenceType> = ({
   };
 
   const updatePreference = async () => {
-    try {
-      const accessToken = getCookie("accessToken");
-      await axios.put(
-        `http://j6c104.p.ssafy.io:8080/v1/member/fond?egg=${userInfo.egg}&ingredientGarlic=${userInfo.ingredientGarlic}&ingredientGreenOnion=${userInfo.ingredientGreenOnion}&ingredientNone=${userInfo.ingredientNone}&ingredientPepper=${userInfo.ingredientPepper}&memberId=${params}&noodleLength=${userInfo.noodleLength}&noodleTexture=${userInfo.noodleTexture}&spicy=${userInfo.spicy}&toppingCheese=${userInfo.toppingCheese}&toppingDumpling=${userInfo.toppingDumpling}&toppingNone=${userInfo.toppingNone}&toppingTteok=${userInfo.toppingTteok}`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
+    let accessToken = getCookie("accessToken");
+    const refreshToken = getCookie("refreshToken");
+    axios
+      .get(`${AUTH_URL}/check-jwt`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then(function (response) {
+        axios
+          .put(
+            `http://j6c104.p.ssafy.io:8080/v1/member/fond?egg=${userInfo.egg}&ingredientGarlic=${userInfo.ingredientGarlic}&ingredientGreenOnion=${userInfo.ingredientGreenOnion}&ingredientNone=${userInfo.ingredientNone}&ingredientPepper=${userInfo.ingredientPepper}&memberId=${params}&noodleLength=${userInfo.noodleLength}&noodleTexture=${userInfo.noodleTexture}&spicy=${userInfo.spicy}&toppingCheese=${userInfo.toppingCheese}&toppingDumpling=${userInfo.toppingDumpling}&toppingNone=${userInfo.toppingNone}&toppingTteok=${userInfo.toppingTteok}`,
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            }
+          )
+          .then(function (response) {
+            router.push(`/user/${params}`);
+          });
+      })
+      .catch(function (error) {
+        console.log("check-jwt 실패", error.response.status);
+        if (error.response.status === 401) {
+          // refreshToken 유효 검사
+          axios
+            .get(`${AUTH_URL}/refresh`, {
+              headers: {
+                Authorization: `Bearer ${refreshToken}`,
+              },
+            })
+            // refreshToken 유효 - O, accessToken 갱신
+            .then(function (response) {
+              console.log("refresh 성공", response);
+              setCookies("accessToken", response.data.accessToken);
+              accessToken = response.data.accessToken;
+              axios
+                .put(
+                  `http://j6c104.p.ssafy.io:8080/v1/member/fond?egg=${userInfo.egg}&ingredientGarlic=${userInfo.ingredientGarlic}&ingredientGreenOnion=${userInfo.ingredientGreenOnion}&ingredientNone=${userInfo.ingredientNone}&ingredientPepper=${userInfo.ingredientPepper}&memberId=${params}&noodleLength=${userInfo.noodleLength}&noodleTexture=${userInfo.noodleTexture}&spicy=${userInfo.spicy}&toppingCheese=${userInfo.toppingCheese}&toppingDumpling=${userInfo.toppingDumpling}&toppingNone=${userInfo.toppingNone}&toppingTteok=${userInfo.toppingTteok}`,
+                  {
+                    headers: {
+                      Authorization: `Bearer ${accessToken}`,
+                    },
+                  }
+                )
+                .then(function (response) {
+                  router.push(`/user/${params}`);
+                });
+            })
+            .catch(function (error) {
+              alert("로그인 세션 시간이 만료되었습니다.");
+              if (error.response.status === 401) {
+                router.replace("/login");
+              }
+            });
         }
-      );
-      router.push(`/user/${params}`);
-    } catch (error) {
-      console.log(error);
-      // alert("다시 시도해주세요!!");
-      // router.push(`/user/${params}`);
-    }
+      });
   };
+
+  React.useEffect(() => {
+    if (member_id !== params || !query.egg) {
+      alert("잘못된 접근입니다");
+      router.push("/");
+    }
+  }, []);
 
   useEffect(() => {
     setUserInfo(() => {
@@ -253,11 +307,32 @@ const UserPreference: React.FC<userPreferenceType> = ({
             selectToppingDumpling={selectToppingDumpling}
             onClickChoice={onClickChoice}
           />
-
           <Row>
-            <Col>
-              {canGoNext ? <div onClick={updatePreference}>submit</div> : null}
+            <Col></Col>
+            <Col></Col>
+
+            <Col variant="contained">
+              {canGoNext ? (
+                <Button
+                  sx={{ fontSize: 18 }}
+                  style={{
+                    color: "orange",
+                    width: "100px",
+                    border: "1px solid orange",
+                  }}
+                  variant="outlined"
+                  onClick={updatePreference}
+                >
+                  Submit
+                </Button>
+              ) : (
+                <Button variant="outlined" disabled style={{ width: "100px" }}>
+                  Disabled
+                </Button>
+              )}
             </Col>
+            <Col></Col>
+            <Col></Col>
           </Row>
         </Container>
       </div>

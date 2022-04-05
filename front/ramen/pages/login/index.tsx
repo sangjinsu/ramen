@@ -4,7 +4,9 @@ import { Button, Form } from "semantic-ui-react";
 import axios from "axios";
 import { setCookies, getCookie } from "cookies-next";
 import { useRouter } from "next/router";
+import serverURLDoc from "../../components/main/ServerURL";
 
+const AUTH_URL = serverURLDoc.AUTH_URL;
 function Login() {
   const Router = useRouter();
   const [inputEmail, setInputEmail] = useState("");
@@ -36,7 +38,7 @@ function Login() {
 
   const onClickLogin = () => {
     axios
-      .post("http://j6c104.p.ssafy.io:8083/v1/member/login", {
+      .post(`${AUTH_URL}/login`, {
         inputEmail: inputEmail,
         inputPw: inputPw,
       })
@@ -56,7 +58,7 @@ function Login() {
     const refreshToken = getCookie("refreshToken");
     if (refreshToken) {
       axios
-        .get("http://j6c104.p.ssafy.io:8083/v1/member/refresh", {
+        .get(`${AUTH_URL}/refresh`, {
           headers: {
             Authorization: `Bearer ${refreshToken}`,
           },
