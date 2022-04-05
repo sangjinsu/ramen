@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("v1/ranking/")
-//@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 //@CrossOrigin(origins = "http://localhost:8888/", allowedHeaders = "*")
 //@CrossOrigin(origins = "http://j6c104.p.ssafy.io:3000/", allowedHeaders = "*")
 public class RankingController {
