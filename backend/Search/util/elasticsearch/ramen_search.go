@@ -4,11 +4,12 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"fmt"
 	"github.com/elastic/go-elasticsearch"
-	"github.com/elastic/go-elasticsearch/esapi"
 	"github.com/google/uuid"
 	"log"
 	"strings"
+	"time"
 )
 
 type Search interface {
@@ -65,24 +66,26 @@ func (st *search) Send(query string, index string) {
 		var b strings.Builder
 		b.WriteString(`{"query" : "`)
 		b.WriteString(query)
+		b.WriteString(`", "@timestamp" : "`)
+		b.WriteString(time.Now().Format("2006-01-02T15:04:05.000Z"))
 		b.WriteString(`"}`)
-
+		fmt.Println(b.String())
 		// Set up the request object.
-		req := esapi.IndexRequest{
-			Index:      index,
-			DocumentID: documentId,
-			Body:       strings.NewReader(b.String()),
-			Refresh:    "true",
-		}
+		res, err := st.es.Index(
+			index,                                  // Index name
+			strings.NewReader(b.String()),          // Document body
+			st.es.Index.WithDocumentID(documentId), // Document ID
+			st.es.Index.WithRefresh("true"),        // Refresh
+		)
 
 		// Perform the request with the client.
-		res, err := req.Do(context.Background(), st.es)
 		if err != nil {
 			log.Fatalf("Error getting response: %s", err)
 		}
 		defer res.Body.Close()
 
 		if res.IsError() {
+			log.Println(res.String())
 			log.Printf("[%s] Error indexing document ID=%s", res.Status(), documentId)
 		}
 	}(query, index)

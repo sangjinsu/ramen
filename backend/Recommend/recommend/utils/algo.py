@@ -329,7 +329,7 @@ def deaplearning_based_rc(member_id):
 
     predictions = model.predict([member_ids, ramen_ids]) + mu
     predictions = pd.DataFrame(predictions, columns=['predict_rate'])
-    predicton_ids = predictions.drop(rated_ramen).sort_values(by=['predict_rate'], ascending=False).head(10).index
+    predicton_ids = predictions.drop(rated_ramen, axis=0).sort_values(by=['predict_rate'], ascending=False).head(10).index
     recom_ramens = shuffle(df_ramen.loc[predicton_ids]['name'], random_state=0).to_dict()
     return recom_ramens
     
