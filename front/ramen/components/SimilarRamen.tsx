@@ -6,6 +6,7 @@ import Box from "@mui/material/Box";
 import { DataProps, SimilarRamenType } from "./Types";
 import BarSimilar from "./BarSimilar";
 import DocDataDictionary from "./main/dataDictionary";
+import Link from "next/link";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -105,37 +106,49 @@ export default function SimilarRamen({
         </Box>
         <TabPanel value={value} index={0}>
           <div className="similar_ramen">
-            {DocDataDictionary[`${similarityRamen.first.name}.png`] ? (
-              <img
-                src={`/ramen/${similarityRamen.first.name}.png?w=248&fit=crop&auto=format`}
-              ></img>
-            ) : (
-              <img src={"/ramen/default.png"} />
-            )}
+            <Link href={`/ramen/${similarityRamen.first.id}`}>
+              <a>
+                {DocDataDictionary[`${similarityRamen.first.name}.png`] ? (
+                  <img
+                    src={`/ramen/${similarityRamen.first.name}.png?w=248&fit=crop&auto=format`}
+                  ></img>
+                ) : (
+                  <img src={"/ramen/default.png"} />
+                )}
+              </a>
+            </Link>
           </div>
           <BarSimilar barChartData={barChartData} />
         </TabPanel>
         <TabPanel value={value} index={1}>
           <div className="similar_ramen">
-            {DocDataDictionary[`${similarityRamen.second.name}.png`] ? (
-              <img
-                src={`/ramen/${similarityRamen.second.name}.png?w=248&fit=crop&auto=format`}
-              ></img>
-            ) : (
-              <img src={"/ramen/default.png"} />
-            )}
+            <Link href={`/ramen/${similarityRamen.second.id}`}>
+              <a>
+                {DocDataDictionary[`${similarityRamen.second.name}.png`] ? (
+                  <img
+                    src={`/ramen/${similarityRamen.second.name}.png?w=248&fit=crop&auto=format`}
+                  ></img>
+                ) : (
+                  <img src={"/ramen/default.png"} />
+                )}
+              </a>
+            </Link>
           </div>
           <BarSimilar barChartData={barChartData} />
         </TabPanel>
         <TabPanel value={value} index={2}>
           <div className="similar_ramen">
-            {DocDataDictionary[`${similarityRamen.third.name}.png`] ? (
-              <img
-                src={`/ramen/${similarityRamen.third.name}.png?w=248&fit=crop&auto=format`}
-              ></img>
-            ) : (
-              <img src={"/ramen/default.png"} />
-            )}
+            <Link href={`/ramen/${similarityRamen.third.id}`}>
+              <a>
+                {DocDataDictionary[`${similarityRamen.third.name}.png`] ? (
+                  <img
+                    src={`/ramen/${similarityRamen.third.name}.png?w=248&fit=crop&auto=format`}
+                  ></img>
+                ) : (
+                  <img src={"/ramen/default.png"} />
+                )}
+              </a>
+            </Link>
           </div>
           <BarSimilar barChartData={barChartData} />
         </TabPanel>
