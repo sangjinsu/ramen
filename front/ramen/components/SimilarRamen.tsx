@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { DataProps, SimilarRamenType } from "./Types";
 import BarSimilar from "./BarSimilar";
+import ramenPngDoc from "./main/data";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -45,6 +46,7 @@ export default function SimilarRamen({
   similarityRamen: SimilarRamenType;
 }) {
   console.log(similarityRamen);
+  const ramenPngs = ramenPngDoc;
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -104,25 +106,37 @@ export default function SimilarRamen({
         </Box>
         <TabPanel value={value} index={0}>
           <div className="similar_ramen">
-            <img
-              src={`/ramen/${similarityRamen.first.name}.png?w=248&fit=crop&auto=format`}
-            ></img>
+            {ramenPngs.includes(`${similarityRamen.first.name}.png`) ? (
+              <img
+                src={`/ramen/${similarityRamen.first.name}.png?w=248&fit=crop&auto=format`}
+              ></img>
+            ) : (
+              <img src={"/ramen/default.png"} />
+            )}
           </div>
           <BarSimilar barChartData={barChartData} />
         </TabPanel>
         <TabPanel value={value} index={1}>
           <div className="similar_ramen">
-            <img
-              src={`/ramen/${similarityRamen.second.name}.png?w=248&fit=crop&auto=format`}
-            ></img>
+            {ramenPngs.includes(`${similarityRamen.second.name}.png`) ? (
+              <img
+                src={`/ramen/${similarityRamen.second.name}.png?w=248&fit=crop&auto=format`}
+              ></img>
+            ) : (
+              <img src={"/ramen/default.png"} />
+            )}
           </div>
           <BarSimilar barChartData={barChartData} />
         </TabPanel>
         <TabPanel value={value} index={2}>
           <div className="similar_ramen">
-            <img
-              src={`/ramen/${similarityRamen.third.name}.png?w=248&fit=crop&auto=format`}
-            ></img>
+            {ramenPngs.includes(`${similarityRamen.third.name}.png`) ? (
+              <img
+                src={`/ramen/${similarityRamen.third.name}.png?w=248&fit=crop&auto=format`}
+              ></img>
+            ) : (
+              <img src={"/ramen/default.png"} />
+            )}
           </div>
           <BarSimilar barChartData={barChartData} />
         </TabPanel>
