@@ -46,14 +46,12 @@ function RamenPreference({ router: { query } }: signupType) {
   ];
 
   const onClickChoice = (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log(event.target);
     const idArray = (event.target as HTMLButtonElement).id.split("-");
     const categoryId = Number(idArray[1]);
     const choiceId = Number(idArray[2]);
     const choice = ramenPreferences[categoryId][choiceId];
     if (categoryId === 0) {
       if (selectLength === choice) {
-        console.log("prevLength", selectLength);
         setSelectLength((prevLength) => "");
       } else {
         setSelectLength((prevLength) => choice);
