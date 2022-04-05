@@ -16,7 +16,7 @@ const UserPreference: React.FC<userPreferenceType> = ({
   router: { query },
 }) => {
   console.log(params);
-  console.log(query);
+  console.log(query.egg);
 
   const router = useRouter();
   const [userInfo, setUserInfo] = useState(query);
@@ -194,7 +194,7 @@ const UserPreference: React.FC<userPreferenceType> = ({
   };
 
   React.useEffect(() => {
-    if (member_id !== params) {
+    if (member_id !== params || !query.egg) {
       alert("잘못된 접근입니다");
       router.push("/");
     }
