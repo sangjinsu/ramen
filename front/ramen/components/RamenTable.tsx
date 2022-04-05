@@ -113,18 +113,18 @@ export default React.memo(function RamenTable({
     gender: string
   ) {
     console.log(gender);
-    // let ingredient_recommend = 0;
-    // if (name === "에너지 (Kcal)") {
-    //   ingredient_recommend = recommendData[gender][ageKey][0];
-    // } else if (name === "탄수화물(g)") {
-    //   ingredient_recommend = recommendData[gender][ageKey][0];
-    // } else if (name === "단백질(g)") {
-    //   ingredient_recommend = recommendData[gender][ageKey][0];
-    // } else if (name === "지방(g)") {
-    //   ingredient_recommend = recommendData[gender][ageKey][0];
-    // } else if (name === "나트륨(mg)") {
-    //   ingredient_recommend = recommendData[gender][ageKey][0];
-    // }
+    let ingredient_recommend = 0;
+    if (name === "에너지 (Kcal)") {
+      ingredient_recommend = recommendData[gender][ageKey][0];
+    } else if (name === "탄수화물(g)") {
+      ingredient_recommend = recommendData[gender][ageKey][0];
+    } else if (name === "단백질(g)") {
+      ingredient_recommend = recommendData[gender][ageKey][0];
+    } else if (name === "지방(g)") {
+      ingredient_recommend = recommendData[gender][ageKey][0];
+    } else if (name === "나트륨(mg)") {
+      ingredient_recommend = recommendData[gender][ageKey][0];
+    }
     return {
       name,
       ingredient,
@@ -133,14 +133,55 @@ export default React.memo(function RamenTable({
     };
   }
 
-  const rows = [
-    createData("에너지 (Kcal)", barChartData.data[0], 443.26, ageKey, gender),
-    createData("탄수화물(g)", barChartData.data[1], 68.05, 330, gender),
-    createData("단백질(g)", barChartData.data[2], 8.32, 50, gender),
-    createData("지방(g)", barChartData.data[3], 13.56, 0, gender),
-    createData("당류(g)", barChartData.data[4], 4.72, 25, gender),
-    createData("나트륨(mg)", barChartData.data[5], 1467.95, 1500, gender),
+  let rows = [
+    {
+      name: "에너지 (Kcal)",
+      ingredient: 490,
+      ingredient_average: 443.26,
+      ingredient_recommend: 2600,
+    },
+    {
+      name: "탄수화물(g)",
+      ingredient: 75,
+      ingredient_average: 68.05,
+      ingredient_recommend: 2600,
+    },
+    {
+      name: "단백질(g)",
+      ingredient: 9,
+      ingredient_average: 8.32,
+      ingredient_recommend: 2600,
+    },
+    {
+      name: "지방(g)",
+      ingredient: 17,
+      ingredient_average: 13.56,
+      ingredient_recommend: 2600,
+    },
+    {
+      name: "당류(g)",
+      ingredient: 6,
+      ingredient_average: 4.72,
+      ingredient_recommend: 0,
+    },
+    {
+      name: "나트륨(mg)",
+      ingredient: 1550,
+      ingredient_average: 1467.95,
+      ingredient_recommend: 2600,
+    },
   ];
+  if (ageKey && gender) {
+    rows = [
+      createData("에너지 (Kcal)", barChartData.data[0], 443.26, ageKey, gender),
+      createData("탄수화물(g)", barChartData.data[1], 68.05, ageKey, gender),
+      createData("단백질(g)", barChartData.data[2], 8.32, ageKey, gender),
+      createData("지방(g)", barChartData.data[3], 13.56, ageKey, gender),
+      createData("당류(g)", barChartData.data[4], 4.72, ageKey, gender),
+      createData("나트륨(mg)", barChartData.data[5], 1467.95, ageKey, gender),
+    ];
+    console.log(rows);
+  }
 
   React.useEffect(() => {
     if (age <= 2) {
