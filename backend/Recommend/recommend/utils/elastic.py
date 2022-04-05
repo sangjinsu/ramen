@@ -2,6 +2,7 @@ import json
 from elasticsearch import Elasticsearch
 import pandas as pd
 import numpy as np
+from pprint import pprint
 
 def create_df_log_value(member_id):
     # ES 로그 조회
@@ -25,6 +26,9 @@ def create_df_log_value(member_id):
                 }
             ]
         })
+    if not docs['hits']['hits']:
+        return pd.DataFrame()
+        
     user_logs = list(map(lambda log: json.loads(log['_source']
                          ['message']), docs['hits']['hits']))
 
@@ -33,13 +37,14 @@ def create_df_log_value(member_id):
     df_user_logs.columns = ['member_id', 'ramen_id']
     # df_user_logs = df_user_logs.set_index(keys=['member_id'], inplace=False, drop=True)
     if USER_LOG_LENGTH > 0:
-        weight = np.arange(USER_LOG_LENGTH, 0, -1) / USER_LOG_LENGTH * 5
+        weight = (np.arange(USER_LOG_LENGTH, 0, -1) / USER_LOG_LENGTH) * 5
     else:
-        weight = 0.0
+        weight = 3.0
         
     df_user_logs['rating'] = weight
     df_user_logs = df_user_logs.groupby('ramen_id').mean()
     df_user_logs['ramen_id'] = df_user_logs.index
     df_user_logs = df_user_logs.astype({'member_id': 'int'})
     df_user_logs = df_user_logs.reset_index(drop=True)
+
     return df_user_logs

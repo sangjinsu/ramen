@@ -14,7 +14,6 @@ import java.util.List;
 @RequestMapping("/v1/ramen")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-//@CrossOrigin(origins = "http://j6c104.p.ssafy.io:8888/", allowedHeaders = "*")
 public class RamenController {
 
     private final RamenService ramenService;

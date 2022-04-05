@@ -24,12 +24,14 @@ type RamenResponse struct {
 func SearchName(c *fiber.Ctx) error {
 	name := c.Query("query")
 	responses := queryElasticSearch(name, searchQueries.RamenName)
+	elasticSearch.Send(name, "query")
 	return c.JSON(responses)
 }
 
 func SearchBrand(c *fiber.Ctx) error {
 	brand := c.Query("query")
 	responses := queryElasticSearch(brand, searchQueries.RamenBrand)
+	elasticSearch.Send(brand, "query")
 	return c.JSON(responses)
 }
 
