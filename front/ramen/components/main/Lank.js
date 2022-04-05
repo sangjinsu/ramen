@@ -22,7 +22,7 @@ export default function Lank(props) {
           ) : (
             <ListGroup.Item>
               <img src={`icon/medal1.png`} width={35}></img>
-              데이터가 없습니다.
+              발표대기중...
               {/* {props.ramen[0].ramenId}/ */}
             </ListGroup.Item>
           )}
@@ -33,7 +33,7 @@ export default function Lank(props) {
           ) : (
             <ListGroup.Item>
               <img src={`icon/medal2.png`} width={35}></img>
-              데이터가 없습니다.
+              발표대기중...
               {/* {props.ramen[0].ramenId}/ */}
             </ListGroup.Item>
           )}
@@ -44,7 +44,7 @@ export default function Lank(props) {
           ) : (
             <ListGroup.Item>
               <img src={`icon/medal3.png`} width={35}></img>
-              데이터가 없습니다.
+              발표대기중...
               {/* {props.ramen[0].ramenId}/ */}
             </ListGroup.Item>
           )}
@@ -55,7 +55,7 @@ export default function Lank(props) {
           ) : (
             <ListGroup.Item>
               <img src={`icon/medal4.png`} width={35}></img>
-              데이터가 없습니다.
+              발표대기중...
               {/* {props.ramen[0].ramenId}/ */}
             </ListGroup.Item>
           )}

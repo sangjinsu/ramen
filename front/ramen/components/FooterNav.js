@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { getCookie, removeCookies } from "cookies-next";
 import { Container, Row, Col } from "react-bootstrap";
+import { useRouter } from "next/router";
 
 
 export default function NavBar() {
@@ -35,24 +36,12 @@ export default function NavBar() {
     <>
       {sizeon ? (
         <>
-<<<<<<< HEAD
-=======
-        <Container>
-          <Row>
-            <Col></Col>
-            <Col></Col>
-            <Col></Col>
-            <Col></Col>
-
-            </Row>
-        </Container>
->>>>>>> f/feat/46-main
           <div className="sidenav">
             <div className="navin">
               {" "}
               <Link href="/">
                 <a className="navmenu">
-                  <img src="icon/home.png" width={25}></img>
+                  {/* <img src="icon/home.png" width={25}></img> */}
                   &nbsp;홈
                 </a>
               </Link>
@@ -61,7 +50,7 @@ export default function NavBar() {
             <div className="navin">
               <Link href="/index2">
                 <a className="navmenu">
-                  <img src="icon/keyword.png" width={25}></img>
+                  {/* <img src="icon/keyword.png" width={25}></img> */}
                   &nbsp;키워드추천
                 </a>
               </Link>{" "}
@@ -79,18 +68,12 @@ export default function NavBar() {
                     removeCookies("age");
                     removeCookies("gender");
                     setRefreshToken(getCookie("refreshToken"));
-<<<<<<< HEAD
                     router.push({ pathname: "/" });
-=======
-                    // alert("로그아웃 하였습니다.");
-                    location.reload();
-                    // 테스트
->>>>>>> f/feat/46-main
                   }}
                 >
                   <Link href="#">
                     <a className="navmenu">
-                      <img src="icon/logout.png" width={25}></img>
+                      {/* <img src="icon/logout.png" width={25}></img> */}
                       &nbsp;로그아웃
                     </a>
                   </Link>{" "}
@@ -100,7 +83,7 @@ export default function NavBar() {
               <div className="navin">
                 <Link href="/login">
                   <a className="navmenu">
-                    <img src="icon/login.png" width={25}></img>
+                    {/* <img src="icon/login.png" width={25}></img> */}
                     &nbsp;로그인
                   </a>
                 </Link>{" "}
@@ -111,7 +94,7 @@ export default function NavBar() {
                 <div className="navin">
                   <Link href={`/user/${Number(getCookie("member_id"))}`}>
                     <a className="navmenu">
-                      <img src="icon/mypage.png" width={25}></img>
+                      {/* <img src="icon/mypage.png" width={25}></img> */}
                       &nbsp;마이페이지
                     </a>
                   </Link>{" "}
@@ -121,7 +104,7 @@ export default function NavBar() {
               <div className="navin">
                 <Link href="/signup">
                   <a className="navmenu">
-                    <img src="icon/signup.png" width={25}></img>
+                    {/* <img src="icon/signup.png" width={25}></img> */}
                     &nbsp;가입
                   </a>
                 </Link>{" "}
@@ -140,6 +123,7 @@ export default function NavBar() {
         }
         .navin {
           display: inline;
+          // font-size: 20px;
         }
         .sidenav {
           border-top: solid 1px #e6e6e6;
@@ -163,7 +147,7 @@ export default function NavBar() {
         .sidenav a {
           padding: 6px 8px 6px 16px;
           text-decoration: none;
-          font-size: 14px;
+          font-size: 16px;
           color: grey;
           display: inline;
         }
