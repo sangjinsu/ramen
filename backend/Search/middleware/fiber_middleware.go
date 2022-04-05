@@ -11,6 +11,7 @@ func FiberMiddleware(app *fiber.App) {
 	allowOrigins := strings.Join([]string{
 		loaddotenv.LoadDotEnv("LOCAL_SERVER"),
 		loaddotenv.LoadDotEnv("EC2_SERVER"),
+		loaddotenv.LoadDotEnv("GATEWAY_SERVER"),
 	}, ", ")
 
 	app.Use(cors.New(cors.Config{
