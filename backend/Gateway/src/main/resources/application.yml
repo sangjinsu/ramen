@@ -7,7 +7,7 @@ spring:
       globalcors:
         corsConfigurations:
           '[/**]':
-            allowedOrigins: http://localhost:3000, http://j6c104.p.ssafy.io:3000 #
+            allowedOrigins: http://localhost:3000,http://j6c104.p.ssafy.io:3000 #
             allowedHeaders:
               - x-requested-with
               - authorization
@@ -36,37 +36,37 @@ spring:
 #        - id: auth-service
 
         - id: auth-service #
-          uri: http://j6c104.p.ssafy.io:8083
+          uri:http://j6c104.p.ssafy.io:8083
           predicates:
             - Path= /v1/member/signup, /v1/member/login, /v1/member/check-email, /v1/member/refresh, /v1/member/check-jwt # /v1/member/withdraw  #/v1/oauth/login/response
 
         - id: member-service
-          uri: http://j6c104.p.ssafy.io:8080
+          uri:http://j6c104.p.ssafy.io:8080
           predicates:
-            - Path=/v1/member/{memberId}/fond, /v1/member/{memberId}/like, /v1/member/fond, /v1/member/like # /v1/member/profile/{memberId},/v1/member/profile/color/{memberId},/v1/member/profile,/v1/member/{memberId}/like/beer,/v1/member/beer/{memberId}/like/{beerId},/v1/member/{memberId}/like/post,/v1/member/{memberId}/rates,/v1/member/post/{memberId}/like/{postId},/v1/member/{memberId}/follow/{followingMemberId},/v1/member/{memberId}/followings,/v1/member/{memberId}/followers
+            - Path=/v1/member/{memberId}/fond, /v1/member/{memberId}/like, /v1/member/fond, /v1/member/like # /v1/member/profile/{memberId},
 
-        - id: ramen-service #
-          uri: http://j6c104.p.ssafy.io:8080
+        - id: ramen-service # 유사도?
+          uri:http://j6c104.p.ssafy.io:8080
           predicates:
             - Path=/v1/ramen/**
-
-        - id: log-service #
-          uri: http://j6c104.p.ssafy.io:8080
-          predicates:
-            - Path=/v1/log/**
-
-        - id: recommend-service #
-          uri: http://j6c104.p.ssafy.io:8084
+            -
+        - id: recommend-service # ???
+          uri:http://j6c104.p.ssafy.io:8084
           predicates:
             - Path=/v1/recommend/{memberId}/**
 
+        - id: log-service #
+          uri:http://j6c104.p.ssafy.io:8080
+          predicates:
+            - Path=/v1/log/**
+
         - id: search-service #
-          uri: http://j6c104.p.ssafy.io:8082
+          uri:http://j6c104.p.ssafy.io:8082
           predicates:
             - Path=/v1/search/**
 
         - id: ranking-service #
-          uri: http://j6c104.p.ssafy.io:8081
+          uri:http://j6c104.p.ssafy.io:8081
           predicates:
             - Path=/v1/ranking/**
 

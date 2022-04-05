@@ -40,7 +40,7 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
     'http://j6c104.p.ssafy.io:3000',
     'http://j6c104.p.ssafy.io:8084',
-    #'http://j6c104.p.ssafy.io:8888',
+    'http://j6c104.p.ssafy.io:8888',
 ]
 
 CORS_ALLOW_METHODS = [
