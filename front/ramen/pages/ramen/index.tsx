@@ -9,7 +9,7 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { Container, Row, Col } from "react-bootstrap";
-import ramenPngDoc from "../../components/main/data";
+import DocDataDictionary from "../../components/main/dataDictionary";
 
 // 컴포넌트화
 interface TabPanelProps {
@@ -53,7 +53,6 @@ const RamentList: React.FC<RamenListType> = ({
   console.log(bongiList);
   console.log(cupList);
 
-  const ramenPngs = ramenPngDoc;
   const [currentRamenType, setRamenType] = React.useState(AllList);
 
   const [value, setValue] = React.useState(0);
@@ -128,7 +127,7 @@ const RamentList: React.FC<RamenListType> = ({
                           <Col sm={3} key={idxRamen}>
                             <Link href={`/ramen/${ramen.ramenId}`}>
                               <a>
-                                {ramenPngs.includes(`${ramen.name}.png`) ? (
+                                {DocDataDictionary[`${ramen.name}.png`] ? (
                                   <img
                                     src={`/ramen/${ramen.name}.png`}
                                     srcSet={`/ramen/${ramen.name}.png`}
