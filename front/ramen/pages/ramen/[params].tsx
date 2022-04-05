@@ -49,45 +49,46 @@ const Detail: React.FC<RamenDetailType> = ({
     }
   }, []);
 
-  // useEffect(() => {
-  //   const logSend = async () => {
-  //     if (memberId) {
-  //       await axios
-  //         .post(`http://j6c104.p.ssafy.io.:8080/v1/log`, {
-  //           logDto: {
-  //             memberId: memberId,
-  //             ramenId: params,
-  //           },
-  //         })
-  //         .then(function (response) {
-  //           console.log("1", response);
-  //         })
-  //         .catch(function (error) {
-  //           console.log("1", verror);
-  //         });
-  //       await axios
-  //         .get(
-  //           `http://j6c104.p.ssafy.io:8888/v1/ranking/view/${params}/${memberId}`
-  //         )
-  //         .then(function (response) {
-  //           console.log("2", response);
-  //         })
-  //         .catch(function (error) {
-  //           console.log("2", error);
-  //         });
-  //     } else {
-  //       await axios
-  //         .get(`http://j6c104.p.ssafy.io:8888/v1/ranking/view/${params}`)
-  //         .then(function (response) {
-  //           console.log("3", response);
-  //         })
-  //         .catch(function (error) {
-  //           console.log("3", error);
-  //         });
-  //     }
-  //   };
-  //   logSend();
-  // }, []);
+  useEffect(() => {
+    const logSend = async () => {
+      const memberId = getCookie("member_id");
+      if (memberId) {
+        await axios
+          .post(`http://j6c104.p.ssafy.io:8080/v1/log`, {
+            logDto: {
+              memberId: memberId,
+              ramenId: params,
+            },
+          })
+          .then(function (response) {
+            console.log("1", response);
+          })
+          .catch(function (error) {
+            console.log("1", error);
+          });
+        await axios
+          .get(
+            `http://j6c104.p.ssafy.io:8081/v1/ranking/view/${params}/${memberId}`
+          )
+          .then(function (response) {
+            console.log("2", response);
+          })
+          .catch(function (error) {
+            console.log("2", error);
+          });
+      } else {
+        await axios
+          .get(`http://j6c104.p.ssafy.io:8081/v1/ranking/view/${params}`)
+          .then(function (response) {
+            console.log("3", response);
+          })
+          .catch(function (error) {
+            console.log("3", error);
+          });
+      }
+    };
+    logSend();
+  }, []);
 
   return (
     <>

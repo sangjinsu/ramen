@@ -117,13 +117,15 @@ export default React.memo(function RamenTable({
     if (name === "에너지 (Kcal)") {
       ingredient_recommend = recommendData[gender][ageKey][0];
     } else if (name === "탄수화물(g)") {
-      ingredient_recommend = recommendData[gender][ageKey][0];
+      ingredient_recommend = recommendData[gender][ageKey][1];
     } else if (name === "단백질(g)") {
-      ingredient_recommend = recommendData[gender][ageKey][0];
+      ingredient_recommend = recommendData[gender][ageKey][2];
     } else if (name === "지방(g)") {
-      ingredient_recommend = recommendData[gender][ageKey][0];
+      ingredient_recommend = recommendData[gender][ageKey][3];
+    } else if (name === "당류(g)") {
+      ingredient_recommend = recommendData[gender][ageKey][4];
     } else if (name === "나트륨(mg)") {
-      ingredient_recommend = recommendData[gender][ageKey][0];
+      ingredient_recommend = recommendData[gender][ageKey][5];
     }
     return {
       name,
@@ -138,37 +140,37 @@ export default React.memo(function RamenTable({
       name: "에너지 (Kcal)",
       ingredient: 490,
       ingredient_average: 443.26,
-      ingredient_recommend: 2600,
+      ingredient_recommend: 2000,
     },
     {
       name: "탄수화물(g)",
       ingredient: 75,
       ingredient_average: 68.05,
-      ingredient_recommend: 2600,
+      ingredient_recommend: 324,
     },
     {
       name: "단백질(g)",
       ingredient: 9,
       ingredient_average: 8.32,
-      ingredient_recommend: 2600,
+      ingredient_recommend: 55,
     },
     {
       name: "지방(g)",
       ingredient: 17,
       ingredient_average: 13.56,
-      ingredient_recommend: 2600,
+      ingredient_recommend: 54,
     },
     {
       name: "당류(g)",
       ingredient: 6,
       ingredient_average: 4.72,
-      ingredient_recommend: 0,
+      ingredient_recommend: 100,
     },
     {
       name: "나트륨(mg)",
       ingredient: 1550,
       ingredient_average: 1467.95,
-      ingredient_recommend: 2600,
+      ingredient_recommend: 2000,
     },
   ];
   if (ageKey && gender) {
