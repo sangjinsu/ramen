@@ -1,15 +1,15 @@
-import axios from "axios";
-import React, { useCallback, useEffect, useState } from "react";
+import axios, { AxiosError } from "axios";
+import React, { memo, useCallback, useEffect, useState } from "react";
 
 const Youtube = ({ searchTitle }: { searchTitle: string }) => {
-  const id = "ttttt";
+  const id = "youtube_video";
   const [videoUrl, setVideoUrl] = useState("");
 
   const [iframeDOM, setIframeDOM] = useState({});
   const [videoHeight, setVideoHeight] = useState(320);
 
   const params = {
-    key: "AIzaSyB97dKZAEN7qKgwQmOHitTOnsmcpCvtcTI",
+    key: "AIzaSyA3lSBz3zmI4fFyvhKZE0KCqGdCC3bQqZ8",
     part: "snippet",
     q: searchTitle,
     maxResults: 5,
@@ -29,26 +29,7 @@ const Youtube = ({ searchTitle }: { searchTitle: string }) => {
   }, [id]);
 
   useEffect(() => {
-    console.log(typeof window.document.getElementById(id));
-    setIframeDOM(window.document.getElementById(id) as object);
-  }, [id, iframeDOM]);
-
-  useEffect(() => {
-    window.addEventListener("resize", handleChangeVideoWidth);
-    setVideoHeight(
-      // 로딩 후 높이 부분이 비율에 맞춰짐
-      Math.floor(
-        (window.document.getElementById(id) as HTMLInputElement).offsetWidth *
-          0.5625
-      )
-    );
-    return function cleanup() {
-      window.removeEventListener("resize", handleChangeVideoWidth);
-    };
-  }, [id, iframeDOM, videoHeight, handleChangeVideoWidth]);
-
-  useEffect(() => {
-    const Test = async () => {
+    const GetYoutube = async () => {
       try {
         const url = `https://www.googleapis.com/youtube/v3/search`;
         const { data: youtubeResponse } = await axios.get(url, { params });
@@ -57,24 +38,67 @@ const Youtube = ({ searchTitle }: { searchTitle: string }) => {
         setVideoUrl(
           `https://www.youtube.com/embed/${youtubeResponse.items[randomNum].id.videoId}`
         );
-      } catch {
-        const copyParams = Object.assign({}, params);
-        copyParams.q = "라면 먹방";
-        const url = `https://www.googleapis.com/youtube/v3/search`;
-        const { data: youtubeResponse } = await axios.get(url, { params });
-        const resultDataLength = youtubeResponse.items.length;
-        const randomNum = Math.floor(Math.random() * resultDataLength);
-        setVideoUrl(
-          `https://www.youtube.com/embed/${youtubeResponse.items[randomNum].id.videoId}`
-        );
+      } catch (error) {
+        const err = error as AxiosError;
+        if (err.response?.status !== 403) {
+          const copyParams = Object.assign({}, params);
+          copyParams.q = "라면 먹방";
+          const url = `https://www.googleapis.com/youtube/v3/search`;
+          const { data: youtubeResponse } = await axios.get(url, { params });
+          const resultDataLength = youtubeResponse.items.length;
+          const randomNum = Math.floor(Math.random() * resultDataLength);
+          setVideoUrl(
+            `https://www.youtube.com/embed/${youtubeResponse.items[randomNum].id.videoId}`
+          );
+        } else {
+          console.log("youtube api key 허용량 초과");
+        }
       }
     };
-    Test();
+    GetYoutube();
   }, []);
+
+  useEffect(() => {
+    if (videoUrl) {
+      setIframeDOM(window.document.getElementById(id) as object);
+    }
+  }, [id, iframeDOM]);
+
+  useEffect(() => {
+    if (videoUrl) {
+      window.addEventListener("resize", handleChangeVideoWidth);
+      setVideoHeight(
+        // 로딩 후 높이 부분이 비율에 맞춰짐
+        Math.floor(
+          (window.document.getElementById(id) as HTMLInputElement).offsetWidth *
+            0.5625
+        )
+      );
+      return function cleanup() {
+        window.removeEventListener("resize", handleChangeVideoWidth);
+      };
+    }
+  }, [id, iframeDOM, videoHeight, handleChangeVideoWidth]);
+
   return (
     <div>
-      <div className="youtube_video">
-        <iframe
+      <div className="youtube_video_area">
+        {videoUrl ? (
+          <iframe
+            id={id}
+            width="100%"
+            height={`${videoHeight}px`}
+            src={videoUrl}
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        ) : (
+          <div className="exception_img">
+            <img src="/youtube.png" width="70%"></img>
+          </div>
+        )}
+        {/* <iframe
           id={id}
           width="100%"
           height={`${videoHeight}px`}
@@ -82,13 +106,17 @@ const Youtube = ({ searchTitle }: { searchTitle: string }) => {
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
-        />
+        /> */}
       </div>
       <style jsx>
         {`
-          .youtube_video {
+          .youtube_video_area {
             width: 100%;
             margin-top: 0.5rem;
+          }
+          .exception_img {
+            display: flex;
+            justify-content: center;
           }
         `}
       </style>
