@@ -1,7 +1,5 @@
 package com.ramen.ranking.controller;
 import com.ramen.ranking.domain.RamenVo;
-import com.ramen.ranking.repository.RamenLikeRedisRepository;
-import com.ramen.ranking.repository.RamenViewRedisRepository;
 import com.ramen.ranking.service.ClearService;
 import com.ramen.ranking.service.RamenService;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +16,10 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("v1/ranking/")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
-public class RamenController {
+//@CrossOrigin(origins = "*", allowedHeaders = "*")
+//@CrossOrigin(origins = "http://localhost:8888/", allowedHeaders = "*")
+//@CrossOrigin(origins = "http://j6c104.p.ssafy.io:3000/", allowedHeaders = "*")
+public class RankingController {
 
     @Autowired
     private final RamenService ramenService;
@@ -38,22 +38,26 @@ public class RamenController {
             String userIp = ip;
         System.out.println(ip);
         ramenService.saveRamenView(ramenId, userIp);
+        System.out.println("not login view" + ramenId);
     }
 
     @GetMapping("/view/{ramenId}/{memberId}")
     public void ramenLoginView(@PathVariable("ramenId") Long ramenId, @PathVariable("memberId") Long memberId) {
         ramenService.saveRamenLoginView(ramenId, memberId);
+        System.out.println("login view" + ramenId +" "+memberId);
     }
 
 
     @GetMapping("/like/{ramenId}/{memberId}")
     public void ramenLike(@PathVariable("ramenId") Long ramenId, @PathVariable("memberId") Long memberId) {
         ramenService.saveRamenLike(ramenId, memberId);
+        System.out.println("like" + ramenId +" "+memberId);
     }
 
     @GetMapping("/ramen")
     public List<RamenVo> fetchPopRamen() {
         List<String> ramens = ramenService.getPopRamen();
+        System.out.println("read");
         return ramens.stream().map(RamenVo::new).collect(Collectors.toList());
     }
 
