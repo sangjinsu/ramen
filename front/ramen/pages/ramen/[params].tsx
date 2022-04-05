@@ -25,8 +25,6 @@ const Detail: React.FC<RamenDetailType> = ({
   ramenInfos,
   similarityRamen,
 }) => {
-  // const [similarityRamen, setsimilarityRamen] = useState<SimilarRamenType>();
-  console.log(ramenInfos);
   const router = useRouter();
   const ramenPngs = ramenPngDoc;
 

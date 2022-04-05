@@ -82,11 +82,9 @@ function RamenPreference({ router: { query } }: signupType) {
     const userInfo = await JSON.parse(query.userInfo);
     const select = await makeSelectList();
     userInfo["selectRamens"] = select;
-    console.log(userInfo);
     axios
       .post(`${AUTH_URL}/signup`, userInfo)
       .then(function (response) {
-        console.log("성공");
         setCookiesInLogin(response);
         Router.push({
           pathname: "/",
