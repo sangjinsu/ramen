@@ -44,7 +44,7 @@ const Detail: React.FC<RamenDetailType> = ({
 
   useEffect(() => {
     const numParams = Number(params);
-    if (numParams < 0 || 487 < numParams) {
+    if (numParams < 0 || 466 < numParams) {
       router.push("/");
     }
   }, []);
@@ -111,10 +111,12 @@ const Detail: React.FC<RamenDetailType> = ({
                   )}
                 </div>
               </section>
-              <section className="left_area_btn">
-                <Heart params={params} />
-                <div className="left_like_writing">좋아요</div>
-              </section>
+              {ramenInfos.brand !== "no data" && (
+                <section className="left_area_btn">
+                  <Heart params={params} />
+                  <div className="left_like_writing">좋아요</div>
+                </section>
+              )}
             </div>
 
             <div className="right_area">
