@@ -21,7 +21,7 @@ const BarSimilar = ({ barChartData }: { barChartData: DataProps }) => {
       chartRef.current = new Chart(ctx, {
         type: "bar",
         data: {
-          labels: ["짠맛", "단맛"],
+          labels: ["짠맛 점수", "단맛 점수"],
           datasets: [
             {
               label: "현재라면",
@@ -49,6 +49,11 @@ const BarSimilar = ({ barChartData }: { barChartData: DataProps }) => {
               display: true,
             },
           },
+          scales: {
+            y: {
+              max: 100,
+            },
+          },
         },
       });
     }
@@ -59,6 +64,22 @@ const BarSimilar = ({ barChartData }: { barChartData: DataProps }) => {
       <div className="overflow-hidden">
         <canvas ref={canvasCallback}></canvas>
       </div>
+      <div className="explanation-text">
+        * 짠맛 점수 = 현재라면 (나트륨) / 가장 짠 라면 (나트륨) * 100
+      </div>
+      <div className="explanation-text">
+        * 단맛 점수 = 현재라면 (당류) / 가장 단 라면 (당류) * 100
+      </div>
+      <style>
+        {`
+        .explanation-text{
+          display:flex;
+          justify-content:right;
+          font-size:10px;
+          color: #d3d3d3
+        }
+        `}
+      </style>
     </div>
   );
 };
