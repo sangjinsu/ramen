@@ -70,7 +70,7 @@ public class RamenService {
             String englishName = (String) o[2];
             String brand = (String) o[3];
             String englishBrand = (String) o[4];
-            double c = (double) o[1];
+            double c = (double) o[5];
 
             ramenSortDtos.add(new RamenSortDto(ramenId, name, englishName, brand, englishBrand, c));
         }
@@ -96,7 +96,7 @@ public class RamenService {
             String englishName = (String) o[2];
             String brand = (String) o[3];
             String englishBrand = (String) o[4];
-            double c = (double) o[1];
+            double c = (double) o[5];
 
             ramenSortDtos.add(new RamenSortDto(ramenId, name, englishName, brand, englishBrand, c));
         }
@@ -122,7 +122,7 @@ public class RamenService {
             String englishName = (String) o[2];
             String brand = (String) o[3];
             String englishBrand = (String) o[4];
-            double c = (double) o[1];
+            double c = (double) o[5];
 
             ramenSortDtos.add(new RamenSortDto(ramenId, name, englishName, brand, englishBrand, c));
         }
