@@ -19,7 +19,7 @@ import {
 import Link from "next/link";
 import { userPageType } from "../../../components/Types";
 import withAuth from "../../../components/hoc/withAuth";
-import { getCookie, setCookies } from "cookies-next";
+import { getCookie, removeCookies, setCookies } from "cookies-next";
 import axios from "axios";
 import { useRouter } from "next/router";
 import Heart from "../../../components/Heart";
@@ -102,6 +102,12 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
                 setAccessToken(response.data.accessToken);
               })
               .catch(function (error) {
+                removeCookies("member_id");
+                removeCookies("accessToken");
+                removeCookies("refreshToken");
+                removeCookies("name");
+                removeCookies("age");
+                removeCookies("gender");
                 router.replace("/login");
               });
           }

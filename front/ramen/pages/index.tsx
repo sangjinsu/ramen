@@ -7,7 +7,7 @@ import Lank from "../components/main/Lank";
 import Sug from "../components/main/Suggestion";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { getCookie, setCookies } from "cookies-next";
+import { getCookie, setCookies, removeCookies } from "cookies-next";
 import { useRouter } from "next/router";
 import serverURLDoc from "../components/main/ServerURL";
 
@@ -53,6 +53,12 @@ const Home: NextPage = () => {
             })
             .catch(function (error) {
               alert("로그인 세션 시간이 만료되었습니다.");
+              removeCookies("member_id");
+              removeCookies("accessToken");
+              removeCookies("refreshToken");
+              removeCookies("name");
+              removeCookies("age");
+              removeCookies("gender");
 
               Router.replace("/login");
             });
