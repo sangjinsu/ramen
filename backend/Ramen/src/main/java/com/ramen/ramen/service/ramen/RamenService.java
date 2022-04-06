@@ -28,8 +28,6 @@ public class RamenService {
     private final MemberRepository memberRepository;
     private final MemberLikeRamenRepository memberLikeRamenRepository;
 
-
-
     public RamenDetailDto fetchDetailRamen(Long ramenId) {
 
         Optional<Ramen> optionalRamen = ramenRepository.findById(ramenId);
@@ -72,7 +70,7 @@ public class RamenService {
             String englishName = (String) o[2];
             String brand = (String) o[3];
             String englishBrand = (String) o[4];
-            double c = (double) o[5];
+            double c = (double) o[1];
 
             ramenSortDtos.add(new RamenSortDto(ramenId, name, englishName, brand, englishBrand, c));
         }
@@ -88,6 +86,32 @@ public class RamenService {
 
     public List<RamenListDto> fetchRamenListCup() {
 
+        List<Object[]> ramens = ramenRepository.findRamensAll();
+
+        List<RamenSortDto> ramenSortDtos = new ArrayList<>();
+
+        for (Object o[] : ramens) {
+            Long ramenId = (Long) o[0];
+            String name = (String) o[1];
+            String englishName = (String) o[2];
+            String brand = (String) o[3];
+            String englishBrand = (String) o[4];
+            double c = (double) o[1];
+
+            ramenSortDtos.add(new RamenSortDto(ramenId, name, englishName, brand, englishBrand, c));
+        }
+
+        // 크롤링 순으로 정렬
+        Collections.sort(ramenSortDtos, new RamenComparator());
+
+        // dto 변환
+        List<RamenListDto> ramenListDtos = ramenSortDtos.stream().map(RamenListDto::new).collect(Collectors.toList());
+
+        return ramenListDtos;
+    }
+
+    public List<RamenListDto> fetchRamensListAll() {
+
         List<Object[]> ramens = ramenRepository.findRamensByCompositionCup();
 
         List<RamenSortDto> ramenSortDtos = new ArrayList<>();
@@ -98,7 +122,7 @@ public class RamenService {
             String englishName = (String) o[2];
             String brand = (String) o[3];
             String englishBrand = (String) o[4];
-            double c = (double) o[5];
+            double c = (double) o[1];
 
             ramenSortDtos.add(new RamenSortDto(ramenId, name, englishName, brand, englishBrand, c));
         }
@@ -368,9 +392,7 @@ public class RamenService {
     }
 
     static List<Object[]> getIntersectOfLists2(List<Object[]> list1, List<Object[]> list2) {
-//        List<Object[]> intersectElements = list1.stream()
-//                .filter(list2 :: contains)
-//                .collect(Collectors.toList());
+
         List<Object[]> intersectElements = list1.stream()
                 .filter(l1 -> list2.stream()
                         .anyMatch(l2 ->
@@ -385,13 +407,6 @@ public class RamenService {
     }
 
     static List<Object[]> getIntersectOfLists3(List<Object[]> list1, List<Object[]> list2, List<Object[]> list3) {
-//        List<Object[]> intersectElements = list1.stream()
-//                .filter(list2 :: contains)
-//                .collect(Collectors.toList());
-//
-//        List<Object[]> final_intersectElements = intersectElements.stream()
-//                .filter(list3 :: contains)
-//                .collect(Collectors.toList());
 
         List<Object[]> intersectElements = list1.stream()
                 .filter(l1 -> list2.stream()
