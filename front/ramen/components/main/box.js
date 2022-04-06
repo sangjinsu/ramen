@@ -134,7 +134,7 @@ export default function Layout() {
                   }
                 }}
               >
-                <img src="search.png" width={45}></img>
+                <img src="icon/search.png" width={45}></img>
               </div>
               <div
                 className="icon"
@@ -149,7 +149,7 @@ export default function Layout() {
                   setRamenresult(newArray);
                 }}
               >
-                <img src="reset.png" width={45}></img>
+                <img src="icon/delete.png" width={45}></img>
               </div>
             </div>
           </Col>

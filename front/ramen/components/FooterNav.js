@@ -126,6 +126,7 @@ export default function NavBar() {
           // font-size: 20px;
         }
         .sidenav {
+          // color:grey;
           border-top: solid 1px #e6e6e6;
           display: flex;
           justify-content: space-evenly;
@@ -138,7 +139,10 @@ export default function NavBar() {
           // right: 10px;
           // margin-top:10px;
           // margin-botton:20px;
-          background: white;
+          // background: white;
+          background: #ffc861;
+
+          // 배경색
           // overflow-x: hidden;
           padding: 8px 0;
           // border-radius:15px;
@@ -148,7 +152,8 @@ export default function NavBar() {
           padding: 6px 8px 6px 16px;
           text-decoration: none;
           font-size: 16px;
-          color: grey;
+          // color: grey;
+          color:black;
           display: inline;
         }
 
