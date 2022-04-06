@@ -135,7 +135,7 @@ export default React.memo(function RamenTable({
     };
   }
 
-  const [rows, setTest] = React.useState([
+  let rows = [
     {
       name: "에너지 (Kcal)",
       ingredient: 490,
@@ -172,7 +172,18 @@ export default React.memo(function RamenTable({
       ingredient_average: 1467.95,
       ingredient_recommend: 2000,
     },
-  ]);
+  ];
+  if (ageKey && gender) {
+    rows = [
+      createData("에너지 (Kcal)", barChartData.data[0], 443.26, ageKey, gender),
+      createData("탄수화물(g)", barChartData.data[1], 68.05, ageKey, gender),
+      createData("단백질(g)", barChartData.data[2], 8.32, ageKey, gender),
+      createData("지방(g)", barChartData.data[3], 13.56, ageKey, gender),
+      createData("당류(g)", barChartData.data[4], 4.72, ageKey, gender),
+      createData("나트륨(mg)", barChartData.data[5], 1467.95, ageKey, gender),
+    ];
+    console.log(rows);
+  }
 
   React.useEffect(() => {
     if (age <= 2) {
@@ -198,17 +209,6 @@ export default React.memo(function RamenTable({
     } else {
       setAgeKey(10);
     }
-  }, []);
-
-  React.useEffect(() => {
-    setTest([
-      createData("에너지 (Kcal)", barChartData.data[0], 443.26, ageKey, gender),
-      createData("탄수화물(g)", barChartData.data[1], 68.05, ageKey, gender),
-      createData("단백질(g)", barChartData.data[2], 8.32, ageKey, gender),
-      createData("지방(g)", barChartData.data[3], 13.56, ageKey, gender),
-      createData("당류(g)", barChartData.data[4], 4.72, ageKey, gender),
-      createData("나트륨(mg)", barChartData.data[5], 1467.95, ageKey, gender),
-    ]);
   }, []);
 
   return (
