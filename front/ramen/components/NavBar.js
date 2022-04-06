@@ -69,6 +69,28 @@ export default function NavBar() {
                 // onChange={(event)=>{setSearch(event.target.value)}}
                 onKeyPress={(e) => {
                   if (e.key === "Enter") {
+                    if(search.length!==0){
+                      router.push(
+                        {
+                          pathname: "/SearchTextResult",
+                          query: {
+                            textResult: search,
+                          },
+                        },
+                        `/SearchTextResult`
+                      );
+                    }
+                    }
+                    
+                }}
+              />
+              <IconButton
+                style={{ marginBottom: 25 }}
+                type="submit"
+                sx={{ p: "10px" }}
+                aria-label="search"
+                onClick={() => {
+                  if(search.length!==0){
                     router.push(
                       {
                         pathname: "/SearchTextResult",
@@ -79,23 +101,7 @@ export default function NavBar() {
                       `/SearchTextResult`
                     );
                   }
-                }}
-              />
-              <IconButton
-                style={{ marginBottom: 25 }}
-                type="submit"
-                sx={{ p: "10px" }}
-                aria-label="search"
-                onClick={() => {
-                  router.push(
-                    {
-                      pathname: "/SearchTextResult",
-                      query: {
-                        textResult: search,
-                      },
-                    },
-                    `/SearchTextResult`
-                  );
+                  
                 }}
               >
                 <SearchIcon />
