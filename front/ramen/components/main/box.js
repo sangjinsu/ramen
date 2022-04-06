@@ -187,7 +187,7 @@ export default function Layout() {
                 }}
               >
                 <Figure.Image
-                  width={85}
+                  width={100}
                   // height={180}
                   alt="171x180"
                   src="icon/bongji.png"
@@ -207,7 +207,7 @@ export default function Layout() {
                 }}
               >
                 <Figure.Image
-                  width={85}
+                  width={100}
                   // height={180}
                   alt="171x180"
                   src="icon/cup.png"
@@ -225,7 +225,7 @@ export default function Layout() {
                 
               >
                 <Figure.Image
-                  width={85}
+                  width={100}
                   // height={180}
                   alt="171x180"
                   src="icon/guide.png"
@@ -268,7 +268,7 @@ export default function Layout() {
                 }}
               >
                 <Figure.Image
-                  width={85}
+                  width={100}
                   // height={180}
                   alt="171x180"
                   src="icon/dry.png"
@@ -288,7 +288,7 @@ export default function Layout() {
                 }}
               >
                 <Figure.Image
-                  width={85}
+                  width={100}
                   // height={180}
                   alt="171x180"
                   src="icon/fried.png"
@@ -308,7 +308,7 @@ export default function Layout() {
                 }}
               >
                 <Figure.Image
-                  width={85}
+                  width={100}
                   // height={180}
                   alt="171x180"
                   src="icon/real.png"
@@ -335,7 +335,7 @@ export default function Layout() {
                 }}
               >
                 <Figure.Image
-                  width={85}
+                  width={100}
                   // height={180}
                   alt="171x180"
                   src="icon/soup.png"
@@ -355,7 +355,7 @@ export default function Layout() {
                 }}
               >
                 <Figure.Image
-                  width={85}
+                  width={100}
                   // height={180}
                   alt="171x180"
                   src="icon/bok.png"
@@ -375,7 +375,7 @@ export default function Layout() {
                 }}
               >
                 <Figure.Image
-                  width={85}
+                  width={100}
                   // height={180}
                   alt="171x180"
                   src="icon/jjajang.png"
