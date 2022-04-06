@@ -152,7 +152,7 @@ def user_based_cf(member_id):
     fond_recommendations = fond_ratings.sort_values(by='rating', ascending=False)
     recommendations = recommendations.to_frame(name='rating')
     
-    weight = [0.8, 0.2]
+    weight = [0.7, 0.3]
     predictions: pd.DataFrame = recommendations * weight[0] + fond_recommendations * weight[1]
     predictions = predictions.drop(rated_ramen, axis=0)
     
@@ -247,7 +247,7 @@ def item_based_cf(member_id):
     fond_recommendations = fond_ratings.sort_values(by='rating', ascending=False)
     recommendations = recommendations.to_frame(name='rating')
     
-    weight = [0.8, 0.2]
+    weight = [0.7, 0.3]
     predictions: pd.DataFrame = recommendations * weight[0] + fond_recommendations * weight[1]
     predictions = predictions.drop(rated_ramen, axis=0)
     
