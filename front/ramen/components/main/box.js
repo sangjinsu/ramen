@@ -175,7 +175,7 @@ export default function Layout() {
                 <Figure.Caption>컵</Figure.Caption>
               </Figure>
             </div>
-            <Tooltip title={longText}>
+            <Tooltip title={longText} placement="top">
             <div className="figure">
               <Figure
                 
