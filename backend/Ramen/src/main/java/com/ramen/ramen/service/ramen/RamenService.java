@@ -393,10 +393,8 @@ public class RamenService {
 
     class RamenNameComparator implements Comparator<RamenSortDto> {
         @Override
-        public int compare(RamenSortDto a, RamenSortDto b) {
-            if (a.getName() < b.getName()) return 1; // 내림차순
-            if (a.getName() > b.getName()) return -1;
-            return 0;
+        public int compare(RamenSortDto s1, RamenSortDto s2) {
+                return s1.getName().compareTo(s2.getName());
         }
     }
 
