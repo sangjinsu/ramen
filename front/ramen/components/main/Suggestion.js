@@ -5,10 +5,6 @@ import axios from "axios";
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 
-
-
-
-
 export default function Suggestion(props) {
   let [ramen, setRamen] = useState([]);
   let titleString = {
@@ -19,7 +15,7 @@ export default function Suggestion(props) {
   let textString = {
     "IBCF추천": "로그인 후 이용해 주세요",
     "UBCF추천": "로그인 후 이용해 주세요",
-    "DBRC추천": "2분마다 AI가 분석후 제공합니다."
+    "DBRC추천": "AI가 학습 중입니다."
   }
   
   const default_img = "ramen/default.png";
@@ -28,12 +24,13 @@ export default function Suggestion(props) {
     // console.log(e.target.src);
   };
   useEffect(() => {
-    if (props.sug === "ubcf") {
+    if (props.sug === "ubcf" && props.id !== undefined) {
       axios
         .get(`http://j6c104.p.ssafy.io:8084/v1/recommend/ubcf/${props.id}`)
         .then((result) => {
           console.log("ubcf요청성공");
           console.log(result);
+          console.log(props.id)
           // console.log(result.data);
           // console.log(result.data[0]);
           setRamen(result.data);
@@ -41,11 +38,12 @@ export default function Suggestion(props) {
         .catch((error) => {
           console.log("ubcf요청실패");
           console.log(error);
+          console.log(props.id)
         });
     }
   }, []);
   useEffect(() => {
-    if (props.sug === "dbrc") {
+    if (props.sug === "dbrc" && props.id !== undefined) {
       axios
         .get(`http://j6c104.p.ssafy.io:8084/v1/recommend/dbrc/${props.id}`)
         .then((result) => {
@@ -62,7 +60,7 @@ export default function Suggestion(props) {
     }
   }, []);
   useEffect(() => {
-    if (props.sug === "ibcf") {
+    if (props.sug === "ibcf" && props.id !== undefined) {
       axios
         .get(`http://j6c104.p.ssafy.io:8084/v1/recommend/ibcf/${props.id}`)
         .then((result) => {
