@@ -22,6 +22,10 @@ const Heart = ({ params }: { params: string }) => {
       if (200 <= userLikeStatus && userLikeStatus < 300) {
         setLike(!likeCheck);
       }
+
+      await axios.get(
+        `http://j6c104.p.ssafy.io:8081/v1/ranking/view/${params}/${member_id}`
+      );
     } catch {
       if (!member_id) {
         removeCookies("member_id");

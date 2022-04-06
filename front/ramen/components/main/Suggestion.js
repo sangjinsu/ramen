@@ -1,7 +1,8 @@
+/* eslint-disable react/prop-types */
 import * as React from "react";
-import { Container,Row, Col, Card, ListGroup } from "react-bootstrap";
+import { Container, Row, Col, Card, ListGroup } from "react-bootstrap";
 import axios from "axios";
-import { useEffect, useState,useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 
 
@@ -12,8 +13,8 @@ export default function Suggestion(props) {
   let [ramen, setRamen] = useState([]);
   let titleString = {
     "IBCF추천": "내가 좋아하는 라면과 비슷한",
-"UBCF추천": "같은 취향의 사용자가 좋아하는",
-"DBRC추천": "AI가 추천해주는"
+    "UBCF추천": "같은 취향의 사용자가 좋아하는",
+    "DBRC추천": "AI가 추천해주는"
   }
   const default_img = "ramen/default.png";
   const handleImage = (e) => {
@@ -74,7 +75,7 @@ export default function Suggestion(props) {
   return (
     <>
 
-    
+
 
       {/* {props.title} */}
       <hr></hr>
@@ -90,12 +91,12 @@ export default function Suggestion(props) {
               {/* <img src="icon/number1.png" width={25}></img>
                */}1위
               <Link href={`/ramen/${Object.keys(ramen)[0]}`}>
-              
+
                 <a><img
-                            src={`ramen/${Object.values(ramen)[0]}.png`}
-                            width={45}    
-                            onError={handleImage}                      
-                          ></img>
+                  src={`ramen/${Object.values(ramen)[0]}.png`}
+                  width={45}
+                  onError={handleImage}
+                ></img>
                   {Object.values(ramen)[0]}</a>
               </Link>
             </ListGroup.Item>
@@ -103,10 +104,10 @@ export default function Suggestion(props) {
               2위
               <Link href={`/ramen/${Object.keys(ramen)[1]}`}>
                 <a><img
-                            src={`ramen/${Object.values(ramen)[1]}.png`}
-                            width={45}   
-                            onError={handleImage}                       
-                          ></img>
+                  src={`ramen/${Object.values(ramen)[1]}.png`}
+                  width={45}
+                  onError={handleImage}
+                ></img>
                   {Object.values(ramen)[1]}</a>
               </Link>
             </ListGroup.Item>
@@ -114,10 +115,10 @@ export default function Suggestion(props) {
               3위
               <Link href={`/ramen/${Object.keys(ramen)[2]}`}>
                 <a><img
-                            src={`ramen/${Object.values(ramen)[2]}.png`}
-                            width={45}  
-                            onError={handleImage}                        
-                          ></img>
+                  src={`ramen/${Object.values(ramen)[2]}.png`}
+                  width={45}
+                  onError={handleImage}
+                ></img>
                   {Object.values(ramen)[2]}</a>
               </Link>
             </ListGroup.Item>
@@ -125,10 +126,10 @@ export default function Suggestion(props) {
               4위
               <Link href={`/ramen/${Object.keys(ramen)[3]}`}>
                 <a><img
-                            src={`ramen/${Object.values(ramen)[3]}.png`}
-                            width={45}  
-                            onError={handleImage}                        
-                          ></img>
+                  src={`ramen/${Object.values(ramen)[3]}.png`}
+                  width={45}
+                  onError={handleImage}
+                ></img>
                   {Object.values(ramen)[3]}</a>
               </Link>
             </ListGroup.Item>
@@ -136,10 +137,10 @@ export default function Suggestion(props) {
               5위
               <Link href={`/ramen/${Object.keys(ramen)[4]}`}>
                 <a><img
-                            src={`ramen/${Object.values(ramen)[4]}.png`}
-                            width={45}  
-                            onError={handleImage}                        
-                          ></img>
+                  src={`ramen/${Object.values(ramen)[4]}.png`}
+                  width={45}
+                  onError={handleImage}
+                ></img>
                   {Object.values(ramen)[4]}</a>
               </Link>
             </ListGroup.Item>
