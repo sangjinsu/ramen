@@ -126,21 +126,23 @@ const Heart = ({ params }: { params: string }) => {
   useEffect(() => {
     const TestTTT = async () => {
       try {
-        console.log("111");
-        const { status: userLikeStatus } = await axios.get(
-          `http://j6c104.p.ssafy.io:8080/v1/ramen/islike/${Number(
-            params1
-          )}/${Number(member_id)}`,
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }
-        );
-        200 <= userLikeStatus && userLikeStatus < 300
-          ? setLike(true)
-          : setLike(false);
-        console.log(userLikeStatus);
+        if (member_id) {
+          console.log("111");
+          const { status: userLikeStatus } = await axios.get(
+            `http://j6c104.p.ssafy.io:8080/v1/ramen/islike/${Number(
+              params1
+            )}/${Number(member_id)}`,
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            }
+          );
+          200 <= userLikeStatus && userLikeStatus < 300
+            ? setLike(true)
+            : setLike(false);
+          console.log(userLikeStatus);
+        }
       } catch {
         setLike(false);
       }
