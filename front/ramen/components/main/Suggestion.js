@@ -16,6 +16,12 @@ export default function Suggestion(props) {
     "UBCF추천": "같은 취향의 사용자가 좋아하는",
     "DBRC추천": "AI가 추천해주는"
   }
+  let textString = {
+    "IBCF추천": "로그인 후 이용해 주세요",
+    "UBCF추천": "로그인 후 이용해 주세요",
+    "DBRC추천": "2분마다 AI가 분석후 제공합니다."
+  }
+  
   const default_img = "ramen/default.png";
   const handleImage = (e) => {
     e.target.src = default_img;
@@ -81,7 +87,6 @@ export default function Suggestion(props) {
       <hr></hr>
       <img src={`icon/${props.title}.png`}width={50}></img>
       <h3>{titleString[props.title]}</h3>
-      
       <ListGroup>
         {/* {ramen.length !==0
     ? <p>{ramen.length}</p>
@@ -151,15 +156,27 @@ export default function Suggestion(props) {
               </Link>
             </ListGroup.Item>
           </>
-        ) : (
+        ) : 
+        (
+          
           <>
             <ListGroup.Item>
-              로그인 후 이용해 주세요
+            {textString[props.title]}
             </ListGroup.Item>
 
           </>
-        )}
+        )
+        }
       </ListGroup>
+      {/* {
+        titleString[props.title] ==="AI가 추천해주는"
+        ?(<ListGroup.Item>
+          2분마다 AI가 분석합니다.
+        </ListGroup.Item>)
+        :(<ListGroup.Item>
+          로그인 후 이용해 주세요
+        </ListGroup.Item>)
+      } */}
 
       <style jsx>{`
         a {
