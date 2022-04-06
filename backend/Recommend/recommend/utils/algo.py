@@ -36,7 +36,7 @@ def user_based_cf(member_id):
         for memberId, ramen_id, rating in zip(df_log_value['member_id'], df_log_value['ramen_id'], df_log_value['rating']):
             existed = (df_rating['member_id'] == memberId) & (df_rating['ramen_id'] == ramen_id)
             if existed.any():
-                df_rating[(df_rating['member_id'] == memberId) & (df_rating['ramen_id'] == ramen_id)]['rating'] = (df_rating[(df_rating['member_id'] == memberId) & (df_rating['ramen_id'] == ramen_id)]['rating']  + rating) / 2
+                df_rating[(df_rating['member_id'] == memberId) & (df_rating['ramen_id'] == ramen_id)]['rating'] = min(df_rating[(df_rating['member_id'] == memberId) & (df_rating['ramen_id'] == ramen_id)]['rating']  + rating, 5.0)
             else:
                 df_rating = df_rating.append({'member_id': memberId, 'ramen_id': ramen_id, 'rating': rating}, ignore_index=True)
         df_rating = df_rating.astype({'member_id': 'int', 'ramen_id': 'int'})
