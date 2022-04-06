@@ -187,12 +187,14 @@ export default function Layout() {
                 }}
               >
                 <Figure.Image
-                  width={100}
+                  width={85}
                   // height={180}
                   alt="171x180"
                   src="icon/bongji.png"
                 />
-                <Figure.Caption>봉지</Figure.Caption>
+                <div className="rname">봉지</div>
+                {/* <p><h5>봉지</h5></p> */}
+                {/* <Figure.Caption>봉지</Figure.Caption> */}
               </Figure>
             </div>
             <div className="figure">
@@ -205,15 +207,17 @@ export default function Layout() {
                 }}
               >
                 <Figure.Image
-                  width={100}
+                  width={85}
                   // height={180}
                   alt="171x180"
                   src="icon/cup.png"
                 />
-                <Figure.Caption>컵</Figure.Caption>
+                                <div className="rname">컵</div>
+
+                {/* <Figure.Caption>컵</Figure.Caption> */}
               </Figure>
             </div>
-            
+            {/* 테스트 */}
             <Tooltip   title={longText} placement="top">
             
             <div className="figure" onClick={() => setModalShow(true)}>
@@ -221,12 +225,14 @@ export default function Layout() {
                 
               >
                 <Figure.Image
-                  width={100}
+                  width={85}
                   // height={180}
                   alt="171x180"
                   src="icon/guide.png"
                 />
-                <Figure.Caption>이용가이드</Figure.Caption>
+                                <div className="rname">설명서</div>
+
+                {/* <Figure.Caption>이용가이드</Figure.Caption> */}
               </Figure>
             </div>
       </Tooltip>
@@ -262,12 +268,14 @@ export default function Layout() {
                 }}
               >
                 <Figure.Image
-                  width={100}
+                  width={85}
                   // height={180}
                   alt="171x180"
                   src="icon/dry.png"
                 />
-                <Figure.Caption>건면</Figure.Caption>
+                {/* <Figure.Caption>건면</Figure.Caption> */}
+                <div className="rname">건면</div>
+
               </Figure>
             </div>
             <div className="figure">
@@ -280,12 +288,14 @@ export default function Layout() {
                 }}
               >
                 <Figure.Image
-                  width={100}
+                  width={85}
                   // height={180}
                   alt="171x180"
                   src="icon/fried.png"
                 />
-                <Figure.Caption>유탕</Figure.Caption>
+                                <div className="rname">유탕</div>
+
+                {/* <Figure.Caption>유탕</Figure.Caption> */}
               </Figure>
             </div>
             <div className="figure">
@@ -298,12 +308,14 @@ export default function Layout() {
                 }}
               >
                 <Figure.Image
-                  width={100}
+                  width={85}
                   // height={180}
                   alt="171x180"
                   src="icon/real.png"
                 />
-                <Figure.Caption>생면,숙면</Figure.Caption>
+                                <div className="rname">생면,숙면</div>
+
+                {/* <Figure.Caption>생면,숙면</Figure.Caption> */}
               </Figure>
             </div>
           </Col>
@@ -323,12 +335,14 @@ export default function Layout() {
                 }}
               >
                 <Figure.Image
-                  width={100}
+                  width={85}
                   // height={180}
                   alt="171x180"
                   src="icon/soup.png"
                 />
-                <Figure.Caption>국물</Figure.Caption>
+                                <div className="rname">국물</div>
+
+                {/* <Figure.Caption>국물</Figure.Caption> */}
               </Figure>
             </div>
             <div className="figure">
@@ -341,12 +355,14 @@ export default function Layout() {
                 }}
               >
                 <Figure.Image
-                  width={100}
+                  width={85}
                   // height={180}
                   alt="171x180"
                   src="icon/bok.png"
                 />
-                <Figure.Caption>비빔,볶음</Figure.Caption>
+                                <div className="rname">비빔,볶음</div>
+
+                {/* <Figure.Caption>비빔,볶음</Figure.Caption> */}
               </Figure>
             </div>
             <div className="figure">
@@ -359,12 +375,14 @@ export default function Layout() {
                 }}
               >
                 <Figure.Image
-                  width={100}
+                  width={85}
                   // height={180}
                   alt="171x180"
                   src="icon/jjajang.png"
                 />
-                <Figure.Caption>짜장</Figure.Caption>
+                                <div className="rname">짜장</div>
+
+                {/* <Figure.Caption>짜장</Figure.Caption> */}
               </Figure>
             </div>
           </Col>
@@ -372,6 +390,11 @@ export default function Layout() {
         </Row>
       </div>
       <style jsx>{`
+        .rname{
+          text-align: center;
+          font-size:20px;
+          // display:inline;
+        }
         .box {
           margin: 0px;
         }
