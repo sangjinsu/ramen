@@ -25,7 +25,6 @@ similarities.columns = df_ramen.index
 df_rating = member_like_ramen()
 mu = df_rating.rating.mean()
 
-
 def user_based_cf(member_id):
     df_rating = member_like_ramen()
     df_log_value = create_df_log_value(member_id)
@@ -265,8 +264,8 @@ def RMSE(y_true, y_pred):
         return tf.sqrt(tf.reduce_mean(tf.square(y_true - y_pred)))
 
 def train_ai():
-    df_member = member()
     df_rating = member_like_ramen()
+    df_member = member()
     # 잠재요인 수 2000으로 지정
     K = 1000
     # 전체 평균 계산
@@ -276,7 +275,7 @@ def train_ai():
     # +1를 더해주는 이유는 나중에 bias term 의 크기 1 추가를 고려한 것이다 
     M = df_member.index.max() + 1
     N = df_ramen.index.max() + 1
-    
+        
     user = Input(shape=(1,))
     item = Input(shape=(1,))
     
@@ -284,8 +283,8 @@ def train_ai():
     Q_embedding = Embedding(N, K, embeddings_regularizer=l2())(item)
 
     user_bias = Embedding(M, 1, embeddings_regularizer=l2())(user)
-    item_bias = Embedding(M, 1, embeddings_regularizer=l2())(user)
-
+    item_bias = Embedding(N, 1, embeddings_regularizer=l2())(item)
+ 
     P_embedding = Flatten()(P_embedding)
     Q_embedding = Flatten()(Q_embedding)
     user_bias = Flatten()(user_bias)
@@ -329,7 +328,7 @@ def deaplearning_based_rc(member_id):
 
     predictions = model.predict([member_ids, ramen_ids]) + mu
     predictions = pd.DataFrame(predictions, columns=['predict_rate'])
-    predicton_ids = predictions.drop(rated_ramen).sort_values(by=['predict_rate'], ascending=False).head(10).index
+    predicton_ids = predictions.drop(rated_ramen, axis=0).sort_values(by=['predict_rate'], ascending=False).head(10).index
     recom_ramens = shuffle(df_ramen.loc[predicton_ids]['name'], random_state=0).to_dict()
     return recom_ramens
     

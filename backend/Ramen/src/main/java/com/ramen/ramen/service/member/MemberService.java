@@ -36,28 +36,23 @@ public class MemberService {
         }
         Member member = optionalMember.get();
 
-        List<Long> ramenIds = requestLikeDto.getRamenIds();
-        List<Ramen> ramens = ramenRepository.findAllById(ramenIds);
+        Long ramenId = requestLikeDto.getRamenId();
+        Optional<Ramen> optionalRamen = ramenRepository.findById(ramenId);
 
-        if (ramens.isEmpty()) {
+        if (optionalRamen.isEmpty()) {
             throw new RamenNotFoundException();
-        } else if (ramens.size() == 1) {
-            Ramen ramen = ramens.get(0);
-            Optional<MemberLikeRamen> likeRamen = memberLikeRamenRepository.findByMemberAndRamen(member, ramen);
-
-            if (likeRamen.isPresent()) {
-                memberLikeRamenRepository.delete(likeRamen.get());
-                return;
-            }
-
-            MemberLikeRamen memberLikeRamen = MemberLikeRamen.builder().member(member).ramen(ramen).build();
-            memberLikeRamenRepository.save(memberLikeRamen);
-        } else {
-            ramens.forEach(ramen -> {
-                MemberLikeRamen memberLikeRamen = MemberLikeRamen.builder().member(member).ramen(ramen).build();
-                memberLikeRamenRepository.save(memberLikeRamen);
-            });
         }
+
+        Ramen ramen = optionalRamen.get();
+        Optional<MemberLikeRamen> likeRamen = memberLikeRamenRepository.findByMemberAndRamen(member, ramen);
+
+        if (likeRamen.isPresent()) {
+            memberLikeRamenRepository.delete(likeRamen.get());
+            return;
+        }
+
+        MemberLikeRamen memberLikeRamen = MemberLikeRamen.builder().member(member).ramen(ramen).build();
+        memberLikeRamenRepository.save(memberLikeRamen);
     }
 
     public List<ResponseLikeRamenDto> fetchLikedRamens(Long memberId) {
