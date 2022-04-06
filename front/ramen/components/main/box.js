@@ -4,6 +4,32 @@ import { Row, Col, Badge } from "react-bootstrap";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
+import { styled } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
+
+const CustomWidthTooltip = styled(({ className, ...props }) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))({
+  [`& .${tooltipClasses.tooltip}`]: {
+    maxWidth: 500,
+  },
+});
+
+const NoMaxWidthTooltip = styled(({ className, ...props }) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))({
+  [`& .${tooltipClasses.tooltip}`]: {
+    maxWidth: 'none',
+  },
+});
+
+const longText = `
+최소1개 최대3개의 아이콘을 클릭해 고르실수 있어요!!!
+봉지와 컵중 하나를 고르고, 건명,유탕 그리고 생면과숙면중에 하나를고르고
+마지막으로 국물,비빔과볶음,짜장중에 하나를 골라 검색해주세요!
+`;
+
 export default function Layout() {
   // 여기다가 변수로 저장한다음 어케어케 하면 될거같은데 말이지 ㅇㅇ..
   // on/off 로다가 ㅇㅇ 추가하면 되겟네 ㅇㅇ true false그거로 3개를 만들면 되겠다. ㅇㅇ
@@ -149,6 +175,23 @@ export default function Layout() {
                 <Figure.Caption>컵</Figure.Caption>
               </Figure>
             </div>
+            <Tooltip title={longText}>
+            <div className="figure">
+              <Figure
+                
+              >
+                <Figure.Image
+                  width={100}
+                  // height={180}
+                  alt="171x180"
+                  src="icon/guide.png"
+                />
+                <Figure.Caption>이용가이드</Figure.Caption>
+              </Figure>
+            </div>
+            
+        
+      </Tooltip>
           </Col>
           <Col
             xs={3}
