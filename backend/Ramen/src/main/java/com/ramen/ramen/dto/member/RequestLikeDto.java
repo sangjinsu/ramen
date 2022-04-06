@@ -8,5 +8,5 @@ import java.util.List;
 @Data
 public class RequestLikeDto implements Serializable {
     private final Long memberId;
-    private final List<Long> ramenIds;
+    private final Long ramenId;
 }
