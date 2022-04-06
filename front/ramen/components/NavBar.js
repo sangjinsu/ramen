@@ -45,6 +45,13 @@ export default function NavBar() {
 
   return (
     <>
+     <div className="sidenav2" >
+  <a onClick={()=>{
+      window.scrollTo(0, 0);
+    }}><img src="icon/up.png" width={25}></img>
+    </a>
+
+</div>
       <Navbar collapseOnSelect expand="lg" bg="bg-white" variant="light">
         <Container>
           <Navbar.Brand>
@@ -193,6 +200,28 @@ export default function NavBar() {
       </Navbar>
       {/* <hr></hr> */}
       <style jsx>{`
+      .sidenav2 {
+        width: 50px;
+        position: fixed;
+        z-index: 1;
+        top: 300px;
+        right: 10px;
+        // background: #eee;
+        overflow-x: hidden;
+        padding: 8px 0;
+      }
+      
+      .sidenav2 a {
+        padding: 6px 8px 6px 16px;
+        text-decoration: none;
+        font-size: 16px;
+        color: #2196F3;
+        display: block;
+      }
+      
+      .sidenav2 a:hover {
+        color: #064579;
+      }
         .navmenu {
           color: grey;
           text-decoration-line: none;

@@ -68,6 +68,7 @@ export default function Layout() {
   // 1,2,3,4,5,6,7,8
   const router = useRouter();
   const [modalShow, setModalShow] = React.useState(false);
+  
 
 
 
@@ -80,12 +81,19 @@ export default function Layout() {
 
   return (
     <>
+    {/* <div className="sidenav" >
+  <a onClick={()=>{
+      window.scrollTo(0, 0);
+    }}><img src="icon/up.png" width={25}></img>
+    </a>
+
+</div> */}
     
       <div className="box">
         <Row>
           <Col xs={0} md={3} lg={3}></Col>
           {/* 반응형에서 찌그러져서 xs속성줘야함 */}
-          <Col xs={11} md={6} lg={5}>
+          <Col xs={12} md={6} lg={5}>
             {" "}
             <div className="iconbox" width={500}>
               <div style={{ display: "inline" }}>
@@ -153,7 +161,7 @@ export default function Layout() {
               </div>
             </div>
           </Col>
-          <Col xs={1} md={3} lg={4}></Col>
+          <Col xs={0} md={3} lg={4}></Col>
         </Row>
         <div className="marginbox"></div>
         {/* <Row>
@@ -390,10 +398,33 @@ export default function Layout() {
         </Row>
       </div>
       <style jsx>{`
+      // .sidenav2 {
+      //   width: 50px;
+      //   position: fixed;
+      //   z-index: 1;
+      //   top: 300px;
+      //   right: 10px;
+      //   // background: #eee;
+      //   overflow-x: hidden;
+      //   padding: 8px 0;
+      // }
+      
+      // .sidenav2 a {
+      //   padding: 6px 8px 6px 16px;
+      //   text-decoration: none;
+      //   font-size: 16px;
+      //   color: #2196F3;
+      //   display: block;
+      // }
+      
+      // .sidenav2 a:hover {
+      //   color: #064579;
+      // }
         .rname{
           text-align: center;
           font-size:20px;
           // display:inline;
+          // margin-left:10px;
         }
         .box {
           margin: 0px;
@@ -403,6 +434,7 @@ export default function Layout() {
         }
         .figure {
           cursor: pointer;
+          // margin-right:10px;
         }
         .figure:active {
           transform: translateY(4px);
