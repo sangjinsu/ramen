@@ -86,7 +86,7 @@ public class RamenService {
 
     public List<RamenListDto> fetchRamenListCup() {
 
-        List<Object[]> ramens = ramenRepository.findRamensAll();
+        List<Object[]> ramens = ramenRepository.findRamensByCompositionCup();
 
         List<RamenSortDto> ramenSortDtos = new ArrayList<>();
 
@@ -112,7 +112,7 @@ public class RamenService {
 
     public List<RamenListDto> fetchRamensListAll() {
 
-        List<Object[]> ramens = ramenRepository.findRamensByCompositionCup();
+        List<Object[]> ramens = ramenRepository.findRamensAll();
 
         List<RamenSortDto> ramenSortDtos = new ArrayList<>();
 
