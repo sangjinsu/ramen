@@ -96,24 +96,14 @@ const Search: NextPage = () => {
       })
         .then((result) => {
           console.log("요청성공");
-          console.log(query.noodleType);
-          console.log(query.ramenStyle);
-          console.log(query.ramenType);
+          // console.log(query.noodleType);
+          // console.log(query.ramenStyle);
+          // console.log(query.ramenType);
 
-          console.log(result);
-          console.log(result.data);
+          // console.log(result);
+          // console.log(result.data);
           setArray(result.data);
-          // const dm = [{
-          //   ramenId: 33,
-          //   name: 'h',
-          //   brand: "h",
-          // }, {
-          //   ramenId: 31,
-          //   name: 'h2',
-          //   brand: "2h",
-          // },]
-          // console.log(dm)
-          // setArray(dm)
+
         })
         .catch((error) => {
           console.log("요청실패");
@@ -163,14 +153,9 @@ const Search: NextPage = () => {
                           ></img>
                         </>
                       )}
-                      {/* <img src={`icon/rename/${noodleType[queryResult[1]]}.png`} width={45} onError={handleImage}></img>&nbsp;
-                      <img src={`icon/rename/${ramenStyle[queryResult[2]]}.png`} width={45} onError={handleImage}></img> */}
+
                     </Col>
-                    {/* <Col xs={12} md={12} lg={12}>
-                      {ramenType[queryResult[0]]}&nbsp;/&nbsp;
-                      {noodleType[queryResult[1]]}&nbsp;/&nbsp;
-                      {ramenStyle[queryResult[2]]}&nbsp;
-                    </Col> */}
+
                   </Row>
                 </Container>
               </div>
@@ -198,13 +183,15 @@ const Search: NextPage = () => {
               );
             })}
 
-            <Stack spacing={2}>
-              <Pagination
-                count={pageNumber}
-                shape="rounded"
-                onChange={handleChange}
-              />
-            </Stack>
+            <div className="pagination_area">
+              <Stack spacing={2}>
+                <Pagination
+                  count={pageNumber}
+                  shape="rounded"
+                  onChange={handleChange}
+                />
+              </Stack>
+            </div>
           </Col>
           <Col xs={1} md={2}></Col>
         </Row>
@@ -214,6 +201,12 @@ const Search: NextPage = () => {
           display: inline;
           font-weight: bold;
           font-size: 16px;
+        }
+
+        .pagination_area {
+          margin-left: 0;
+          display: flex;
+          justify-content: center;
         }
       `}</style>
     </>

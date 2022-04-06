@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Figure } from "react-bootstrap";
 import { Row, Col, Badge } from "react-bootstrap";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 export default function Layout() {
@@ -15,12 +15,8 @@ export default function Layout() {
   // 1,2,3,4,5,6,7,8
   const router = useRouter();
 
-
-
   return (
-    
     <>
-
       <div className="box">
         <Row>
           <Col xs={0} md={3} lg={3}></Col>
@@ -105,7 +101,11 @@ export default function Layout() {
         <Row>
           <Col xs={1} md={3}></Col>
 
-          <Col xs={3} md={2}>
+          <Col
+            xs={3}
+            md={2}
+            // style={{ borderRight: "thin solid #000", color: "#D3D3D3" }}
+          >
             {/* <div >
     <h5><Badge bg="light" text="dark">
     패키지
@@ -150,7 +150,11 @@ export default function Layout() {
               </Figure>
             </div>
           </Col>
-          <Col xs={3} md={2}>
+          <Col
+            xs={3}
+            md={2}
+            // style={{ borderRight: "thin solid #000", color: "#D3D3D3" }}
+          >
             {/* <div >
     <h5><Badge bg="light" text="dark">
     면종류
@@ -273,11 +277,9 @@ export default function Layout() {
             </div>
           </Col>
           <Col xs={1} md={3}></Col>
-
         </Row>
       </div>
       <style jsx>{`
-
         .box {
           margin: 0px;
         }
@@ -295,7 +297,6 @@ export default function Layout() {
           height: 50px;
           border-radius: 15px;
           box-shadow: 1px 2px;
-
         }
         .icon {
           float: right;

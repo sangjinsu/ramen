@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getCookie } from "cookies-next";
+import { getCookie, removeCookies } from "cookies-next";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
@@ -12,24 +12,28 @@ const Heart = ({ params }: { params: string }) => {
     // 주석 해제
     try {
       const { status: userLikeStatus } = await axios.post(
-        `http://j6c104.p.ssafy.io:8080/v1/member/like`,
+        `http://j6c104.p.ssafy.io:8080/v1/member/like?memberId=${member_id}&ramenId=${params}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
-          },
-        },
-        {
-          params: {
-            memberId: member_id,
-            ramenIds: params,
           },
         }
       );
       if (200 <= userLikeStatus && userLikeStatus < 300) {
         setLike(!likeCheck);
       }
+
+      await axios.get(
+        `http://j6c104.p.ssafy.io:8081/v1/ranking/view/${params}/${member_id}`
+      );
     } catch {
       if (!member_id) {
+        removeCookies("member_id");
+        removeCookies("accessToken");
+        removeCookies("refreshToken");
+        removeCookies("name");
+        removeCookies("age");
+        removeCookies("gender");
         router.push("/login");
       }
     }

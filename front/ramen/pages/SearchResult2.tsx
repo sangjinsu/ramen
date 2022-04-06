@@ -34,14 +34,9 @@ const Search: NextPage = () => {
     })
       .then((result) => {
         console.log("요청성공");
-        console.log(result);
-        // console.log(result.data)
-        // console.log('------여기부터출력------')
-        // let temp = []
-        // temp.push(...result.data)
+
         setArray(result.data);
-        // console.log(array)
-        // console.log('여긴 안나오지만 밑에 삼항연산자에는 나옴')
+
         let arr = [];
         let range = Math.ceil(result.data.length / 5) - 1;
         let remain = result.data.length % 5;
@@ -55,7 +50,7 @@ const Search: NextPage = () => {
         arr.push(...arr2);
         setPagenation(arr);
         // ...써봐..?
-        //
+
         console.log(arr);
         console.log("========");
         console.log(arr[0]);
@@ -84,32 +79,20 @@ const Search: NextPage = () => {
           <h1>카테고리결과</h1>
           {pagenation.length}
 
-          {/* {
-  page.length ===0
-  ?null
-  :(
-    page.map(function(a,index){
-      return (
-        <ResultBox key = {index} name={a[0].name} brand={a[0].brand}></ResultBox>
-        // <p>{index} {a.name}</p>
-        // 아니 배열+1개까지뜨다가지금은 왜 되냐..?
-      )
-    })
-  )
-} */}
+
           {array.length === 0
             ? null
             : array.map(function (a, index) {
-                return (
-                  <ResultBox
-                    key={index}
-                    name={a.name}
-                    brand={a.brand}
-                  ></ResultBox>
-                  // <p>{index} {a.name}</p>
-                  // 아니 배열+1개까지뜨다가지금은 왜 되냐..?
-                );
-              })}
+              return (
+                <ResultBox
+                  key={index}
+                  name={a.name}
+                  brand={a.brand}
+                ></ResultBox>
+                // <p>{index} {a.name}</p>
+                // 아니 배열+1개까지뜨다가지금은 왜 되냐..?
+              );
+            })}
           <Stack spacing={2}>
             {/* 여기가 page별로 다른거 보여주면될듯 */}
 
