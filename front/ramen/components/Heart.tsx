@@ -12,16 +12,10 @@ const Heart = ({ params }: { params: string }) => {
     // 주석 해제
     try {
       const { status: userLikeStatus } = await axios.post(
-        `http://j6c104.p.ssafy.io:8080/v1/member/like`,
+        `http://j6c104.p.ssafy.io:8080/v1/member/like?memberId=${member_id}&ramenId=${params}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
-          },
-        },
-        {
-          params: {
-            memberId: member_id,
-            ramenIds: params,
           },
         }
       );
