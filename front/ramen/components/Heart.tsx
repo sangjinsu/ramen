@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getCookie } from "cookies-next";
+import { getCookie, removeCookies } from "cookies-next";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
@@ -30,6 +30,12 @@ const Heart = ({ params }: { params: string }) => {
       }
     } catch {
       if (!member_id) {
+        removeCookies("member_id");
+        removeCookies("accessToken");
+        removeCookies("refreshToken");
+        removeCookies("name");
+        removeCookies("age");
+        removeCookies("gender");
         router.push("/login");
       }
     }

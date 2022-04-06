@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getCookie, setCookies } from "cookies-next";
+import { getCookie, setCookies, removeCookies } from "cookies-next";
 import { withRouter, useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
@@ -186,6 +186,12 @@ const UserPreference: React.FC<userPreferenceType> = ({
             .catch(function (error) {
               alert("로그인 세션 시간이 만료되었습니다.");
               if (error.response.status === 401) {
+                removeCookies("member_id");
+                removeCookies("accessToken");
+                removeCookies("refreshToken");
+                removeCookies("name");
+                removeCookies("age");
+                removeCookies("gender");
                 router.replace("/login");
               }
             });

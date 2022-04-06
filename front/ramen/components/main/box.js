@@ -101,7 +101,11 @@ export default function Layout() {
         <Row>
           <Col xs={1} md={3}></Col>
 
-          <Col xs={3} md={2}>
+          <Col
+            xs={3}
+            md={2}
+            // style={{ borderRight: "thin solid #000", color: "#D3D3D3" }}
+          >
             {/* <div >
     <h5><Badge bg="light" text="dark">
     패키지
@@ -146,7 +150,11 @@ export default function Layout() {
               </Figure>
             </div>
           </Col>
-          <Col xs={3} md={2}>
+          <Col
+            xs={3}
+            md={2}
+            // style={{ borderRight: "thin solid #000", color: "#D3D3D3" }}
+          >
             {/* <div >
     <h5><Badge bg="light" text="dark">
     면종류

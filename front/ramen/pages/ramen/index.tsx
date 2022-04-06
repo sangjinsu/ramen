@@ -96,6 +96,7 @@ const RamentList: React.FC<RamenListType> = ({
                               <a>
                                 {DocDataDictionary[`${ramen.name}.png`] ? (
                                   <img
+                                    style={{ width: "100%" }}
                                     src={`/ramen/${ramen.name}.png`}
                                     srcSet={`/ramen/${ramen.name}.png`}
                                     alt={ramen.name}
@@ -104,13 +105,16 @@ const RamentList: React.FC<RamenListType> = ({
                                 ) : (
                                   <img src={"/ramen/default.png"} />
                                 )}
+                                <h4
+                                  style={{
+                                    fontFamily: "Jua, sans-serif",
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  {ramen.name}
+                                </h4>
                               </a>
                             </Link>
-                            <h4
-                              style={{ "font-family": ["Jua", "sans-serif"] }}
-                            >
-                              {ramen.name}
-                            </h4>
                           </Col>
                         );
                       })}
