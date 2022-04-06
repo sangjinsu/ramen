@@ -79,7 +79,9 @@ export default function Suggestion(props) {
 
       {/* {props.title} */}
       <hr></hr>
+      <img src={`icon/${props.title}.png`}width={50}></img>
       <h3>{titleString[props.title]}</h3>
+      
       <ListGroup>
         {/* {ramen.length !==0
     ? <p>{ramen.length}</p>
@@ -88,8 +90,8 @@ export default function Suggestion(props) {
         {ramen.length !== 0 ? (
           <>
             <ListGroup.Item>
-              {/* <img src="icon/number1.png" width={25}></img>
-               */}1위
+              <img src="icon/1.png" width={25}></img>
+              
               <Link href={`/ramen/${Object.keys(ramen)[0]}`}>
 
                 <a><img
@@ -101,7 +103,8 @@ export default function Suggestion(props) {
               </Link>
             </ListGroup.Item>
             <ListGroup.Item>
-              2위
+            <img src="icon/2.png" width={25}></img>
+
               <Link href={`/ramen/${Object.keys(ramen)[1]}`}>
                 <a><img
                   src={`ramen/${Object.values(ramen)[1]}.png`}
@@ -112,7 +115,8 @@ export default function Suggestion(props) {
               </Link>
             </ListGroup.Item>
             <ListGroup.Item>
-              3위
+            <img src="icon/3.png" width={25}></img>
+
               <Link href={`/ramen/${Object.keys(ramen)[2]}`}>
                 <a><img
                   src={`ramen/${Object.values(ramen)[2]}.png`}
@@ -123,7 +127,8 @@ export default function Suggestion(props) {
               </Link>
             </ListGroup.Item>
             <ListGroup.Item>
-              4위
+            <img src="icon/4.png" width={25}></img>
+
               <Link href={`/ramen/${Object.keys(ramen)[3]}`}>
                 <a><img
                   src={`ramen/${Object.values(ramen)[3]}.png`}
@@ -134,7 +139,8 @@ export default function Suggestion(props) {
               </Link>
             </ListGroup.Item>
             <ListGroup.Item>
-              5위
+            <img src="icon/5.png" width={25}></img>
+
               <Link href={`/ramen/${Object.keys(ramen)[4]}`}>
                 <a><img
                   src={`ramen/${Object.values(ramen)[4]}.png`}
