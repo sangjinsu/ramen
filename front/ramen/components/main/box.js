@@ -213,7 +213,7 @@ export default function Layout() {
                 <Figure.Caption>컵</Figure.Caption>
               </Figure>
             </div>
-            
+            {/* 테스트 */}
             <Tooltip   title={longText} placement="top">
             
             <div className="figure" onClick={() => setModalShow(true)}>
