@@ -85,7 +85,7 @@ export default function Layout() {
         <Row>
           <Col xs={0} md={3} lg={3}></Col>
           {/* 반응형에서 찌그러져서 xs속성줘야함 */}
-          <Col xs={12} md={6} lg={5}>
+          <Col xs={11} md={6} lg={5}>
             {" "}
             <div className="iconbox" width={500}>
               <div style={{ display: "inline" }}>
@@ -153,7 +153,7 @@ export default function Layout() {
               </div>
             </div>
           </Col>
-          <Col xs={0} md={3} lg={4}></Col>
+          <Col xs={1} md={3} lg={4}></Col>
         </Row>
         <div className="marginbox"></div>
         {/* <Row>
