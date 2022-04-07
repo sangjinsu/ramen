@@ -33,7 +33,7 @@ public class ExControllerAdvice {
     public ResponseEntity<ErrorResponse> LikeNotFoundExHandler(LikeNotFoundException e) {
         log.error("[exceptionHandler] ex", e);
         ErrorResponse errorResponse = ErrorResponse.builder().message("좋아요를 찾을 수 없습니다").build();
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(errorResponse); //204
     }
 
 }
