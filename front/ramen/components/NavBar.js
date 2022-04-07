@@ -48,7 +48,8 @@ export default function NavBar() {
      <div className="sidenav2" >
   <a onClick={()=>{
       window.scrollTo(0, 0);
-    }}><img src="icon/up.png" width={25}></img>
+    }}><h1>↑</h1>
+      {/* <img src="icon/up.png" width={25}></img> */}
     </a>
 
 </div>
@@ -202,26 +203,27 @@ export default function NavBar() {
       {/* <hr></hr> */}
       <style jsx>{`
       .sidenav2 {
-        width: 50px;
+        width: 70px;
         position: fixed;
         z-index: 1;
         top: 300px;
-        right: 10px;
+        right: 5px;
         // background: #eee;
         overflow-x: hidden;
-        padding: 8px 0;
+        padding: 0px 0;
+        cursor:pointer;
       }
       
       .sidenav2 a {
         padding: 6px 8px 6px 16px;
         text-decoration: none;
-        font-size: 16px;
-        color: #2196F3;
+        font-size: 24px;
+        color: black;
         display: block;
       }
       
       .sidenav2 a:hover {
-        color: #064579;
+        color: #orange;
       }
         .navmenu {
           color: grey;
