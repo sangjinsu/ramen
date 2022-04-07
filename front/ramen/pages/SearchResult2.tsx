@@ -25,7 +25,7 @@ const Search: NextPage = () => {
   useEffect(() => {
     axios({
       method: "post",
-      url: "http://j6c104.p.ssafy.io:8080/v1/ramen/category",
+      url: "http://j6c104.p.ssafy.io:8888/v1/ramen/category",
       data: {
         noodleType: query.noodleType,
         ramenStyle: query.ramenStyle,
@@ -79,20 +79,19 @@ const Search: NextPage = () => {
           <h1>카테고리결과</h1>
           {pagenation.length}
 
-
           {array.length === 0
             ? null
             : array.map(function (a, index) {
-              return (
-                <ResultBox
-                  key={index}
-                  name={a.name}
-                  brand={a.brand}
-                ></ResultBox>
-                // <p>{index} {a.name}</p>
-                // 아니 배열+1개까지뜨다가지금은 왜 되냐..?
-              );
-            })}
+                return (
+                  <ResultBox
+                    key={index}
+                    name={a.name}
+                    brand={a.brand}
+                  ></ResultBox>
+                  // <p>{index} {a.name}</p>
+                  // 아니 배열+1개까지뜨다가지금은 왜 되냐..?
+                );
+              })}
           <Stack spacing={2}>
             {/* 여기가 page별로 다른거 보여주면될듯 */}
 

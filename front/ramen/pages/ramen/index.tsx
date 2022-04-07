@@ -181,10 +181,10 @@ const RamentList: React.FC<RamenListType> = ({
 
 export async function getServerSideProps() {
   const { data: bongiList } = await axios.get(
-    `http://j6c104.p.ssafy.io:8080/v1/ramen/list/bongji`
+    `http://j6c104.p.ssafy.io:8888/v1/ramen/list/bongji`
   );
   const { data: cupList } = await axios.get(
-    `http://j6c104.p.ssafy.io:8080/v1/ramen/list/cup`
+    `http://j6c104.p.ssafy.io:8888/v1/ramen/list/cup`
   );
   const AllList = [...bongiList, ...cupList];
   return {

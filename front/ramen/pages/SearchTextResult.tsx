@@ -42,7 +42,7 @@ const Search2: NextPage = () => {
   useEffect(() => {
     axios({
       method: "get",
-      url: `http://j6c104.p.ssafy.io:8082/v1/search/name?query=${query.textResult}`,
+      url: `http://j6c104.p.ssafy.io:8888/v1/search/name?query=${query.textResult}`,
     })
       .then((result) => {
         console.log("get요청성공");
@@ -59,7 +59,7 @@ const Search2: NextPage = () => {
   useEffect(() => {
     axios({
       method: "get",
-      url: `http://j6c104.p.ssafy.io:8082/v1/search/brand?query=${query.textResult}`,
+      url: `http://j6c104.p.ssafy.io:8888/v1/search/brand?query=${query.textResult}`,
     })
       .then((result) => {
         console.log("get요청성공");

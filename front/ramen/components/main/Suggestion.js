@@ -17,7 +17,7 @@ export default function Suggestion(props) {
     "UBCF추천": "로그인 후 이용해 주세요",
     "DBRC추천": "AI가 학습 중입니다."
   }
-  
+
   const default_img = "ramen/default.png";
   const handleImage = (e) => {
     e.target.src = default_img;
@@ -26,7 +26,7 @@ export default function Suggestion(props) {
   useEffect(() => {
     if (props.sug === "ubcf" && props.id !== undefined) {
       axios
-        .get(`http://j6c104.p.ssafy.io:8084/v1/recommend/ubcf/${props.id}`)
+        .get(`http://j6c104.p.ssafy.io:8888/v1/recommend/ubcf/${props.id}`)
         .then((result) => {
           console.log("ubcf요청성공");
           console.log(result);
@@ -45,7 +45,7 @@ export default function Suggestion(props) {
   useEffect(() => {
     if (props.sug === "dbrc" && props.id !== undefined) {
       axios
-        .get(`http://j6c104.p.ssafy.io:8084/v1/recommend/dbrc/${props.id}`)
+        .get(`http://j6c104.p.ssafy.io:8888/v1/recommend/dbrc/${props.id}`)
         .then((result) => {
           console.log("dbrc요청성공");
           console.log(result);
@@ -62,7 +62,7 @@ export default function Suggestion(props) {
   useEffect(() => {
     if (props.sug === "ibcf" && props.id !== undefined) {
       axios
-        .get(`http://j6c104.p.ssafy.io:8084/v1/recommend/ibcf/${props.id}`)
+        .get(`http://j6c104.p.ssafy.io:8888/v1/recommend/ibcf/${props.id}`)
         .then((result) => {
           console.log("ibcf요청성공");
           console.log(result);
@@ -83,7 +83,7 @@ export default function Suggestion(props) {
 
       {/* {props.title} */}
       <hr></hr>
-      <img src={`icon/${props.title}.png`}width={50}></img>
+      <img src={`icon/${props.title}.png`} width={50}></img>
       <h3>{titleString[props.title]}</h3>
       <ListGroup>
         {/* {ramen.length !==0
@@ -94,7 +94,7 @@ export default function Suggestion(props) {
           <>
             <ListGroup.Item>
               <img src="icon/1.png" width={25}></img>
-              
+
               <Link href={`/ramen/${Object.keys(ramen)[0]}`}>
 
                 <a><img
@@ -106,7 +106,7 @@ export default function Suggestion(props) {
               </Link>
             </ListGroup.Item>
             <ListGroup.Item>
-            <img src="icon/2.png" width={25}></img>
+              <img src="icon/2.png" width={25}></img>
 
               <Link href={`/ramen/${Object.keys(ramen)[1]}`}>
                 <a><img
@@ -118,7 +118,7 @@ export default function Suggestion(props) {
               </Link>
             </ListGroup.Item>
             <ListGroup.Item>
-            <img src="icon/3.png" width={25}></img>
+              <img src="icon/3.png" width={25}></img>
 
               <Link href={`/ramen/${Object.keys(ramen)[2]}`}>
                 <a><img
@@ -130,7 +130,7 @@ export default function Suggestion(props) {
               </Link>
             </ListGroup.Item>
             <ListGroup.Item>
-            <img src="icon/4.png" width={25}></img>
+              <img src="icon/4.png" width={25}></img>
 
               <Link href={`/ramen/${Object.keys(ramen)[3]}`}>
                 <a><img
@@ -142,7 +142,7 @@ export default function Suggestion(props) {
               </Link>
             </ListGroup.Item>
             <ListGroup.Item>
-            <img src="icon/5.png" width={25}></img>
+              <img src="icon/5.png" width={25}></img>
 
               <Link href={`/ramen/${Object.keys(ramen)[4]}`}>
                 <a><img
@@ -154,16 +154,16 @@ export default function Suggestion(props) {
               </Link>
             </ListGroup.Item>
           </>
-        ) : 
-        (
-          
-          <>
-            <ListGroup.Item>
-            {textString[props.title]}
-            </ListGroup.Item>
+        ) :
+          (
 
-          </>
-        )
+            <>
+              <ListGroup.Item>
+                {textString[props.title]}
+              </ListGroup.Item>
+
+            </>
+          )
         }
       </ListGroup>
       {/* {

@@ -55,7 +55,7 @@ const Signup: React.FC<signupType> = ({ router: { query } }) => {
     // 이메일 형식, 중복 확인
     if (regEmail.test(email) === true) {
       axios
-        .post("http://j6c104.p.ssafy.io:8083/v1/member/check-email", {
+        .post("http://j6c104.p.ssafy.io:8888/v1/member/check-email", {
           inputEmail: inputEmail,
         })
         // 중복되지 않는 경우, 중복검사 확인
