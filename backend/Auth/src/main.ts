@@ -5,7 +5,11 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { cors: true });
+  const app = await NestFactory.create(AppModule, {
+    cors: {
+      origin: [process.env.EC2_SERVER, process.env.GATEWAY_SERVER],
+    },
+  });
   app.use(cookieParser());
   app.useGlobalPipes(new ValidationPipe());
 
