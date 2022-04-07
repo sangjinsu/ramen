@@ -422,7 +422,7 @@ export default function Layout() {
       // }
         .rname{
           text-align: center;
-          font-size:20px;
+          font-size:18px;
           // display:inline;
           // margin-left:10px;
         }
