@@ -127,7 +127,6 @@ const Heart = ({ params }: { params: string }) => {
     const TestTTT = async () => {
       try {
         if (member_id) {
-          console.log("111");
           const { status: userLikeStatus } = await axios.get(
             `http://j6c104.p.ssafy.io:8888/v1/ramen/islike/${Number(
               params1
@@ -138,10 +137,7 @@ const Heart = ({ params }: { params: string }) => {
               },
             }
           );
-          200 <= userLikeStatus && userLikeStatus < 300
-            ? setLike(true)
-            : setLike(false);
-          console.log(userLikeStatus);
+          userLikeStatus === 200 ? setLike(true) : setLike(false);
         }
       } catch {
         setLike(false);
