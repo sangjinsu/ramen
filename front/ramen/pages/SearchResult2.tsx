@@ -31,44 +31,24 @@ const Search: NextPage = () => {
         ramenStyle: query.ramenStyle,
         ramenType: query.ramenType,
       },
-    })
-      .then((result) => {
-        console.log("요청성공");
+    }).then((result) => {
+      setArray(result.data);
 
-        setArray(result.data);
-
-        let arr = [];
-        let range = Math.ceil(result.data.length / 5) - 1;
-        let remain = result.data.length % 5;
-        for (let i = 0; i < range; i++) {
-          let arr2 = [];
-          arr2.push(...result.data.slice(5 * i, 5 * i + 5));
-          arr.push(arr2);
-        }
+      let arr = [];
+      let range = Math.ceil(result.data.length / 5) - 1;
+      let remain = result.data.length % 5;
+      for (let i = 0; i < range; i++) {
         let arr2 = [];
-        arr2.push(result.data.slice(5 * range, 5 * range + remain));
-        arr.push(...arr2);
-        setPagenation(arr);
-        // ...써봐..?
-
-        console.log(arr);
-        console.log("========");
-        console.log(arr[0]);
-        // ...으로 벗기는것도 좋네
-        console.log("========");
-        console.log(arr[1]);
-        console.log(arr[2]);
-        console.log(arr[3]);
-        console.log(arr[3][0].name);
-        console.log(arr[3].length);
-
-        // console.log(page)
-        setPagetmp(arr[1]);
-      })
-      .catch((error) => {
-        console.log("요청실패");
-        console.log(error);
-      });
+        arr2.push(...result.data.slice(5 * i, 5 * i + 5));
+        arr.push(arr2);
+      }
+      let arr2 = [];
+      arr2.push(result.data.slice(5 * range, 5 * range + remain));
+      arr.push(...arr2);
+      setPagenation(arr);
+      // ...써봐..?
+      setPagetmp(arr[1]);
+    });
   }, []);
 
   return (

@@ -16,10 +16,6 @@ const RamentList: React.FC<RamenListType> = ({
   bongiList,
   cupList,
 }) => {
-  console.log(AllList);
-  console.log(bongiList);
-  console.log(cupList);
-
   const [currentRamenType, setRamenType] = React.useState(AllList);
 
   const [value, setValue] = React.useState(0);
@@ -44,7 +40,6 @@ const RamentList: React.FC<RamenListType> = ({
   const [currentPage, setCurrentPage] = React.useState(1); // 현재 페이지
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
-    console.log(value);
   };
 
   const ramenPerPage = 12; // 페이지당 라면 개수
@@ -63,7 +58,6 @@ const RamentList: React.FC<RamenListType> = ({
     ),
   ]; // 0 ~ 8
 
-  console.log("test", currentRamens);
   const pageNumber = Math.ceil(currentRamenType.length / ramenPerPage);
   // const imageListheight = currentRamens.length <= 4 ? 350 : 550; // 현재 페이지 갯수에 따른 높이 조정
   return (
@@ -81,7 +75,7 @@ const RamentList: React.FC<RamenListType> = ({
                       aria-label="basic tabs example"
                     >
                       <Tab label={"All"} {...a11yProps(0)} />
-                      <Tab label={"Bongi"} {...a11yProps(1)} />
+                      <Tab label={"Bongji"} {...a11yProps(1)} />
                       <Tab label={"Cup"} {...a11yProps(2)} />
                     </Tabs>
                   </Box>
@@ -98,7 +92,6 @@ const RamentList: React.FC<RamenListType> = ({
                                   <img
                                     style={{ width: "100%" }}
                                     src={`/ramen/${ramen.name}.png`}
-                                    srcSet={`/ramen/${ramen.name}.png`}
                                     alt={ramen.name}
                                     loading="lazy"
                                   />

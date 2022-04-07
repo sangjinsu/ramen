@@ -65,7 +65,6 @@ function Login() {
           },
         })
         .then(function (response) {
-          console.log("refresh 성공", response);
           setCookies("accessToken", response.data.accessToken);
           Router.push({
             pathname: "/",

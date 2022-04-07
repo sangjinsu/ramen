@@ -82,7 +82,6 @@ function R1(props) {
   const default_img = "ramen/default.png";
   const handleImage = (e) => {
     e.target.src = default_img;
-    // console.log(e.target.src);
   };
   useEffect(() => {
     axios({
@@ -90,18 +89,9 @@ function R1(props) {
       url: `http://j6c104.p.ssafy.io:8888/v1/ramen/detail/${props.id}`,
     })
       .then((result) => {
-        console.log("랭킹요청성공 R1프롭스");
-        console.log(result);
-        // console.log(result.data.name);
-        // console.log(result.data.brand);
         setName(result.data.name);
         setBrand(result.data.brand);
-        // console.log(ramen)
       })
-      .catch((error) => {
-        console.log("요청실패");
-        console.log(error);
-      });
   }, []);
   return (
     <Link href={`/ramen/${props.id}`}>

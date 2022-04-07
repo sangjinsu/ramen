@@ -21,25 +21,14 @@ export default function Suggestion(props) {
   const default_img = "ramen/default.png";
   const handleImage = (e) => {
     e.target.src = default_img;
-    // console.log(e.target.src);
   };
   useEffect(() => {
     if (props.sug === "ubcf" && props.id !== undefined) {
       axios
         .get(`http://j6c104.p.ssafy.io:8888/v1/recommend/ubcf/${props.id}`)
         .then((result) => {
-          console.log("ubcf요청성공");
-          console.log(result);
-          console.log(props.id)
-          // console.log(result.data);
-          // console.log(result.data[0]);
           setRamen(result.data);
         })
-        .catch((error) => {
-          console.log("ubcf요청실패");
-          console.log(error);
-          console.log(props.id)
-        });
     }
   }, []);
   useEffect(() => {
@@ -47,16 +36,8 @@ export default function Suggestion(props) {
       axios
         .get(`http://j6c104.p.ssafy.io:8888/v1/recommend/dbrc/${props.id}`)
         .then((result) => {
-          console.log("dbrc요청성공");
-          console.log(result);
-          // console.log(result.data);
-          // console.log(result.data[0]);
           setRamen(result.data);
         })
-        .catch((error) => {
-          console.log("dbrc요청실패");
-          console.log(error);
-        });
     }
   }, []);
   useEffect(() => {
@@ -64,16 +45,8 @@ export default function Suggestion(props) {
       axios
         .get(`http://j6c104.p.ssafy.io:8888/v1/recommend/ibcf/${props.id}`)
         .then((result) => {
-          console.log("ibcf요청성공");
-          console.log(result);
-          // console.log(result.data);
-          // console.log(result.data[0]);
           setRamen(result.data);
         })
-        .catch((error) => {
-          console.log("ibcf요청실패");
-          console.log(error);
-        });
     }
   }, []);
   return (
