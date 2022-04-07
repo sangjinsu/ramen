@@ -117,17 +117,17 @@
 
 - 컴포넌트: 단어 첫 글자 대문자 (ex. NavBar, GenderButton ...)
 
-  ![image-20220407162035648](C:\Users\LeeYounWoo\AppData\Roaming\Typora\typora-user-images\image-20220407162035648.png)
+  ![image-20220407230218339](README.assets/image-20220407230218339.png)
 
 - 페이지: 폴더 + 소문자
 
-​	![image-20220407162132470](C:\Users\LeeYounWoo\AppData\Roaming\Typora\typora-user-images\image-20220407162132470.png)
+  ![image-20220407230237737](README.assets/image-20220407230237737.png)
 
 
 
 ### 2. 깃 컨벤션
 
-![image-20220407161507140](C:\Users\LeeYounWoo\AppData\Roaming\Typora\typora-user-images\image-20220407161507140.png)
+![image-20220407230300090](README.assets/image-20220407230300090.png)
 
 
 
