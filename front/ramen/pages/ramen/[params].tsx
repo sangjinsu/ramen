@@ -44,7 +44,8 @@ const Detail: React.FC<RamenDetailType> = ({
 
   useEffect(() => {
     const numParams = Number(params);
-    if (numParams < 0 || 487 < numParams) {
+    if (numParams < 0 || 466 < numParams || ramenInfos.brand === "no data") {
+      alert("존재하지 않는 라면입니다.");
       router.push("/");
     }
   }, []);
@@ -54,7 +55,7 @@ const Detail: React.FC<RamenDetailType> = ({
       const memberId = getCookie("member_id");
       if (memberId) {
         await axios
-          .post(`http://j6c104.p.ssafy.io:8080/v1/log`, {
+          .post(`http://j6c104.p.ssafy.io:8888/v1/log`, {
             logDto: {
               memberId: memberId,
               ramenId: params,
@@ -68,7 +69,7 @@ const Detail: React.FC<RamenDetailType> = ({
           });
         await axios
           .get(
-            `http://j6c104.p.ssafy.io:8081/v1/ranking/view/${params}/${memberId}`
+            `http://j6c104.p.ssafy.io:8888/v1/ranking/view/${params}/${memberId}`
           )
           .then(function (response) {
             console.log("2", response);
@@ -78,7 +79,7 @@ const Detail: React.FC<RamenDetailType> = ({
           });
       } else {
         await axios
-          .get(`http://j6c104.p.ssafy.io:8081/v1/ranking/view/${params}`)
+          .get(`http://j6c104.p.ssafy.io:8888/v1/ranking/view/${params}`)
           .then(function (response) {
             console.log("3", response);
           })
@@ -111,10 +112,12 @@ const Detail: React.FC<RamenDetailType> = ({
                   )}
                 </div>
               </section>
-              <section className="left_area_btn">
-                <Heart params={params} />
-                <div className="left_like_writing">좋아요</div>
-              </section>
+              {ramenInfos.brand !== "no data" && (
+                <section className="left_area_btn">
+                  <Heart params={params} />
+                  <div className="left_like_writing">좋아요</div>
+                </section>
+              )}
             </div>
 
             <div className="right_area">
@@ -393,11 +396,11 @@ const Detail: React.FC<RamenDetailType> = ({
 export async function getServerSideProps({ params: { params } }) {
   try {
     const { data: ramenInfos } = await axios.get(
-      `http://j6c104.p.ssafy.io:8080/v1/ramen/detail/${params}`
+      `http://j6c104.p.ssafy.io:8888/v1/ramen/detail/${params}`
     );
 
     const { data: fetchSimilarity } = await axios.get(
-      `http://j6c104.p.ssafy.io.:8084/v1/recommend/similarity/${params}`
+      `http://j6c104.p.ssafy.io.:8888/v1/recommend/similarity/${params}`
     );
     const ramenKeys: string[] = Object.keys(fetchSimilarity);
     const similarityRamen: SimilarRamenType = {

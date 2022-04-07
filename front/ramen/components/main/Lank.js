@@ -87,7 +87,7 @@ function R1(props) {
   useEffect(() => {
     axios({
       method: "get",
-      url: `http://j6c104.p.ssafy.io:8080/v1/ramen/detail/${props.id}`,
+      url: `http://j6c104.p.ssafy.io:8888/v1/ramen/detail/${props.id}`,
     })
       .then((result) => {
         console.log("랭킹요청성공 R1프롭스");
