@@ -31,7 +31,7 @@ const Search3: NextPage = () => {
   useEffect(() => {
     axios({
       method: "get",
-      url: `http://j6c104.p.ssafy.io:8080/v1/ramen/analysis/${query.keyWord}`,
+      url: `http://j6c104.p.ssafy.io:8888/v1/ramen/analysis/${query.keyWord}`,
     })
       .then((result) => {
         console.log("get요청성공");

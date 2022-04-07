@@ -19,8 +19,7 @@ import { getCookie } from "cookies-next";
 function Row(props: { row: ReturnType<typeof createData> }) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
-  console.log("row", row);
-  console.log("props", props);
+  console.log(row);
 
   const [barChartData, setData] = React.useState<DataProps>({
     data: [0, 0, 0],
@@ -30,7 +29,7 @@ function Row(props: { row: ReturnType<typeof createData> }) {
     setData({
       data: [row.ingredient, row.ingredient_average, row.ingredient_recommend],
     });
-  }, []);
+  }, [row]);
 
   return (
     <React.Fragment>
@@ -69,11 +68,14 @@ function Row(props: { row: ReturnType<typeof createData> }) {
   );
 }
 
-export default React.memo(function RamenTable({
+export default function RamenTable({
   barChartData,
 }: {
   barChartData: DataProps;
 }) {
+  // const [ageKey, setAgeKey] = React.useState(0);
+  console.log(barChartData.data);
+
   const recommendData = {
     M: {
       0: [900, 130, 25, 55, 25, 1000],
@@ -185,36 +187,42 @@ export default React.memo(function RamenTable({
       setRow1((prevRow1) => {
         return {
           ...prevRow1,
+          ingredient: barChartData.data[0],
           ingredient_recommend: recommandRow1,
         };
       });
       setRow2((prevRow2) => {
         return {
           ...prevRow2,
+          ingredient: barChartData.data[1],
           ingredient_recommend: recommandRow2,
         };
       });
       setRow3((prevRow3) => {
         return {
           ...prevRow3,
+          ingredient: barChartData.data[2],
           ingredient_recommend: recommandRow3,
         };
       });
       setRow4((prevRow4) => {
         return {
           ...prevRow4,
+          ingredient: barChartData.data[3],
           ingredient_recommend: recommandRow4,
         };
       });
       setRow5((prevRow5) => {
         return {
           ...prevRow5,
+          ingredient: barChartData.data[4],
           ingredient_recommend: recommandRow5,
         };
       });
       setRow6((prevRow6) => {
         return {
           ...prevRow6,
+          ingredient: barChartData.data[5],
           ingredient_recommend: recommandRow6,
         };
       });
@@ -245,4 +253,4 @@ export default React.memo(function RamenTable({
       </Table>
     </TableContainer>
   );
-});
+}

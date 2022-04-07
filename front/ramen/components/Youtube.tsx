@@ -9,7 +9,7 @@ const Youtube = ({ searchTitle }: { searchTitle: string }) => {
   const [videoHeight, setVideoHeight] = useState(320);
 
   const params = {
-    key: "AIzaSyB97dKZAEN7qKgwQmOHitTOnsmcpCvtcTI",
+    key: "AIzaSyAWQ-_LvKjxxbF8dJVX0tsoaKY1jc-bmiQ",
     part: "snippet",
     q: searchTitle,
     maxResults: 5,
