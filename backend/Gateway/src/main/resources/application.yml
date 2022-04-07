@@ -1,0 +1,60 @@
+server:
+  port: 8888
+
+spring:
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: http://localhost:3000,http://localhost:80,http://j6c104.p.ssafy.io:80,http://j6c104.p.ssafy.io #
+            allowedHeaders:
+              - x-requested-with
+              - authorization
+              - content-type
+              - credential
+              - X-AUTH-TOKEN
+              - X-CSRF-TOKEN
+              - AccessToken
+            allowedMethods:
+              - POST
+              - GET
+              - PUT
+              - OPTIONS
+              - DELETE
+      routes:
+
+        - id: auth-service
+          uri: http://j6c104.p.ssafy.io:8083
+          predicates:
+            - Path= /v1/member/signup, /v1/member/login, /v1/member/check-email, /v1/member/refresh, /v1/member/check-jwt # /v1/member/withdraw  #/v1/oauth/login/response
+
+        - id: member-service
+          uri: http://j6c104.p.ssafy.io:8080
+          predicates:
+            - Path=/v1/member/{memberId}/fond, /v1/member/{memberId}/like, /v1/member/fond, /v1/member/like
+
+        - id: ramen-service
+          uri: http://j6c104.p.ssafy.io:8080
+          predicates:
+            - Path=/v1/ramen/**
+        - id: recommend-service
+          uri: http://j6c104.p.ssafy.io:8084
+          predicates:
+            - Path=/v1/recommend/**
+
+        - id: log-service
+          uri: http://j6c104.p.ssafy.io:8080
+          predicates:
+            - Path=/v1/log/**
+
+        - id: search-service
+          uri: http://j6c104.p.ssafy.io:8082
+          predicates:
+            - Path=/v1/search/**
+
+        - id: ranking-service
+          uri: http://j6c104.p.ssafy.io:8081
+          predicates:
+            - Path=/v1/ranking/**
+

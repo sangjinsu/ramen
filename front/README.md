@@ -10,8 +10,6 @@
 
 #### 	1. 3. 배포 목록
 
-#### 	1. 4. Docker container
-
 
 
 ### 2장. [Front 사용 기술](#1장.-Front-사용-기술)
@@ -68,33 +66,22 @@
 
 ### 5장. [백엔드](#백엔드)
 
-#### 	5. 1. [Back 기술스택](#Back)
+#### 	5. 1. [추천 시스템](#추천 시스템)
 
-#### 	5. 2. [추천 시스템](#Back)
+##### 		5. 1. 1. [메인페이지](#1.-메인페이지)
 
-#### 	5. 3. [로그 시스템](#Back)
-
-#### 	5. 4. [검색 시스템](#Back)
-
-#### 	5. 5. [랭킹 시스템](#Back)
-
-##### 	
+##### 		
 
 
 
 
-## 특화프로젝트
+## Notion
 
-### Notion
+### 특화프로젝트
 
 - 01: https://faceted-clover-f7a.notion.site/81169fccaa85421a80e69ac9dbadcb27
+
 - 02: https://linen-jump-272.notion.site/e96ee3e33029457cb33d390388456191
-
-### 팀원
-
-* FE : 김동일, 김지원, 이윤우
-
-* BE : 상진수(팀장), 최수한
 
   
 
@@ -103,15 +90,11 @@
 
 ### 1. 서비스 기획
 
-* 저희는 삼성 청년 SW 아카데미(SSAFY) 특화프로젝트 : 빅데이터 - 추천 도메인으로 라면 추천 서비스를 기획하였습니다.
-
-  국내에는 다양한 라면 종류가 있는 반면, 제한적인 라면만 소비가 됩니다. 또한 새로운 라면이 출시되지만 평이나 자신의 취향에 맞는지 몰라 선택에 어려움을 느낀 경험이 있으실 겁니다.
-
-  저희는 로그 기반 행동 패턴 분석 및 라면의 데이터를 통해 다양한 방식의 활용한 라면 추천 서비스를 기획 하였습니다.
+* 
 
 ### 2. 시스템 구상도
 
-![img](/README.assets/-Copy_of_Main.jpg)
+![img](README.assets/-Copy_of_Main.jpg)
 
 ### 3. 배포 목록
 
@@ -121,20 +104,13 @@
   * http://j6c104.p.ssafy.io:5601
 * 검색 서버 Kibana
   * http://j6c104.p.ssafy.io:5602
+
 * Admin
   * http://j6c104.p.ssafy.io:9999/admin
 * Swagger
   * http://j6c104.p.ssafy.io:8080/swagger-ui/index.html#/ramen-controller : main
   * http://j6c104.p.ssafy.io:8081/swagger-ui/index.html#/ramen-controller : ranking
-  * http://j6c104.p.ssafy.io:8083/api : auth
-
-
-
-### 4. Docker container
-
-![image-20220408005950935](README.assets/image-20220408005950935.png)
-
-* container 20개로 서비스 구현
+  * http://j6c104.p.ssafy.io:8083/api/ : auth
 
 
 
@@ -158,7 +134,6 @@
 - __SEO(Search Engine Optimization)__를 위한 __Server-Side Rendering(SSR)__을 가능하게 하기 때문에!!
 
   - SEO(검색 엔진 최적화)는 웹사이트가 유기적인(무료) 검색 방식을 통해 검색 엔진에서 상위에 노출될 수 있도록 최적화하는 과정
-
   - 많은 사용자를 만들기 위해선 SEO가 필수적이라 판단하였고 이에 최적화된 Next.js 를 사용하기로 판단
 
   - Server-Side Rendering(SSR) vs Client Side Rendering(CSR)
@@ -201,7 +176,7 @@
 
 - 컴포넌트: 단어 첫 글자 대문자 (ex. NavBar, GenderButton ...)
 
-  ![image-20220407230218339](/README.assets/image-20220407230218339.png)
+  ![image-20220407230218339](README.assets/image-20220407230218339.png)
 
 - 페이지: 폴더 + 소문자
 
@@ -231,7 +206,7 @@
 
   - 그리고 최종적으로 state값에 저장된 쿼리값을 Next.js의 useRouter를 활용해 검색결과 목록으로 전송
 
-    ![image-20220407212957383](/README.assets/image-20220407212957383.png)
+    ![image-20220407212957383](README.assets/image-20220407212957383.png)
 
 - 백엔드 API를 활용한 랭킹, 추천목록 제작
 
@@ -239,19 +214,19 @@
 
   - 비로그인 시
 
-    ![image-20220407213140157](/README.assets/image-20220407213140157.png)
+    ![image-20220407213140157](README.assets/image-20220407213140157.png)
 
-    ![image-20220407213244911](/README.assets/image-20220407213244911.png)
+    ![image-20220407213244911](README.assets/image-20220407213244911.png)
 
   - 로그인 시
 
     ![image-20220407213149976](README.assets/image-20220407213149976.png)
 
-    ![image-20220407213201812](/README.assets/image-20220407213201812.png)
+    ![image-20220407213201812](README.assets/image-20220407213201812.png)
 
-    ![image-20220407213211586](/README.assets/image-20220407213211586.png)
+    ![image-20220407213211586](README.assets/image-20220407213211586.png)
 
-    ![image-20220407213224247](/README.assets/image-20220407213224247.png)
+    ![image-20220407213224247](README.assets/image-20220407213224247.png)
 
  
 
@@ -259,7 +234,7 @@
 
 - 크롤링된 블로그, 트위터 키워드를 바탕으로 뽑아낸 단어별 태그값으로 검색하는 페이지제작, CSS animation활용
 
-  ![image-20220407213355541](/README.assets/image-20220407213355541.png)
+  ![image-20220407213355541](README.assets/image-20220407213355541.png)
 
 - state값에 저장된 쿼리값을 Next.js의 useRouter를 활용해 결과 목록으로 전송
 
@@ -275,15 +250,15 @@
 
   - 데스크탑
 
-    ![image-20220407213717508](/README.assets/image-20220407213717508.png)
+    ![image-20220407213717508](README.assets/image-20220407213717508.png)
 
-  ![image-20220407213736213](/README.assets/image-20220407213736213.png)
+  ![image-20220407213736213](README.assets/image-20220407213736213.png)
 
   - 모바일
 
-    ![image-20220407213809902](/README.assets/image-20220407213809902.png)
+    ![image-20220407213809902](README.assets/image-20220407213809902.png)
 
-    ![image-20220407213801416](/README.assets/image-20220407213801416.png)
+    ![image-20220407213801416](README.assets/image-20220407213801416.png)
 
 
 
@@ -293,7 +268,7 @@
 
   - NavBar검색창에서 넘어온 텍스트를 기반으로 API 요청후 db에 존재하는 결과값을 받아 라면 리스트 출력후 상세페이지로 연결
 
-    ![image-20220407214036296](/README.assets/image-20220407214036296.png)
+    ![image-20220407214036296](README.assets/image-20220407214036296.png)
 
 - 카테고리 검색결과
 
@@ -301,87 +276,36 @@
 
   - 봉지 + 유탕면 + 비빔 라면
 
-    ![image-20220407214211247](/README.assets/image-20220407214211247.png)
+    ![image-20220407214211247](README.assets/image-20220407214211247.png)
 
 - 키워드 검색결과
 
   - 키워드를 바탕으로 뽑아낸 단어 태그값과 연결되는 라면데이터를 API요청후 나온 결과값을 출력, 각 결과를 상세페이지로 연결
 
-    ![image-20220407213424240](/README.assets/image-20220407213424240.png)
-
-
+    ![image-20220407213424240](README.assets/image-20220407213424240.png)
 
 #### 김동일
 
-##### 1.라면 리스트페이지
+1. 라면 리스트페이지
+   - Tab(All, bongji, cup) + pagination을 이용한 전체 라면을 볼 수 있는 리스트 페이지 제작
 
-- Tab(All, Bongji, Cup) + Pagination을 이용한 전체 라면을 볼 수 있는 리스트 페이지 제작
+2. 라면 디테일 페이지
 
-  - Tab, pagination UI컴포넌트는 MUI를 이용하여 반응형 웹페이지 제작
+   - 3대 성분인 탄수화물, 단백질, 지방을 Pie Chart를 이용하여 탄, 단, 지 성분이 현재라면의 어느정도 비중을  차지하는지 표현
 
-- getServerSideProps를 이용하여 라면의 List정보들을 가져와 제작, 검색 엔진 최적화 및 빠른 페이지 렌더링
+   - 라면의 성분(칼로리, 탄수화물, 단백질, 지방, 당류, 나트륨)을 Table, Bar Chart를 이용하여 현재라면, 가지고 있는 데이터 상의 라면들의 평균, 보건복지부가 제공하는 1일 권장 섭취량과 비교하여 사용자에게 보여준다
 
-- TypeScipt를 이용한 생산성 향상
+   - 비슷한 라면 3개를 Bar Chart를 이용하여 현재라면과 비슷한라면의 짠맛점수, 단맛 점수를 비교하여 보여준다
 
-  ![image-20220408071400739](README.assets/image-20220408071400739.png)
+   - 현재라면의 먹방 Youtube영상을 띄어준다.
 
-##### 2. 라면 디테일 페이지
+   - 로그인한 사용자가 현재 라면을 좋아요했는지 확인해주고, 좋아요를 수정할 수 있도록 해준다
 
-- 3대 성분인 탄수화물, 단백질, 지방을 Pie Chart를 이용하여 탄, 단, 지 성분이 현재라면의 어느정도 비중을 차지하는지 표현
+3. 마이페이지
 
-- 라면의 성분(칼로리, 탄수화물, 단백질, 지방, 당류, 나트륨)을 Table, Bar Chart를 이용하여 현재라면, 가지고 있는 데이터 상의 라면들의 평균, 보건복지부가 제공하는 1일 권장 섭취량과 비교하여 사용자에게 보여준다
+   - 사용자의 이름, 나이, 성별, 취향, 좋아요을 확인할 수 있다
 
-  - 비로그인 사용자는 표준 한국인 권장 섭취량
-  - 로그인 사용자는 나이, 성별에 따른 권장 섭취량
-  - Table UI컴포넌트는 MUI를 이용
-
-  ![image-20220408071721401](README.assets/image-20220408071721401.png)
-
-- 비슷한 라면 3개를 Bar Chart를 이용하여 현재라면과 비슷한라면의 짠맛점수, 단맛 점수를 비교하여 보여준다
-
-  ![image-20220408071615212](README.assets/image-20220408071615212.png)
-
-- 현재라면의 먹방 Youtube영상을 화면 크기에 맞게 반응형으로 띄어준다.
-
-- 로그인한 사용자가 현재 라면을 좋아요했는지 확인해주고, 좋아요를 수정할 수 있도록 해준다
-
-  - [좋아요](https://codepen.io/Zaku/pen/gOrjOGp)는 svg를 이용해 사용자에게 이벤트 효과를 적용
-
-- 비로그인 사용자는 좋아요 클릭시 로그인 페이지로 이동
-
-- media query이용한 반응형 제작
-
-  ![image-20220408074529805](README.assets/image-20220408074529805.png)
-
-- getServerSideProps를 이용하여 라면의 Detail정보들을 가져와 제작, 검색 엔진 최적화 및 빠른 페이지 렌더링
-
-- TypeScipt를 이용한 생산성 향상
-
-##### 3. 마이페이지
-
-- 사용자의 이름, 나이, 성별, 취향, 좋아요 목록을 확인
-
-- 취향 수정가능
-
-  ![image-20220408073936123](README.assets/image-20220408073936123.png)
-
-- 좋아요 목록은 Pagination으로 구현 및 클릭시 좋아요 취소 및 Ramen Detail 페이지로 이동
-
-  - Pagination UI는 MUI 이용
-
-  ![image-20220408074029292](README.assets/image-20220408074029292.png)
-
-- media query이용한 반응형 제작
-
-  ![image-20220408074630870](README.assets/image-20220408074630870.png)
-
-- TypeScipt를 이용한 생산성 향상
-
-##### 4. [네이버 크롤링]('https://github.com/K-Dongil/NaverBlogCrawling')
-
-- 네이버 검색 API를 이용하여 라면들의 후기를 가져올 수 있는 키워드를 입력 후 블로그 주소 결과값들을 받아온다.
-- meta 태그의 속성값이 follow인지 확인하여 크롤링을 할 수 있는 블로그인지 판단 후 블로그의 내용을 가져온다. (라면의 특징들을 분석할 수 있는 라면후기 데이터를 수집)
-- 약 (200 * 466) 개의 블로그 데이터 수집
+   - 취향 수정을 할 수 있도록 한다
 
 
 
@@ -391,21 +315,21 @@
 
 - email, 이름, 비밀번호, 비밀번호 확인, 이름, 나이, 성별 입력 페이지 제작
 
-  ![image-20220407214603216](/README.assets/image-20220407214603216.png)
+  ![image-20220407214603216](README.assets/image-20220407214603216.png)
 
-  ![image-20220407214530430](/README.assets/image-20220407214530430.png)
+  ![image-20220407214530430](README.assets/image-20220407214530430.png)
 
 - 정규표현식을 사용한 이메일 형식 체크
 
-  ![image-20220407214313910](/README.assets/image-20220407214313910.png)
+  ![image-20220407214313910](README.assets/image-20220407214313910.png)
 
-  ![image-20220407214336829](/README.assets/image-20220407214336829.png)
+  ![image-20220407214336829](README.assets/image-20220407214336829.png)
 
 - 백엔드 API를 활용한 이메일 중복 체크
 
-  ![image-20220407214400141](/README.assets/image-20220407214400141.png)
+  ![image-20220407214400141](README.assets/image-20220407214400141.png)
 
-  ![image-20220407214409085](/README.assets/image-20220407214409085.png)
+  ![image-20220407214409085](README.assets/image-20220407214409085.png)
 
   
 
@@ -413,7 +337,7 @@
 
 - 페이지 입장 시 Modal을 통한 이용 가이드 안내
 
-  ![image-20220407215837160](/README.assets/image-20220407215837160.png)
+   ![image-20220407215837160](README.assets/image-20220407215837160.png)
 
 - 아이콘 클릭을 통한 선호하는 라면 취향 (면의 길이, 면의 식감, 계란, 맵기, 토핑, 국물 재료) 선택 페이지 제작 
 
@@ -425,7 +349,7 @@
 
   - 취향 선택 전
 
-    ![image-20220407220133709](/README.assets/image-20220407220133709.png)
+    ![image-20220407220133709](README.assets/image-20220407220133709.png)
 
   - 취향 선택시
 
@@ -443,11 +367,11 @@
 
   - 아무 라면도 좋아요를 하지 않은 상태의 화면
 
-    ![image-20220407220234555](/README.assets/image-20220407220234555.png)
+    ![image-20220407220234555](README.assets/image-20220407220234555.png)
 
   - __기본 라면__인 '사리곰탕큰사발면' 클릭 시, 숨겨져 있던 사리곰탕큰사발면과 유사한 라면 '자연드림사골라면', '튀김우동', '우육탕면' 이 화면에 렌더링
 
-    ![image-20220407220319946](/README.assets/image-20220407220319946.png)
+    ![image-20220407220319946](README.assets/image-20220407220319946.png)
 
 ##### 4. 로그인
 
@@ -459,15 +383,15 @@
 
   - 로그인 상태에서 "로그인 페이지" 접근 시, 메인 화면으로 redirect
 
-    ![image-20220407220722591](/README.assets/image-20220407220722591.png)
+    ![image-20220407220722591](README.assets/image-20220407220722591.png)
 
     ![image-20220407220750991](README.assets/image-20220407220750991.png)
 
   - 비로그인 상태에서 "좋아요" 클릭시 로그인 페이지로 이동
 
-    ![image-20220407221143532](/README.assets/image-20220407221143532.png)
+    ![image-20220407221143532](README.assets/image-20220407221143532.png)
 
-    ![image-20220407221157207](/README.assets/image-20220407221157207.png)
+    ![image-20220407221157207](README.assets/image-20220407221157207.png)
 
 ##### 5. 트위터 크롤링
 
@@ -475,7 +399,7 @@
 
 - 총 463,458 개의 트윗 데이터 수집
 
-  ![image-20220407221350356](/README.assets/image-20220407221350356.png)
+  ![image-20220407221350356](README.assets/image-20220407221350356.png)
 
 
 
@@ -492,20 +416,7 @@
 
 
 
-### 1. Back 기술 스택
-
-![image-20220408010833711](README.assets/image-20220408010833711.png)
-
-* Spring boot(main, ranking), Spring Cloud Gateway, JPA
-* Dajngo(recommend, admin), pandas, tensorflow2
-* Nest.js(auth)
-* Go(search)
-* Mysql(main), Redis(ranking)
-* Elasticsearch, logstash, kibana, logback (log)
-
-
-
-### 2. 추천 시스템
+### 1. 추천 시스템
 
 1. 하이브리드 추천 알고리즘
 
@@ -517,37 +428,3 @@
    - 사용자 라면 좋아요 데이터를 학습하여 라면 추천
 
      ![image-20220406145831369](README.assets/image-20220406145831369.png)
-
-
-
-### 3. 로그 시스템
-
-1. Logback 을 통해 Logstash 가 로그 수집
-
-2. Elasticsearch 통해 member 별 log 적재
-
-3. Recommend 서버 통해 로그 기반 행동 패턴 분석 및 라면 유사도 계산
-
-4. Kibana로 검색 횟수, 검색 시간대 등 로그 분석 시각화
-
-   ![image-20220408011259376](README.assets/image-20220408011259376.png)
-
-### 4. 검색 시스템
-
-1. Logstash pipeline 통해 MySQL 로부터 DB 동기화
-2. Elasticsearch - Go 구성 통해 빠른 검색 기능 구현
-3. Kibana로 검색 횟수, 검색 시간대 등 로그 분석 시각화
-
-![image-20220408012432070](README.assets/image-20220408012432070.png)
-
-### 5. 랭킹 시스템
-
-1. 클라이언트로 부터 로그인 한 경우 안한 경우를 나눔
-
-2. 로그인 한 경우는 memberId 적재, 안한 경우는 client IP를 Redis에 적재하여 구분
-
-3. 순위 조작을 할 수 없게 하루에 한번만 적재가 가능하도록 구현
-
-4. batch 스케쥴러를 활용해 하루에 한번 오전 7시에 초기화
-
-   
