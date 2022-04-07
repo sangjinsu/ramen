@@ -126,7 +126,6 @@ function RamenPreference({ router: { query } }: signupType) {
           },
         })
         .then(function (response) {
-          console.log("refresh 성공", response);
           setCookies("accessToken", response.data.accessToken);
           Router.push({
             pathname: "/",

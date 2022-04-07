@@ -15,9 +15,6 @@ const UserPreference: React.FC<userPreferenceType> = ({
   params,
   router: { query },
 }) => {
-  console.log(params);
-  console.log(query.egg);
-
   const router = useRouter();
   const [userInfo, setUserInfo] = useState(query);
 
@@ -73,7 +70,6 @@ const UserPreference: React.FC<userPreferenceType> = ({
     const choice = ramenPreferences[categoryId][choiceId];
     if (categoryId === 0) {
       if (selectLength === choice) {
-        console.log("prevLength", selectLength);
         setSelectLength((prevLength) => "");
       } else {
         setSelectLength((prevLength) => choice);
@@ -156,7 +152,6 @@ const UserPreference: React.FC<userPreferenceType> = ({
           });
       })
       .catch(function (error) {
-        console.log("check-jwt 실패", error.response.status);
         if (error.response.status === 401) {
           // refreshToken 유효 검사
           axios
@@ -167,7 +162,6 @@ const UserPreference: React.FC<userPreferenceType> = ({
             })
             // refreshToken 유효 - O, accessToken 갱신
             .then(function (response) {
-              console.log("refresh 성공", response);
               setCookies("accessToken", response.data.accessToken);
               accessToken = response.data.accessToken;
               axios

@@ -21,7 +21,6 @@ const Search: NextPage = () => {
   const default_img = "ramen/default.png";
   const handleImage = (e) => {
     e.target.src = default_img;
-    console.log(e.target.src);
   };
 
   const ramenType = {
@@ -53,7 +52,6 @@ const Search: NextPage = () => {
   const [currentPage, setCurrentPage] = React.useState(1); // 현재 페이지
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
-    console.log(value);
   };
 
   const ramenPerPage = 5; // 페이지당 리스트 개수
@@ -76,7 +74,6 @@ const Search: NextPage = () => {
         //   brand: "2h",
         // },
       ];
-      console.log(dm);
       setArray(dm);
       // query.noodleType = 3
       // query.ramenStyle = 3
@@ -93,21 +90,9 @@ const Search: NextPage = () => {
           ramenType: query.ramenType,
           // 봉지,컵
         },
-      })
-        .then((result) => {
-          console.log("요청성공");
-          // console.log(query.noodleType);
-          // console.log(query.ramenStyle);
-          // console.log(query.ramenType);
-
-          // console.log(result);
-          // console.log(result.data);
-          setArray(result.data);
-        })
-        .catch((error) => {
-          console.log("요청실패");
-          console.log(error);
-        });
+      }).then((result) => {
+        setArray(result.data);
+      });
     }
   }, []);
 

@@ -69,6 +69,8 @@ export default function NavBar() {
                     removeCookies("gender");
                     setRefreshToken(getCookie("refreshToken"));
                     router.push({ pathname: "/" });
+                    location.reload();
+                    
                   }}
                 >
                   <Link href="#">

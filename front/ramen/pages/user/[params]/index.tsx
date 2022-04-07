@@ -89,7 +89,6 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
           },
         })
         .catch(function (error) {
-          console.log("accessToken 만료");
           if (error.response.status === 401) {
             axios
               .get(`${AUTH_URL}/refresh`, {

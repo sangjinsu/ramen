@@ -18,7 +18,6 @@ const withAuth = (WrappedComponent) => {
     const refreshToken = getCookie("refreshToken");
 
     useEffect(async () => {
-      console.log("accessToken: ", accessToken);
       // accessToken - X, 로그인 페이지
       if (!accessToken) {
         Router.replace("/login");
@@ -34,11 +33,9 @@ const withAuth = (WrappedComponent) => {
           // accessToken 유효 - O
           .then(function (response) {
             setVerified(true);
-            console.log("check-jwt 성공", response);
           })
           // accessToken 유효 - X
           .catch(function (error) {
-            console.log("check-jwt 실패", error.response.status);
             if (error.response.status === 401) {
               // refreshToken 유효 검사
               axios
@@ -49,7 +46,6 @@ const withAuth = (WrappedComponent) => {
                 })
                 // refreshToken 유효 - O, accessToken 갱신
                 .then(function (response) {
-                  console.log("refresh 성공", response);
                   setCookies("accessToken", response.data.accessToken);
                   setAccessToken(response.data.accessToken);
                 })

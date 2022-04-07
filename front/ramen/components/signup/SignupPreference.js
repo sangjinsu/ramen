@@ -10,7 +10,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
+import { Modal } from "react-bootstrap";
 
 const style = {
   position: "absolute",
@@ -48,7 +48,7 @@ export default function SignupPreference({
     "1. 면의 길이",
     "2. 면의 식감",
     "3. 계란",
-    "4. 맴기",
+    "4. 맵기",
     "5. 토핑",
     "6. 국물 재료",
   ];
@@ -120,43 +120,43 @@ export default function SignupPreference({
                         (idxPreference === 0 &&
                           (selectLength === "" ||
                             selectLength ===
+                            ramenPreferences[idxPreference][idxChoice])) ||
+                          (idxPreference === 1 &&
+                            (selectTexture === "" ||
+                              selectTexture ===
                               ramenPreferences[idxPreference][idxChoice])) ||
-                        (idxPreference === 1 &&
-                          (selectTexture === "" ||
-                            selectTexture ===
+                          (idxPreference === 2 &&
+                            (selectEgg === "" ||
+                              selectEgg ===
                               ramenPreferences[idxPreference][idxChoice])) ||
-                        (idxPreference === 2 &&
-                          (selectEgg === "" ||
-                            selectEgg ===
+                          (idxPreference === 3 &&
+                            (selectSpicy === "" ||
+                              selectSpicy ===
                               ramenPreferences[idxPreference][idxChoice])) ||
-                        (idxPreference === 3 &&
-                          (selectSpicy === "" ||
-                            selectSpicy ===
-                              ramenPreferences[idxPreference][idxChoice])) ||
-                        (idxPreference === 4 &&
-                          idxChoice === 0 &&
-                          (flagTopping || selectToppingNothing)) ||
-                        (idxPreference === 4 &&
-                          idxChoice === 1 &&
-                          (flagTopping || selectToppingCheese)) ||
-                        (idxPreference === 4 &&
-                          idxChoice === 2 &&
-                          (flagTopping || selectToppingRicecake)) ||
-                        (idxPreference === 4 &&
-                          idxChoice === 3 &&
-                          (flagTopping || selectToppingDumpling)) ||
-                        (idxPreference === 5 &&
-                          idxChoice === 0 &&
-                          (flagSoup || selectSoupNothing)) ||
-                        (idxPreference === 5 &&
-                          idxChoice === 1 &&
-                          (flagSoup || selectSoupGarlic)) ||
-                        (idxPreference === 5 &&
-                          idxChoice === 2 &&
-                          (flagSoup || selectSoupPepper)) ||
-                        (idxPreference === 5 &&
-                          idxChoice === 3 &&
-                          (flagSoup || selectSoupGreenOnion))
+                          (idxPreference === 4 &&
+                            idxChoice === 0 &&
+                            (flagTopping || selectToppingNothing)) ||
+                          (idxPreference === 4 &&
+                            idxChoice === 1 &&
+                            (flagTopping || selectToppingCheese)) ||
+                          (idxPreference === 4 &&
+                            idxChoice === 2 &&
+                            (flagTopping || selectToppingRicecake)) ||
+                          (idxPreference === 4 &&
+                            idxChoice === 3 &&
+                            (flagTopping || selectToppingDumpling)) ||
+                          (idxPreference === 5 &&
+                            idxChoice === 0 &&
+                            (flagSoup || selectSoupNothing)) ||
+                          (idxPreference === 5 &&
+                            idxChoice === 1 &&
+                            (flagSoup || selectSoupGarlic)) ||
+                          (idxPreference === 5 &&
+                            idxChoice === 2 &&
+                            (flagSoup || selectSoupPepper)) ||
+                          (idxPreference === 5 &&
+                            idxChoice === 3 &&
+                            (flagSoup || selectSoupGreenOnion))
                           ? { width: "100%" }
                           : { width: "90%", opacity: "0.5" }
                       }

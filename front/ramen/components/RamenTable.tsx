@@ -19,7 +19,6 @@ import { getCookie } from "cookies-next";
 function Row(props: { row: ReturnType<typeof createData> }) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
-  console.log(row);
 
   const [barChartData, setData] = React.useState<DataProps>({
     data: [0, 0, 0],
@@ -73,9 +72,6 @@ export default function RamenTable({
 }: {
   barChartData: DataProps;
 }) {
-  // const [ageKey, setAgeKey] = React.useState(0);
-  console.log(barChartData.data);
-
   const recommendData = {
     M: {
       0: [900, 130, 25, 55, 25, 1000],
