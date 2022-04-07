@@ -7,8 +7,8 @@ import Link from "next/link";
 
 export default function Suggestion(props) {
   let [ramen, setRamen] = useState([]);
-  let [ai,setAi] = useState(false)
-  // let [sugSwitch,setSugSwitch] = useState(false)
+  // let [ai,setAi] = useState(false)
+  let [sugSwitch,setSugSwitch] = useState(true)
   let titleString = {
     "IBCF추천": "내가 좋아하는 라면과 비슷한",
     "UBCF추천": "같은 취향의 사용자가 좋아하는",
@@ -39,10 +39,14 @@ export default function Suggestion(props) {
         .get(`http://j6c104.p.ssafy.io:8888/v1/recommend/dbrc/${props.id}`)
         .then((result) => {
           setRamen(result.data);
-          setAi(true)
+          // setAi(true)
+          // setSugSwitch(true)
           // 이걸로테스트가능 3항연산자
           // setSugSwitch(true)
         })
+        .catch((error)=> {
+          setSugSwitch(false)
+        });
         
     }
   }, []);
@@ -134,7 +138,7 @@ export default function Suggestion(props) {
             </ListGroup.Item>
           </>
         ) :
-          (ai ===false
+          (sugSwitch ===false 
             ?<><ListGroup.Item>AI가 학습중입니다.</ListGroup.Item></>
             :<><ListGroup.Item>{textString[props.title]}</ListGroup.Item></>
 
