@@ -48,7 +48,7 @@ export default function SignupPreference({
     "1. 면의 길이",
     "2. 면의 식감",
     "3. 계란",
-    "4. 맴기",
+    "4. 맵기",
     "5. 토핑",
     "6. 국물 재료",
   ];

@@ -151,6 +151,7 @@ export default function NavBar() {
                             setRefreshToken(getCookie("refreshToken"));
                             alert("로그아웃 하였습니다.");
                             router.push({ pathname: "/" });
+                            location.reload();
                           }}
                         >
                           로그아웃
