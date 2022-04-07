@@ -252,7 +252,7 @@ def item_based_cf(member_id):
     predictions = predictions.drop(rated_ramen, axis=0)
     
     pred_sort = predictions.sort_values(ascending=False, by='rating')[:10]
-    recom_ramens = shuffle(df_ramen.loc[pred_sort.index]['name'], random_state=0)
+    recom_ramens = shuffle(df_ramen.loc[pred_sort.index]['name'], random_state=1)
     return recom_ramens.to_dict()
 
 def ramen_similarity(ramen_id):
