@@ -69,7 +69,7 @@ export class MemberService {
 
   async setCurrentRefreshToken(refreshToken: string, id: string) {
     const currentHashedRefreshToken = await bcrypt.hash(refreshToken, 10);
-    await this.cacheManager.set(id, currentHashedRefreshToken, { ttl: 5000 });
+    await this.cacheManager.set(id, currentHashedRefreshToken, { ttl: 90000 });
   }
 
   async getMemberIfRefreshTokenMatches(refreshToken: string, id: string) {
@@ -96,5 +96,13 @@ export class MemberService {
 
   async removeRefreshToken(id: string) {
     await this.cacheManager.del(id);
+  }
+
+  async deleteMember(member: Member) {
+    await this.memberRepository.delete(member.member_id);
+  }
+
+  async deleteFond(member: Member) {
+    await this.fondRepository.delete(member.member_id);
   }
 }
