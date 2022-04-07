@@ -39,7 +39,7 @@ export default function Suggestion(props) {
         .then((result) => {
           setRamen(result.data);
           // 이걸로테스트가능 3항연산자
-          setSugSwitch(true)
+          // setSugSwitch(true)
         })
         .catch((error) => {
           setSugSwitch(true)
