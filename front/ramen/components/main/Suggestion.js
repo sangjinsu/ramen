@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function Suggestion(props) {
   let [ramen, setRamen] = useState([]);
-  let [sugSwitch,setSugSwitch] = useState(false)
+  let [sugSwitch, setSugSwitch] = useState(false)
   let titleString = {
     "IBCF추천": "내가 좋아하는 라면과 비슷한",
     "UBCF추천": "같은 취향의 사용자가 좋아하는",
@@ -41,6 +41,10 @@ export default function Suggestion(props) {
           // 이걸로테스트가능 3항연산자
           setSugSwitch(true)
         })
+        .catch((error) => {
+          setSugSwitch(true)
+          console.log("ai 학습중");
+        });
     }
   }, []);
   useEffect(() => {
@@ -131,9 +135,9 @@ export default function Suggestion(props) {
             </ListGroup.Item>
           </>
         ) :
-          (sugSwitch ===true
-            ?<><ListGroup.Item>AI가 학습중입니다.</ListGroup.Item></>
-            :<><ListGroup.Item>{textString[props.title]}</ListGroup.Item></>
+          (sugSwitch === true
+            ? <><ListGroup.Item>AI가 학습중입니다.</ListGroup.Item></>
+            : <><ListGroup.Item>{textString[props.title]}</ListGroup.Item></>
 
             // <>
             //   <ListGroup.Item>
