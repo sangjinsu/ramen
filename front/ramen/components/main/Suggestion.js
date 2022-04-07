@@ -38,6 +38,8 @@ export default function Suggestion(props) {
         .get(`http://j6c104.p.ssafy.io:8888/v1/recommend/dbrc/${props.id}`)
         .then((result) => {
           setRamen(result.data);
+          // setAi(true)
+          // setSugSwitch(true)
           // 이걸로테스트가능 3항연산자
           // setSugSwitch(true)
         })
