@@ -15,7 +15,7 @@ import serverURLDoc from "../../components/main/ServerURL";
 import DocDataDictionary from "../../components/main/dataDictionary";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
+import { Modal } from "react-bootstrap";
 
 const style = {
   position: "absolute",
@@ -156,19 +156,25 @@ function RamenPreference({ router: { query } }: signupType) {
           <Col style={{ textAlign: "center" }}>
             <h1>선호 라면 선택</h1>
             <Modal
-              open={open}
-              onClose={handleClose}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
+              show={open}
+              onHide={handleClose}
+              size="lg"
+              aria-labelledby="contained-modal-title-vcenter"
+              centered
             >
-              <Box sx={style}>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-                  이용방법
-                </Typography>
-                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                  평소 즐겨 먹거나 좋아하는 라면을 선택해주세요.
-                </Typography>
-              </Box>
+              <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-vcenter">
+                  이용가이드
+                </Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <p>평소 즐겨 먹거나 좋아하는 라면을 선택해주세요.</p>
+              </Modal.Body>
+              <Modal.Footer>
+                <p onClick={handleClose} style={{ cursor: "pointer" }}>
+                  닫기
+                </p>
+              </Modal.Footer>
             </Modal>
           </Col>
         </Row>

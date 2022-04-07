@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import { Figure } from "react-bootstrap";
-import { Row, Col, Badge,Modal,Button } from "react-bootstrap";
+import { Row, Col, Badge, Modal, Button } from "react-bootstrap";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 // import Button from '@mui/material/Button';
-import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
+import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 
 function MyVerticallyCenteredModal(props) {
   return (
@@ -16,24 +16,24 @@ function MyVerticallyCenteredModal(props) {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          이용가이드
-        </Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">이용가이드</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <h4>검색창</h4>
         <p>
-        최소1개 최대3개의 아이콘을 클릭해 고르실수 있습니다! 봉지와 컵중 하나를 고르고, 건면,유탕 그리고 생면과숙면중에 하나를고르고 마지막으로 국물,비빔과볶음,짜장중에 하나를 골라 검색해주세요!
+          최소1개 최대3개의 아이콘을 클릭해 고르실수 있습니다! 봉지와 컵중
+          하나를 고르고, 건면,유탕 그리고 생면과숙면중에 하나를고르고 마지막으로
+          국물,비빔과볶음,짜장중에 하나를 골라 검색해주세요!
         </p>
       </Modal.Body>
       <Modal.Footer>
-        <p onClick={props.onHide} style={{cursor:"pointer"}}>닫기</p>
+        <p onClick={props.onHide} style={{ cursor: "pointer" }}>
+          닫기
+        </p>
       </Modal.Footer>
     </Modal>
   );
 }
-
-
 
 const CustomWidthTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -47,7 +47,7 @@ const NoMaxWidthTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
 ))({
   [`& .${tooltipClasses.tooltip}`]: {
-    maxWidth: 'none',
+    maxWidth: "none",
   },
 });
 
@@ -69,18 +69,14 @@ export default function Layout() {
   const router = useRouter();
   const [modalShow, setModalShow] = React.useState(false);
 
-
-
   const mobileText = `
 최소1개 최대3개의 아이콘을 클릭해 고르실수 있습니다!
 봉지와 컵중 하나를 고르고, 건면,유탕 그리고 생면과숙면중에 하나를고르고
 마지막으로 국물,비빔과볶음,짜장중에 하나를 골라 검색해주세요!
 `;
 
-
   return (
     <>
-    
       <div className="box">
         <Row>
           <Col xs={0} md={3} lg={3}></Col>
@@ -213,34 +209,30 @@ export default function Layout() {
                 <Figure.Caption>컵</Figure.Caption>
               </Figure>
             </div>
-            
-            <Tooltip   title={longText} placement="top">
-            
-            <div className="figure" onClick={() => setModalShow(true)}>
-              <Figure
-                
-              >
-                <Figure.Image
-                  width={100}
-                  // height={180}
-                  alt="171x180"
-                  src="icon/guide.png"
-                />
-                <Figure.Caption>이용가이드</Figure.Caption>
-              </Figure>
-            </div>
-      </Tooltip>
-      <>
-      {/* <Button variant="primary" onClick={() => setModalShow(true)}>
+
+            <Tooltip title={longText} placement="top">
+              <div className="figure" onClick={() => setModalShow(true)}>
+                <Figure>
+                  <Figure.Image
+                    width={100}
+                    // height={180}
+                    alt="171x180"
+                    src="icon/guide.png"
+                  />
+                  <Figure.Caption>이용가이드</Figure.Caption>
+                </Figure>
+              </div>
+            </Tooltip>
+            <>
+              {/* <Button variant="primary" onClick={() => setModalShow(true)}>
         이용가이드
       </Button> */}
-      
-      <MyVerticallyCenteredModal
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-      />
-    </>
-      
+
+              <MyVerticallyCenteredModal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+              />
+            </>
           </Col>
           <Col
             xs={3}
@@ -475,4 +467,3 @@ function R3(props) {
     );
   }
 }
-

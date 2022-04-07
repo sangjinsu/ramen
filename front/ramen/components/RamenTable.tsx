@@ -19,10 +19,13 @@ import { getCookie } from "cookies-next";
 function Row(props: { row: ReturnType<typeof createData> }) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
+  console.log("row", row);
+  console.log("props", props);
 
   const [barChartData, setData] = React.useState<DataProps>({
     data: [0, 0, 0],
   });
+
   React.useEffect(() => {
     setData({
       data: [row.ingredient, row.ingredient_average, row.ingredient_recommend],
@@ -71,13 +74,9 @@ export default React.memo(function RamenTable({
 }: {
   barChartData: DataProps;
 }) {
-  const gender = getCookie("gender");
-  const age = Number(getCookie("age"));
-  const [ageKey, setAgeKey] = React.useState(0);
-
   const recommendData = {
     M: {
-      0: [900, 330, 25, 55, 25, 1000],
+      0: [900, 130, 25, 55, 25, 1000],
       1: [1400, 130, 25, 55, 25, 1000],
       2: [1700, 130, 35, 55, 25, 1200],
       3: [2000, 130, 50, 55, 25, 1500],
@@ -90,7 +89,7 @@ export default React.memo(function RamenTable({
       10: [1900, 130, 60, 55, 25, 1100],
     },
     F: {
-      0: [900, 330, 25, 55, 25, 1000],
+      0: [900, 130, 25, 55, 25, 1000],
       1: [1400, 130, 25, 55, 25, 1000],
       2: [1500, 130, 35, 55, 25, 1200],
       3: [1800, 130, 45, 55, 25, 1500],
@@ -103,113 +102,128 @@ export default React.memo(function RamenTable({
       10: [1500, 130, 50, 55, 25, 1100],
     },
   };
-  // const user_recommend_
 
-  function createData(
-    name: string,
-    ingredient: number,
-    ingredient_average: number,
-    ageKey: number,
-    gender: string
-  ) {
-    console.log(gender);
-    let ingredient_recommend = 0;
-    if (name === "에너지 (Kcal)") {
-      ingredient_recommend = recommendData[gender][ageKey][0];
-    } else if (name === "탄수화물(g)") {
-      ingredient_recommend = recommendData[gender][ageKey][1];
-    } else if (name === "단백질(g)") {
-      ingredient_recommend = recommendData[gender][ageKey][2];
-    } else if (name === "지방(g)") {
-      ingredient_recommend = recommendData[gender][ageKey][3];
-    } else if (name === "당류(g)") {
-      ingredient_recommend = recommendData[gender][ageKey][4];
-    } else if (name === "나트륨(mg)") {
-      ingredient_recommend = recommendData[gender][ageKey][5];
-    }
-    return {
-      name,
-      ingredient,
-      ingredient_average,
-      ingredient_recommend,
-    };
-  }
+  const [row1, setRow1] = React.useState({
+    name: "에너지 (Kcal)",
+    ingredient: 490,
+    ingredient_average: 443.26,
+    ingredient_recommend: 2000,
+  });
 
-  let rows = [
-    {
-      name: "에너지 (Kcal)",
-      ingredient: 490,
-      ingredient_average: 443.26,
-      ingredient_recommend: 2000,
-    },
-    {
-      name: "탄수화물(g)",
-      ingredient: 75,
-      ingredient_average: 68.05,
-      ingredient_recommend: 324,
-    },
-    {
-      name: "단백질(g)",
-      ingredient: 9,
-      ingredient_average: 8.32,
-      ingredient_recommend: 55,
-    },
-    {
-      name: "지방(g)",
-      ingredient: 17,
-      ingredient_average: 13.56,
-      ingredient_recommend: 54,
-    },
-    {
-      name: "당류(g)",
-      ingredient: 6,
-      ingredient_average: 4.72,
-      ingredient_recommend: 100,
-    },
-    {
-      name: "나트륨(mg)",
-      ingredient: 1550,
-      ingredient_average: 1467.95,
-      ingredient_recommend: 2000,
-    },
-  ];
-  if (ageKey && gender) {
-    rows = [
-      createData("에너지 (Kcal)", barChartData.data[0], 443.26, ageKey, gender),
-      createData("탄수화물(g)", barChartData.data[1], 68.05, ageKey, gender),
-      createData("단백질(g)", barChartData.data[2], 8.32, ageKey, gender),
-      createData("지방(g)", barChartData.data[3], 13.56, ageKey, gender),
-      createData("당류(g)", barChartData.data[4], 4.72, ageKey, gender),
-      createData("나트륨(mg)", barChartData.data[5], 1467.95, ageKey, gender),
-    ];
-    console.log(rows);
-  }
+  const [row2, setRow2] = React.useState({
+    name: "탄수화물(g)",
+    ingredient: 75,
+    ingredient_average: 68.05,
+    ingredient_recommend: 324,
+  });
+
+  const [row3, setRow3] = React.useState({
+    name: "단백질(g)",
+    ingredient: 9,
+    ingredient_average: 8.32,
+    ingredient_recommend: 55,
+  });
+
+  const [row4, setRow4] = React.useState({
+    name: "지방(g)",
+    ingredient: 17,
+    ingredient_average: 13.56,
+    ingredient_recommend: 54,
+  });
+
+  const [row5, setRow5] = React.useState({
+    name: "당류(g)",
+    ingredient: 6,
+    ingredient_average: 4.72,
+    ingredient_recommend: 100,
+  });
+
+  const [row6, setRow6] = React.useState({
+    name: "나트륨(mg)",
+    ingredient: 1550,
+    ingredient_average: 1467.95,
+    ingredient_recommend: 2000,
+  });
+
+  const [rows, setRows] = React.useState([row1, row2, row3, row4, row5, row6]);
 
   React.useEffect(() => {
+    const gender = getCookie("gender");
+    const age = Number(getCookie("age"));
+    let ageKey = -1;
     if (age <= 2) {
-      setAgeKey(0);
+      ageKey = 0;
     } else if (3 <= age && age <= 5) {
-      setAgeKey(1);
+      ageKey = 1;
     } else if (6 <= age && age <= 8) {
-      setAgeKey(2);
+      ageKey = 2;
     } else if (9 <= age && age <= 11) {
-      setAgeKey(3);
+      ageKey = 3;
     } else if (12 <= age && age <= 14) {
-      setAgeKey(4);
+      ageKey = 4;
     } else if (15 <= age && age <= 18) {
-      setAgeKey(5);
+      ageKey = 5;
     } else if (19 <= age && age <= 29) {
-      setAgeKey(6);
+      ageKey = 6;
     } else if (30 <= age && age <= 49) {
-      setAgeKey(7);
+      ageKey = 7;
     } else if (50 <= age && age <= 64) {
-      setAgeKey(8);
+      ageKey = 8;
     } else if (65 <= age && age <= 74) {
-      setAgeKey(9);
+      ageKey = 9;
     } else {
-      setAgeKey(10);
+      ageKey = 10;
+    }
+    if (gender !== undefined) {
+      const recommandRow1 = recommendData[gender][ageKey][0];
+      const recommandRow2 = recommendData[gender][ageKey][1];
+      const recommandRow3 = recommendData[gender][ageKey][2];
+      const recommandRow4 = recommendData[gender][ageKey][3];
+      const recommandRow5 = recommendData[gender][ageKey][4];
+      const recommandRow6 = recommendData[gender][ageKey][5];
+
+      setRow1((prevRow1) => {
+        return {
+          ...prevRow1,
+          ingredient_recommend: recommandRow1,
+        };
+      });
+      setRow2((prevRow2) => {
+        return {
+          ...prevRow2,
+          ingredient_recommend: recommandRow2,
+        };
+      });
+      setRow3((prevRow3) => {
+        return {
+          ...prevRow3,
+          ingredient_recommend: recommandRow3,
+        };
+      });
+      setRow4((prevRow4) => {
+        return {
+          ...prevRow4,
+          ingredient_recommend: recommandRow4,
+        };
+      });
+      setRow5((prevRow5) => {
+        return {
+          ...prevRow5,
+          ingredient_recommend: recommandRow5,
+        };
+      });
+      setRow6((prevRow6) => {
+        return {
+          ...prevRow6,
+          ingredient_recommend: recommandRow6,
+        };
+      });
     }
   }, []);
+
+  React.useEffect(() => {
+    setRows([row1, row2, row3, row4, row5, row6]);
+  }, [row1, row2, row3, row4, row5, row6]);
 
   return (
     <TableContainer component={Paper}>
