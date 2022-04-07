@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Get,
@@ -38,6 +39,10 @@ export class AuthController {
   @HttpCode(HttpStatus.CREATED)
   async register(@Body() signupRequestDto: SignupRequestDto) {
     const member = await this.authService.register(signupRequestDto);
+
+    if (member == null) {
+      throw new BadRequestException();
+    }
 
     const accessToken = this.authService.getJwtAccessToken(member);
 

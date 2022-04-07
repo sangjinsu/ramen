@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { MemberService } from 'src/member/member.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
@@ -16,6 +20,9 @@ export class AuthService {
 
   async vaildateMember(email: string, plainTextPassword: string): Promise<any> {
     const member = await this.memberService.findByEmail(email);
+    if (member === undefined) {
+      throw new BadRequestException();
+    }
     const isPasswordMatch = await bcrypt.compare(
       plainTextPassword,
       member.password,
@@ -81,6 +88,19 @@ export class AuthService {
 
     const newMember = await this.memberService.createNewMember(member);
 
+    let isError = false;
+    selectRamens.forEach((ramen_id) => {
+      if (ramen_id === null || ramen_id === undefined) {
+        isError = true;
+      }
+    });
+
+    if (isError) {
+      await this.memberService.deleteMember(newMember);
+      await this.memberService.deleteFond(newMember);
+      return null;
+    }
+
     selectRamens.forEach((ramen_id) => {
       const memberLikeRamen = MemberLikeRamen.createMemberLikeRamen({
         member_id: newMember.member_id,
@@ -95,7 +115,7 @@ export class AuthService {
   getJwtAccessToken(member: Member) {
     const payload = { sub: member.member_id, email: member.email };
     return this.jwtService.sign(payload, {
-      expiresIn: '60s',
+      expiresIn: '7200s',
     });
   }
 
@@ -103,7 +123,7 @@ export class AuthService {
     const key = await bcrypt.hash(member.email, 10);
     const payload = { sub: member.member_id, email: member.email, key };
     const refreshToken = this.jwtService.sign(payload, {
-      expiresIn: '3600s',
+      expiresIn: '86400s',
     });
     return { refreshToken, key };
   }

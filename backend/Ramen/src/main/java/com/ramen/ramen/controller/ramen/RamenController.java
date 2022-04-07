@@ -55,10 +55,15 @@ public class RamenController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/list/cup")
-    List<RamenListDto> fetchRamensByCup(){
+    List<RamenListDto> fetchRamensListByCup(){
         return ramenService.fetchRamenListCup();
     }
 
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/list/all")
+    List<RamenListDto> fetchRamensListAll(){
+        return ramenService.fetchRamensListAll();
+    }
 
 
 }

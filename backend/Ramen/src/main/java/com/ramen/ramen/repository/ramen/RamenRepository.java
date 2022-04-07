@@ -20,6 +20,9 @@ public interface RamenRepository extends JpaRepository<Ramen, Long> {
     @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.crawlingCnt from Ramen r join Composition c on c.compositionId = r.ramenId join Analysis a on r.ramenId = a.analysisId where c.cup = 1")
     List<Object[]> findRamensByCompositionCup();
 
+    @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.crawlingCnt from Ramen r join Composition c on c.compositionId = r.ramenId join Analysis a on r.ramenId = a.analysisId where c.cup = 1 or c.cup = 0")
+    List<Object[]> findRamensAll();
+
     // category 2
     @Query("select r.ramenId,r.name,r.englishName,r.brand, r.englishBrand, a.crawlingCnt from Ramen r join Composition c on c.compositionId = r.ramenId join Analysis a on r.ramenId = a.analysisId where r.noodle = '건면'")
     List<Object[]> findRamensByFriedNoodle();
