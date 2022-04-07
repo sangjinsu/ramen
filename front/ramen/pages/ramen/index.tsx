@@ -95,15 +95,22 @@ const RamentList: React.FC<RamenListType> = ({
                             <Link href={`/ramen/${ramen.ramenId}`}>
                               <a>
                                 {DocDataDictionary[`${ramen.name}.png`] ? (
-                                  <img
-                                    style={{ width: "100%" }}
-                                    src={`/ramen/${ramen.name}.png`}
-                                    srcSet={`/ramen/${ramen.name}.png`}
-                                    alt={ramen.name}
-                                    loading="lazy"
-                                  />
+                                  <div className="img_list_size">
+                                    <img
+                                      style={{ width: "50%" }}
+                                      src={`/ramen/${ramen.name}.png`}
+                                      srcSet={`/ramen/${ramen.name}.png`}
+                                      alt={ramen.name}
+                                      loading="lazy"
+                                    />
+                                  </div>
                                 ) : (
-                                  <img src={"/ramen/default.png"} />
+                                  <div className="img_list_size">
+                                    <img
+                                      style={{ width: "50%" }}
+                                      src={"/ramen/default.png"}
+                                    />
+                                  </div>
                                 )}
                                 <h4
                                   style={{
@@ -172,6 +179,11 @@ const RamentList: React.FC<RamenListType> = ({
             margin-left: 0;
             display: flex;
             justify-content: center;
+          }
+          .img_list_size {
+            display: flex;
+            justify-content: center;
+            width: 100%;
           }
         `}
       </style>
