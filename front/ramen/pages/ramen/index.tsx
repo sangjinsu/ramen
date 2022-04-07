@@ -9,7 +9,7 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { Container, Row, Col } from "react-bootstrap";
 import DocDataDictionary from "../../components/main/dataDictionary";
-import { TabPanel, a11yProps } from "../../components/TabComponent";
+import { TabPanel1, a11yProps } from "../../components/TabComponent";
 
 const RamentList: React.FC<RamenListType> = ({
   AllList,
@@ -71,7 +71,7 @@ const RamentList: React.FC<RamenListType> = ({
       <div className="img_list_page">
         <div className="img_list">
           <Box sx={{ width: "100%" }}>
-            <TabPanel value={value} index={0}>
+            <TabPanel1 value={value} index={0}>
               <Container>
                 <Row>
                   <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -122,7 +122,7 @@ const RamentList: React.FC<RamenListType> = ({
                   );
                 })}
               </Container>
-            </TabPanel>
+            </TabPanel1>
           </Box>
         </div>
 

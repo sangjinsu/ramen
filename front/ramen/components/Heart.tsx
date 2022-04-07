@@ -24,7 +24,7 @@ const Heart = ({ params }: { params: string }) => {
       }
 
       await axios.get(
-        `http://j6c104.p.ssafy.io:8081/v1/ranking/view/${params}/${member_id}`
+        `http://j6c104.p.ssafy.io:8081/v1/ranking/like/${params}/${member_id}`
       );
     } catch {
       if (!member_id) {
