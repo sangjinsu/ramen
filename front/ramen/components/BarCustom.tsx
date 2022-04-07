@@ -15,8 +15,6 @@ const BarCustom = ({ barChartData }: { barChartData: DataProps }) => {
 
     const ctx = canvas.getContext("2d");
     if (ctx) {
-      console.log(barChartData);
-      console.log(barChartData.data[0]);
       chartRef.current = new Chart(ctx, {
         type: "bar",
         data: {

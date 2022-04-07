@@ -4,7 +4,6 @@ import { useRef } from "react";
 import { DataProps } from "./Types";
 
 const BarSimilar = ({ barChartData }: { barChartData: DataProps }) => {
-  console.log(barChartData);
   const chartRef = useRef<Chart | null>(null);
 
   // callback creates the chart on the canvas element
@@ -16,8 +15,6 @@ const BarSimilar = ({ barChartData }: { barChartData: DataProps }) => {
 
     const ctx = canvas.getContext("2d");
     if (ctx) {
-      console.log(barChartData);
-      console.log(barChartData.data[0]);
       chartRef.current = new Chart(ctx, {
         type: "bar",
         data: {

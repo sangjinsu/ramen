@@ -30,11 +30,6 @@ const Home: NextPage = () => {
             Authorization: `Bearer ${accessToken}`,
           },
         })
-        // accessToken 유효
-        .then(function (response) {
-          // 추천 라면 가져오기
-          // console.log("추천 라면 가져오기");
-        })
         // accessToken 유효 X
         .catch(function (error) {
           axios
@@ -72,16 +67,9 @@ const Home: NextPage = () => {
     axios({
       method: "get",
       url: `http://j6c104.p.ssafy.io:8888/v1/ranking/ramen`,
-    })
-      .then((result) => {
-        console.log("랭킹요청성공");
-        console.log(result.data);
-        setRamen(result.data);
-      })
-      .catch((error) => {
-        console.log("요청실패");
-        console.log(error);
-      });
+    }).then((result) => {
+      setRamen(result.data);
+    });
   }, []);
 
   return (

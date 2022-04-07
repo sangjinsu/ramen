@@ -8,7 +8,6 @@ export default function ResultBox(props) {
   const default_img = "ramen/default.png";
   const handleImage = (e) => {
     e.target.src = default_img;
-    // console.log(e.target.src);
   };
 
   return (

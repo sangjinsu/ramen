@@ -20,7 +20,6 @@ const Search3: NextPage = () => {
   const [currentPage, setCurrentPage] = React.useState(1); // 현재 페이지
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
-    console.log(value);
   };
   const ramenPerPage = 5; // 페이지당 리스트 개수
   const currentPageLast = currentPage * ramenPerPage; // 현재 페이지의 처음
@@ -32,16 +31,9 @@ const Search3: NextPage = () => {
     axios({
       method: "get",
       url: `http://j6c104.p.ssafy.io:8888/v1/ramen/analysis/${query.keyWord}`,
-    })
-      .then((result) => {
-        console.log("get요청성공");
-        console.log(result);
-        setArray(result.data);
-      })
-      .catch((error) => {
-        console.log("요청실패");
-        console.log(error);
-      });
+    }).then((result) => {
+      setArray(result.data);
+    });
   }, []);
 
   return (

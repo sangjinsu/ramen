@@ -18,7 +18,6 @@ const Search2: NextPage = () => {
   const [currentPage, setCurrentPage] = React.useState(1); // 현재 페이지
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
-    console.log(value);
   };
   const ramenPerPage = 5; // 페이지당 리스트 개수
   const currentPageLast = currentPage * ramenPerPage; // 현재 페이지의 처음
@@ -30,7 +29,6 @@ const Search2: NextPage = () => {
   const [currentPage2, setCurrentPage2] = React.useState(1); // 현재 페이지
   const handleChange2 = (event: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage2(value);
-    console.log(value);
   };
   const ramenPerPage2 = 5; // 페이지당 리스트 개수
   const currentPageLast2 = currentPage2 * ramenPerPage2; // 현재 페이지의 처음
@@ -43,16 +41,9 @@ const Search2: NextPage = () => {
     axios({
       method: "get",
       url: `http://j6c104.p.ssafy.io:8888/v1/search/name?query=${query.textResult}`,
-    })
-      .then((result) => {
-        console.log("get요청성공");
-        console.log(result);
-        setName(result.data);
-      })
-      .catch((error) => {
-        console.log("요청실패");
-        console.log(error);
-      });
+    }).then((result) => {
+      setName(result.data);
+    });
   }, [query]);
   // state값이아니고 그냥 query값을 바꿔주었는데도된다.
 
@@ -60,16 +51,9 @@ const Search2: NextPage = () => {
     axios({
       method: "get",
       url: `http://j6c104.p.ssafy.io:8888/v1/search/brand?query=${query.textResult}`,
-    })
-      .then((result) => {
-        console.log("get요청성공");
-        console.log(result);
-        setBrand(result.data);
-      })
-      .catch((error) => {
-        console.log("요청실패");
-        console.log(error);
-      });
+    }).then((result) => {
+      setBrand(result.data);
+    });
   }, [query]);
 
   return (

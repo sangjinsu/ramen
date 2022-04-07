@@ -16,7 +16,6 @@ const Home2: NextPage = () => {
   const [reactive2, setReactive2] = useState("80px");
   useEffect(() => {
     if (size.width <= 768) {
-      console.log("핸드폰화면index2.tsx");
       // setSizeon(true)
       setReactive("12px");
       setReactive2("36px");
@@ -25,7 +24,6 @@ const Home2: NextPage = () => {
       setReactive("40px");
       setReactive2("80px");
     }
-
   }, [size]);
 
   const router = useRouter();

@@ -33,7 +33,6 @@ const Heart = ({ params }: { params: string }) => {
         })
         // accessToken 유효 - O
         .then(function (response) {
-          console.log("check-jwt 성공", response);
           axios
             .post(
               `http://j6c104.p.ssafy.io:8888/v1/member/like?memberId=${Number(
@@ -55,14 +54,10 @@ const Heart = ({ params }: { params: string }) => {
                   params1
                 )}/${member_id}`
               );
-            })
-            .catch(function (error) {
-              console.log("like1 실패", error);
             });
         })
         // accessToken 유효 - X
         .catch(function (error) {
-          console.log("check-jwt 실패", error.response.status);
           if (error.response.status === 401) {
             // refreshToken 유효 검사
             axios
@@ -73,7 +68,6 @@ const Heart = ({ params }: { params: string }) => {
               })
               // refreshToken 유효 - O, accessToken 갱신
               .then(function (response) {
-                console.log("refresh 성공", response);
                 setCookies("accessToken", response.data.accessToken);
                 setAccessToken(response.data.accessToken);
                 if (
