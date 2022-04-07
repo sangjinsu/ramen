@@ -186,7 +186,9 @@ export async function getServerSideProps() {
   const { data: cupList } = await axios.get(
     `http://j6c104.p.ssafy.io:8888/v1/ramen/list/cup`
   );
-  const AllList = [...bongiList, ...cupList];
+  const { data: AllList } = await axios.get(
+    `http://j6c104.p.ssafy.io:8888/v1/ramen/list/all`
+  );
   return {
     props: {
       AllList,
