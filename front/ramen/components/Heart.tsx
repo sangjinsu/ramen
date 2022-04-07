@@ -36,7 +36,7 @@ const Heart = ({ params }: { params: string }) => {
           console.log("check-jwt 성공", response);
           axios
             .post(
-              `http://j6c104.p.ssafy.io:8080/v1/member/like?memberId=${Number(
+              `http://j6c104.p.ssafy.io:8888/v1/member/like?memberId=${Number(
                 member_id
               )}&ramenId=${Number(params1)}`,
               {
@@ -51,7 +51,7 @@ const Heart = ({ params }: { params: string }) => {
                 setLike(!likeCheck);
               }
               axios.get(
-                `http://j6c104.p.ssafy.io:8081/v1/ranking/like/${Number(
+                `http://j6c104.p.ssafy.io:8888/v1/ranking/like/${Number(
                   params1
                 )}/${member_id}`
               );
@@ -83,7 +83,7 @@ const Heart = ({ params }: { params: string }) => {
                 ) {
                   axios
                     .post(
-                      `http://j6c104.p.ssafy.io:8080/v1/member/like?memberId=${Number(
+                      `http://j6c104.p.ssafy.io:8888/v1/member/like?memberId=${Number(
                         member_id
                       )}&ramenId=${Number(params1)}`,
                       {
@@ -98,7 +98,7 @@ const Heart = ({ params }: { params: string }) => {
                         setLike(!likeCheck);
                       }
                       axios.get(
-                        `http://j6c104.p.ssafy.io:8081/v1/ranking/like/${Number(
+                        `http://j6c104.p.ssafy.io:8888/v1/ranking/like/${Number(
                           params1
                         )}/${Number(member_id)}`
                       );
@@ -129,7 +129,7 @@ const Heart = ({ params }: { params: string }) => {
         if (member_id) {
           console.log("111");
           const { status: userLikeStatus } = await axios.get(
-            `http://j6c104.p.ssafy.io:8080/v1/ramen/islike/${Number(
+            `http://j6c104.p.ssafy.io:8888/v1/ramen/islike/${Number(
               params1
             )}/${Number(member_id)}`,
             {

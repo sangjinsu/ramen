@@ -48,7 +48,7 @@ const Home: NextPage = () => {
               setCookies("accessToken", response.data.accessToken);
               setAccessToken(response.data.accessToken);
               axios.get(
-                `http://j6c104.p.ssafy.io.:8084/v1/recommend/ibcf/${memberID}`
+                `http://j6c104.p.ssafy.io.:8888/v1/recommend/ibcf/${memberID}`
               );
             })
             .catch(function (error) {
@@ -71,7 +71,7 @@ const Home: NextPage = () => {
   useEffect(() => {
     axios({
       method: "get",
-      url: `http://j6c104.p.ssafy.io:8081/v1/ranking/ramen`,
+      url: `http://j6c104.p.ssafy.io:8888/v1/ranking/ramen`,
     })
       .then((result) => {
         console.log("랭킹요청성공");
@@ -84,12 +84,9 @@ const Home: NextPage = () => {
       });
   }, []);
 
-
-
   return (
     <>
       <Container>
-
         <Ibox></Ibox>
         <Row>
           <Col xs={1} md={2} lg={3}></Col>
@@ -119,7 +116,6 @@ const Home: NextPage = () => {
           </Col>
           <Col xs={1} md={2} lg={4}></Col>
         </Row>
-
       </Container>
       <style jsx>{`
         .sug {

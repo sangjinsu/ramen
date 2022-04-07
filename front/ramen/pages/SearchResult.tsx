@@ -84,7 +84,7 @@ const Search: NextPage = () => {
     } else {
       axios({
         method: "post",
-        url: "http://j6c104.p.ssafy.io:8080/v1/ramen/category",
+        url: "http://j6c104.p.ssafy.io:8888/v1/ramen/category",
         data: {
           noodleType: query.noodleType,
           // 면타입
@@ -103,7 +103,6 @@ const Search: NextPage = () => {
           // console.log(result);
           // console.log(result.data);
           setArray(result.data);
-
         })
         .catch((error) => {
           console.log("요청실패");
@@ -153,9 +152,7 @@ const Search: NextPage = () => {
                           ></img>
                         </>
                       )}
-
                     </Col>
-
                   </Row>
                 </Container>
               </div>
