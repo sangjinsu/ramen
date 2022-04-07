@@ -66,21 +66,30 @@ export default function SignupPreference({
       <Row className="justify-content-md-center">
         <Col style={{ textAlign: "center" }}>
           <h1>라면 취향 선택</h1>
+
           <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
+            show={open}
+            onHide={handleClose}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
           >
-            <Box sx={style}>
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                이용방법
-              </Typography>
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            <Modal.Header closeButton>
+              <Modal.Title id="contained-modal-title-vcenter">
+                이용가이드
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <p>
                 라면 먹는 취향을 선택해주시면 비슷한 취향의 사용자들이 선호하는
                 라면을 추천해줍니다.
-              </Typography>
-            </Box>
+              </p>
+            </Modal.Body>
+            <Modal.Footer>
+              <p onClick={handleClose} style={{ cursor: "pointer" }}>
+                닫기
+              </p>
+            </Modal.Footer>
           </Modal>
         </Col>
       </Row>

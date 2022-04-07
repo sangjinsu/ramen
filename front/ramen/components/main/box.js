@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import { Figure } from "react-bootstrap";
-import { Row, Col, Badge,Modal,Button } from "react-bootstrap";
+import { Row, Col, Badge, Modal, Button } from "react-bootstrap";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 // import Button from '@mui/material/Button';
-import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
+import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
 
 function MyVerticallyCenteredModal(props) {
   return (
@@ -16,24 +16,24 @@ function MyVerticallyCenteredModal(props) {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          이용가이드
-        </Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">이용가이드</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <h4>검색창</h4>
         <p>
-        최소1개 최대3개의 아이콘을 클릭해 고르실수 있습니다! 봉지와 컵중 하나를 고르고, 건면,유탕 그리고 생면과숙면중에 하나를고르고 마지막으로 국물,비빔과볶음,짜장중에 하나를 골라 검색해주세요!
+          최소1개 최대3개의 아이콘을 클릭해 고르실수 있습니다! 봉지와 컵중
+          하나를 고르고, 건면,유탕 그리고 생면과숙면중에 하나를고르고 마지막으로
+          국물,비빔과볶음,짜장중에 하나를 골라 검색해주세요!
         </p>
       </Modal.Body>
       <Modal.Footer>
-        <p onClick={props.onHide} style={{cursor:"pointer"}}>닫기</p>
+        <p onClick={props.onHide} style={{ cursor: "pointer" }}>
+          닫기
+        </p>
       </Modal.Footer>
     </Modal>
   );
 }
-
-
 
 const CustomWidthTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -47,7 +47,7 @@ const NoMaxWidthTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
 ))({
   [`& .${tooltipClasses.tooltip}`]: {
-    maxWidth: 'none',
+    maxWidth: "none",
   },
 });
 
@@ -68,9 +68,6 @@ export default function Layout() {
   // 1,2,3,4,5,6,7,8
   const router = useRouter();
   const [modalShow, setModalShow] = React.useState(false);
-  
-
-
 
   const mobileText = `
 최소1개 최대3개의 아이콘을 클릭해 고르실수 있습니다!
@@ -78,17 +75,16 @@ export default function Layout() {
 마지막으로 국물,비빔과볶음,짜장중에 하나를 골라 검색해주세요!
 `;
 
-
   return (
     <>
-    {/* <div className="sidenav" >
+      {/* <div className="sidenav" >
   <a onClick={()=>{
       window.scrollTo(0, 0);
     }}><img src="icon/up.png" width={25}></img>
     </a>
 
 </div> */}
-    
+
       <div className="box">
         <Row>
           <Col xs={0} md={3} lg={3}></Col>
@@ -220,41 +216,37 @@ export default function Layout() {
                   alt="171x180"
                   src="icon/cup.png"
                 />
-                                <div className="rname">컵</div>
+                <div className="rname">컵</div>
 
                 {/* <Figure.Caption>컵</Figure.Caption> */}
               </Figure>
             </div>
             {/* 테스트 */}
-            <Tooltip   title={longText} placement="top">
-            
-            <div className="figure" onClick={() => setModalShow(true)}>
-              <Figure
-                
-              >
-                <Figure.Image
-                  width={100}
-                  // height={180}
-                  alt="171x180"
-                  src="icon/guide.png"
-                />
-                                <div className="rname">설명서</div>
+            <Tooltip title={longText} placement="top">
+              <div className="figure" onClick={() => setModalShow(true)}>
+                <Figure>
+                  <Figure.Image
+                    width={100}
+                    // height={180}
+                    alt="171x180"
+                    src="icon/guide.png"
+                  />
+                  <div className="rname">설명서</div>
 
-                {/* <Figure.Caption>이용가이드</Figure.Caption> */}
-              </Figure>
-            </div>
-      </Tooltip>
-      <>
-      {/* <Button variant="primary" onClick={() => setModalShow(true)}>
+                  {/* <Figure.Caption>이용가이드</Figure.Caption> */}
+                </Figure>
+              </div>
+            </Tooltip>
+            <>
+              {/* <Button variant="primary" onClick={() => setModalShow(true)}>
         이용가이드
       </Button> */}
-      
-      <MyVerticallyCenteredModal
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-      />
-    </>
-      
+
+              <MyVerticallyCenteredModal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+              />
+            </>
           </Col>
           <Col
             xs={3}
@@ -283,7 +275,6 @@ export default function Layout() {
                 />
                 {/* <Figure.Caption>건면</Figure.Caption> */}
                 <div className="rname">건면</div>
-
               </Figure>
             </div>
             <div className="figure">
@@ -301,7 +292,7 @@ export default function Layout() {
                   alt="171x180"
                   src="icon/fried.png"
                 />
-                                <div className="rname">유탕</div>
+                <div className="rname">유탕</div>
 
                 {/* <Figure.Caption>유탕</Figure.Caption> */}
               </Figure>
@@ -321,7 +312,7 @@ export default function Layout() {
                   alt="171x180"
                   src="icon/real.png"
                 />
-                                <div className="rname">생면,숙면</div>
+                <div className="rname">생면,숙면</div>
 
                 {/* <Figure.Caption>생면,숙면</Figure.Caption> */}
               </Figure>
@@ -348,7 +339,7 @@ export default function Layout() {
                   alt="171x180"
                   src="icon/soup.png"
                 />
-                                <div className="rname">국물</div>
+                <div className="rname">국물</div>
 
                 {/* <Figure.Caption>국물</Figure.Caption> */}
               </Figure>
@@ -368,7 +359,7 @@ export default function Layout() {
                   alt="171x180"
                   src="icon/bok.png"
                 />
-                                <div className="rname">비빔,볶음</div>
+                <div className="rname">비빔,볶음</div>
 
                 {/* <Figure.Caption>비빔,볶음</Figure.Caption> */}
               </Figure>
@@ -388,7 +379,7 @@ export default function Layout() {
                   alt="171x180"
                   src="icon/jjajang.png"
                 />
-                                <div className="rname">짜장</div>
+                <div className="rname">짜장</div>
 
                 {/* <Figure.Caption>짜장</Figure.Caption> */}
               </Figure>
@@ -398,31 +389,31 @@ export default function Layout() {
         </Row>
       </div>
       <style jsx>{`
-      // .sidenav2 {
-      //   width: 50px;
-      //   position: fixed;
-      //   z-index: 1;
-      //   top: 300px;
-      //   right: 10px;
-      //   // background: #eee;
-      //   overflow-x: hidden;
-      //   padding: 8px 0;
-      // }
-      
-      // .sidenav2 a {
-      //   padding: 6px 8px 6px 16px;
-      //   text-decoration: none;
-      //   font-size: 16px;
-      //   color: #2196F3;
-      //   display: block;
-      // }
-      
-      // .sidenav2 a:hover {
-      //   color: #064579;
-      // }
-        .rname{
+        // .sidenav2 {
+        //   width: 50px;
+        //   position: fixed;
+        //   z-index: 1;
+        //   top: 300px;
+        //   right: 10px;
+        //   // background: #eee;
+        //   overflow-x: hidden;
+        //   padding: 8px 0;
+        // }
+
+        // .sidenav2 a {
+        //   padding: 6px 8px 6px 16px;
+        //   text-decoration: none;
+        //   font-size: 16px;
+        //   color: #2196F3;
+        //   display: block;
+        // }
+
+        // .sidenav2 a:hover {
+        //   color: #064579;
+        // }
+        .rname {
           text-align: center;
-          font-size:18px;
+          font-size: 18px;
           // display:inline;
           // margin-left:10px;
         }
@@ -530,4 +521,3 @@ function R3(props) {
     );
   }
 }
-
