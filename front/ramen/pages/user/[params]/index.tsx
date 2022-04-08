@@ -115,7 +115,7 @@ const Detail: React.FC<userPageType> = ({ params, fonds }) => {
   };
 
   React.useEffect(() => {
-    if (member_id !== params) {
+    if (Number(member_id) !== Number(params)) {
       alert("잘못된 접근입니다");
       router.push("/");
     }
@@ -615,4 +615,4 @@ export async function getServerSideProps({ params: { params } }) {
   }
 }
 
-export default Detail;
+export default withAuth(Detail);

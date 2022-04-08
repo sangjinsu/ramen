@@ -21,7 +21,7 @@ const BarCustom = ({ barChartData }: { barChartData: DataProps }) => {
           labels: ["현재", "평균", "1일 권장량"],
           datasets: [
             {
-              label: "라면 성분",
+              label: "성분",
               data: [
                 barChartData.data[0],
                 barChartData.data[1],
